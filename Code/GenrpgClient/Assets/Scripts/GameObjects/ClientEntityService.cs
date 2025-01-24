@@ -390,10 +390,11 @@ namespace Assets.Scripts.GameObjects
 
 
             childObj.transform.SetParent(parentObj.transform);
-            childObj.transform.localPosition = Vector3.zero;
+
             childObj.transform.localEulerAngles = Vector3.zero;
             childObj.transform.localScale = Vector3.one;
             SetLayer(childObj, parentObj.layer);
+            childObj.transform.localPosition = Vector3.zero;
         }
 
         public object GetEntity(object obj)

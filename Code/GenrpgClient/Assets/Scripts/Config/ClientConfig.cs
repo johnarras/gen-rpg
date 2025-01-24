@@ -26,7 +26,7 @@ public class ClientConfigContainer : IClientConfigContainer
 }
 
 [Serializable]
-public class ClientConfig : ScriptableObject, IConnectionConfig
+public class ClientConfig : ScriptableObject
 {
     public string Env = EnvNames.Dev;
     public string AssetDataEnv = EnvNames.Dev;
@@ -34,6 +34,11 @@ public class ClientConfig : ScriptableObject, IConnectionConfig
     public string InitialConfigEndpoint = "https://genrpgconfig.azurewebsites.net/api/GenrpgConfig";
     public int AccountProductId = 2;
     public bool PlayerContainsAllAssets = false;
+
+    public string GooglePlaySecret;
+    public string IOSSecret;
+    public string PackageName;
+    
 
     public string ResponseContentRoot { get; set; }
     public string ResponseAssetEnv { get; set; }

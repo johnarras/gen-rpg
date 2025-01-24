@@ -18,3 +18,6 @@ MonoBehaviour:
   InitialConfigEndpoint: https://genrpgconfig.azurewebsites.net/api/GenrpgConfig
   AccountProductId: 2
   PlayerContainsAllAssets: 1
+  GooglePlaySecret: 
+  IOSSecret: 
+  PackageName: 

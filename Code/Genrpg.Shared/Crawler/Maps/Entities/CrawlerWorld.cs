@@ -18,7 +18,8 @@ namespace Genrpg.Shared.Crawler.Maps.Entities
 
         [Key(4)] public List<WorldQuestItem> QuestItems { get; set; } = new List<WorldQuestItem>();
 
-        [Key(5)] public long MaxMapId { get; set; } = 0;
+        [Key(5)] public long MaxMapId { get; set; } 
+
 
         public CrawlerMap CreateMap(CrawlerMapGenData genData, int width, int height)
         {

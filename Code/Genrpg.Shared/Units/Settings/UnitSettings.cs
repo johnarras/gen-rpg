@@ -16,6 +16,7 @@ using Genrpg.Shared.Purchasing.Settings;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Helpers;
+using Genrpg.Shared.Units.Settings;
 
 namespace Genrpg.Shared.Units.Settings
 {
@@ -25,6 +26,7 @@ namespace Genrpg.Shared.Units.Settings
         [Key(0)] public override string Id { get; set; }
 
     }
+
     [MessagePackObject]
     public class UnitType : ChildSettings, IIndexedGameItem
     {
@@ -61,6 +63,7 @@ namespace Genrpg.Shared.Units.Settings
 
         [Key(18)] public List<SpawnItem> LootItems { get; set; } = new List<SpawnItem>();
         [Key(19)] public List<SpawnItem> InteractLootItems { get; set; } = new List<SpawnItem>();
+    }
 
     [MessagePackObject]
         public class UnitSettingsApi : ParentSettingsApi<UnitSettings, UnitType> { }
@@ -69,8 +72,7 @@ namespace Genrpg.Shared.Units.Settings
         public class UnitSettingsLoasder : ParentSettingsLoader<UnitSettings, UnitType> { }
 
     [MessagePackObject]
-        public class UnitSettingsMapper : ParentSettingsMapper<UnitSettings, UnitType, UnitSettingsApi> { }
-    }
+        public class UnitSettingsMapper : ParentSettingsMapper<UnitSettings, UnitType, UnitSettingsApi> { }    
 
     public class UnitHelper : BaseEntityHelper<UnitSettings, UnitType>
     {

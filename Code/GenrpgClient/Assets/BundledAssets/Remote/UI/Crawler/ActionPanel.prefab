@@ -367,7 +367,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -60, y: -60}
+  m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4456692975644884829
 CanvasRenderer:
@@ -552,7 +552,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 768, y: 400}
+  m_SizeDelta: {x: 840, y: 840}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6045920636187407099
 MonoBehaviour:
@@ -598,14 +598,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.6117647}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e51ba9c8f64ce414ba061d4ecad3efc0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e782ae4548cab91448f309a16a3e5219, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -625,9 +625,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 417293187494746144, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
         type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2108538579064909954, guid: 1d635af844f05bc42be8b9d338c0f26b,
+        type: 2}
+    - target: {fileID: 417293187494746144, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+        type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
+    - target: {fileID: 2920999609611908660, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2108538579064909954, guid: 1d635af844f05bc42be8b9d338c0f26b,
+        type: 2}
     - target: {fileID: 2920999609611908660, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
         type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -638,6 +650,12 @@ PrefabInstance:
       propertyPath: m_overflowMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5897899869798178409, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2108538579064909954, guid: 1d635af844f05bc42be8b9d338c0f26b,
+        type: 2}
     - target: {fileID: 5897899869798178409, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
         type: 3}
       propertyPath: m_TextWrappingMode
@@ -797,9 +815,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 417293187494746144, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
         type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2108538579064909954, guid: 1d635af844f05bc42be8b9d338c0f26b,
+        type: 2}
+    - target: {fileID: 417293187494746144, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+        type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
+    - target: {fileID: 2920999609611908660, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2108538579064909954, guid: 1d635af844f05bc42be8b9d338c0f26b,
+        type: 2}
     - target: {fileID: 2920999609611908660, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
         type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -810,6 +840,12 @@ PrefabInstance:
       propertyPath: m_overflowMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5897899869798178409, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2108538579064909954, guid: 1d635af844f05bc42be8b9d338c0f26b,
+        type: 2}
     - target: {fileID: 5897899869798178409, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
         type: 3}
       propertyPath: m_TextWrappingMode
@@ -969,9 +1005,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 417293187494746144, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
         type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2108538579064909954, guid: 1d635af844f05bc42be8b9d338c0f26b,
+        type: 2}
+    - target: {fileID: 417293187494746144, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+        type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
+    - target: {fileID: 2920999609611908660, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2108538579064909954, guid: 1d635af844f05bc42be8b9d338c0f26b,
+        type: 2}
     - target: {fileID: 2920999609611908660, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
         type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -982,6 +1030,12 @@ PrefabInstance:
       propertyPath: m_overflowMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5897899869798178409, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2108538579064909954, guid: 1d635af844f05bc42be8b9d338c0f26b,
+        type: 2}
     - target: {fileID: 5897899869798178409, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
         type: 3}
       propertyPath: m_TextWrappingMode

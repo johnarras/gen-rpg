@@ -20,10 +20,12 @@
   "ZoneTypeId": 16,
   "DungeonArtId": 1,
   "MinWallChance": 0.4,
-  "MaxWallChance": 1.0,
+  "MaxWallChance": 0.8,
+  "TrapTileChance": 0.02,
+  "EffectTileChance": 0.02,
   "MinCorridorDensity": 1.2,
   "MaxCorridorDensity": 2.0,
   "MinBuildingDensity": 0.1,
   "MaxBuildingDensity": 0.4,
-  "UpdateTime": "2024-11-02T16:33:25.69Z"
+  "UpdateTime": "2025-01-18T20:05:00.26Z"
 }

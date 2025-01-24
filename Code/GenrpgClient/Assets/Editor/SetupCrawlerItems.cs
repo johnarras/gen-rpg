@@ -20,30 +20,7 @@ namespace Assets.Editor
     {
 
 
-        [MenuItem("Tools/CopyMonsterTextures")]
-        static void CopyMonsterTextures()
-        {
-            IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
-            IClientRandom clientRandom = new ClientRandom();
-            IGameData gameData = gs.loc.Get<IGameData>();
-            IReadOnlyList<UnitType> unitTypes = gameData.Get<UnitSettings>(null).GetData();
-
-            string directory = "Assets/FullAssets/Crawler/Images/Monsters/";
-
-
-            foreach (UnitType unitType in unitTypes)
-            {
-                if (unitType.IdKey < 1 || string.IsNullOrEmpty(unitType.Icon))
-                {
-                    continue;
-                }
-
-                for (int i = 1; i <= 4; i++)
-                {
-                    File.Copy(directory + "Base" + i + ".png", directory + unitType.Icon + +i + ".png", true);
-                }
-            }
-        }
+      
 
         [MenuItem("Tools/SetupMonsterImagePrefabs")]
         static void OldSetupMonsterImagePrefabs()
@@ -84,8 +61,7 @@ namespace Assets.Editor
                     {
                         if (i == 1)
                         {
-                            Debug.LogError("Missing first sprite for " + unitType.Icon);
-                            return;
+                            Debug.LogError("Missing first sprite for " + unitType.Icon);                           
                         }
 
 
@@ -165,13 +141,13 @@ namespace Assets.Editor
 
             string[] files = Directory.GetFiles(imageDirectory);
 
+            int times = 0;
             foreach (string filePath in files)
             {
-                if (filePath.LastIndexOf(".png") != filePath.Length - 4)
+                if (filePath.LastIndexOf(".jpg") != filePath.Length - 4)
                 {
                     continue;
                 }
-
 
                 Sprite tex = AssetDatabase.LoadAssetAtPath<Sprite>(filePath);
 
@@ -183,34 +159,45 @@ namespace Assets.Editor
 
                 Color transparent = new Color(0, 0, 0, 0);
 
+                Color cornerColor = tex.texture.GetPixel(0, 0);
+
+
+                float maxDiff = 0.05f;
                 for (int x = 0; x < width; x++)
                 {
                     for (int y = 0; y < height; y++)
                     {
-                        bool nextToTransparent = false;
+                        bool nextToOldColor = false;
                         for (int xx = Math.Max(x-1, 0); xx <= Math.Min(x+1,width-1); xx++)
                         {
                             for (int yy = Math.Max(y-1,0); yy <= Math.Min(y+1,height -1); yy++)
                             {
                                 Color oldColor = oldColors[GetTextureIndex(xx, yy, width)];
 
-                                if (oldColor.a == 0)
+                                if (Math.Abs(oldColor.r-cornerColor.r) <= maxDiff &&
+                                    Math.Abs(oldColor.g-cornerColor.g) <= maxDiff &&
+                                    Math.Abs(oldColor.b-cornerColor.b) <= maxDiff)
                                 {
-                                    nextToTransparent = true;
+                                    nextToOldColor = false;
                                     break;
                                 }
                             }
                         }
 
                         int index = GetTextureIndex(x, y, width);
-                        newColors[index] = (nextToTransparent ? transparent : oldColors[index]);
+                        newColors[index] = (nextToOldColor ? transparent : oldColors[index]);
                     }
                 }
-                tex.texture.SetPixels(newColors);
-                tex.texture.Apply(); 
-                byte[] bytes = tex.texture.EncodeToPNG(); 
-                //File.WriteAllBytes(filePath, bytes); 
-                AssetDatabase.ImportAsset(filePath); 
+
+                Texture2D newTex = new Texture2D(width, height, TextureFormat.ARGB32, false);
+                newTex.SetPixels(newColors);
+                newTex.Apply();
+                byte[] bytes = newTex.EncodeToPNG();
+              
+                string newFilePath = filePath.Replace(".jpg", ".png");
+                File.WriteAllBytes(newFilePath, bytes);
+                AssetDatabase.ImportAsset(filePath);
+                AssetDatabase.ImportAsset(newFilePath);
                 AssetDatabase.Refresh();
             }
             IGameData gameData = gs.loc.Get<IGameData>();

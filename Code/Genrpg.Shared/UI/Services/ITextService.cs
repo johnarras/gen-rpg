@@ -1,5 +1,6 @@
 ﻿using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.UI.Constants;
+using Genrpg.Shared.UI.Interfaces;
 
 namespace Genrpg.Shared.UI.Services
 {
@@ -7,5 +8,6 @@ namespace Genrpg.Shared.UI.Services
     {
         string HighlightText(string text, string color = TextColors.ColorYellow);
         string HighlightText(char c, string color = TextColors.ColorYellow);
+        string GetLinkUnderMouse(IText text);
     }
 }

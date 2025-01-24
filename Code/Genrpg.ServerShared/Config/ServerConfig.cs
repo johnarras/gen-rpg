@@ -10,7 +10,7 @@ using System.Threading;
 namespace Genrpg.ServerShared.Config
 {
 
-    public interface IServerConfig : IInjectable, IConnectionConfig
+    public interface IServerConfig : IInjectable
     {
 
         string Env { get; set; }
@@ -23,10 +23,18 @@ namespace Genrpg.ServerShared.Config
 
         string ContentRoot { get; set; }
 
-        string EtherscanKey { get; set; }
+        string PublicIP { get; set; }    
+        
+        string PackageName { get; set; }
 
-        string PublicIP { get; set; }       
+        string GooglePlayValidationURL { get; set; }
 
+        string IOSBuyValidationURL { get; set; }
+
+        string IOSSandboxValidationURL { get; set; }
+
+        void SetSecret(string key, string val); // Eventually use ISecretsService with some kind of vault.
+        string GetSecret(string key); // Eventually use ISecretsService with some kind of vault.
     }
 
     public class ServerConfig : IServerConfig
@@ -42,20 +50,27 @@ namespace Genrpg.ServerShared.Config
 
         public string ContentRoot { get; set; }
 
-        public string EtherscanKey { get; set; }
-
         public string PublicIP { get; set; }
 
-        public Dictionary<string, string> ConnectionStrings { get; set; }  = new Dictionary<string, string>();
+        public string PackageName { get; set; }
 
-        public Dictionary<string,string> GetConnectionStrings()
+        public string GooglePlayValidationURL { get; set; }
+
+        public string IOSBuyValidationURL { get; set; }
+
+        public string IOSSandboxValidationURL { get; set; }
+
+
+        private Dictionary<string, string> _secrets { get; set; } = new Dictionary<string, string>();
+
+        public void SetSecret(string key, string val)
         {
-            return ConnectionStrings;
+            _secrets.Add(key, val);
         }
 
-        public string GetConnectionString(string key)
+        public string GetSecret(string key)
         {
-            if (ConnectionStrings.TryGetValue(key, out var value))
+            if (_secrets.TryGetValue(key, out var value))
             {
                 return value;
             }

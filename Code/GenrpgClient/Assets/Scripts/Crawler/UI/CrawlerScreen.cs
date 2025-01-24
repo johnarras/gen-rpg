@@ -6,6 +6,7 @@ using Genrpg.Shared.Client.Assets.Constants;
 using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Services;
+using Genrpg.Shared.Crawler.States.StateHelpers.Exploring;
 using Genrpg.Shared.Tasks.Services;
 using Genrpg.Shared.UI.Entities;
 using System.Collections.Generic;
@@ -60,7 +61,8 @@ namespace Assets.Scripts.UI.Crawler
             await _crawlerService.Init(partyData, token);
 
             _screenService.CloseAll(new List<ScreenId>() { _crawlerService.GetCrawlerScreenId()});
-        
+
+            _dispatcher.AddListener<CrawlerCharacterScreenData>(OnCrawlerCharacterData, GetToken());
         }
 
         private void OnNewStateData(CrawlerStateData data)
@@ -73,6 +75,11 @@ namespace Assets.Scripts.UI.Crawler
             await _worldPanel.OnNewStateData(data, token);
             await _statusPanel.OnNewStateData(data, token);
             await _actionPanel.OnNewStateData(data, token);
+        }
+
+        private void OnCrawlerCharacterData(CrawlerCharacterScreenData data)
+        {
+            _screenService.Open(ScreenId.CrawlerCharacter, data);
         }
     }
 }

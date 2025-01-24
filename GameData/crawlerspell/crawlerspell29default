@@ -3,12 +3,13 @@
   "ParentId": "default",
   "IdKey": 29,
   "Name": "Frostbolt",
-  "Desc": "Hit one or more monsters in a group with cold damage.",
+  "Desc": "Hit one or more enemies in a group with cold damage.",
   "PowerCost": 4.0,
   "PowerPerLevel": 0.5,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 1,
+  "RoleScalingTypeId": 3,
   "Level": 1,
   "Effects": [
     {
@@ -19,5 +20,5 @@
       "ElementTypeId": 3
     }
   ],
-  "UpdateTime": "2024-12-30T17:06:34.075Z"
+  "UpdateTime": "2025-01-19T19:01:07.736Z"
 }

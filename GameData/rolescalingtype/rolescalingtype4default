@@ -2,6 +2,9 @@
   "Id": "rolescalingtype4default",
   "ParentId": "default",
   "IdKey": 4,
-  "Name": "HealingScaling",
-  "UpdateTime": "2024-11-26T01:48:34.329Z"
+  "Name": "Healing",
+  "Desc": "Increases healing, cures, and holy magic per level.",
+  "ScalingStatTypeId": 13,
+  "ScalingEquipSlotId": 15,
+  "UpdateTime": "2025-01-19T16:27:17.51Z"
 }

@@ -78,7 +78,7 @@ namespace Genrpg.Editor
             buttonCount++;
 
             string[] envWords = { "dev" };
-            string[] actionWords = "Data Users Maps Importer CopyToTest CopyToGit CopyToDB CopyToClient MessageSetup UpdateAssets DeleteMetas SetupItemIcons TestAccountSetup".Split(' ');
+            string[] actionWords = "Data Importer CopyToGit CopyToClient MessageSetup Users UpdateAssets DeleteMetas CopyToTest SetupItemIcons Maps CopyToDB TestAccountSetup".Split(' ');
             int column = 0;
             for (int e = 0; e < envWords.Length; e++)
             {
@@ -646,7 +646,7 @@ namespace Genrpg.Editor
 
 
         private void CopyGameDataFromDatabaseToClient(string env)
-        {
+        {   
             SmallPopup form = UIHelper.ShowBlockingDialog(this, "Copying to Client");
             _ = Task.Run(() => CopyGameDataFromDatabaseToClientAsync(env, form, EditorGameState.CTS.Token));
         }

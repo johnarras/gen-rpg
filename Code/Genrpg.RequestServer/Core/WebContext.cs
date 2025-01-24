@@ -21,7 +21,7 @@ namespace Genrpg.RequestServer.Core
 
         public MyRandom rand { get; set; } = new MyRandom();
 
-        public List<IWebResult> Results { get; set; } = new List<IWebResult>();
+        public List<IWebResponse> Responses { get; set; } = new List<IWebResponse>();
 
         protected IRepositoryService _repoService = null!;
 
@@ -165,7 +165,7 @@ namespace Genrpg.RequestServer.Core
 
         public void ShowError(string error)
         {
-            Results.Add(new ErrorResult() { Error = error });
+            Responses.Add(new ErrorResponse() { Error = error });
         }
     }
 }

@@ -113,7 +113,7 @@ namespace Genrpg.Editor
             }
 
             UIHelper.SetWindowRect(this, 100, 100,
-                 2 * getLeftRightPadding() + 1 * (getButtonWidth() + getButtonGap() * 2),
+                 2 * getLeftRightPadding() + 1 * (getButtonWidth() + getButtonGap() * 2) + 500,
             getTotalHeight(buttonCount) + getTopBottomPadding() + _topPadding);
 
         }
@@ -203,7 +203,7 @@ namespace Genrpg.Editor
         private async Task OnClickButtonAsync(string action, string env, Action<EditorGameState> afterAction = null)
         {
 
-            _gs = await EditorGameDataUtils.SetupFromConfig(this, env, false);
+            _gs = await EditorGameDataUtils.SetupFromConfig(this, env, true);
 
 
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
@@ -308,13 +308,21 @@ namespace Genrpg.Editor
             _ = Task.Run(() => ImportDataAsync(gs, importType));
         }
 
+
         private async Task ImportDataAsync(EditorGameState gs, EImportTypes importType)
         {
             gs.loc.Resolve(_importers);
 
-            if (_importers.TryGetValue(importType, out IDataImporter importer))
+            try
             {
-                await importer.ImportData(this, gs);
+                if (_importers.TryGetValue(importType, out IDataImporter importer))
+                {
+                    await importer.ImportData(this, gs);
+                }
+            }
+            catch (Exception ex)
+            {
+                await UIHelper.ShowMessageBox(this, ex.Message, "Exception", false);
             }
         }
     }

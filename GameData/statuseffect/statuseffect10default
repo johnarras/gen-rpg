@@ -3,8 +3,8 @@
   "ParentId": "default",
   "IdKey": 10,
   "Name": "Nearsighted",
-  "Desc": "",
-  "Icon": "",
+  "Desc": "Cannot shoot",
+  "Icon": "Nearsighted",
   "Art": "",
   "Abbrev": "NrSgt",
   "ActionEffects": [
@@ -13,5 +13,6 @@
       "Effect": 3
     }
   ],
-  "UpdateTime": "2024-08-01T00:28:13.06Z"
+  "ElementTypeId": 7,
+  "UpdateTime": "2025-01-13T00:11:14.441Z"
 }

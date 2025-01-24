@@ -39,5 +39,6 @@ namespace Genrpg.Shared.UI.Entities
         Settings= 30,
         LoadSave= 31,
         CrawlerInfo=32,
+        CrawlerMainMenu=33,
     }
 }

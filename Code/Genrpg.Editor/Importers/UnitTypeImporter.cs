@@ -3,6 +3,7 @@ using Genrpg.Editor.Constants;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Shared.Crawler.Buffs.Settings;
 using Genrpg.Shared.Crawler.Roles.Settings;
+using Genrpg.Shared.Crawler.Spells.Constants;
 using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Utils;
@@ -12,19 +13,29 @@ using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.UnitEffects.Settings;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Units.Settings;
+using MessagePack.Resolvers;
 using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices.Swift;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Notifications;
 using Windows.UI.Popups;
 
 namespace Genrpg.Editor.Importers
 {
 
-    public class UnitTypeImporter : BaseDataImporter
+    public class UnitSummons
+    {
+        public UnitType BaseUnitType { get; set; }
+        public UnitType UnitType { get; set; }
+        public string Summons { get; set; }
+    }
+
+    public class UnitTypeImporter : BaseCrawlerDataImporter
     {
         public override string ImportDataFilename => "UnitTypeImport.csv";
 
@@ -37,15 +48,19 @@ namespace Genrpg.Editor.Importers
         const int MinLevelCol = 4;
         const int HpBonusCol = 5;
         const int DamBonusCol = 6;
-        const int SpawnQuantityCol = 7;
-        const int VulnerabilityColumn = 8;
-        const int ResistCol = 9;
-
-        const int ColumnCount = 9;
+        const int RoleScalingPercentCol = 7;
+        const int SpawnQuantityCol = 8;
+        const int VulnerabilityCol = 9;
+        const int ResistCol = 10;
+        const int SummonCol = 11;
+        const int ColumnCount = 11;
 
         protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, List<string[]> lines)
         {
             string[] firstLine = lines[0];
+
+
+            List<UnitSummons> summons = new List<UnitSummons>();
 
             UnitSettings settings = gs.data.Get<UnitSettings>(null);
 
@@ -60,7 +75,6 @@ namespace Genrpg.Editor.Importers
             gs.LookedAtObjects.Add(gs.data.Get<UnitSettings>(null));
 
             List<UnitType> newList = new List<UnitType>();
-            newList.Add(new UnitType() { IdKey = 0, Name = "None" });
 
             IReadOnlyList<TribeType> tribes = gs.data.Get<TribeSettings>(null).GetData();
 
@@ -100,9 +114,27 @@ namespace Genrpg.Editor.Importers
                     }
                 }
 
-                foreach (string suffix in suffixes)
+                UnitType baseUnitType = null;
+                for (int s = 0; s < suffixes.Count; s++)
                 {
+                    string suffix = suffixes[s];
                     UnitType unitType = new UnitType() { IdKey = nextIdKey++ };
+
+                    if (s == 0)
+                    {
+                        baseUnitType = unitType;    
+                    }
+
+
+                    summons.Add(new UnitSummons()
+                    {
+                        UnitType = unitType,
+                        BaseUnitType = baseUnitType,
+                        Summons = words[SummonCol],
+                    });
+
+                
+
                     _importService.ImportLine<UnitType>(gs, l, words, firstLine, unitType);
 
                     if (string.IsNullOrEmpty(suffix))
@@ -138,6 +170,14 @@ namespace Genrpg.Editor.Importers
                         if (damBonus > 0)
                         {
                             unitType.Effects.Add(new UnitEffect() { EntityTypeId = EntityTypes.StatPct, EntityId = StatTypes.DamagePower, Quantity = damBonus });
+                        }
+                    }
+
+                    if (Int64.TryParse(words[RoleScalingPercentCol], out long scalingPercent))
+                    {
+                        if (scalingPercent != 0)
+                        {
+                            unitType.Effects.Add(new UnitEffect() { EntityTypeId = EntityTypes.Stat, EntityId = StatTypes.RoleScalingPercent, Quantity = scalingPercent });
                         }
                     }
 
@@ -185,10 +225,50 @@ namespace Genrpg.Editor.Importers
                             continue;
                         }
                     }
-                    unitType.Effects.AddRange(ReadElementWords(words[VulnerabilityColumn], EntityTypes.Vulnerability, elementTypes));
+                    unitType.Effects.AddRange(ReadElementWords(words[VulnerabilityCol], EntityTypes.Vulnerability, elementTypes));
                     unitType.Effects.AddRange(ReadElementWords(words[ResistCol], EntityTypes.Resist, elementTypes));
 
+
                     newList.Add(unitType);
+                }
+            }
+
+            foreach (UnitSummons summon in summons)
+            {
+                if (!string.IsNullOrEmpty(summon.Summons))
+                {
+                    string[] slist = summon.Summons.Split(' ');
+
+                    foreach (string word in slist)
+                    {
+                        string lowerWord = word.ToLower();
+
+                        long summonIdkey = 0;
+
+                        if (lowerWord == "self")
+                        {
+                            summonIdkey = summon.UnitType.IdKey;
+                        }
+                        else if (lowerWord == "base")
+                        {
+                            summonIdkey = summon.BaseUnitType.IdKey;
+                        }
+                        else
+                        {
+                            UnitType namedType = newList.FirstOrDefault(x => x.Name.Replace(" ", "").Trim().ToLower() == lowerWord);
+
+                            if (namedType != null)
+                            {
+                                summonIdkey = namedType.IdKey;   
+                            }
+                        }
+
+                        if (summonIdkey > 0)
+                        {
+                            summon.UnitType.Effects.Add(new UnitEffect() { EntityTypeId = EntityTypes.CrawlerSpell, EntityId = summonIdkey + CrawlerSpellConstants.MonsterSummonSpellIdOffset, Quantity = 1 });
+                        }
+
+                    }
                 }
             }
 

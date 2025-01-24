@@ -6,7 +6,6 @@ using ClientEvents;
 using System.Threading;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Website.Messages.LoadIntoMap;
 using Assets.Scripts.MapTerrain;
 using UnityEngine; // Needed
 using Genrpg.Shared.DataStores.PlayerData;
@@ -21,6 +20,7 @@ using Genrpg.Shared.Client.Assets.Services;
 using Genrpg.Shared.Client.Tokens;
 using Genrpg.Shared.UI.Entities;
 using Assets.Scripts.Awaitables;
+using Genrpg.Shared.MapServer.WebApi.LoadIntoMap;
 
 public class UnityZoneGenService : ZoneGenService
 {
@@ -698,7 +698,7 @@ public class UnityZoneGenService : ZoneGenService
     }
 
     DateTime lastLoadClick = DateTime.UtcNow.AddMinutes(-1);
-    public override void LoadMap(LoadIntoMapCommand loadData)
+    public override void LoadMap(LoadIntoMapRequest loadData)
     {
 
    
@@ -737,10 +737,10 @@ public class UnityZoneGenService : ZoneGenService
 
         string postData = SerializationUtils.Serialize(loadData);
         
-        _webNetworkService.SendClientWebCommand(loadData, _gameToken);
+        _webNetworkService.SendClientUserWebRequest(loadData, _gameToken);
     }
 
-    public override async Awaitable OnLoadIntoMap(LoadIntoMapResult data, CancellationToken token)
+    public override async Awaitable OnLoadIntoMap(LoadIntoMapResponse data, CancellationToken token)
     {
 
         try

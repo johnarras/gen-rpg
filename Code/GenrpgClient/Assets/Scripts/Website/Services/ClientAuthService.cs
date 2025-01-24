@@ -5,7 +5,6 @@ using Assets.Scripts.GameSettings.Services;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Website.Messages.Login;
 using UnityEngine;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Logging.Interfaces;
@@ -13,8 +12,6 @@ using System.Threading.Tasks;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Website.Interfaces;
-using Genrpg.Shared.Website.Messages.Signup;
-using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Website.Messages;
 using Genrpg.Shared.Client.Core;
@@ -22,8 +19,9 @@ using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.UI.Entities;
 using Assets.Scripts.Awaitables;
 using Genrpg.Shared.Users.PlayerData;
-using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Core.Interfaces;
+using Genrpg.Shared.Accounts.WebApi.Login;
+using Genrpg.Shared.Accounts.WebApi.Signup;
 
 
 public interface IClientAuthService : IInitializable, IGameCleanup
@@ -31,8 +29,8 @@ public interface IClientAuthService : IInitializable, IGameCleanup
     void StartAuth(CancellationToken token);
     void Logout();
     void ExitMap();
-    Awaitable LoginToServer(LoginCommand command, CancellationToken token);
-    Awaitable Signup(SignupCommand command, CancellationToken token);
+    Awaitable LoginToServer(LoginRequest command, CancellationToken token);
+    Awaitable Signup(SignupRequest command, CancellationToken token);
     Awaitable SaveLocalUserData(string email, string loginToken);
     Awaitable StartNoUser(CancellationToken token);
 }
@@ -86,7 +84,7 @@ public class ClientAuthService : IClientAuthService
         }
         if ((!string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(userid)) && !string.IsNullOrEmpty(password))
         {
-            LoginCommand loginCommand = new LoginCommand()
+            LoginRequest LoginRequest = new LoginRequest()
             {
                 UserId = userid,
                 Email = email,
@@ -95,7 +93,7 @@ public class ClientAuthService : IClientAuthService
                 DeviceId = _clientCryptoService.GetDeviceId(),
             };
 
-            _awaitableService.ForgetAwaitable(LoginToServer(loginCommand, token));
+            _awaitableService.ForgetAwaitable(LoginToServer(LoginRequest, token));
             _screenService.Open(ScreenId.Loading, true);
             return;
         }
@@ -152,7 +150,7 @@ public class ClientAuthService : IClientAuthService
     }
 
 
-    public async Awaitable LoginToServer(LoginCommand command, CancellationToken token)
+    public async Awaitable LoginToServer(LoginRequest command, CancellationToken token)
     {
         command.AccountProductId = _config.Config.AccountProductId;
 
@@ -181,7 +179,7 @@ public class ClientAuthService : IClientAuthService
             }
         }
 
-        LoginResult result = await _clientWebService.SendAuthWebCommandAsync<LoginResult>(command, token);
+        LoginResponse result = await _clientWebService.SendAuthWebRequestAsync<LoginResponse>(command, token);
 
         if (result == null)
         {
@@ -199,18 +197,18 @@ public class ClientAuthService : IClientAuthService
         {
             _logService.Exception(e, "LoginToServer.LoadData");
         }
-        LoginResult result = new LoginResult() { User = new User() { Id = "Local" } };
+        LoginResponse result = new LoginResponse() { User = new User() { Id = "Local" } };
 
-        LoginServerResultSet resultSet = new LoginServerResultSet() { Results = new List<IWebResult>() { result } };
+        WebServerResponseSet resultSet = new WebServerResponseSet() { Responses = new List<IWebResponse>() { result } };
 
         string txt = SerializationUtils.Serialize(resultSet);
-        _clientWebService.HandleResults(txt, null, token);
+        _clientWebService.HandleResponses(txt, null, token);
     }
 
-    public async Awaitable Signup(SignupCommand command, CancellationToken token)
+    public async Awaitable Signup(SignupRequest command, CancellationToken token)
     {
         command.AccountProductId = _config.Config.AccountProductId;
-        _clientWebService.SendAuthWebCommand(command, token);
+        _clientWebService.SendAuthWebRequest(command, token);
         await Task.CompletedTask;
     }
 

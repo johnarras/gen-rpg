@@ -26,7 +26,7 @@
       "ParentId": "default",
       "IdKey": 4,
       "Name": "Cast",
-      "UpdateTime": "2024-08-01T00:27:58.838Z"
+      "UpdateTime": "2025-01-11T15:37:36.985Z"
     },
     {
       "Id": "combataction5default",
@@ -41,7 +41,7 @@
       "IdKey": 6,
       "Name": "Recast",
       "Desc": "",
-      "UpdateTime": "2024-10-21T23:06:15.311Z"
+      "UpdateTime": "2025-01-11T15:37:36.985Z"
     },
     {
       "Id": "combataction7default",
@@ -49,13 +49,13 @@
       "IdKey": 7,
       "Name": "Disabled",
       "Desc": "",
-      "UpdateTime": "2024-10-21T23:06:15.311Z"
+      "UpdateTime": "2025-01-11T15:37:36.985Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "CombatActionSettings",
-    "UpdateTime": "2024-10-21T23:06:23.692Z"
+    "UpdateTime": "2025-01-11T15:37:36.985Z"
   },
   "Id": "default"
 }

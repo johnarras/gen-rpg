@@ -77,7 +77,7 @@ Canvas:
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
+  m_OverridePixelPerfect: 1
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
@@ -461,12 +461,12 @@ PrefabInstance:
     - target: {fileID: 7803188509733054952, guid: 2223f867588c7a141b99cc796b739eb0,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 300
+      value: 660
       objectReference: {fileID: 0}
     - target: {fileID: 7803188509733054952, guid: 2223f867588c7a141b99cc796b739eb0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 580
+      value: 199
       objectReference: {fileID: 0}
     - target: {fileID: 7803188509733054952, guid: 2223f867588c7a141b99cc796b739eb0,
         type: 3}
@@ -932,12 +932,12 @@ PrefabInstance:
     - target: {fileID: 7803188509733054952, guid: 2223f867588c7a141b99cc796b739eb0,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 960
+      value: 660
       objectReference: {fileID: 0}
     - target: {fileID: 7803188509733054952, guid: 2223f867588c7a141b99cc796b739eb0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 700
+      value: 660
       objectReference: {fileID: 0}
     - target: {fileID: 7803188509733054952, guid: 2223f867588c7a141b99cc796b739eb0,
         type: 3}

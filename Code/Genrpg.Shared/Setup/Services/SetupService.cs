@@ -1,17 +1,6 @@
 using Genrpg.Shared.BoardGame.Services;
 using Genrpg.Shared.Charms.Services;
 using Genrpg.Shared.Crafting.Services;
-using Genrpg.Shared.Crawler.Combat.Services;
-using Genrpg.Shared.Crawler.Info.Services;
-using Genrpg.Shared.Crawler.Loot.Services;
-using Genrpg.Shared.Crawler.Roguelikes.Services;
-using Genrpg.Shared.Crawler.Roles.Services;
-using Genrpg.Shared.Crawler.Spells.Services;
-using Genrpg.Shared.Crawler.Stats.Services;
-using Genrpg.Shared.Crawler.Tavern.Services;
-using Genrpg.Shared.Crawler.Temples.Services;
-using Genrpg.Shared.Crawler.TimeOfDay.Services;
-using Genrpg.Shared.Crawler.Training.Services;
 using Genrpg.Shared.Entities.Services;
 using Genrpg.Shared.Factions.Services;
 using Genrpg.Shared.Ftue.Services;
@@ -82,21 +71,9 @@ namespace Genrpg.Shared.Setup.Services
             Set<ILineGenService>(new LineGenService());
             Set<INoiseService>(new NoiseService());
             Set<ISamplingService>(new SamplingService());
-            Set<ICrawlerStatService>(new CrawlerStatService());
-            Set<ITrainingService>(new TrainingService());  
-            Set<ILootGenService>(new LootGenService()); 
-            Set<ITimeOfDayService>(new TimeOfDayService()); 
-            Set<ICrawlerCombatService>(new CrawlerCombatService());
-            Set<IProcessCombatRoundCombatService>(new ProcessCombatRoundCombatService());   
-            Set<ICrawlerSpellService>(new CrawlerSpellService()); 
             Set<ISharedItemService>(new SharedItemService());
-            Set<ITaskService>(new TaskService());   
-            Set<ITavernService>(new TavernService());   
-            Set<ITempleService>(new TempleService());
+            Set<ITaskService>(new TaskService());
             Set<IRiddleService>(new RiddleService());
-            Set<IRoleService>(new RoleService());
-            Set<IRoguelikeUpgradeService>(new RoguelikeUpgradeService());
-            Set<IInfoService>(new InfoService());
             // Use for crawler
 
             // Board game

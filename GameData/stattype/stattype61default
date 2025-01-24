@@ -3,7 +3,7 @@
   "ParentId": "default",
   "IdKey": 61,
   "Name": "Crit",
-  "Desc": "Extra damage",
+  "Desc": "Chance to instantly kill a monster.",
   "GenScalePct": 200,
-  "UpdateTime": "2024-08-01T00:28:13.021Z"
+  "UpdateTime": "2025-01-13T19:22:08.794Z"
 }

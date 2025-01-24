@@ -96,9 +96,9 @@ namespace Genrpg.RequestServer.BoardGame.BoardModeHelpers
 
         public async Task SetupRollDiceArgs(WebContext context, RollDiceArgs args)
         {
-            args.Result.DiceCount = args.Mode.DiceCount;
-            args.Result.DiceSides = 6;
-            args.Result.FreeRolls = args.Mode.FreeRolls;
+            args.Response.DiceCount = args.Mode.DiceCount;
+            args.Response.DiceSides = 6;
+            args.Response.FreeRolls = args.Mode.FreeRolls;
             
             CoreUserData userData = await context.GetAsync<CoreUserData>();
 

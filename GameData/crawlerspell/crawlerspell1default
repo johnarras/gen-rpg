@@ -3,10 +3,11 @@
   "ParentId": "default",
   "IdKey": 1,
   "Name": "Attack",
-  "Desc": "Melee attack one or more monsters.",
+  "Desc": "Melee attack one or more enemies.",
   "MaxRange": 10,
   "CombatActionId": 1,
   "TargetTypeId": 1,
+  "RoleScalingTypeId": 1,
   "Level": 1,
   "Effects": [
     {
@@ -16,5 +17,5 @@
     }
   ],
   "Flags": 1,
-  "UpdateTime": "2024-12-30T17:06:34.075Z"
+  "UpdateTime": "2025-01-19T19:01:07.736Z"
 }

@@ -2,7 +2,6 @@
 using Genrpg.Shared.Characters.PlayerData;
 
 using System.Threading;
-using Genrpg.Shared.Website.Messages.LoadIntoMap;
 using System.Linq;
 using System.Threading.Tasks;
 using Assets.Scripts.UI.Screens;
@@ -13,6 +12,7 @@ using Genrpg.Shared.Client.GameEvents;
 using Genrpg.Shared.UI.Entities;
 using Genrpg.Shared.Client.Assets.Constants;
 using Genrpg.Shared.Crawler.States.Services;
+using Genrpg.Shared.MapServer.WebApi.LoadIntoMap;
 
 public class CharacterSelectScreen : ErrorMessageScreen
 {
@@ -103,7 +103,7 @@ public class CharacterSelectScreen : ErrorMessageScreen
         {
             _dispatcher.Dispatch(new ShowFloatingText("You need at least one character to generate a map.", EFloatingTextArt.Error));
         }
-        LoadIntoMapCommand lwd = new LoadIntoMapCommand()
+        LoadIntoMapRequest lwd = new LoadIntoMapRequest()
         {
             MapId = InitClient.EditorInstance.CurrMapId,
             CharId = _gs.characterStubs.Select(x => x.Id).FirstOrDefault(),

@@ -9,6 +9,6 @@ namespace Genrpg.RequestServer.Services.NoUsers
 {
     public interface INoUserWebService : IInjectable
     {
-        Task HandleNoUserCommand(WebContext context, string postData, CancellationToken token);
+        Task HandleNoUserRequest(WebContext context, string postData, CancellationToken token);
     }
 }

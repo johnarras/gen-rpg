@@ -135,8 +135,14 @@ public class InitClient : BaseBehaviour, IInitClient
 
         // Initial app appearance.
         _clientAppService.TargetFrameRate = 30;
-        _clientAppService.SetupScreen(2460, 1440, false, true, 2);
-
+        if (GameMode == EGameModes.MMO || GameMode == EGameModes.BoardGame)
+        {
+            _clientAppService.SetupScreen(2460, 1440, false, true, 2);
+        }
+        else
+        {
+           // _clientAppService.SetupScreen(3840, 2160, true, true, 0);
+        }
         _dispatcher.AddListener<NewVersionEvent>(OnNewVersion, _gameTokenSource.Token);
         _gs.GameMode = GameMode;
 
@@ -154,7 +160,7 @@ public class InitClient : BaseBehaviour, IInitClient
         await Task.CompletedTask;
     }
 
-    private void OnGetWebConfig(string txt, List<FullWebCommand> commands,  CancellationToken token)
+    private void OnGetWebConfig(string txt, List<FullWebRequest> commands,  CancellationToken token)
     {
         _awaitableService.ForgetAwaitable(OnGetWebConfigAsync(SerializationUtils.Deserialize<ConfigResponse>(txt), token));
     }

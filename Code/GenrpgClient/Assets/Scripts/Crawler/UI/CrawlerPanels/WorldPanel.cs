@@ -26,6 +26,7 @@ using Genrpg.Shared.Crawler.TextureLists.Services;
 using Assets.Scripts.Assets.Textures;
 using Genrpg.Shared.Crawler.Constants;
 using Assets.Scripts.Crawler.Combat;
+using Assets.Scripts.Info.UI;
 
 namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 {
@@ -56,8 +57,8 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         private IImage _noRangedImage;
         private IImage _noMagicImage;
 
-        private object _tooltipParent;
-        private object _tooltipContent;
+        private object _infoParent;
+        private InfoPanel _infoPanel;
         private object _panelButtonsParent;
 
         private IButton _closeTooltipButton;
@@ -72,13 +73,14 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
         private CrawlerCombatUI _combatUI;
 
+
         public override async Task Init(CrawlerScreen screen, IView view, CancellationToken token)
         {
             await base.Init(screen, view, token);
             AddListener<ShowWorldPanelImage>(OnShowWorldPanelImage);
             AddListener<CrawlerUIUpdate>(OnUpdateWorldUI);
-            AddListener<ShowCrawlerTooltipEvent>(OnShowTooltip);
-            AddListener<HideCrawlerTooltipEvent>(OnHideTooltip);
+            AddListener<ShowInfoPanelEvent>(OnShowTooltip);
+            AddListener<HideInfoPanelEvent>(OnHideTooltip);
 
             _worldPosText = _view.Get<IText>("WorldPosText");
             _timeOfDayText = _view.Get<IText>("TimeOfDayText");
@@ -89,17 +91,17 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             _noMagicImage = _view.Get<IImage>("NoMagicImage");
             _minimap = _view.Get<CrawlerTilemap>("Minimap");
             _gs.loc.Resolve(_minimap);
-            _tooltipParent = _view.Get<object>("TooltipParent");
-            _tooltipContent = _view.Get<object>("TooltipContent");
+            _infoParent = _view.Get<object>("InfoParent");
             _root = _view.Get<object>("Root");
             _combatUI = _view.Get<CrawlerCombatUI>("CombatUI");
 
             _bgImage = _view.Get<AnimatedSprite>("BGImage");
             _worldImage = _view.Get<AnimatedSprite>("WorldImage");
+            _infoPanel = _view.Get<InfoPanel>("InfoPanel");
 
-            _clientEntityService.SetActive(_tooltipParent, false);
+            _clientEntityService.SetActive(_infoParent, false);
 
-            _uiService.SetButton(_closeTooltipButton, GetType().Name, () => { OnHideTooltip(new HideCrawlerTooltipEvent()); });
+            _uiService.SetButton(_closeTooltipButton, GetType().Name, () => { OnHideTooltip(new HideInfoPanelEvent()); });
 
             _textRow = await _assetService.LoadAssetAsync<IView>(AssetCategoryNames.UI, PanelTextPrefab, _root, _token, _model.Subdirectory);
 
@@ -163,30 +165,26 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
         }
 
-        private void OnShowTooltip(ShowCrawlerTooltipEvent showEvent)
+        private void OnShowTooltip(ShowInfoPanelEvent showEvent)
         {
-            _taskService.ForgetTask(OnShowTooltipAsync(showEvent));
-        }
-
-        private async Task OnShowTooltipAsync(ShowCrawlerTooltipEvent showEvent)
-        {        
-            if (showEvent.Lines.Count < 1)
+            if (showEvent.EntityTypeId > 0 && showEvent.EntityId > 0)
+            {
+                _infoPanel.ShowInfo(showEvent.EntityTypeId, showEvent.EntityId);
+            }
+            else if (showEvent.Lines.Count > 0)
+            {
+                _infoPanel.ShowLines(showEvent.Lines);
+            }
+            else
             {
                 return;
             }
-
-            _clientEntityService.DestroyAllChildren(_tooltipContent);
-            _clientEntityService.SetActive(_tooltipParent, true);
-
-            for (int i = 0; i < showEvent.Lines.Count; i++)
-            {
-                WorldPanelText text = await _assetService.InitViewController<WorldPanelText, string>(showEvent.Lines[i], _textRow, _tooltipContent, _token);
-            }
+            _clientEntityService.SetActive(_infoPanel, true);
         }
 
-        private void OnHideTooltip(HideCrawlerTooltipEvent hideEvent)
+        private void OnHideTooltip(HideInfoPanelEvent hideEvent)
         {
-            _clientEntityService.SetActive(_tooltipParent, false);
+            _clientEntityService.SetActive(_infoParent, false);
         }
 
 

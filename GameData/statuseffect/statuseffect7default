@@ -3,8 +3,8 @@
   "ParentId": "default",
   "IdKey": 7,
   "Name": "Jittery",
-  "Desc": "",
-  "Icon": "",
+  "Desc": "Ranged attacks are weaker",
+  "Icon": "Jittery",
   "Art": "",
   "Abbrev": "Jitt",
   "ActionEffects": [
@@ -13,5 +13,6 @@
       "Effect": 1
     }
   ],
-  "UpdateTime": "2024-08-01T00:28:13.111Z"
+  "ElementTypeId": 4,
+  "UpdateTime": "2025-01-13T00:11:14.441Z"
 }

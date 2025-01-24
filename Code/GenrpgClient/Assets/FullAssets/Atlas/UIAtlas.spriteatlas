@@ -56,17 +56,22 @@ SpriteAtlas:
     - e8d7fd4119f876e428bb8743f3f4b6dd: 21300000
     - 7c39dd81edf2b544383bd6c3b6591886: 21300000
     - aec1bbb1e23de0d4ba54d919be5e5412: 21300000
+    - 9d71fb728b43ded47903147665fd6300: 21300000
     - f0c105822171422489e186bc56527136: 21300000
     - be0555923cbcb7e40b19f8af2371029c: 21300000
     - be9e24d2224bffe4f98b37171bb948c2: 21300000
     - fedda1932fa9a5a48a93b0e09c33dbda: 21300000
+    - 6221aed347a74ee4c8bcdfe6ab63f28c: 21300000
     - 00010354f7b76664eb712ab7bf4a057a: 21300000
     - 097acdd493ec5d2419a566093bdd4a18: 21300000
     - 1b31aef4ec9559740b24be5bd2c2b6f2: 21300000
+    - e782ae4548cab91448f309a16a3e5219: 21300000
+    - 8a277a75a3cba3b448d77e75132c2dcb: 21300000
     - e2749ef5a4dffd348bba385cc66a3069: 21300000
     - 8d675516f95d3394dab5496b32444b41: 21300000
     - bf835f56dde7d224593598d32db45843: 21300000
     - 06e6f4661c1c3a7468078f7b507f0308: 21300000
+    - 788452b61293831408e4ee38f0cb3df3: 21300000
     - abbe8e2751e2779499587437d27d462f: 21300000
     - f7fe0067a0a783a4ebabb0ccbc08d818: 21300000
     - 015c36b764e80014886f29b67342b438: 21300000
@@ -78,19 +83,25 @@ SpriteAtlas:
     - 6d01a249a083f63498a6c53df614019a: 21300000
     - eb269659350b0ea4eacd287eb88aa24d: 21300000
     - 9be221998bc4e9b42a92f8a355d8e6b8: 21300000
+    - 8c38f4d9ee8b63e42b9767d25e8dbf30: 21300000
     - 098ff2e989588f64e89bf458922f7f98: 21300000
     - eed8725a14fa6564e86bca71b590ef61: 21300000
     - e914527a73a43eb4582f1b5d47242a64: 21300000
     - 5614073b2faf9ab4eaa1d993cb415920: 21300000
     - a3c96cab84ee1094c9094328264fb8c1: 21300000
+    - 4ad01dbbf80b65c40a12716eaa57c18e: 21300000
     - b00dc35c7367963439acd75592bdd560: 21300000
     - 85fa51bc325fdb245b388b69a1625b52: 21300000
     - ca1716ecefe071e4cab20fdc10aa0b7b: 21300000
     - 99c5b02d525db77439b85e50dd74be52: 21300000
     - 3db7926dc2feff042a9eee0537ae5c36: 21300000
+    - 64efbb6d6af2932428b1a8811f17b904: 21300000
     - c0a644ed990f9fb4d9346cc58b828b47: 21300000
     - b36d2ffdd05702742a76479b1687828c: 21300000
+    - 7d2876be6d9c08b409274b86baad3554: 21300000
     - cdcab9ceeacc32e47baae13128dae9db: 21300000
+    - 70af501f3b623fd4da7706c68ce0ab35: 21300000
+    - 77536e3fd0000a34c958a18310ec9590: 21300000
     - d7f7b1efb1a434c4e877198ff391de9a: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -100,17 +111,22 @@ SpriteAtlas:
   - {fileID: 21300000, guid: e8d7fd4119f876e428bb8743f3f4b6dd, type: 3}
   - {fileID: 21300000, guid: 7c39dd81edf2b544383bd6c3b6591886, type: 3}
   - {fileID: 21300000, guid: aec1bbb1e23de0d4ba54d919be5e5412, type: 3}
+  - {fileID: 21300000, guid: 9d71fb728b43ded47903147665fd6300, type: 3}
   - {fileID: 21300000, guid: f0c105822171422489e186bc56527136, type: 3}
   - {fileID: 21300000, guid: be0555923cbcb7e40b19f8af2371029c, type: 3}
   - {fileID: 21300000, guid: be9e24d2224bffe4f98b37171bb948c2, type: 3}
   - {fileID: 21300000, guid: fedda1932fa9a5a48a93b0e09c33dbda, type: 3}
+  - {fileID: 21300000, guid: 6221aed347a74ee4c8bcdfe6ab63f28c, type: 3}
   - {fileID: 21300000, guid: 00010354f7b76664eb712ab7bf4a057a, type: 3}
   - {fileID: 21300000, guid: 097acdd493ec5d2419a566093bdd4a18, type: 3}
   - {fileID: 21300000, guid: 1b31aef4ec9559740b24be5bd2c2b6f2, type: 3}
+  - {fileID: 21300000, guid: e782ae4548cab91448f309a16a3e5219, type: 3}
+  - {fileID: 21300000, guid: 8a277a75a3cba3b448d77e75132c2dcb, type: 3}
   - {fileID: 21300000, guid: e2749ef5a4dffd348bba385cc66a3069, type: 3}
   - {fileID: 21300000, guid: 8d675516f95d3394dab5496b32444b41, type: 3}
   - {fileID: 21300000, guid: bf835f56dde7d224593598d32db45843, type: 3}
   - {fileID: 21300000, guid: 06e6f4661c1c3a7468078f7b507f0308, type: 3}
+  - {fileID: 21300000, guid: 788452b61293831408e4ee38f0cb3df3, type: 3}
   - {fileID: 21300000, guid: abbe8e2751e2779499587437d27d462f, type: 3}
   - {fileID: 21300000, guid: f7fe0067a0a783a4ebabb0ccbc08d818, type: 3}
   - {fileID: 21300000, guid: 015c36b764e80014886f29b67342b438, type: 3}
@@ -122,19 +138,25 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6d01a249a083f63498a6c53df614019a, type: 3}
   - {fileID: 21300000, guid: eb269659350b0ea4eacd287eb88aa24d, type: 3}
   - {fileID: 21300000, guid: 9be221998bc4e9b42a92f8a355d8e6b8, type: 3}
+  - {fileID: 21300000, guid: 8c38f4d9ee8b63e42b9767d25e8dbf30, type: 3}
   - {fileID: 21300000, guid: 098ff2e989588f64e89bf458922f7f98, type: 3}
   - {fileID: 21300000, guid: eed8725a14fa6564e86bca71b590ef61, type: 3}
   - {fileID: 21300000, guid: e914527a73a43eb4582f1b5d47242a64, type: 3}
   - {fileID: 21300000, guid: 5614073b2faf9ab4eaa1d993cb415920, type: 3}
   - {fileID: 21300000, guid: a3c96cab84ee1094c9094328264fb8c1, type: 3}
+  - {fileID: 21300000, guid: 4ad01dbbf80b65c40a12716eaa57c18e, type: 3}
   - {fileID: 21300000, guid: b00dc35c7367963439acd75592bdd560, type: 3}
   - {fileID: 21300000, guid: 85fa51bc325fdb245b388b69a1625b52, type: 3}
   - {fileID: 21300000, guid: ca1716ecefe071e4cab20fdc10aa0b7b, type: 3}
   - {fileID: 21300000, guid: 99c5b02d525db77439b85e50dd74be52, type: 3}
   - {fileID: 21300000, guid: 3db7926dc2feff042a9eee0537ae5c36, type: 3}
+  - {fileID: 21300000, guid: 64efbb6d6af2932428b1a8811f17b904, type: 3}
   - {fileID: 21300000, guid: c0a644ed990f9fb4d9346cc58b828b47, type: 3}
   - {fileID: 21300000, guid: b36d2ffdd05702742a76479b1687828c, type: 3}
+  - {fileID: 21300000, guid: 7d2876be6d9c08b409274b86baad3554, type: 3}
   - {fileID: 21300000, guid: cdcab9ceeacc32e47baae13128dae9db, type: 3}
+  - {fileID: 21300000, guid: 70af501f3b623fd4da7706c68ce0ab35, type: 3}
+  - {fileID: 21300000, guid: 77536e3fd0000a34c958a18310ec9590, type: 3}
   - {fileID: 21300000, guid: d7f7b1efb1a434c4e877198ff391de9a, type: 3}
   m_PackedSpriteNamesToIndex:
   - BGWorld
@@ -143,17 +165,22 @@ SpriteAtlas:
   - BGCircleBlue
   - IconEnergy
   - BGSilver
+  - BGGrayscaleVert
   - BGDots
   - DirLeft
   - StarGolden
   - BGGray
+  - BGCrawlerButton
   - DirUp
   - BGGold
   - BGBrown
+  - ActionPanelBG
+  - RoundRocks3
   - YellowBar
   - IconGold
   - BGDarkGray
   - DirRight
+  - WorldPanelBG
   - BGDark
   - PurpleBar
   - NoMagic
@@ -165,19 +192,25 @@ SpriteAtlas:
   - IconCredits
   - BGButtonTan
   - BlueBar
+  - RoundRocks2
   - GreenBar
   - BGCirclePurple
   - RedBar
   - IconSilver
   - DirDown
+  - RoundRocks
   - MultiStars
   - SilverBar
   - Blank
   - BGInfo
   - BGHole
+  - StatusPanelBG
   - NoRanged
   - BGPurple
+  - WorldPanelBGStart
   - WhiteCircle256
+  - BGPlayerStatusRow
+  - BGCrawler
   - IconCopper
   m_RenderDataMap: {}
   m_Tag: UIAtlas

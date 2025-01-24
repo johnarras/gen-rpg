@@ -18,6 +18,7 @@ using System.Linq;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.Shared.Crawler.Info.Constants;
 
 namespace Genrpg.Shared.Entities.Services
 {
@@ -34,7 +35,6 @@ namespace Genrpg.Shared.Entities.Services
         private SetupDictionaryContainer<Type,IGameSettingsLoader> _loaders = new SetupDictionaryContainer<Type, IGameSettingsLoader> ();
         private SetupDictionaryContainer<long, IEntityHelper> _entityHelpers = new SetupDictionaryContainer<long, IEntityHelper>();
         protected IGameData _gameData;
-        #region Helpers
     
         public IEntityHelper GetEntityHelper(long entityTypeId)
         {
@@ -94,6 +94,7 @@ namespace Genrpg.Shared.Entities.Services
 
             return new List<IIdName>();
         }
-        #endregion
+
+
     }
 }

@@ -79,11 +79,6 @@ namespace Genrpg.Shared.Interfaces
         string Art { get; set; }
     }
 
-    public interface IExtraDescItem
-    {
-        string GetExtraDesc(IGameData gameData);
-    }
-
     public interface IOrderedItem
     {
         long GetOrder();

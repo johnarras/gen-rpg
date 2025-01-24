@@ -19,10 +19,21 @@ using Assets.Scripts.UI.Services;
 using Genrpg.Shared.Client.Assets.Services;
 using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Client.Tokens;
+using Genrpg.Shared.Crawler.Combat.Services;
+using Genrpg.Shared.Crawler.Info.Services;
+using Genrpg.Shared.Crawler.Loot.Services;
 using Genrpg.Shared.Crawler.MapGen.Services;
 using Genrpg.Shared.Crawler.Maps.Services;
+using Genrpg.Shared.Crawler.Roguelikes.Services;
+using Genrpg.Shared.Crawler.Roles.Services;
+using Genrpg.Shared.Crawler.Spells.Services;
 using Genrpg.Shared.Crawler.States.Services;
+using Genrpg.Shared.Crawler.Stats.Services;
+using Genrpg.Shared.Crawler.Tavern.Services;
+using Genrpg.Shared.Crawler.Temples.Services;
 using Genrpg.Shared.Crawler.TextureLists.Services;
+using Genrpg.Shared.Crawler.TimeOfDay.Services;
+using Genrpg.Shared.Crawler.Training.Services;
 using Genrpg.Shared.Ftue.Services;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Rewards.Services;
@@ -113,6 +124,20 @@ public class ClientInitializer
 		Set<IMapGenService>(new MapGenService());
 		Set<IZoneGenService> (new UnityZoneGenService());
         Set<IFtueService>(new ClientFtueService());
+
+
+        Set<ICrawlerStatService>(new CrawlerStatService());
+        Set<ITrainingService>(new TrainingService());
+        Set<ILootGenService>(new LootGenService());
+        Set<ITimeOfDayService>(new TimeOfDayService());
+        Set<ICrawlerCombatService>(new CrawlerCombatService());
+        Set<IProcessCombatRoundCombatService>(new ProcessCombatRoundCombatService());
+        Set<ICrawlerSpellService>(new CrawlerSpellService());
+        Set<ITavernService>(new TavernService());
+        Set<ITempleService>(new TempleService());
+        Set<IRoleService>(new RoleService());
+        Set<IRoguelikeUpgradeService>(new RoguelikeUpgradeService());
+        Set<IInfoService>(new InfoService());
 
         Set<IBoardGameController>(new  BoardGameController());  
         Set<ILoadBoardService>(new LoadBoardService());

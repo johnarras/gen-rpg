@@ -4,10 +4,10 @@ using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Settings.Stats;
 using UnityEngine;
+using Assets.Scripts.Crawler.UI.WorldUI;
 
-public class StatInfoRow : BaseBehaviour
+public class StatInfoRow : RolloverInfoRow
 {
-    public GText StatName;
     public GText CurrStat;
     public GText Percent;
     public GText Modifier;
@@ -24,7 +24,7 @@ public class StatInfoRow : BaseBehaviour
         }
         else
         {
-            _uiService.SetText(StatName, "=============");
+            _uiService.SetText(MainText, "=============");
             _uiService.SetText(CurrStat, "");
             _uiService.SetText(Percent, "");
             _uiService.SetText(Modifier, "");
@@ -45,7 +45,7 @@ public class StatInfoRow : BaseBehaviour
             return;
         }
 
-        _uiService.SetText(StatName, _statType.Name);
+        _uiService.SetText(MainText, _infoService.CreateInfoLink(_statType));
 
         long curr = unit.Stats.Max(_statTypeId);
         

@@ -1,10 +1,9 @@
 ﻿using Genrpg.Shared.Characters.PlayerData;
 using UnityEngine;
 using Genrpg.Shared.MapServer.Entities;
-using Assets.Scripts.Atlas.Constants;
 using System.Threading;
-using Genrpg.Shared.Website.Messages.DeleteChar;
 using Genrpg.Shared.Client.Assets.Constants;
+using Genrpg.Shared.Characters.WebApi.DeleteChar;
 
 public class CharacterSelectRow : BaseBehaviour
 {
@@ -52,12 +51,12 @@ public class CharacterSelectRow : BaseBehaviour
             return;
         }
 
-        DeleteCharCommand com = new DeleteCharCommand()
+        DeleteCharRequest com = new DeleteCharRequest()
         {
             CharId = _characterStub.Id,
         };
 
-        _webNetworkService.SendClientWebCommand(com, _token);
+        _webNetworkService.SendClientUserWebRequest(com, _token);
     }
 
     private void OnDownloadPlayButton(object obj, object data, CancellationToken token)

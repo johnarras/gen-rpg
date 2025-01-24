@@ -37,10 +37,10 @@ namespace Assets.Scripts.UI.Stores
 
             _uiService.SetText(Header, _offer.Name);
 
-            foreach (PlayerOfferProduct product in _offer.Products)
+            foreach (PlayerStoreOfferItem item in _offer.Items)
             {
                 _assetService.LoadAssetInto(ProductParent, AssetCategoryNames.Stores, ProductPanelPrefab, OnLoadStorePanel,
-                    product, token, _theme.Art);
+                    item, token, _theme.Art);
             }
         }
         
@@ -55,7 +55,7 @@ namespace Assets.Scripts.UI.Stores
 
             StoreProductPanel productPanel = go.GetComponent<StoreProductPanel>();
 
-            productPanel.Init(data as PlayerOfferProduct, _screen.GetName(), _theme, token);
+            productPanel.Init(data as PlayerStoreOfferItem, _screen.GetName(), _theme, token);
         }
     }
 }

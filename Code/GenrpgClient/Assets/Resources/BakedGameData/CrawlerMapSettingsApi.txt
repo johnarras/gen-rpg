@@ -23,17 +23,17 @@
       "DungeonArtId": 1,
       "RandomWallsChance": 0.5,
       "LoopingChance": 0.5,
-      "MinWallChance": 1.0,
+      "MinWallChance": 0.8,
       "MaxWallChance": 0.800000011920929,
       "MinDoorChance": 0.20000000298023224,
-      "MaxDoorChance": 1.0,
+      "MaxDoorChance": 0.8,
       "TrapTileChance": 0.019999999552965164,
       "EffectTileChance": 0.019999999552965164,
       "MinCorridorDensity": 1.1,
       "MaxCorridorDensity": 2.0,
       "MinBuildingDensity": 0.3,
       "MaxBuildingDensity": 0.6,
-      "UpdateTime": "2024-11-02T16:33:25.69Z"
+      "UpdateTime": "2025-01-18T20:05:00.26Z"
     },
     {
       "Id": "crawlermaptype2default",
@@ -79,7 +79,7 @@
       "MaxCorridorDensity": 0.3,
       "MinBuildingDensity": 0.01,
       "MaxBuildingDensity": 0.02,
-      "UpdateTime": "2024-11-02T16:33:25.69Z"
+      "UpdateTime": "2025-01-18T20:05:00.26Z"
     },
     {
       "Id": "crawlermaptype4default",
@@ -103,12 +103,14 @@
       "ZoneTypeId": 16,
       "DungeonArtId": 1,
       "MinWallChance": 0.4,
-      "MaxWallChance": 1.0,
+      "MaxWallChance": 0.8,
+      "TrapTileChance": 0.02,
+      "EffectTileChance": 0.02,
       "MinCorridorDensity": 1.2,
       "MaxCorridorDensity": 2.0,
       "MinBuildingDensity": 0.1,
       "MaxBuildingDensity": 0.4,
-      "UpdateTime": "2024-11-02T16:33:25.69Z"
+      "UpdateTime": "2025-01-18T20:05:00.26Z"
     },
     {
       "Id": "crawlermaptype5default",
@@ -133,23 +135,23 @@
       "DungeonArtId": 1,
       "RandomWallsChance": 1.0,
       "MinWallChance": 0.6000000238418579,
-      "MaxWallChance": 1.0,
-      "MinDoorChance": 0.20000000298023224,
-      "MaxDoorChance": 1.0,
+      "MaxWallChance": 0.8,
+      "MinDoorChance": 0.2,
+      "MaxDoorChance": 0.8,
       "TrapTileChance": 0.019999999552965164,
       "EffectTileChance": 0.019999999552965164,
       "MinCorridorDensity": 1.2,
       "MaxCorridorDensity": 2.0,
       "MinBuildingDensity": 0.1,
       "MaxBuildingDensity": 0.3,
-      "UpdateTime": "2024-11-02T16:33:25.69Z"
+      "UpdateTime": "2025-01-18T20:05:00.26Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "CorridorDungeonSizeScale": 1.5,
     "Name": "CrawlerMapSettings",
-    "UpdateTime": "2024-11-02T16:33:25.69Z"
+    "UpdateTime": "2025-01-18T20:05:00.26Z"
   },
   "Id": "default"
 }

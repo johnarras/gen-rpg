@@ -18,7 +18,7 @@ using Genrpg.Shared.Entities.Helpers;
 namespace Genrpg.Shared.Crawler.Spells.Settings
 {
     [MessagePackObject]
-    public class CrawlerSpell : ChildSettings, IIndexedGameItem, IExtraDescItem, IOrderedItem
+    public class CrawlerSpell : ChildSettings, IIndexedGameItem, IOrderedItem
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string ParentId { get; set; }
@@ -36,6 +36,7 @@ namespace Genrpg.Shared.Crawler.Spells.Settings
         [Key(11)] public long ReplacesCrawlerSpellId { get; set; }
         [Key(12)] public long CombatActionId { get; set; }
         [Key(13)] public long TargetTypeId { get; set; }
+        [Key(14)] public long RoleScalingTypeId { get; set; }
 
         [Key(14)] public long Level { get; set; }
 
@@ -45,30 +46,6 @@ namespace Genrpg.Shared.Crawler.Spells.Settings
         public bool HasFlag(int flagBits) { return (Flags & flagBits) != 0; }
         public void AddFlags(int flagBits) { Flags |= flagBits; }
         public void RemoveFlags(int flagBits) { Flags &= ~flagBits; }
-
-        public long GetPowerCost(long level)
-        {
-            return (long)(PowerCost + level * PowerPerLevel);
-        }
-
-        public string GetExtraDesc(IGameData gameData)
-        {
-            string txt = "(Level: " + Level + ")";
-            if (PowerCost > 0)
-            {
-                if (PowerPerLevel > 0)
-                {
-                    txt += " Mana: " + PowerCost + "+" + PowerPerLevel + "/Lev";
-                }
-                else
-                {
-                    txt += " Mana: " + PowerCost;
-                }
-            }
-
-
-            return txt;
-        }
 
         public long GetOrder()
         {

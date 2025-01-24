@@ -3,7 +3,11 @@
   "ParentId": "default",
   "IdKey": 3,
   "Name": "Cursed",
+  "Desc": "Fewer Hits with each Attack",
+  "Icon": "Cursed",
+  "Art": "",
   "Abbrev": "Curs",
   "ActionEffects": [],
-  "UpdateTime": "2024-08-01T00:28:13.099Z"
+  "ElementTypeId": 6,
+  "UpdateTime": "2025-01-13T00:11:14.441Z"
 }

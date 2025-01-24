@@ -1,15 +1,15 @@
 ﻿using Assets.Scripts.Login.Messages.Core;
+using Genrpg.Shared.Characters.WebApi.CreateChar;
 using Genrpg.Shared.UI.Entities;
 using Genrpg.Shared.UI.Services;
-using Genrpg.Shared.Website.Messages.CreateChar;
 using System.Threading;
 
 namespace Assets.Scripts.Login.MessageHandlers
 {
-    public class CreateCharResultHandler : BaseClientLoginResultHandler<CreateCharResult>
+    public class CreateCharResultHandler : BaseClientLoginResultHandler<CreateCharResponse>
     {
         private IScreenService _screenService;
-        protected override void InnerProcess(CreateCharResult result, CancellationToken token)
+        protected override void InnerProcess(CreateCharResponse result, CancellationToken token)
         {
             _gs.characterStubs = result.AllCharacters;
             _screenService.Open(ScreenId.CharacterSelect);

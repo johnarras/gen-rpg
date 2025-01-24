@@ -5,9 +5,9 @@ using Genrpg.RequestServer.Rewards.Services;
 using Genrpg.RequestServer.Spawns.Services;
 using Genrpg.Shared.BoardGame.Constants;
 using Genrpg.Shared.BoardGame.Entities;
-using Genrpg.Shared.BoardGame.Messages.RollDice;
 using Genrpg.Shared.BoardGame.PlayerData;
 using Genrpg.Shared.BoardGame.Settings;
+using Genrpg.Shared.BoardGame.WebApi.RollDice;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Rewards.Constants;
@@ -15,8 +15,8 @@ using Genrpg.Shared.Rewards.Entities;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Tiles.Settings;
 using Genrpg.Shared.UserCoins.Constants;
-using Genrpg.Shared.UserEnergy.Messages;
 using Genrpg.Shared.UserEnergy.Settings;
+using Genrpg.Shared.UserEnergy.WebApi;
 using Genrpg.Shared.Users.PlayerData;
 using Genrpg.Shared.Utils;
 using System.Security;
@@ -52,22 +52,22 @@ namespace Genrpg.RequestServer.BoardGame.Services
                     Helper = _boardModeService.GetBoardModeHelper(boardData.BoardModeId),
                     Mode = _gameData.Get<BoardModeSettings>(context.user).Get(boardData.BoardModeId),
                 };
-                args.Result.StartIndex = boardData.TileIndex;
+                args.Response.StartIndex = boardData.TileIndex;
 
                 await args.Helper.SetupRollDiceArgs(context, args);
 
-                if (!args.Result.FreeRolls)
+                if (!args.Response.FreeRolls)
                 {
                     if (userData.Coins.Get(UserCoinTypes.Energy) < userData.PlayMult)
                     {
-                        args.Result.DiceRollResult = DiceRollResults.OutOfDice;
-                        context.Results.Add(args.Result);
+                        args.Response.DiceRollResult = DiceRollResults.OutOfDice;
+                        context.Responses.Add(args.Response);
                         return;
                     }
                     else
                     {
                         userData.Coins.Add(UserCoinTypes.Energy, -userData.PlayMult);
-                        args.Result.DiceCost = userData.PlayMult;
+                        args.Response.DiceCost = userData.PlayMult;
                     }
                 }
 
@@ -77,11 +77,11 @@ namespace Genrpg.RequestServer.BoardGame.Services
 
                 await UpdateAfterRoll(context, args);
 
-                args.Result.NextBoard = args.Board;
+                args.Response.NextBoard = args.Board;
 
                 RewardData rewardData = new RewardData();
 
-                foreach (RollStep step in args.Result.Steps)
+                foreach (RollStep step in args.Response.Steps)
                 {
                     rewardData.Rewards.AddRange(step.Rewards);
                 }
@@ -93,10 +93,10 @@ namespace Genrpg.RequestServer.BoardGame.Services
                     userData.Coins.Get(UserCoinTypes.Energy) < energyStorage)
                 {
                     userData.LastHourlyReset = DateTime.UtcNow;
-                    context.Results.Add(new UpdateUserEnergyResult() { EnergyAdded = 0, LastHourlyReset = userData.LastHourlyReset });
+                    context.Responses.Add(new UpdateUserEnergyResponse() { EnergyAdded = 0, LastHourlyReset = userData.LastHourlyReset });
                 }
 
-                context.Results.Add(args.Result);
+                context.Responses.Add(args.Response);
             }
             catch (Exception ex)
             {
@@ -110,9 +110,9 @@ namespace Genrpg.RequestServer.BoardGame.Services
 
             List<int> rollValues = new List<int>();
 
-            for (int i = 0; i < args.Result.DiceCount; i++)
+            for (int i = 0; i < args.Response.DiceCount; i++)
             {
-                int newRollValue = MathUtils.IntRange(1, args.Result.DiceSides, context.rand);
+                int newRollValue = MathUtils.IntRange(1, args.Response.DiceSides, context.rand);
                 rollValues.Add(newRollValue);
                 startRollTotal += newRollValue;
             }
@@ -147,7 +147,7 @@ namespace Genrpg.RequestServer.BoardGame.Services
                     }
                 }              
 
-                if (tileIndex == args.Result.StartIndex && args.Helper.BonusModeEndType == EBonusModeEndTypes.StartTile)
+                if (tileIndex == args.Response.StartIndex && args.Helper.BonusModeEndType == EBonusModeEndTypes.StartTile)
                 {
                     args.Board.ModeLapsLeft--;
                     if (args.Board.ModeLapsLeft < 1)
@@ -183,12 +183,12 @@ namespace Genrpg.RequestServer.BoardGame.Services
                 }
             }
 
-            args.Result.RollTotal = endRollTotal;
-            args.Result.RollValues = rollValues;
-            args.Result.TilesIndexesReached = tileIndexesReached;
+            args.Response.RollTotal = endRollTotal;
+            args.Response.RollValues = rollValues;
+            args.Response.TilesIndexesReached = tileIndexesReached;
             args.Board.TileIndex = tileIndexesReached.Last();
-            args.Result.StartIndex = tileIndexesReached[0];
-            args.Result.EndIndex = tileIndexesReached.Last();
+            args.Response.StartIndex = tileIndexesReached[0];
+            args.Response.EndIndex = tileIndexesReached.Last();
            
             await Task.CompletedTask;
         }
@@ -197,11 +197,11 @@ namespace Genrpg.RequestServer.BoardGame.Services
         {
             ActivationSettings activationSettings = _gameData.Get<ActivationSettings>(context.user);
             IReadOnlyList<TileType> tileTypes = _gameData.Get<TileTypeSettings>(context.user).GetData();
-            for (int step = 0; step < args.Result.TilesIndexesReached.Count; step++)
+            for (int step = 0; step < args.Response.TilesIndexesReached.Count; step++)
             {
-                int tileIndex = args.Result.TilesIndexesReached[step];
+                int tileIndex = args.Response.TilesIndexesReached[step];
                 RollStep rollStep = new RollStep() { Step = step };
-                args.Result.Steps.Add(rollStep);
+                args.Response.Steps.Add(rollStep);
                 long tileTypeId = args.Board.Tiles[tileIndex];
                 
                 TileType tileType = tileTypes.FirstOrDefault(x => x.IdKey == tileTypeId);
@@ -210,7 +210,7 @@ namespace Genrpg.RequestServer.BoardGame.Services
                     continue;
                 }
 
-                bool landing = step == args.Result.TilesIndexesReached.Count - 1;
+                bool landing = step == args.Response.TilesIndexesReached.Count - 1;
 
                 if (args.Mode.GiveDefaultTileRewards)
                 {
@@ -336,7 +336,7 @@ namespace Genrpg.RequestServer.BoardGame.Services
 
                 context.Set<BoardData>(nextData.NextBoard);
 
-                args.Result.NextBoard = nextData.NextBoard;
+                args.Response.NextBoard = nextData.NextBoard;
 
                 await _boardPrizeService.UpdatePrizesForBoard(context, nextData.NextBoard);
             }

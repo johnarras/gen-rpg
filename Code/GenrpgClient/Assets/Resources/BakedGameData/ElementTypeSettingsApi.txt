@@ -5,6 +5,7 @@
       "ParentId": "default",
       "IdKey": 1,
       "Name": "Physical",
+      "Desc": "Attacks with material objects.",
       "Art": "Earth",
       "CasterActionName": "Hit",
       "ObserverActionName": "Hits",
@@ -14,16 +15,19 @@
       "BuffEffects": [],
       "DebuffEffects": [],
       "Procs": [],
-      "UpdateTime": "2024-08-01T00:28:06.51Z"
+      "UpdateTime": "2025-01-13T19:33:17.35Z"
     },
     {
       "Id": "elementtype2default",
       "ParentId": "default",
       "IdKey": 2,
       "Name": "Fire",
+      "Desc": "Burn the target.",
+      "Icon": "",
       "Art": "Fire",
       "CasterActionName": "Burn",
       "ObserverActionName": "Burns",
+      "CastAnim": "",
       "VulnElementTypeId": 3,
       "Skills": [],
       "OldProcs": [],
@@ -31,14 +35,14 @@
       "BuffEffects": [],
       "DebuffEffects": [],
       "Procs": [],
-      "UpdateTime": "2024-08-01T00:28:06.513Z"
+      "UpdateTime": "2025-01-13T19:35:55.484Z"
     },
     {
       "Id": "elementtype3default",
       "ParentId": "default",
       "IdKey": 3,
       "Name": "Ice",
-      "Desc": "",
+      "Desc": "Slow the target.",
       "Icon": "",
       "Art": "Water",
       "CasterActionName": "Freeze",
@@ -60,14 +64,14 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:06.515Z"
+      "UpdateTime": "2025-01-13T19:35:55.484Z"
     },
     {
       "Id": "elementtype4default",
       "ParentId": "default",
       "IdKey": 4,
       "Name": "Electric",
-      "Desc": "",
+      "Desc": "Zap the target's brain.",
       "Icon": "",
       "Art": "Lightning",
       "CasterActionName": "Zap",
@@ -82,23 +86,27 @@
       "Procs": [
         {
           "EntityTypeId": 36,
-          "EntityId": 10,
+          "EntityId": 6,
           "MinQuantity": 1,
           "MaxQuantity": 1,
           "PercentChance": 5.0,
-          "ElementTypeId": 4
+          "ElementTypeId": 4,
+          "Name": ""
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:06.519Z"
+      "UpdateTime": "2025-01-13T19:36:41.082Z"
     },
     {
       "Id": "elementtype5default",
       "ParentId": "default",
       "IdKey": 5,
       "Name": "Earth",
+      "Desc": "Slow the target",
+      "Icon": "",
       "Art": "Earth",
       "CasterActionName": "Crush",
       "ObserverActionName": "Crushes",
+      "CastAnim": "",
       "VulnElementTypeId": 4,
       "Skills": [],
       "OldProcs": [],
@@ -106,16 +114,19 @@
       "BuffEffects": [],
       "DebuffEffects": [],
       "Procs": [],
-      "UpdateTime": "2024-08-01T00:28:06.522Z"
+      "UpdateTime": "2025-01-13T19:35:55.484Z"
     },
     {
       "Id": "elementtype6default",
       "ParentId": "default",
       "IdKey": 6,
       "Name": "Shadow",
+      "Desc": "Evil magic that drains life",
+      "Icon": "",
       "Art": "Fire",
       "CasterActionName": "Drain",
       "ObserverActionName": "Drains",
+      "CastAnim": "",
       "VulnElementTypeId": 7,
       "Skills": [],
       "OldProcs": [],
@@ -123,16 +134,19 @@
       "BuffEffects": [],
       "DebuffEffects": [],
       "Procs": [],
-      "UpdateTime": "2024-08-01T00:28:06.526Z"
+      "UpdateTime": "2025-01-13T19:36:41.082Z"
     },
     {
       "Id": "elementtype7default",
       "ParentId": "default",
       "IdKey": 7,
       "Name": "Light",
+      "Desc": "Magic that can heal and is effective against evil creature.",
+      "Icon": "",
       "Art": "Air",
       "CasterActionName": "Purify",
       "ObserverActionName": "Purifies",
+      "CastAnim": "",
       "VulnElementTypeId": 6,
       "Skills": [],
       "OldProcs": [],
@@ -140,16 +154,19 @@
       "BuffEffects": [],
       "DebuffEffects": [],
       "Procs": [],
-      "UpdateTime": "2024-08-01T00:28:06.529Z"
+      "UpdateTime": "2025-01-13T19:36:41.082Z"
     },
     {
       "Id": "elementtype8default",
       "ParentId": "default",
       "IdKey": 8,
       "Name": "Nature",
+      "Desc": "Magic common to more mundane creatures such as poisons.",
+      "Icon": "",
       "Art": "Earth",
       "CasterActionName": "Sicken",
       "ObserverActionName": "Sickens",
+      "CastAnim": "",
       "VulnElementTypeId": 9,
       "Skills": [],
       "OldProcs": [],
@@ -157,16 +174,19 @@
       "BuffEffects": [],
       "DebuffEffects": [],
       "Procs": [],
-      "UpdateTime": "2024-08-01T00:28:06.531Z"
+      "UpdateTime": "2025-01-13T19:36:41.082Z"
     },
     {
       "Id": "elementtype9default",
       "ParentId": "default",
       "IdKey": 9,
       "Name": "Arcane",
+      "Desc": "Pure magic.",
+      "Icon": "",
       "Art": "Arcane",
       "CasterActionName": "Bewitch",
       "ObserverActionName": "Bewitches",
+      "CastAnim": "",
       "VulnElementTypeId": 8,
       "Skills": [],
       "OldProcs": [],
@@ -174,13 +194,13 @@
       "BuffEffects": [],
       "DebuffEffects": [],
       "Procs": [],
-      "UpdateTime": "2024-08-01T00:28:06.534Z"
+      "UpdateTime": "2025-01-13T19:36:41.082Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "ElementTypeSettings",
-    "UpdateTime": "2024-08-01T00:28:06.537Z"
+    "UpdateTime": "2025-01-13T19:36:41.082Z"
   },
   "Id": "default"
 }

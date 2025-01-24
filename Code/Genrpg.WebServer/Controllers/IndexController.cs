@@ -26,7 +26,7 @@ namespace Genrpg.WebServer.Controllers
         [Route("/client")]
         public async Task<string> PostClient(WebRequestServer webServer, [FromForm] string Data)
         {
-            return await webServer.HandleClient(Data);
+            return await webServer.HandleUserClient(Data);
         }
 
         [HttpPost]

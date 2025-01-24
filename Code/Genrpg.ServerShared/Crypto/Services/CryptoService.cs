@@ -1,5 +1,7 @@
 ﻿using Genrpg.ServerShared.Config;
+using Genrpg.ServerShared.Config.Constants;
 using Genrpg.ServerShared.Core;
+using Genrpg.ServerShared.Secrets.Services;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crypto.Entities;
 using Genrpg.Shared.Utils;
@@ -16,7 +18,8 @@ namespace Genrpg.ServerShared.Crypto.Services
 
     public class CryptoService : ICryptoService
     {
-        private IServerConfig _config = null;
+
+        private ISecretsService _secretsService;
 
         public async Task<EthereumTransactionList> GetTransactionsFromWallet(string address, bool internalTransactions)
         {
@@ -27,7 +30,7 @@ namespace Genrpg.ServerShared.Crypto.Services
 
             string action = (internalTransactions ? "txlistinternal" : "txlist");
 
-            string myapikey = _config.EtherscanKey;
+            string myapikey = await _secretsService.GetSecret(ServerConfigKeys.EtherscanKey);
 
             string url = "https://api.etherscan.io/api?module=account&action=" + action + "&address=" + address;
             url += "&sort=desc&apikey=" + myapikey;
@@ -61,7 +64,7 @@ namespace Genrpg.ServerShared.Crypto.Services
 
             string txt2 = salt + passwordOrToken;
 
-            return PasswordHash(txt2);
+            return SHA256Hash(txt2);
         }
 
         public string GetRandomBytes()
@@ -78,7 +81,12 @@ namespace Genrpg.ServerShared.Crypto.Services
             return Convert.ToBase64String(arr2);
         }
 
-        private string PasswordHash(string txt)
+        public string SlowHash(string txt)
+        {
+            return SHA256Hash(txt);
+        }
+
+        private string SHA256Hash(string txt)
         {
             // For now to avoid adding keygen lib...stronger hashes don't work always too.
             SHA256 algo = SHA256.Create();

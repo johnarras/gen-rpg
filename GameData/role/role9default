@@ -54,10 +54,6 @@
     },
     {
       "EntityTypeId": 2,
-      "EntityId": 30
-    },
-    {
-      "EntityTypeId": 2,
       "EntityId": 31
     },
     {
@@ -119,18 +115,6 @@
     {
       "EntityTypeId": 100,
       "EntityId": 10070
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 10020
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 10063
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 10070
     }
   ],
   "AmountBonuses": [
@@ -158,7 +142,12 @@
       "EntityTypeId": 41,
       "EntityId": 5,
       "Amount": 0.25
+    },
+    {
+      "EntityTypeId": 41,
+      "EntityId": 6,
+      "Amount": 1.0
     }
   ],
-  "UpdateTime": "2024-12-30T17:06:34.075Z"
+  "UpdateTime": "2025-01-19T18:38:17.905Z"
 }

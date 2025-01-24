@@ -97,7 +97,7 @@
   "ParentObj": {
     "Id": "default",
     "Name": "QualityTypeSettings",
-    "UpdateTime": "2024-08-01T00:28:10.404Z"
+    "UpdateTime": "2025-01-17T21:16:12.194Z"
   },
   "Id": "default"
 }

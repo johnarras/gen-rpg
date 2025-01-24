@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Login.Messages.Core;
-using Genrpg.Shared.Website.Messages.UploadMap;
 using Genrpg.Shared.MapServer.Entities;
 using System;
 using System.Collections.Generic;
@@ -18,10 +17,11 @@ using Genrpg.Shared.Client.Assets.Services;
 using Genrpg.Shared.UI.Entities;
 using Genrpg.Shared.Users.PlayerData;
 using Genrpg.Shared.Crawler.States.Services;
+using Genrpg.Shared.MapServer.WebApi.UploadMap;
 
 namespace Assets.Scripts.Login.MessageHandlers
 {
-    public class NoUserGameDataResultHandler : BaseClientLoginResultHandler<NoUserGameDataResult>
+    public class NoUserGameDataResultHandler : BaseClientLoginResultHandler<NoUserGameDataResponse>
     {
         private IScreenService _screenService;
         private IClientAuthService _loginService;
@@ -29,12 +29,12 @@ namespace Assets.Scripts.Login.MessageHandlers
         private IClientWebService _webNetworkService;
         private IClientGameDataService _gameDataService;
         private ICrawlerService _crawlerService;
-        protected override void InnerProcess(NoUserGameDataResult result, CancellationToken token)
+        protected override void InnerProcess(NoUserGameDataResponse result, CancellationToken token)
         {
             _awaitableService.ForgetAwaitable(InnerProcessAsync(result, token));
         }
 
-        private async Awaitable InnerProcessAsync(NoUserGameDataResult result, CancellationToken token)
+        private async Awaitable InnerProcessAsync(NoUserGameDataResponse result, CancellationToken token)
         {
             _gs.user = new User() { Id = "Crawler" };
             _gs.ch = new Character(_repoService) { Id = _gs.user.Id, UserId = _gs.user.Id };
@@ -76,13 +76,13 @@ namespace Assets.Scripts.Login.MessageHandlers
             // Set the mapId you want to upload to here.
             string mapId = "1";
 
-            UploadMapCommand comm = new UploadMapCommand();
+            UploadMapRequest comm = new UploadMapRequest();
             comm.Map = await _repoService.Load<Map>("UploadedMap");
             comm.SpawnData = await _repoService.Load<MapSpawnData>("UploadedSpawns");
             comm.Map.Id = mapId;
             comm.SpawnData.Id = mapId;
             comm.WorldDataEnv = _assetService.GetWorldDataEnv();
-            _webNetworkService.SendClientWebCommand(comm, token);
+            _webNetworkService.SendClientUserWebRequest(comm, token);
         }
     }
 }

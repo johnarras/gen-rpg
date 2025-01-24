@@ -9,6 +9,7 @@ using Genrpg.Shared.Purchasing.Settings;
 using Genrpg.Shared.Quests.PlayerData;
 using Genrpg.Shared.Units.Mappers;
 using Genrpg.Shared.DataStores.Interfaces;
+using Genrpg.Shared.Purchasing.Constants;
 
 namespace Genrpg.Shared.Purchasing.PlayerData
 {
@@ -20,9 +21,11 @@ namespace Genrpg.Shared.Purchasing.PlayerData
 
         [Key(0)] public override string Id { get; set; }
 
-        [Key(1)] public PlayerStoreOffer CurrentOffer { get; set; }
+        [Key(1)] public PlayerStoreOffer StoreOffer { get; set; }
 
-        [Key(2)] public PlayerOfferProduct CurrentProduct { get; set; }
+        [Key(2)] public PlayerStoreOfferItem StoreItem { get; set; }
+
+        [Key(3)] public ECurrentPurchaseStates State { get; set; }
     }
 
     [MessagePackObject]

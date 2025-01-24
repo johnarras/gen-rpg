@@ -46,10 +46,6 @@
         },
         {
           "EntityTypeId": 2,
-          "EntityId": 30
-        },
-        {
-          "EntityTypeId": 2,
           "EntityId": 31
         },
         {
@@ -143,18 +139,6 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10070
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10020
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10033
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10070
         }
       ],
       "AmountBonuses": [
@@ -182,9 +166,14 @@
           "EntityTypeId": 41,
           "EntityId": 5,
           "Amount": 0.25
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 6,
+          "Amount": 1.0
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T18:38:17.905Z"
     },
     {
       "Id": "role2default",
@@ -302,18 +291,6 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10033
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10016
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10031
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10033
         }
       ],
       "AmountBonuses": [
@@ -341,9 +318,14 @@
           "EntityTypeId": 41,
           "EntityId": 5,
           "Amount": 0.144
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 6,
+          "Amount": 1.0
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T18:38:17.905Z"
     },
     {
       "Id": "role3default",
@@ -477,14 +459,6 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10034
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10032
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10034
         }
       ],
       "AmountBonuses": [
@@ -512,9 +486,14 @@
           "EntityTypeId": 41,
           "EntityId": 5,
           "Amount": 0.25
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 6,
+          "Amount": 1.0
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T18:38:17.905Z"
     },
     {
       "Id": "role4default",
@@ -569,10 +548,6 @@
         {
           "EntityTypeId": 2,
           "EntityId": 29
-        },
-        {
-          "EntityTypeId": 2,
-          "EntityId": 30
         },
         {
           "EntityTypeId": 2,
@@ -641,26 +616,6 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10071
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10031
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10033
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10063
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10070
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10071
         }
       ],
       "AmountBonuses": [
@@ -688,9 +643,14 @@
           "EntityTypeId": 41,
           "EntityId": 5,
           "Amount": 0.125
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 6,
+          "Amount": 1.0
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T18:38:17.905Z"
     },
     {
       "Id": "role5default",
@@ -726,10 +686,6 @@
         {
           "EntityTypeId": 2,
           "EntityId": 24
-        },
-        {
-          "EntityTypeId": 2,
-          "EntityId": 30
         },
         {
           "EntityTypeId": 2,
@@ -806,18 +762,6 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10063
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10016
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10020
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10063
         }
       ],
       "AmountBonuses": [
@@ -845,9 +789,14 @@
           "EntityTypeId": 41,
           "EntityId": 5,
           "Amount": 0.125
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 6,
+          "Amount": 1.0
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T18:38:17.905Z"
     },
     {
       "Id": "role6default",
@@ -893,10 +842,6 @@
         {
           "EntityTypeId": 2,
           "EntityId": 29
-        },
-        {
-          "EntityTypeId": 2,
-          "EntityId": 30
         },
         {
           "EntityTypeId": 31,
@@ -965,14 +910,6 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10070
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10020
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10070
         }
       ],
       "AmountBonuses": [
@@ -1000,9 +937,14 @@
           "EntityTypeId": 41,
           "EntityId": 5,
           "Amount": 0.34
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 6,
+          "Amount": 1.0
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T18:38:17.905Z"
     },
     {
       "Id": "role7default",
@@ -1036,10 +978,6 @@
         {
           "EntityTypeId": 2,
           "EntityId": 24
-        },
-        {
-          "EntityTypeId": 2,
-          "EntityId": 30
         },
         {
           "EntityTypeId": 2,
@@ -1132,18 +1070,6 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10071
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10016
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10031
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10071
         }
       ],
       "AmountBonuses": [
@@ -1171,9 +1097,14 @@
           "EntityTypeId": 41,
           "EntityId": 5,
           "Amount": 0.2
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 6,
+          "Amount": 1.0
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T18:38:17.905Z"
     },
     {
       "Id": "role8default",
@@ -1336,18 +1267,6 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10063
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10032
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10034
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10063
         }
       ],
       "AmountBonuses": [
@@ -1375,9 +1294,14 @@
           "EntityTypeId": 41,
           "EntityId": 5,
           "Amount": 0.2
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 6,
+          "Amount": 1.0
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T18:38:17.905Z"
     },
     {
       "Id": "role9default",
@@ -1432,10 +1356,6 @@
         {
           "EntityTypeId": 2,
           "EntityId": 29
-        },
-        {
-          "EntityTypeId": 2,
-          "EntityId": 30
         },
         {
           "EntityTypeId": 2,
@@ -1500,18 +1420,6 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10070
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10020
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10063
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10070
         }
       ],
       "AmountBonuses": [
@@ -1539,9 +1447,14 @@
           "EntityTypeId": 41,
           "EntityId": 5,
           "Amount": 0.25
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 6,
+          "Amount": 1.0
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T18:38:17.905Z"
     },
     {
       "Id": "role10default",
@@ -1668,22 +1581,6 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10071
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10016
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10031
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10033
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10071
         }
       ],
       "AmountBonuses": [
@@ -1711,9 +1608,14 @@
           "EntityTypeId": 41,
           "EntityId": 5,
           "Amount": 0.17
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 6,
+          "Amount": 1.0
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T18:38:17.905Z"
     },
     {
       "Id": "role11default",
@@ -1863,18 +1765,6 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10063
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10032
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10034
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10063
         }
       ],
       "AmountBonuses": [
@@ -1902,9 +1792,14 @@
           "EntityTypeId": 41,
           "EntityId": 5,
           "Amount": 0.25
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 6,
+          "Amount": 1.0
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T18:38:17.905Z"
     },
     {
       "Id": "role12default",
@@ -1917,7 +1812,7 @@
       "StartStatBonuses": "1 1 1 1 1 1",
       "BinaryBonuses": [],
       "AmountBonuses": [],
-      "UpdateTime": "2024-11-26T03:11:28.929Z"
+      "UpdateTime": "2025-01-19T18:38:17.905Z"
     },
     {
       "Id": "role13default",
@@ -1936,7 +1831,7 @@
           "Amount": 0.1
         }
       ],
-      "UpdateTime": "2024-11-26T03:11:28.929Z"
+      "UpdateTime": "2025-01-19T18:38:17.905Z"
     },
     {
       "Id": "role14default",
@@ -1950,7 +1845,7 @@
       "StartStatBonuses": "2 0 2 0 2 0",
       "BinaryBonuses": [],
       "AmountBonuses": [],
-      "UpdateTime": "2024-11-26T03:11:28.929Z"
+      "UpdateTime": "2025-01-19T18:38:17.905Z"
     },
     {
       "Id": "role15default",
@@ -1969,7 +1864,7 @@
           "Amount": 0.1
         }
       ],
-      "UpdateTime": "2024-11-26T03:11:28.929Z"
+      "UpdateTime": "2025-01-19T18:38:17.905Z"
     },
     {
       "Id": "role16default",
@@ -1988,7 +1883,7 @@
           "Amount": 0.1
         }
       ],
-      "UpdateTime": "2024-11-26T03:11:28.929Z"
+      "UpdateTime": "2025-01-19T18:38:17.905Z"
     },
     {
       "Id": "role17default",
@@ -2002,7 +1897,7 @@
       "StartStatBonuses": "0 0 0 3 0 3",
       "BinaryBonuses": [],
       "AmountBonuses": [],
-      "UpdateTime": "2024-11-26T03:11:28.929Z"
+      "UpdateTime": "2025-01-19T18:38:17.905Z"
     }
   ],
   "ParentObj": {

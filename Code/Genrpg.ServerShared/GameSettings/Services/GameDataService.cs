@@ -1,4 +1,5 @@
 ﻿using Genrpg.ServerShared.Crypto.Services;
+using Genrpg.Shared.Accounts.WebApi.Login;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Characters.Utils;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
@@ -10,14 +11,13 @@ using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.GameSettings.Settings;
+using Genrpg.Shared.GameSettings.WebApi.RefreshGameSettings;
 using Genrpg.Shared.HelperClasses;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Utils;
 using Genrpg.Shared.Settings.Settings;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Versions.Settings;
-using Genrpg.Shared.Website.Messages.Login;
-using Genrpg.Shared.Website.Messages.RefreshGameSettings;
 using Microsoft.Extensions.Azure;
 using System;
 using System.Collections.Generic;
@@ -356,14 +356,14 @@ namespace Genrpg.ServerShared.GameSettings.Services
             newData.PrevSaveTime = _gameData.CurrSaveTime;
         }
 
-        public RefreshGameSettingsResult GetNewGameDataUpdates(IFilteredObject ch, bool forceRefresh)
+        public RefreshGameSettingsResponse GetNewGameDataUpdates(IFilteredObject ch, bool forceRefresh)
         {
             if (!SetGameDataOverrides(ch, forceRefresh))
             {
                 return null;
             }
 
-            RefreshGameSettingsResult result = new RefreshGameSettingsResult();
+            RefreshGameSettingsResponse result = new RefreshGameSettingsResponse();
 
             List<ITopLevelSettings> newSettings = new List<ITopLevelSettings>();
 

@@ -3,11 +3,12 @@
   "ParentId": "default",
   "IdKey": 37,
   "Name": "Whirlwind",
-  "Desc": "Hit one or more monsters in all groups within melee range.",
+  "Desc": "Hit one or more enemies in all groups within melee range.",
   "MaxRange": 10,
   "ReplacesCrawlerSpellId": 1,
   "CombatActionId": 1,
   "TargetTypeId": 10,
+  "RoleScalingTypeId": 1,
   "Level": 1,
   "Effects": [
     {
@@ -16,5 +17,5 @@
       "ElementTypeId": 1
     }
   ],
-  "UpdateTime": "2024-12-30T17:06:34.075Z"
+  "UpdateTime": "2025-01-19T19:01:07.736Z"
 }

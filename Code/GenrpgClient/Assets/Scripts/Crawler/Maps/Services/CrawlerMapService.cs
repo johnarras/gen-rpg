@@ -97,6 +97,13 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             {
                 _party = _crawlerService.GetParty();
             }
+
+            if (_party.Combat != null)
+            {
+                return "Battlefield";
+            }
+
+
             ZoneType zoneType = _worldService.GetCurrentZone(_party).Result;
 
             if (zoneType != null && !string.IsNullOrEmpty(zoneType.Icon))
@@ -281,6 +288,9 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             {
 
                 _camera = _cameraController.GetMainCamera();
+                
+                // Uncomment for traditional BT layout.
+                _camera.rect = new Rect(0, 0, 9f / 16f, 1);
 
                 _camera.transform.localPosition = new Vector3(0, 0, -bz * 0.5f);
                 _camera.transform.eulerAngles = new Vector3(0, 0, 0);

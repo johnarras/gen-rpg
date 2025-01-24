@@ -15,10 +15,9 @@ namespace Genrpg.Editor.UI
     public static class UIHelper
     {
         public static SmallPopup ShowBlockingDialog(Window parent, string text, double width = 0, double height = 0)
-        {
+        {         
             SmallPopup win = new SmallPopup(text, (int)width, (int)height);
             win.Activate();
-
             return win;
         }
 

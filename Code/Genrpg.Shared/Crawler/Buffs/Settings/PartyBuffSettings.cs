@@ -1,7 +1,10 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Helpers;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Stats.Settings.Stats;
 using MessagePack;
 
 namespace Genrpg.Shared.Crawler.Buffs.Settings
@@ -38,5 +41,10 @@ namespace Genrpg.Shared.Crawler.Buffs.Settings
     public class PartyBuffSettingsMapper : ParentSettingsMapper<PartyBuffSettings, PartyBuff, PartyBuffSettingsApi> { }
 
 
+
+    public class PartyBuffHelper : BaseEntityHelper<PartyBuffSettings,PartyBuff>
+    {
+        public override long GetKey() { return EntityTypes.PartyBuff; }
+    }
 
 }

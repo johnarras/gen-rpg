@@ -7,7 +7,6 @@ using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Utils;
 using System.Threading;
-using Genrpg.Shared.Website.Messages.LoadIntoMap;
 using Assets.Scripts.MapTerrain;
 using Genrpg.Shared.Units.Services;
 using Genrpg.Shared.Names.Services;
@@ -30,6 +29,7 @@ using Genrpg.Shared.Client.Core;
 using UnityEngine;
 using Genrpg.Shared.Units.Settings;
 using Genrpg.Shared.Client.Tokens;
+using Genrpg.Shared.MapServer.WebApi.LoadIntoMap;
 
 public interface IZoneGenService : IInitializable
 {
@@ -50,9 +50,9 @@ public interface IZoneGenService : IInitializable
 
     void SetAllHeightmaps(float[,] heights, CancellationToken token); 
         
-    void LoadMap(LoadIntoMapCommand loadData);
+    void LoadMap(LoadIntoMapRequest loadData);
     void InitTerrainSettings(int gx, int gy, int patchSize, CancellationToken token);
-    Awaitable OnLoadIntoMap(LoadIntoMapResult data, CancellationToken token);
+    Awaitable OnLoadIntoMap(LoadIntoMapResponse data, CancellationToken token);
 }
 
 public class ZoneGenService : IZoneGenService, IGameTokenService
@@ -81,7 +81,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
     {
 
     }
-    public virtual void LoadMap(LoadIntoMapCommand loadData)
+    public virtual void LoadMap(LoadIntoMapRequest loadData)
     {
 
     }
@@ -90,7 +90,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
     }
 
-    public virtual async Awaitable OnLoadIntoMap(LoadIntoMapResult data, CancellationToken token)
+    public virtual async Awaitable OnLoadIntoMap(LoadIntoMapResponse data, CancellationToken token)
     {
 
         await Task.CompletedTask;

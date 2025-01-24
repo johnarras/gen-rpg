@@ -5,6 +5,12 @@
   "Name": "Humanoid",
   "Icon": "Humanoid",
   "Art": "Humanoid",
-  "Effects": [],
-  "UpdateTime": "2024-10-18T22:39:42.104Z"
+  "Effects": [
+    {
+      "EntityTypeId": 100,
+      "Quantity": 1,
+      "EntityId": 30001
+    }
+  ],
+  "UpdateTime": "2025-01-11T16:06:35.196Z"
 }

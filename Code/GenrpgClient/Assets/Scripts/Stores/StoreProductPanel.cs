@@ -22,29 +22,29 @@ namespace Assets.Scripts.UI.Stores
         private List<StoreRewardPanel> _rewards = new List<StoreRewardPanel>();
 
 
-        private PlayerOfferProduct _product = null;
+        private PlayerStoreOfferItem _item = null;
         private StoreTheme _theme;
         private CancellationToken _token;
 
         public long Index()
         {
-            return _product.Index;
+            return _item.Index;
         }
 
-        public void Init(PlayerOfferProduct product, string screenName, StoreTheme theme,CancellationToken token)
+        public void Init(PlayerStoreOfferItem product, string screenName, StoreTheme theme,CancellationToken token)
         {
-            _product = product;
+            _item = product;
             _theme = theme;
             _token = token;
 
-            _uiService.SetText(Name, product.Product.Name);
+            _uiService.SetText(Name, product.StoreItem.Name);
             _uiService.SetText(PriceAmount, "$" + product.Sku.DollarPrice);
-            _uiService.SetText(Description, product.Product.Desc);
+            _uiService.SetText(Description, product.StoreItem.Desc);
             _uiService.SetButton(PurchaseButton, screenName, OnPurchaseItem);
 
             if (RewardAnchor != null)
             {
-                foreach (SpawnItem spawnItem in product.Product.Rewards)
+                foreach (SpawnItem spawnItem in product.StoreItem.Rewards)
                 {
                     _assetService.LoadAsset(AssetCategoryNames.Stores, RewardPanelPrefabName, OnDownloadReward, spawnItem, RewardAnchor, token, theme.Art);
                 }

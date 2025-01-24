@@ -179,6 +179,14 @@
       "UpdateTime": "2024-10-18T21:20:10.933Z"
     },
     {
+      "Id": "entitytype27default",
+      "ParentId": "default",
+      "IdKey": 27,
+      "Name": "Element",
+      "Desc": "",
+      "UpdateTime": "2025-01-13T19:45:25.978Z"
+    },
+    {
       "Id": "entitytype31default",
       "ParentId": "default",
       "IdKey": 31,
@@ -292,13 +300,13 @@
       "ParentId": "default",
       "IdKey": 200,
       "Name": "UserCoins",
-      "UpdateTime": "2024-08-22T14:01:32.798Z"
+      "UpdateTime": "2025-01-11T15:51:24.558Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "EntitySettings",
-    "UpdateTime": "2025-01-05T00:57:05.547Z"
+    "UpdateTime": "2025-01-13T19:45:25.978Z"
   },
   "Id": "default"
 }

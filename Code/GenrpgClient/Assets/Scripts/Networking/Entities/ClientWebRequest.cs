@@ -15,7 +15,7 @@ public class ClientWebRequest
     private WebResultsHandler _handler = null;
     private ILogService _logService = null;
     const int MaxTimes = 3;
-	public async Awaitable SendRequest (ILogService logService, string uri, string postData, List<FullWebCommand> commands, WebResultsHandler handler, CancellationToken token)
+	public async Awaitable SendRequest (ILogService logService, string uri, string postData, List<FullWebRequest> commands, WebResultsHandler handler, CancellationToken token)
     {
         _logService = logService;
         _uri = uri;

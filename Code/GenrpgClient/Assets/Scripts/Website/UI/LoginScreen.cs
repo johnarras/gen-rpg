@@ -1,10 +1,10 @@
 ﻿
 using System.Threading;
-using Genrpg.Shared.Website.Messages.Login;
 using Genrpg.Shared.DataStores.Entities;
 using System.Threading.Tasks;
 using Assets.Scripts.UI.Screens;
 using Genrpg.Shared.UI.Entities;
+using Genrpg.Shared.Accounts.WebApi.Login;
 
 public class LoginScreen : ErrorMessageScreen
 {
@@ -52,7 +52,7 @@ public class LoginScreen : ErrorMessageScreen
             return;
         }
 
-        LoginCommand loginCommand = new LoginCommand()
+        LoginRequest loginCommand = new LoginRequest()
         {
             Email = EmailInput.Text,
             Password = PasswordInput.Text,

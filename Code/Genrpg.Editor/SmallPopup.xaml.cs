@@ -26,6 +26,7 @@ namespace Genrpg.Editor
                 height = 200;
             }
 
+            _canvas = new Canvas();
             Content = _canvas;
 
             UIHelper.SetWindowRect(this, 200, 200, width, height);
@@ -35,7 +36,7 @@ namespace Genrpg.Editor
             TextBlock tb = UIHelper.CreateLabel(this, ELabelTypes.Default, "DialogText", text, width - 2*border, height-2*border, border, border,36);
         }
 
-        private Canvas _canvas = new Canvas();
+        private Canvas _canvas;
 
         public void Add(UIElement elem, double x, double y)
         {

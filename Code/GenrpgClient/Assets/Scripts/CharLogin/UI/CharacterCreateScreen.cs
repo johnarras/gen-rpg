@@ -1,9 +1,9 @@
 ﻿
 using System.Threading;
-using Genrpg.Shared.Website.Messages.CreateChar;
 using UnityEngine;
 using System.Threading.Tasks;
 using Genrpg.Shared.UI.Entities;
+using Genrpg.Shared.Characters.WebApi.CreateChar;
 
 public class CharacterCreateScreen : BaseScreen
 {
@@ -35,12 +35,12 @@ public class CharacterCreateScreen : BaseScreen
             return;
         }
 
-        CreateCharCommand createCommand = new CreateCharCommand()
+        CreateCharRequest createCommand = new CreateCharRequest()
         {
             Name = charName,
         };
 
-        _webNetworkService.SendClientWebCommand(createCommand, _token);
+        _webNetworkService.SendClientUserWebRequest(createCommand, _token);
 
     }
 }

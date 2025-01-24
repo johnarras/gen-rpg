@@ -3,9 +3,12 @@
   "ParentId": "default",
   "IdKey": 2,
   "Name": "Fire",
+  "Desc": "Burn the target.",
+  "Icon": "",
   "Art": "Fire",
   "CasterActionName": "Burn",
   "ObserverActionName": "Burns",
+  "CastAnim": "",
   "VulnElementTypeId": 3,
   "Skills": [],
   "OldProcs": [],
@@ -13,5 +16,5 @@
   "BuffEffects": [],
   "DebuffEffects": [],
   "Procs": [],
-  "UpdateTime": "2024-08-01T00:28:06.513Z"
+  "UpdateTime": "2025-01-13T19:35:55.484Z"
 }

@@ -1,0 +1,23 @@
+{
+  "Id": "crawlerspell20099default",
+  "ParentId": "default",
+  "IdKey": 20099,
+  "Name": "Summon Troll Shaman",
+  "PowerCost": 100.0,
+  "PowerPerLevel": 1.0,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 9,
+  "RoleScalingTypeId": 5,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 4,
+      "EntityId": 99,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "ElementTypeId": 2
+    }
+  ],
+  "UpdateTime": "2025-01-19T19:01:07.736Z"
+}

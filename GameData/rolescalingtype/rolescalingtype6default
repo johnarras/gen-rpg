@@ -1,0 +1,11 @@
+{
+  "Id": "rolescalingtype6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Utility",
+  "NameId": "",
+  "Desc": "Increases how quickly the player can get utility spells.",
+  "ScalingStatTypeId": 16,
+  "ScalingEquipSlotId": 15,
+  "UpdateTime": "2025-01-19T16:35:54.135Z"
+}

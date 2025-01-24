@@ -3,8 +3,8 @@
   "ParentId": "default",
   "IdKey": 2,
   "Name": "Mana",
-  "Desc": "1->Slow Use/Fill",
+  "Desc": "Power used to cast spells.",
   "MaxPool": 1000,
   "RegenSeconds": 75,
-  "UpdateTime": "2024-08-01T00:28:12.982Z"
+  "UpdateTime": "2025-01-13T19:22:08.794Z"
 }

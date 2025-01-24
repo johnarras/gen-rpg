@@ -25,7 +25,7 @@ namespace Genrpg.Editor.Importers
         {
             RiddleSettings settings = gs.data.Get<RiddleSettings>(null);
 
-            List<Riddle> riddles = new List<Riddle>() { new Riddle() { Name = "None", Desc = "Emptiness" } };
+            List<Riddle> riddles = new List<Riddle>();
 
             gs.LookedAtObjects.Add(settings);
 

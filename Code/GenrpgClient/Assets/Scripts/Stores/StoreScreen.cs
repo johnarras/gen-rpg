@@ -1,5 +1,5 @@
 ﻿
-using Genrpg.Shared.Website.Messages.RefreshStores;
+
 using Genrpg.Shared.Purchasing.PlayerData;
 using Genrpg.Shared.Purchasing.Settings;
 using System.Collections.Generic;
@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using Genrpg.Shared.Client.Assets.Constants;
+using Genrpg.Shared.Purchasing.WebApi.RefreshStores;
 
 namespace Assets.Scripts.UI.Stores
 {
@@ -24,7 +25,7 @@ namespace Assets.Scripts.UI.Stores
 
             SetupData(token);
 
-            AddListener<RefreshStoresResult>(OnRefreshStores);
+            AddListener<RefreshStoresResponse>(OnRefreshStores);
 
             await Task.CompletedTask;
         }
@@ -63,7 +64,7 @@ namespace Assets.Scripts.UI.Stores
 
         }
 
-        private void OnRefreshStores (RefreshStoresResult result)
+        private void OnRefreshStores (RefreshStoresResponse result)
         {
             _offerData = result.Stores;
             SetupData(_token);

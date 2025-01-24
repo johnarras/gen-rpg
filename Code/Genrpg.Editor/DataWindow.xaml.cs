@@ -291,22 +291,58 @@ namespace Genrpg.Editor
                     }
                 }
 
-                if (settingsList.Count > 0)
+
+                this.DispatcherQueue.TryEnqueue(() =>
                 {
-                    await _repoService.TransactionSave(settingsList);
-                }
+                    SmallPopup popup = UIHelper.ShowBlockingDialog(this, "Saving Game Data");
 
-                gs.LookedAtObjects = new List<object>();
+                    Task.Run(() => SaveSettingsList(settingsList, popup));
 
-                _cloudCommsService.SendPubSubMessage(new UpdateGameDataAdminMessage());
+                });
+
             }
 
             else if (action == "Users")
             {
                 Task.Run(() => EditorPlayerUtils.SaveEditorUserData(gs, _repoService).GetAwaiter().GetResult()).GetAwaiter().GetResult();
             }
-
         }
+
+        private async Task SaveSettingsList(List<BaseGameSettings> settingsList, SmallPopup popup)
+        {
+            await SaveSettingsListInternal(settingsList);
+            this.DispatcherQueue.TryEnqueue(() => { popup.StartClose(); });
+        }
+
+        private async Task SaveSettingsListInternal(List<BaseGameSettings> settingsList)
+        {
+            while (settingsList.Count > 0)
+            {
+                List<Task> saveTasks = new List<Task>();
+                for (int i = 0; i < 20; i++)
+                {
+                    if (settingsList.Count == 0)
+                    {
+                        break;
+                    }
+                    saveTasks.Add(_repoService.Save(settingsList.Last()));
+                    settingsList.RemoveAt(settingsList.Count - 1);
+                }
+
+                await Task.WhenAll(saveTasks);
+                await Task.Delay(100);
+
+                if (settingsList.Count == 0)
+                {
+                    break;
+                }
+            }
+            gs.LookedAtObjects = new List<object>();
+
+            _cloudCommsService.SendPubSubMessage(new UpdateGameDataAdminMessage());
+        }
+
+
         public String ShowStack()
         {
             string txt = "";

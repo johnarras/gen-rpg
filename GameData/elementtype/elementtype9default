@@ -3,9 +3,12 @@
   "ParentId": "default",
   "IdKey": 9,
   "Name": "Arcane",
+  "Desc": "Pure magic.",
+  "Icon": "",
   "Art": "Arcane",
   "CasterActionName": "Bewitch",
   "ObserverActionName": "Bewitches",
+  "CastAnim": "",
   "VulnElementTypeId": 8,
   "Skills": [],
   "OldProcs": [],
@@ -13,5 +16,5 @@
   "BuffEffects": [],
   "DebuffEffects": [],
   "Procs": [],
-  "UpdateTime": "2024-08-01T00:28:06.534Z"
+  "UpdateTime": "2025-01-13T19:36:41.082Z"
 }

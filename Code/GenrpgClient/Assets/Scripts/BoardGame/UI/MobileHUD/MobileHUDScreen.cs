@@ -1,12 +1,7 @@
-﻿using Genrpg.Shared.BoardGame.Messages.RollDice;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
+﻿
+using Genrpg.Shared.BoardGame.WebApi.RollDice;
 using System.Threading;
 using System.Threading.Tasks;
-using UnityEngine;
 
 namespace Assets.Scripts.UI.MobileHUD
 {
@@ -27,7 +22,7 @@ namespace Assets.Scripts.UI.MobileHUD
 
         private void RollDice()
         {
-            _webService.SendClientWebCommand(new RollDiceCommand(), _token);
+            _webService.SendClientUserWebRequest(new RollDiceRequest(), _token);
         }
     }
 }

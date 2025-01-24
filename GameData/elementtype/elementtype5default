@@ -3,9 +3,12 @@
   "ParentId": "default",
   "IdKey": 5,
   "Name": "Earth",
+  "Desc": "Slow the target",
+  "Icon": "",
   "Art": "Earth",
   "CasterActionName": "Crush",
   "ObserverActionName": "Crushes",
+  "CastAnim": "",
   "VulnElementTypeId": 4,
   "Skills": [],
   "OldProcs": [],
@@ -13,5 +16,5 @@
   "BuffEffects": [],
   "DebuffEffects": [],
   "Procs": [],
-  "UpdateTime": "2024-08-01T00:28:06.522Z"
+  "UpdateTime": "2025-01-13T19:35:55.484Z"
 }

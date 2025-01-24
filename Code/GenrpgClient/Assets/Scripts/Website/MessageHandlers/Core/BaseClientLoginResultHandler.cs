@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace Assets.Scripts.Login.Messages.Core
 {
-    public abstract class BaseClientLoginResultHandler<T> : IClientLoginResultHandler where T : class, IWebResult
+    public abstract class BaseClientLoginResultHandler<T> : IClientLoginResultHandler where T : class, IWebResponse
     {
         protected ILogService _logService;
         protected IRepositoryService _repoService;
@@ -24,7 +24,7 @@ namespace Assets.Scripts.Login.Messages.Core
 
         protected abstract void InnerProcess(T result, CancellationToken token);
 
-        public void Process(IWebResult result, CancellationToken token)
+        public void Process(IWebResponse result, CancellationToken token)
         {
             InnerProcess(result as T, token);
         }

@@ -153,6 +153,15 @@ namespace Assets.Scripts.Crawler.Services
 
                 _taskService.ForgetTask(ChangeStateAsync(fullCrawlerState, token));
             }
+
+            if (_inputService.GetKeyDown(CharCodes.Escape))
+            {
+                ActiveScreen activeScreen = _screenService.GetLayerScreen(ScreenLayers.Screens);
+                if (activeScreen != null)
+                {
+                    _screenService.Close(activeScreen.ScreenId);
+                }
+            }
         }
 
         public CrawlerStateData PopState()
@@ -276,7 +285,7 @@ namespace Assets.Scripts.Crawler.Services
 
                 if (string.IsNullOrEmpty(newItem.Id) || newItem.Id.Length > 6)
                 {
-                    newItem.Id = partyData.GetNextId();
+                    newItem.Id = partyData.GetNextItemId();
                 }
 
                 newItem.Set(CIdx.ItemTypeId, item.ItemTypeId);

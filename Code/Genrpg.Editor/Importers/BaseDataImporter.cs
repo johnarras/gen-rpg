@@ -2,6 +2,7 @@
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor.Services.Importing;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Spells.Settings.Elements;
 using Genrpg.Shared.Units.Entities;
@@ -84,11 +85,19 @@ namespace Genrpg.Editor.Importers
                 {
                     gs.LookedAtObjects = new List<object>();
                 }
+
+                foreach (object lookedAtObject in gs.LookedAtObjects)
+                {
+                    if (lookedAtObject is ITopLevelSettings topLevel)
+                    {
+                        topLevel.SetupForEditor();
+                    }
+                }
             }
             catch (Exception ex)
             {
                 _logService.Exception(ex, "Import Data From: " + ImportDataFilename);
-                return false;
+                throw ex;
 
             }
 

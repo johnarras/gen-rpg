@@ -1,15 +1,15 @@
 ﻿using Assets.Scripts.Login.Messages.Core;
+using Genrpg.Shared.Characters.WebApi.DeleteChar;
 using Genrpg.Shared.UI.Entities;
 using Genrpg.Shared.UI.Services;
-using Genrpg.Shared.Website.Messages.DeleteChar;
 using System.Threading;
 
 namespace Assets.Scripts.Login.MessageHandlers
 {
-    public class DeleteCharResultHandler : BaseClientLoginResultHandler<DeleteCharResult>
+    public class DeleteCharResultHandler : BaseClientLoginResultHandler<DeleteCharResponse>
     {
         IScreenService _screenService;
-        protected override void InnerProcess(DeleteCharResult result, CancellationToken token)
+        protected override void InnerProcess(DeleteCharResponse result, CancellationToken token)
         {
             _gs.characterStubs = result.AllCharacters;
             ActiveScreen screen = _screenService.GetScreen(ScreenId.CharacterSelect);

@@ -9,18 +9,18 @@ using Genrpg.Shared.Charms.Services;
 using Genrpg.Shared.Charms.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.RequestServer.Services.Clients;
-using Genrpg.RequestServer.MessageHandlers;
 using Genrpg.RequestServer.Services.Login;
 using Genrpg.RequestServer.Setup;
 using Genrpg.RequestServer.Services.NoUsers;
 using Genrpg.Shared.Website.Messages;
+using Genrpg.RequestServer.RequestHandlers;
 
 namespace Genrpg.RequestServer.Core
 {
     /// <summary>
     /// This is a minimal amount of webdev used to get us into code that can be used elsewhere easier.
     /// </summary>
-    public class WebRequestServer : BaseServer<WebContext, WebsiteSetupService, IWebMessageHandler>
+    public class WebRequestServer : BaseServer<WebContext, WebsiteSetupService, IWebRequestHandler>
     {
         protected IClientWebService _clientWebService { get; private set; }
         protected IAuthWebService _authWebService { get; private set; }
@@ -54,30 +54,30 @@ namespace Genrpg.RequestServer.Core
             return _serverInstanceId;
         }
 
-        public async Task<string> HandleClient(string postData)
+        public async Task<string> HandleUserClient(string postData)
         {
             WebContext context = SetupContext();
-            await _clientWebService.HandleClientWebCommand(context, postData, _token);
-            return PackageResults(context);
+            await _clientWebService.HandleUserClientRequest(context, postData, _token);
+            return PackageResponses(context);
         }
 
         public async Task<string> HandleNoUser(string postData)
         {
             WebContext context = SetupContext();
-            await _noUserWebService.HandleNoUserCommand(context, postData, _token);
-            return PackageResults(context);
+            await _noUserWebService.HandleNoUserRequest(context, postData, _token);
+            return PackageResponses(context);
         }
 
         public async Task<string> HandleAuth(string postData)
         {
             WebContext context = SetupContext();
-            await _authWebService.HandleAuthCommand(context, postData, _token);
-            return PackageResults(context);
+            await _authWebService.HandleAuthRequest(context, postData, _token);
+            return PackageResponses(context);
         }
 
-        private string PackageResults(WebContext context)
+        private string PackageResponses(WebContext context)
         {
-            return SerializationUtils.Serialize(new LoginServerResultSet() { Results = context.Results });
+            return SerializationUtils.Serialize(new WebServerResponseSet() { Responses = context.Responses });
         }
 
         public async Task<string> HandleTxList(string address)

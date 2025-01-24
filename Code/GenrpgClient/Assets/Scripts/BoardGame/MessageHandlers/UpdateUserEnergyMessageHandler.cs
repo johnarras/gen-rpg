@@ -1,19 +1,14 @@
 ﻿using Assets.Scripts.Login.Messages.Core;
 using Genrpg.Shared.UserCoins.Constants;
-using Genrpg.Shared.UserEnergy.Messages;
+using Genrpg.Shared.UserEnergy.WebApi;
 using Genrpg.Shared.Users.PlayerData;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Assets.Scripts.BoardGame.MessageHandlers
 {
-    public class UpdateUserEnergyMessageHandler : BaseClientLoginResultHandler<UpdateUserEnergyResult>
+    public class UpdateUserEnergyMessageHandler : BaseClientLoginResultHandler<UpdateUserEnergyResponse>
     {
-        protected override void InnerProcess(UpdateUserEnergyResult result, CancellationToken token)
+        protected override void InnerProcess(UpdateUserEnergyResponse result, CancellationToken token)
         {
             CoreUserData userData = _gs.ch.Get<CoreUserData>();
             userData.LastHourlyReset = result.LastHourlyReset;

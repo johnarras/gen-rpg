@@ -1,4 +1,6 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Helpers;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
@@ -7,6 +9,7 @@ using Genrpg.Shared.Spells.Casting;
 using Genrpg.Shared.Spells.Procs.Entities;
 using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.Stats.Entities;
+using Genrpg.Shared.Stats.Settings.Stats;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -136,6 +139,12 @@ namespace Genrpg.Shared.Spells.Settings.Elements
     [MessagePackObject]
     public class ElementTypeSettingsMapper : ParentSettingsMapper<ElementTypeSettings, ElementType, ElementTypeSettingsApi> { }
 
+
+
+    public class ElementTypeHelper : BaseEntityHelper<ElementTypeSettings, ElementType>
+    {
+        public override long GetKey() { return EntityTypes.Element; }
+    }
 
 
 }

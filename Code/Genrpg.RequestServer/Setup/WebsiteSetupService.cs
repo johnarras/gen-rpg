@@ -16,6 +16,7 @@ using Genrpg.RequestServer.Activities.Services;
 using Genrpg.RequestServer.Resets.Services;
 using Genrpg.RequestServer.UserMail.Services;
 using Genrpg.RequestServer.Spawns.Services;
+using Genrpg.RequestServer.Purchasing.Services;
 
 namespace Genrpg.RequestServer.Setup
 {
@@ -33,7 +34,8 @@ namespace Genrpg.RequestServer.Setup
             Set<IWebServerService>(new WebServerService());
             Set<IWebRewardService>(new WebRewardService());
             Set<ILoginPlayerDataService>(new LoginPlayerDataService());
-            
+            Set<IServerPurchasingService>(new ServerPurchasingService());
+
 
             // Board game
             Set<IBoardService>(new BoardService()); 

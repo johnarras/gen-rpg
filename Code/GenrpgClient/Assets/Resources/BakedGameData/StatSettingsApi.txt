@@ -5,18 +5,19 @@
       "ParentId": "default",
       "IdKey": 1,
       "Name": "Health",
+      "Desc": "Your health before you die.",
       "RegenSeconds": 75,
-      "UpdateTime": "2024-08-01T00:28:12.972Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype2default",
       "ParentId": "default",
       "IdKey": 2,
       "Name": "Mana",
-      "Desc": "1->Slow Use/Fill",
+      "Desc": "Power used to cast spells.",
       "MaxPool": 1000,
       "RegenSeconds": 75,
-      "UpdateTime": "2024-08-01T00:28:12.982Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype3default",
@@ -26,7 +27,7 @@
       "Desc": "1->Fast Use/Fill",
       "MaxPool": 100,
       "RegenSeconds": 15,
-      "UpdateTime": "2024-08-01T00:28:12.996Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype4default",
@@ -36,7 +37,7 @@
       "Desc": "Start Empty, filll",
       "MaxPool": 100,
       "RegenSeconds": -30,
-      "UpdateTime": "2024-08-01T00:28:13.004Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype11default",
@@ -44,65 +45,65 @@
       "IdKey": 11,
       "Name": "Strength",
       "Abbrev": "",
-      "Desc": "+1 AP +1 SP",
+      "Desc": "Increases melee damage.",
       "Icon": "",
       "Art": "",
       "GenScalePct": 100,
-      "UpdateTime": "2024-08-01T00:28:12.956Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype12default",
       "ParentId": "default",
       "IdKey": 12,
       "Name": "Intellect",
-      "Desc": "+2 AP",
+      "Desc": "Increases attack spell damage.",
       "GenScalePct": 100,
-      "UpdateTime": "2024-08-01T00:28:12.959Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype13default",
       "ParentId": "default",
       "IdKey": 13,
       "Name": "Devotion",
-      "Desc": "+2 Healer SP",
+      "Desc": "Increases healing power.",
       "GenScalePct": 100,
-      "UpdateTime": "2024-08-01T00:28:12.961Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype14default",
       "ParentId": "default",
       "IdKey": 14,
       "Name": "Agility",
-      "Desc": "+2 RAP",
+      "Desc": "Increases ranged damage.",
       "GenScalePct": 100,
-      "UpdateTime": "2024-08-01T00:28:12.964Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype15default",
       "ParentId": "default",
       "IdKey": 15,
       "Name": "Stamina",
-      "Desc": "+10 Health",
+      "Desc": "Adds to your health.",
       "GenScalePct": 150,
-      "UpdateTime": "2024-08-01T00:28:12.967Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype16default",
       "ParentId": "default",
       "IdKey": 16,
       "Name": "Luck",
-      "Desc": "Helps with ?",
+      "Desc": "Gives a chance to get extra attacks.",
       "GenScalePct": 100,
-      "UpdateTime": "2024-08-01T00:28:12.969Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype20default",
       "ParentId": "default",
       "IdKey": 20,
       "Name": "DamagePower",
-      "Desc": "+All Dam",
+      "Desc": "Extra damage to all attacks.",
       "GenScalePct": 100,
-      "UpdateTime": "2024-08-01T00:28:12.974Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype21default",
@@ -111,7 +112,7 @@
       "Name": "AttackPower",
       "Desc": "Phys Power",
       "GenScalePct": 150,
-      "UpdateTime": "2024-08-01T00:28:12.977Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype22default",
@@ -120,7 +121,7 @@
       "Name": "SpellPower",
       "Desc": "Magic Power",
       "GenScalePct": 150,
-      "UpdateTime": "2024-08-01T00:28:12.979Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype30default",
@@ -128,34 +129,34 @@
       "IdKey": 30,
       "Name": "Defense",
       "Desc": "All Defense",
-      "UpdateTime": "2024-08-01T00:28:12.984Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype31default",
       "ParentId": "default",
       "IdKey": 31,
       "Name": "Armor",
-      "Desc": "Resist Attack",
+      "Desc": "Reduces physical damage.",
       "GenScalePct": 200,
-      "UpdateTime": "2024-08-01T00:28:12.986Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype32default",
       "ParentId": "default",
       "IdKey": 32,
       "Name": "Resist",
-      "Desc": "Resist Spell",
+      "Desc": "Reduces magical damage.",
       "GenScalePct": 100,
-      "UpdateTime": "2024-08-01T00:28:12.988Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype33default",
       "ParentId": "default",
       "IdKey": 33,
       "Name": "HealthRegen",
-      "Desc": "Health Regen",
+      "Desc": "Regenerates health.",
       "GenScalePct": 100,
-      "UpdateTime": "2024-08-01T00:28:12.99Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype34default",
@@ -164,7 +165,16 @@
       "Name": "ManaRegen",
       "Desc": "Mana Regen",
       "GenScalePct": 100,
-      "UpdateTime": "2024-08-01T00:28:12.992Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
+    },
+    {
+      "Id": "stattype35default",
+      "ParentId": "default",
+      "IdKey": 35,
+      "Name": "RoleScalingPercent",
+      "Abbrev": "",
+      "Desc": "Percent modifier (divide this by 100) to role scaling for this unit.",
+      "UpdateTime": "2025-01-19T14:32:54.228Z"
     },
     {
       "Id": "stattype40default",
@@ -173,7 +183,7 @@
       "Name": "PowerMult",
       "Desc": "All Dam Mult",
       "GenScalePct": 10,
-      "UpdateTime": "2024-08-01T00:28:12.998Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype41default",
@@ -182,7 +192,7 @@
       "Name": "AttackMult",
       "Desc": "Phys Dam Mult",
       "GenScalePct": 10,
-      "UpdateTime": "2024-08-01T00:28:13Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype42default",
@@ -191,7 +201,7 @@
       "Name": "SpellMult",
       "Desc": "Spell Dam Mult",
       "GenScalePct": 10,
-      "UpdateTime": "2024-08-01T00:28:13.002Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype50default",
@@ -200,7 +210,7 @@
       "Name": "DefenseMult",
       "Desc": "All Dam Reduced",
       "GenScalePct": 10,
-      "UpdateTime": "2024-08-01T00:28:13.006Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype51default",
@@ -225,18 +235,18 @@
       "ParentId": "default",
       "IdKey": 61,
       "Name": "Crit",
-      "Desc": "Extra damage",
+      "Desc": "Chance to instantly kill a monster.",
       "GenScalePct": 200,
-      "UpdateTime": "2024-08-01T00:28:13.021Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype62default",
       "ParentId": "default",
       "IdKey": 62,
       "Name": "Haste",
-      "Desc": "Faster Cast",
+      "Desc": "Attack faster.",
       "GenScalePct": 200,
-      "UpdateTime": "2024-08-01T00:28:13.027Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype63default",
@@ -245,7 +255,7 @@
       "Name": "Speed",
       "Desc": "Move Speed",
       "GenScalePct": 200,
-      "UpdateTime": "2024-08-01T00:28:13.031Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype64default",
@@ -254,7 +264,7 @@
       "Name": "Efficiency",
       "Desc": "Lower Cost",
       "GenScalePct": 200,
-      "UpdateTime": "2024-08-01T00:28:13.033Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype65default",
@@ -263,7 +273,7 @@
       "Name": "Cooldown",
       "Desc": "Lower Cooldown",
       "GenScalePct": 200,
-      "UpdateTime": "2024-08-01T00:28:13.041Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype66default",
@@ -272,7 +282,7 @@
       "Name": "CritDamage",
       "Desc": "More Crit Damage",
       "GenScalePct": 300,
-      "UpdateTime": "2024-08-01T00:28:13.046Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype70default",
@@ -281,23 +291,23 @@
       "Name": "Hit",
       "Desc": "Chance to Hit",
       "GenScalePct": 100,
-      "UpdateTime": "2024-08-01T00:28:13.051Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     },
     {
       "Id": "stattype71default",
       "ParentId": "default",
       "IdKey": 71,
       "Name": "Leadership",
-      "Desc": "Higher Attack Levl",
+      "Desc": "Higher effective level to determine how many attacks you get.",
       "GenScalePct": 100,
-      "UpdateTime": "2024-08-01T00:28:13.055Z"
+      "UpdateTime": "2025-01-13T19:22:08.794Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "StatConstantUnitMultiple": 10,
     "Name": "StatSettings",
-    "UpdateTime": "2024-08-01T00:28:12.949Z"
+    "UpdateTime": "2025-01-19T14:32:54.228Z"
   },
   "Id": "default"
 }

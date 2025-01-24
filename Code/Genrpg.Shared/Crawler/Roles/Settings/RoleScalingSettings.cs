@@ -8,6 +8,8 @@ using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using System;
 using System.Linq;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Helpers;
 
 namespace Genrpg.Shared.Crawler.Roles.Settings
 {
@@ -31,8 +33,8 @@ namespace Genrpg.Shared.Crawler.Roles.Settings
         [Key(5)] public string Desc { get; set; }
         [Key(6)] public string Icon { get; set; }
         [Key(7)] public string Art { get; set; }
-        [Key(8)] public double MaxBonus { get; set; }
-        [Key(9)] public double BonusPerLevel { get; set; }
+        [Key(8)] public long ScalingStatTypeId { get; set; }
+        [Key(9)] public long ScalingEquipSlotId { get; set; }
 
 
     }
@@ -45,4 +47,11 @@ namespace Genrpg.Shared.Crawler.Roles.Settings
 
     [MessagePackObject]
     public class RoleScalingTypeSettingsMapper : ParentSettingsMapper<RoleScalingTypeSettings, RoleScalingType, RoleScalingTypeSettingsApi> { }
+
+
+    public class RoleScalingHelper : BaseEntityHelper<RoleScalingTypeSettings,RoleScalingType>
+    {
+        public override long GetKey() { return EntityTypes.RoleScaling; }
+    }
+
 }

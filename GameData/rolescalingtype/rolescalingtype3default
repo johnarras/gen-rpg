@@ -2,6 +2,9 @@
   "Id": "rolescalingtype3default",
   "ParentId": "default",
   "IdKey": 3,
-  "Name": "SpellDamScaling",
-  "UpdateTime": "2024-11-26T01:48:34.329Z"
+  "Name": "SpellDam",
+  "Desc": "Increases spell damage tiers per level.",
+  "ScalingStatTypeId": 12,
+  "ScalingEquipSlotId": 15,
+  "UpdateTime": "2025-01-19T16:27:17.51Z"
 }

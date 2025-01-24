@@ -2,6 +2,9 @@
   "Id": "rolescalingtype1default",
   "ParentId": "default",
   "IdKey": 1,
-  "Name": "MeleeScaling",
-  "UpdateTime": "2024-11-26T01:48:34.329Z"
+  "Name": "Melee",
+  "Desc": "Increases melee attacks per level.",
+  "ScalingStatTypeId": 11,
+  "ScalingEquipSlotId": 15,
+  "UpdateTime": "2025-01-19T16:27:17.51Z"
 }

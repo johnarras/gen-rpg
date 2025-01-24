@@ -2,8 +2,8 @@
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.HelperClasses;
 using Genrpg.Shared.UserCoins.Constants;
-using Genrpg.Shared.UserEnergy.Messages;
 using Genrpg.Shared.UserEnergy.Settings;
+using Genrpg.Shared.UserEnergy.WebApi;
 using Genrpg.Shared.Users.PlayerData;
 
 namespace Genrpg.RequestServer.Resets.Services
@@ -41,7 +41,7 @@ namespace Genrpg.RequestServer.Resets.Services
 
             userData.LastHourlyReset = DateTime.UtcNow;
 
-            context.Results.Add(new UpdateUserEnergyResult() { EnergyAdded = totalRegen, LastHourlyReset = userData.LastHourlyReset });
+            context.Responses.Add(new UpdateUserEnergyResponse() { EnergyAdded = totalRegen, LastHourlyReset = userData.LastHourlyReset });
 
         }
     }

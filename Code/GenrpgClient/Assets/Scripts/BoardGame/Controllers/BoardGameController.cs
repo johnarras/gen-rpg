@@ -2,16 +2,13 @@
 using Assets.Scripts.BoardGame.Services;
 using Assets.Scripts.BoardGame.Tiles;
 using Assets.Scripts.GameObjects;
-using Assets.Scripts.ProcGen.Components;
-using Genrpg.Shared.BoardGame.Messages.RollDice;
 using Genrpg.Shared.BoardGame.PlayerData;
-using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.BoardGame.WebApi.RollDice;
 using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MVC.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -23,7 +20,7 @@ namespace Assets.Scripts.BoardGame.Controllers
     {
         GameObject GetBoardAnchor();
         void LoadCurrentBoard();
-        void ShowDiceRoll(RollDiceResult result);
+        void ShowDiceRoll(RollDiceResponse result);
         void RollDice();
         void SetTiles(List<TileController> tiles);
         IReadOnlyList<TileController> GetTiles();
@@ -124,15 +121,15 @@ namespace Assets.Scripts.BoardGame.Controllers
 
         public void RollDice ()
         {
-            _clientWebService.SendClientWebCommand(new RollDiceCommand(), _boardSource.Token);
+            _clientWebService.SendClientUserWebRequest(new RollDiceRequest(), _boardSource.Token);
         }
 
-        public void ShowDiceRoll(RollDiceResult result)
+        public void ShowDiceRoll(RollDiceResponse result)
         {
             _awaitableService.ForgetAwaitable(ShowDiceRollAsync(result,_boardSource.Token));
         }
 
-        private async Awaitable ShowDiceRollAsync(RollDiceResult result, CancellationToken token)
+        private async Awaitable ShowDiceRollAsync(RollDiceResponse result, CancellationToken token)
         { 
             await _showDiceRollService.ShowDiceRoll(result, token);
         }

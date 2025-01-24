@@ -11,12 +11,13 @@
   "SpawnQuantityScale": 1.0,
   "Effects": [
     {
-      "EntityTypeId": 36,
-      "EntityId": 9
+      "EntityTypeId": 31,
+      "Quantity": 1,
+      "EntityId": 35
     },
     {
-      "EntityTypeId": 100,
-      "EntityId": 2
+      "EntityTypeId": 36,
+      "EntityId": 9
     },
     {
       "EntityTypeId": 25,
@@ -31,5 +32,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-04T20:35:16.683Z"
+  "UpdateTime": "2025-01-19T14:56:01.421Z"
 }

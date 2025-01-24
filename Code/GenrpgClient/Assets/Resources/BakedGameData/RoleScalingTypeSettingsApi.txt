@@ -4,42 +4,68 @@
       "Id": "rolescalingtype1default",
       "ParentId": "default",
       "IdKey": 1,
-      "Name": "MeleeScaling",
-      "UpdateTime": "2024-11-26T01:48:34.329Z"
+      "Name": "Melee",
+      "Desc": "Increases melee attacks per level.",
+      "ScalingStatTypeId": 11,
+      "ScalingEquipSlotId": 15,
+      "UpdateTime": "2025-01-19T16:27:17.51Z"
     },
     {
       "Id": "rolescalingtype2default",
       "ParentId": "default",
       "IdKey": 2,
-      "Name": "RangedScaling",
-      "UpdateTime": "2024-11-26T01:48:34.329Z"
+      "Name": "Ranged",
+      "Desc": "Increases ranged attacks per level.",
+      "ScalingStatTypeId": 14,
+      "ScalingEquipSlotId": 17,
+      "UpdateTime": "2025-01-19T16:27:17.51Z"
     },
     {
       "Id": "rolescalingtype3default",
       "ParentId": "default",
       "IdKey": 3,
-      "Name": "SpellDamScaling",
-      "UpdateTime": "2024-11-26T01:48:34.329Z"
+      "Name": "SpellDam",
+      "Desc": "Increases spell damage tiers per level.",
+      "ScalingStatTypeId": 12,
+      "ScalingEquipSlotId": 15,
+      "UpdateTime": "2025-01-19T16:27:17.51Z"
     },
     {
       "Id": "rolescalingtype4default",
       "ParentId": "default",
       "IdKey": 4,
-      "Name": "HealingScaling",
-      "UpdateTime": "2024-11-26T01:48:34.329Z"
+      "Name": "Healing",
+      "Desc": "Increases healing, cures, and holy magic per level.",
+      "ScalingStatTypeId": 13,
+      "ScalingEquipSlotId": 15,
+      "UpdateTime": "2025-01-19T16:27:17.51Z"
     },
     {
       "Id": "rolescalingtype5default",
       "ParentId": "default",
       "IdKey": 5,
-      "Name": "SummonScaling",
-      "UpdateTime": "2024-11-26T01:48:34.329Z"
+      "Name": "Summon",
+      "Desc": "Increases the number of creatures summoned per level.",
+      "ScalingStatTypeId": 15,
+      "ScalingEquipSlotId": 15,
+      "UpdateTime": "2025-01-19T16:27:17.51Z"
+    },
+    {
+      "Id": "rolescalingtype6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Utility",
+      "NameId": "",
+      "Desc": "Increases how quickly the player can get utility spells.",
+      "ScalingStatTypeId": 16,
+      "ScalingEquipSlotId": 15,
+      "UpdateTime": "2025-01-19T16:35:54.135Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "RoleScalingTypeSettings",
-    "UpdateTime": "2024-11-29T02:33:50.038Z"
+    "UpdateTime": "2025-01-19T16:35:54.135Z"
   },
   "Id": "default"
 }

@@ -9,7 +9,12 @@
     {
       "EntityTypeId": 36,
       "EntityId": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "Quantity": 1,
+      "EntityId": 30001
     }
   ],
-  "UpdateTime": "2024-10-18T22:39:42.104Z"
+  "UpdateTime": "2025-01-11T16:06:35.196Z"
 }

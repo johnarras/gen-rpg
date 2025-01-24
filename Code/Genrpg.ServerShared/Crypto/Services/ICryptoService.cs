@@ -15,5 +15,6 @@ namespace Genrpg.ServerShared.Crypto.Services
         string GetPasswordHash(string salt, string passwordOrToken);
         string GetRandomBytes(); 
         string QuickHash(string txt);
+        string SlowHash(string txt);
     }
 }

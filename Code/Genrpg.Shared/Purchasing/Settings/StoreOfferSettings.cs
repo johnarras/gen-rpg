@@ -73,7 +73,7 @@ namespace Genrpg.Shared.Purchasing.Settings
         [Key(28)] public int RepeatHours { get; set; }
         [Key(29)] public bool RepeatMonthly { get; set; }
 
-        [Key(30)] public List<OfferProduct> Products { get; set; } = new List<OfferProduct>();
+        [Key(30)] public List<OfferItem> Products { get; set; } = new List<OfferItem>();
 
         [Key(31)] public List<AllowedPlayer> AllowedPlayers { get; set; } = new List<AllowedPlayer>();
         public void DeepCopyFrom(IComplexCopy from)
@@ -93,7 +93,7 @@ namespace Genrpg.Shared.Purchasing.Settings
     }
 
     [MessagePackObject]
-    public class OfferProduct
+    public class OfferItem
     {
         [Key(0)] public bool Enabled { get; set; } = true;
         [Key(1)] public long Index { get; set; }

@@ -18,8 +18,7 @@ namespace Assets.Scripts.Crawler.Combat
         private ITextureListCache _cache;
 
         public AnimatedSprite Icon;
-        public GText Name;
-        public GText Quantity;
+        public GText Info;
         public CombatGroup Group;
         public FastCombatTextUI TextUI;
         public GButton Button;
@@ -56,9 +55,7 @@ namespace Assets.Scripts.Crawler.Combat
             }
             int okUnitCount = Group.Units.Where(x => !x.StatusEffects.HasBit(StatusEffects.Dead)).Count();
 
-            _uiService.SetText(Name, okUnitCount == 1 ? unitType.Name : unitType.PluralName);
-
-            _uiService.SetText(Quantity, "(" + okUnitCount + ")");
+            _uiService.SetText(Info, okUnitCount + " " + (okUnitCount == 1 ? unitType.Name : unitType.PluralName) + " - " + Group.Range + "'");
 
             Icon.SetImage(unitType.Icon);
 

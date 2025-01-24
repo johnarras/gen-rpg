@@ -3,12 +3,13 @@
   "ParentId": "default",
   "IdKey": 16,
   "Name": "Holy Nova",
-  "Desc": "Hit all monsters in a group with holy damage.",
+  "Desc": "Hit all enemies in a group with holy damage.",
   "PowerCost": 8.0,
   "PowerPerLevel": 1.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 3,
+  "RoleScalingTypeId": 4,
   "Level": 7,
   "Effects": [
     {
@@ -19,5 +20,5 @@
       "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2024-12-30T17:06:34.075Z"
+  "UpdateTime": "2025-01-19T19:01:07.736Z"
 }

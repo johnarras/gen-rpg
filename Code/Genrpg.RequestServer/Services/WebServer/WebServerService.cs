@@ -1,9 +1,9 @@
 ﻿using Genrpg.ServerShared.Maps;
 using Genrpg.Shared.HelperClasses;
-using Genrpg.RequestServer.AuthCommandHandlers;
 using Genrpg.RequestServer.Maps;
-using Genrpg.RequestServer.NoUserCommands;
-using Genrpg.RequestServer.ClientCommands;
+using Genrpg.RequestServer.Auth.RequestHandlers;
+using Genrpg.RequestServer.NoUserRequests.RequestHandlers;
+using Genrpg.RequestServer.ClientUser.RequestHandlers;
 
 namespace Genrpg.RequestServer.Services.WebServer
 {
@@ -13,9 +13,9 @@ namespace Genrpg.RequestServer.Services.WebServer
         private IMapDataService _mapDataService = null!;
 
         private MapStubList _mapStubs { get; set; } = new MapStubList();
-        private SetupDictionaryContainer<Type, IClientCommandHandler> _clientCommandHandlers = new SetupDictionaryContainer<Type, IClientCommandHandler>();
-        private SetupDictionaryContainer<Type, INoUserCommandHandler> _noUserCommandHandlers = new SetupDictionaryContainer<Type, INoUserCommandHandler>();
-        private SetupDictionaryContainer<Type, IAuthCommandHandler> _authCommandHandlers = new SetupDictionaryContainer<Type, IAuthCommandHandler>();
+        private SetupDictionaryContainer<Type, IClientUserRequestHandler> _clientCommandHandlers = new SetupDictionaryContainer<Type, IClientUserRequestHandler>();
+        private SetupDictionaryContainer<Type, INoUserRequestHandler> _noUserCommandHandlers = new SetupDictionaryContainer<Type, INoUserRequestHandler>();
+        private SetupDictionaryContainer<Type, IAuthRequestHandler> _authCommandHandlers = new SetupDictionaryContainer<Type, IAuthRequestHandler>();
 
         public async Task Initialize(CancellationToken token)
         {
@@ -28,18 +28,18 @@ namespace Genrpg.RequestServer.Services.WebServer
             return _mapStubs;
         }
 
-        public IAuthCommandHandler GetAuthCommandHandler(Type type)
+        public IAuthRequestHandler GetAuthCommandHandler(Type type)
         {
-            if (_authCommandHandlers.TryGetValue(type, out IAuthCommandHandler handler))
+            if (_authCommandHandlers.TryGetValue(type, out IAuthRequestHandler handler))
             {
                 return handler;
             }
             return null;
         }
 
-        public IClientCommandHandler GetClientCommandHandler(Type type)
+        public IClientUserRequestHandler GetClientCommandHandler(Type type)
         {
-            if (_clientCommandHandlers.TryGetValue(type, out IClientCommandHandler commandHandler))
+            if (_clientCommandHandlers.TryGetValue(type, out IClientUserRequestHandler commandHandler))
             {
                 return commandHandler;
             }
@@ -47,23 +47,23 @@ namespace Genrpg.RequestServer.Services.WebServer
             return null;
         }
 
-        public INoUserCommandHandler GetNoUserCommandHandler(Type type)
+        public INoUserRequestHandler GetNoUserCommandHandler(Type type)
         {
-            if (_noUserCommandHandlers.TryGetValue(type, out INoUserCommandHandler commandHandler))
+            if (_noUserCommandHandlers.TryGetValue(type, out INoUserRequestHandler commandHandler))
             {
                 return commandHandler;
             }
             return null;
         }
 
-        public async Task ResetCommandHandlers()
+        public async Task ResetRequestHandlers()
         {
-            foreach (IClientCommandHandler handler in _clientCommandHandlers.GetDict().Values)
+            foreach (IClientUserRequestHandler handler in _clientCommandHandlers.GetDict().Values)
             {
                 await handler.Reset();
             }
 
-            foreach (INoUserCommandHandler handler in _noUserCommandHandlers.GetDict().Values)
+            foreach (INoUserRequestHandler handler in _noUserCommandHandlers.GetDict().Values)
             {
                 await handler.Reset();
             }

@@ -36,6 +36,7 @@ namespace Genrpg.Shared.Crawler.States.Constants
         Error,
         GiveLoot,
         Riddle,
+        ReturnToSafety,
 
         WorldCast,
         SpecialSpellCast,
@@ -49,8 +50,6 @@ namespace Genrpg.Shared.Crawler.States.Constants
 
         UseItemExplore,
         UseItemCombat,
-
-        PartyMember,
 
         SelectAlly,
         SelectAllyTarget,

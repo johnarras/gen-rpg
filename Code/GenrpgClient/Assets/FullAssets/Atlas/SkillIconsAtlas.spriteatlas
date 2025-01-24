@@ -273,6 +273,7 @@ SpriteAtlas:
     - 7a01206ba5bc0c84c8a7e0ad04d7ed1d: 21300000
     - 6812146b670c719448a9eff4dd45edda: 21300000
     - ef76fd7b6b6a2ae4eb62bd40ba023a5a: 21300000
+    - be782e7beaee7294ea38595626efef00: 21300000
     - 59a2258b00054e14eb77eac665998e9d: 21300000
     - 1394489bc4c13f946beee5817f73bb9c: 21300000
     - 943f7a9b84b258f46a62892de5f00e85: 21300000
@@ -620,6 +621,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7a01206ba5bc0c84c8a7e0ad04d7ed1d, type: 3}
   - {fileID: 21300000, guid: 6812146b670c719448a9eff4dd45edda, type: 3}
   - {fileID: 21300000, guid: ef76fd7b6b6a2ae4eb62bd40ba023a5a, type: 3}
+  - {fileID: 21300000, guid: be782e7beaee7294ea38595626efef00, type: 3}
   - {fileID: 21300000, guid: 59a2258b00054e14eb77eac665998e9d, type: 3}
   - {fileID: 21300000, guid: 1394489bc4c13f946beee5817f73bb9c, type: 3}
   - {fileID: 21300000, guid: 943f7a9b84b258f46a62892de5f00e85, type: 3}
@@ -966,6 +968,7 @@ SpriteAtlas:
   - 520230
   - 510051
   - 520431
+  - Poisoned
   - 500006
   - 520391
   - 520041

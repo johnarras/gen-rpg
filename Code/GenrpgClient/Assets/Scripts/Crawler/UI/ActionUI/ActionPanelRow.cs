@@ -51,7 +51,7 @@ namespace Assets.Scripts.UI.Crawler.ActionUI
                         char.ToLower(text[0]) == (char)(_action.Key))
                     {
                         char firstLetter = text[0];
-                        text = $"{_textService.HighlightText(text[0])} {text.Substring(1)}";
+                        text = $"{_textService.HighlightText(text[0])}{text.Substring(1)}";
                     }
                 }
 
@@ -85,7 +85,7 @@ namespace Assets.Scripts.UI.Crawler.ActionUI
             }
             else
             {
-                _dispatcher.Dispatch(new HideCrawlerTooltipEvent());
+                _dispatcher.Dispatch(new HideInfoPanelEvent());
             }
         }
 

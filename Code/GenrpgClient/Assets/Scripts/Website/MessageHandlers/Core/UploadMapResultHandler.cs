@@ -1,12 +1,12 @@
 ﻿using Assets.Scripts.Login.Messages.Core;
-using Genrpg.Shared.Website.Messages.UploadMap;
+using Genrpg.Shared.MapServer.WebApi.UploadMap;
 using System.Threading;
 
 namespace Assets.Scripts.Login.MessageHandlers.Core
 {
-    public class UploadMapResultHandler : BaseClientLoginResultHandler<UploadMapResult>
+    public class UploadMapResultHandler : BaseClientLoginResultHandler<UploadMapResponse>
     {
-        protected override void InnerProcess(UploadMapResult result, CancellationToken token)
+        protected override void InnerProcess(UploadMapResponse result, CancellationToken token)
         {
         }
     }

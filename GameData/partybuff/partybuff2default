@@ -3,5 +3,6 @@
   "ParentId": "default",
   "IdKey": 2,
   "Name": "Second Sight",
-  "UpdateTime": "2024-08-01T00:28:09.66Z"
+  "Desc": "Allows you to see hidden things.",
+  "UpdateTime": "2025-01-13T20:22:09.683Z"
 }

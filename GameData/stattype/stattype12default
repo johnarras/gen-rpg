@@ -3,7 +3,7 @@
   "ParentId": "default",
   "IdKey": 12,
   "Name": "Intellect",
-  "Desc": "+2 AP",
+  "Desc": "Increases attack spell damage.",
   "GenScalePct": 100,
-  "UpdateTime": "2024-08-01T00:28:12.959Z"
+  "UpdateTime": "2025-01-13T19:22:08.794Z"
 }

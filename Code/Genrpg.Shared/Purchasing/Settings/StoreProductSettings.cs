@@ -10,26 +10,26 @@ using System.Collections.Generic;
 namespace Genrpg.Shared.Purchasing.Settings
 {
     [MessagePackObject]
-    public class StoreProductSettings : ParentSettings<StoreProduct>
+    public class StoreItemSettings : ParentSettings<StoreItem>
     {
         [Key(0)] public override string Id { get; set; }
     }
 
     [MessagePackObject]
-    public class StoreProductSettingsApi : ParentSettingsApi<StoreProductSettings, StoreProduct> { }
+    public class StoreItemSettingsApi : ParentSettingsApi<StoreItemSettings, StoreItem> { }
     [MessagePackObject]
-    public class StoreProductSettingsLoader : ParentSettingsLoader<StoreProductSettings, StoreProduct> 
+    public class StoreItemSettingsLoader : ParentSettingsLoader<StoreItemSettings, StoreItem> 
     {
     }
 
     [MessagePackObject]
-    public class StoreProductSettingsMapper : ParentSettingsMapper<StoreProductSettings, StoreProduct, StoreProductSettingsApi>
+    public class StoreItemSettingsMapper : ParentSettingsMapper<StoreItemSettings, StoreItem, StoreItemSettingsApi>
     {
         public override bool SendToClient() { return false; }
     }
 
     [MessagePackObject]
-    public class StoreProduct : ChildSettings, IIdName
+    public class StoreItem : ChildSettings, IIdName
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string ParentId { get; set; }

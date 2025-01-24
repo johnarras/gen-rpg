@@ -2,6 +2,9 @@
   "Id": "rolescalingtype5default",
   "ParentId": "default",
   "IdKey": 5,
-  "Name": "SummonScaling",
-  "UpdateTime": "2024-11-26T01:48:34.329Z"
+  "Name": "Summon",
+  "Desc": "Increases the number of creatures summoned per level.",
+  "ScalingStatTypeId": 15,
+  "ScalingEquipSlotId": 15,
+  "UpdateTime": "2025-01-19T16:27:17.51Z"
 }

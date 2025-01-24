@@ -3,11 +3,12 @@
   "ParentId": "default",
   "IdKey": 52,
   "Name": "Blizzard",
-  "Desc": "Hit all monsters with cold damage.",
+  "Desc": "Hit all enemies with cold damage.",
   "PowerCost": 12.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 4,
+  "RoleScalingTypeId": 3,
   "Level": 9,
   "Effects": [
     {
@@ -18,5 +19,5 @@
       "ElementTypeId": 3
     }
   ],
-  "UpdateTime": "2024-12-30T17:06:34.075Z"
+  "UpdateTime": "2025-01-19T19:01:07.736Z"
 }

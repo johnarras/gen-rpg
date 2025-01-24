@@ -32,6 +32,7 @@ namespace Genrpg.Shared.Stats.Constants
         public const int Resist = 32; // Resist magic Resist
         public const int HealthRegen = 33; // Adds to health regen for players
         public const int ManaRegen = 34; // Adds to mana regen for players
+        public const int RoleScalingPercent = 35;
 
         public const int PowerMult = 40; // multiplier to all dam/healing
         public const int AttackMult = 41; // Multiplier to body dam/healing

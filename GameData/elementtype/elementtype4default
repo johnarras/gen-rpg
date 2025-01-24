@@ -3,7 +3,7 @@
   "ParentId": "default",
   "IdKey": 4,
   "Name": "Electric",
-  "Desc": "",
+  "Desc": "Zap the target's brain.",
   "Icon": "",
   "Art": "Lightning",
   "CasterActionName": "Zap",
@@ -18,12 +18,13 @@
   "Procs": [
     {
       "EntityTypeId": 36,
-      "EntityId": 10,
+      "EntityId": 6,
       "MinQuantity": 1,
       "MaxQuantity": 1,
       "PercentChance": 5.0,
-      "ElementTypeId": 4
+      "ElementTypeId": 4,
+      "Name": ""
     }
   ],
-  "UpdateTime": "2024-08-01T00:28:06.519Z"
+  "UpdateTime": "2025-01-13T19:36:41.082Z"
 }

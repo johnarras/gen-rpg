@@ -1,7 +1,7 @@
-﻿using Genrpg.RequestServer.AuthCommandHandlers;
-using Genrpg.RequestServer.ClientCommands;
+﻿using Genrpg.RequestServer.Auth.RequestHandlers;
+using Genrpg.RequestServer.ClientUser.RequestHandlers;
 using Genrpg.RequestServer.Maps;
-using Genrpg.RequestServer.NoUserCommands;
+using Genrpg.RequestServer.NoUserRequests.RequestHandlers;
 using Genrpg.Shared.Interfaces;
 using System;
 using System.Threading.Tasks;
@@ -10,10 +10,10 @@ namespace Genrpg.RequestServer.Services.WebServer
 {
     public interface IWebServerService : IInitializable
     {
-        IClientCommandHandler GetClientCommandHandler(Type type);
-        INoUserCommandHandler GetNoUserCommandHandler(Type type);
-        IAuthCommandHandler GetAuthCommandHandler(Type type);
-        Task ResetCommandHandlers();
+        IClientUserRequestHandler GetClientCommandHandler(Type type);
+        INoUserRequestHandler GetNoUserCommandHandler(Type type);
+        IAuthRequestHandler GetAuthCommandHandler(Type type);
+        Task ResetRequestHandlers();
         MapStubList GetMapStubs();
     }
 }

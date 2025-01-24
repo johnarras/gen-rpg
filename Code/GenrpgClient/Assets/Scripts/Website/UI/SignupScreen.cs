@@ -3,11 +3,11 @@
 using System.Threading;
 using Genrpg.Shared.DataStores.Entities;
 using System.Threading.Tasks;
-using Genrpg.Shared.Website.Messages.Signup;
 using Genrpg.Shared.Accounts.Constants;
 using Genrpg.Shared.Utils;
 using Assets.Scripts.UI.Screens;
 using Genrpg.Shared.UI.Entities;
+using Genrpg.Shared.Accounts.WebApi.Signup;
 
 public class SignupScreen : ErrorMessageScreen
 {
@@ -123,7 +123,7 @@ public class SignupScreen : ErrorMessageScreen
             return;
         }
 
-        SignupCommand signupCommand = new SignupCommand()
+        SignupRequest signupCommand = new SignupRequest()
         {
             Email = email,
             Password = password2,

@@ -21,6 +21,9 @@ public class CharacterScreen : ItemIconScreen
     public List<StatInfoRow> Stats;
     public GameObject StatGridParent;
 
+    // Differentiate these with the GetStatSubdirectory();
+    const string StatInfoRowPrefabName = "StatInfoRow";
+
     protected virtual bool CalcStatsOnEquipUnequip() { return true; }
     protected virtual string GetStatSubdirectory() { return "Units"; }
     protected virtual bool ShowZeroStats() { return true; }
@@ -142,7 +145,7 @@ public class CharacterScreen : ItemIconScreen
                         statTypeId = -1,
                     };
                     _assetService.LoadAssetInto(StatGridParent, AssetCategoryNames.UI, 
-                        "StatInfoRow", OnDownloadStat, sddFill, _token, GetStatSubdirectory());
+                        StatInfoRowPrefabName, OnDownloadStat, sddFill, _token, GetStatSubdirectory());
                 }
                 StatDownloadData sdd = new StatDownloadData()
                 {
@@ -150,7 +153,7 @@ public class CharacterScreen : ItemIconScreen
                     statTypeId = stat.IdKey,
                 };
                 _assetService.LoadAssetInto(StatGridParent, AssetCategoryNames.UI,
-                    "StatInfoRow", OnDownloadStat, sdd, _token, GetStatSubdirectory());
+                    StatInfoRowPrefabName, OnDownloadStat, sdd, _token, GetStatSubdirectory());
             }
         }
         else 

@@ -1,5 +1,7 @@
-﻿using Genrpg.Shared.DataStores.DataGroups;
+﻿using Genrpg.ServerShared.Config.Constants;
+using Genrpg.Shared.DataStores.DataGroups;
 using Genrpg.Shared.Entities.Utils;
+using Genrpg.Shared.Inventory.Settings.ItemSets;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,8 +14,6 @@ namespace Genrpg.ServerShared.Config
 {
     public class ConfigSetup
     {
-        const string ConnectionSuffix = "Connection";
-    
         public async Task<IServerConfig> SetupServerConfig(CancellationToken token, string serverId)
         {
             ServerConfig serverConfig = new ServerConfig();
@@ -22,34 +22,49 @@ namespace Genrpg.ServerShared.Config
 
             string filePath = config.FilePath;
 
-            serverConfig.Env = ConfigurationManager.AppSettings["Env"];
+            serverConfig.Env = ConfigurationManager.AppSettings[ServerConfigKeys.MainEnv];
 
             foreach (string dataCategory in Enum.GetNames(typeof(EDataCategories)))
             {
-                serverConfig.DataEnvs[dataCategory] = GetEnvOrDefault(dataCategory + "Env", serverConfig.Env);
+                serverConfig.DataEnvs[dataCategory] = GetEnvOrDefault(dataCategory + ServerConfigKeys.EnvSuffix, serverConfig.Env);
             }
 
-            serverConfig.MessagingEnv = GetEnvOrDefault("MessagingEnv", serverConfig.Env);
+            serverConfig.MessagingEnv = GetEnvOrDefault(ServerConfigKeys.MessagingEnv, serverConfig.Env);
             
-            serverConfig.ContentRoot = ConfigurationManager.AppSettings["ContentRoot"];
+            serverConfig.ContentRoot = ConfigurationManager.AppSettings[ServerConfigKeys.ContentRoot];
 
-            serverConfig.EtherscanKey = ConfigurationManager.AppSettings["EtherscanKey"];
+            serverConfig.PublicIP = ConfigurationManager.AppSettings[ServerConfigKeys.PublicIP];
 
-            serverConfig.PublicIP = ConfigurationManager.AppSettings["PublicIP"];
+            SetSecret(serverConfig, ServerConfigKeys.EtherscanKey);
+            SetSecret(serverConfig, ServerConfigKeys.IOSSecret);
+            SetSecret(serverConfig, ServerConfigKeys.GooglePlaySecret);
+
+            serverConfig.PackageName = ConfigurationManager.AppSettings[ServerConfigKeys.PackageName];
+
+            serverConfig.IOSBuyValidationURL = ConfigurationManager.AppSettings[ServerConfigKeys.IOSBuyValidationURL];
+
+            serverConfig.IOSSandboxValidationURL = ConfigurationManager.AppSettings[ServerConfigKeys.IOSSandboxValidationURL];
+
+            serverConfig.GooglePlayValidationURL = ConfigurationManager.AppSettings[ServerConfigKeys.GooglePlayValidationURL];
 
             List<string> allKeys = ConfigurationManager.AppSettings.AllKeys.ToList();
 
             foreach (string key in allKeys)
             {
-                if (key.IndexOf(ConnectionSuffix) > 0)
+                if (key.IndexOf(ServerConfigKeys.ConnectionSuffix) > 0)
                 {
-                    string shortKey = key.Replace(ConnectionSuffix, "");
-                    serverConfig.ConnectionStrings[shortKey] = ConfigurationManager.AppSettings[key];
+                    string shortKey = key.Replace(ServerConfigKeys.ConnectionSuffix, "");
+                    serverConfig.SetSecret(shortKey, ConfigurationManager.AppSettings[key]);
                 }
             }
 
             await Task.CompletedTask;
             return serverConfig;
+        }
+
+        private void SetSecret(ServerConfig config, string key)
+        {
+            config.SetSecret(key, ConfigurationManager.AppSettings[key]);
         }
 
         private string GetEnvOrDefault(string key, string defaultValue)

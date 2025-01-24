@@ -1,6 +1,6 @@
 ﻿using Genrpg.Shared.GameSettings.Messages;
-using Genrpg.Shared.Website.Messages.RefreshGameSettings;
-using Genrpg.Shared.Website.Messages.RefreshStores;
+using Genrpg.Shared.GameSettings.WebApi.RefreshGameSettings;
+using Genrpg.Shared.Purchasing.WebApi.RefreshStores;
 using System.Threading;
 
 namespace Assets.Scripts.MessageHandlers.GameSettings
@@ -11,8 +11,8 @@ namespace Assets.Scripts.MessageHandlers.GameSettings
 
         protected override void InnerProcess(OnRefreshGameSettings msg, CancellationToken token)
         {
-            _webNetworkService.SendClientWebCommand(new RefreshGameSettingsCommand() { CharId = _gs.ch.Id }, token);
-            _webNetworkService.SendClientWebCommand(new RefreshStoresCommand() { CharId = _gs.ch.Id }, token);
+            _webNetworkService.SendClientUserWebRequest(new RefreshGameSettingsRequest() { CharId = _gs.ch.Id }, token);
+            _webNetworkService.SendClientUserWebRequest(new RefreshStoresRequest() { CharId = _gs.ch.Id }, token);
         }
     }
 }

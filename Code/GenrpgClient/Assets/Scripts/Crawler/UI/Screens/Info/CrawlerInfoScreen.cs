@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.UI.Crawler.ActionUI;
+﻿using Assets.Scripts.Info.UI;
+using Assets.Scripts.UI.Crawler.ActionUI;
 using Assets.Scripts.UI.Crawler.WorldUI;
 using Genrpg.Shared.Client.Assets.Constants;
 using Genrpg.Shared.Crawler.Constants;
@@ -9,6 +10,7 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Services;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MVC.Interfaces;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,7 @@ namespace Assets.Scripts.Crawler.UI.Screens.Info
 
         protected IInfoService _infoService;
         protected IEntityService _entityService;
+        private IInputService _inputService;
 
         public GButton ClassButton;
         public GButton RaceButton;
@@ -31,11 +34,11 @@ namespace Assets.Scripts.Crawler.UI.Screens.Info
         public GButton MonsterButton;
 
         public GameObject ListAnchor;
-        public GameObject InfoAnchor;
+
+        public InfoPanel InfoPanel;
 
 
         public GText ListText;
-        public GText InfoText;
 
 
         protected override async Task OnStartOpen(object data, CancellationToken token)
@@ -46,11 +49,18 @@ namespace Assets.Scripts.Crawler.UI.Screens.Info
             _uiService.SetButton(MonsterButton, GetName(), () => { ShowInfoList(EntityTypes.Unit); });
 
             _clientEntityService.SetActive(ListText, false);
-            _clientEntityService.SetActive(InfoText, false);
 
             await Task.CompletedTask;
         }
 
+        protected override void ScreenUpdate()
+        {
+            base.ScreenUpdate();
+            if (_inputService.GetKeyDown(CharCodes.Escape))
+            {
+                InfoPanel.PopInfoStack();
+            }
+        }
 
         private void ShowRoleList(long roleCategoryId)
         {
@@ -72,7 +82,7 @@ namespace Assets.Scripts.Crawler.UI.Screens.Info
         private void ClearAllChildren()
         {
             ClearList();
-            ClearInfo();
+            InfoPanel.ClearInfo();
         }
 
         private void ClearList()
@@ -80,30 +90,12 @@ namespace Assets.Scripts.Crawler.UI.Screens.Info
             _clientEntityService.DestroyAllChildren(ListAnchor);
         }
 
-        private void ClearInfo()
-        {         
-            _clientEntityService.DestroyAllChildren(InfoAnchor);
-        }
+   
 
-        private void ShowInfo(long entityTypeId, long entityId)
+        public void ShowChildList<T>(List<T> list, long entityTypeId) where T : IIdName
         {
-            ClearInfo();
-            List<string> lines = _infoService.GetInfoLines(entityTypeId, entityId);
 
-
-            foreach (string line in lines)
-            {
-                GText text = _clientEntityService.FullInstantiate<GText>(InfoText);
-
-                _clientEntityService.AddToParent(text, InfoAnchor);
-
-                _uiService.SetText(text, line);
-
-            }
-        }
-
-        private void ShowChildList<T>(List<T> list, long entityTypeId) where T : IIdName
-        {
+            InfoPanel.ClearStack();
 
             ClearAllChildren();
 
@@ -116,7 +108,7 @@ namespace Assets.Scripts.Crawler.UI.Screens.Info
 
                 _uiService.SetText(text, idname.Name);
 
-                _uiService.AddPointerHandlers(text, () => { ShowInfo(entityTypeId, idname.IdKey); }, ClearInfo);
+                _uiService.AddPointerHandlers(text, () => { InfoPanel.ShowInfo(entityTypeId, idname.IdKey); }, () => { });
 
 
             }

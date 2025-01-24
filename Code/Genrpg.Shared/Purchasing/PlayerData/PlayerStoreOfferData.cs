@@ -17,7 +17,6 @@ namespace Genrpg.Shared.Purchasing.PlayerData
     {
         [Key(0)] public long IdKey { get; set; }
         [Key(1)] public string OfferId { get; set; }
-        [Key(2)] public string UniqueId { get; set; }
         [Key(3)] public string Name { get; set; }
         [Key(4)] public string Desc { get; set; }
         [Key(5)] public string Art { get; set; }
@@ -27,15 +26,16 @@ namespace Genrpg.Shared.Purchasing.PlayerData
         [Key(9)] public long StoreThemeId { get; set; }
         [Key(10)] public DateTime EndDate { get; set; }
 
-        [Key(11)] public List<PlayerOfferProduct> Products { get; set; } = new List<PlayerOfferProduct>();
+        [Key(11)] public List<PlayerStoreOfferItem> Items { get; set; } = new List<PlayerStoreOfferItem>();
     }
     
     [MessagePackObject]
-    public class PlayerOfferProduct
+    public class PlayerStoreOfferItem
     {
         [Key(0)] public long Index { get; set; }
-        [Key(1)] public StoreProduct Product { get; set; }
+        [Key(1)] public StoreItem StoreItem { get; set; }
         [Key(2)] public ProductSku Sku { get; set; }
+        [Key(3)] public string UniqueStoreItemId { get; set; }
     }
 
 

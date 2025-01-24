@@ -4,9 +4,9 @@
   "IdKey": 11,
   "Name": "Strength",
   "Abbrev": "",
-  "Desc": "+1 AP +1 SP",
+  "Desc": "Increases melee damage.",
   "Icon": "",
   "Art": "",
   "GenScalePct": 100,
-  "UpdateTime": "2024-08-01T00:28:12.956Z"
+  "UpdateTime": "2025-01-13T19:22:08.794Z"
 }

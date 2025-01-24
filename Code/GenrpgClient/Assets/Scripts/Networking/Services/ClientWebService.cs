@@ -20,37 +20,37 @@ using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Client.Tokens;
 using Assets.Scripts.Awaitables;
 
-public delegate void WebResultsHandler(string txt, List<FullWebCommand> commands, CancellationToken token);
+public delegate void WebResultsHandler(string txt, List<FullWebRequest> requests, CancellationToken token);
 
 
-public enum EWebCommandState
+public enum EWebRequestState
 {
     Pending,
     Complete,
 }
 
-public class FullWebCommand
+public class FullWebRequest
 {
-    public IWebCommand Command;
+    public IWebRequest Request;
     public CancellationToken Token;
-    public Type ResultType { get; set; }
-    public object ResultObject { get; set; }
-    public ErrorResult ErrorResult { get; set; }
-    public EWebCommandState State { get; set; } = EWebCommandState.Pending;
+    public Type ResponseType { get; set; }
+    public object ResponseObject { get; set; }
+    public ErrorResponse ErrorResponse { get; set; }
+    public EWebRequestState State { get; set; } = EWebRequestState.Pending;
 }
 
 public interface IClientWebService : IInitializable, IGameTokenService
 {
-    void SendAuthWebCommand(IAuthCommand loginCommand, CancellationToken token);
-    Awaitable<T> SendAuthWebCommandAsync<T>(IAuthCommand userCommand, CancellationToken token);
+    void SendAuthWebRequest(IAuthRequest loginRequest, CancellationToken token);
+    Awaitable<T> SendAuthWebRequestAsync<T>(IAuthRequest userRequest, CancellationToken token);
 
-    void SendClientWebCommand(IWebCommand data, CancellationToken token);
-    Awaitable<T> SendClientWebCommandAsync<T>(IWebCommand userCommand, CancellationToken token);
+    void SendClientUserWebRequest(IClientUserRequest data, CancellationToken token);
+    Awaitable<T> SendClientUserWebRequestAsync<T>(IClientUserRequest userRequest, CancellationToken token);
 
-    void SendNoUserWebCommand(INoUserCommand data, CancellationToken token);
-    Awaitable<T> SendNoUserWebCommandAsync<T>(INoUserCommand userCommand, CancellationToken token);
+    void SendNoUserWebRequest(INoUserRequest data, CancellationToken token);
+    Awaitable<T> SendNoUserWebRequestAsync<T>(INoUserRequest userRequest, CancellationToken token);
 
-    void HandleResults(string txt, List<FullWebCommand> commands, CancellationToken token);
+    void HandleResponses(string txt, List<FullWebRequest> requests, CancellationToken token);
 }
 
 
@@ -58,7 +58,7 @@ public class ClientWebService : IClientWebService
 {
     private class ResultHandlerPair
     {
-        public IWebResult Result { get; set; } = null;
+        public IWebResponse Result { get; set; } = null;
         public IClientLoginResultHandler Handler { get; set; } = null;
     }
 
@@ -118,53 +118,53 @@ public class ClientWebService : IClientWebService
         await Task.CompletedTask;
     }
 
-    public void HandleResults(string txt, List<FullWebCommand> commands, CancellationToken token)
+    public void HandleResponses(string txt, List<FullWebRequest> requests, CancellationToken token)
     {
         try
         {
-            LoginServerResultSet resultSet = SerializationUtils.Deserialize<LoginServerResultSet>(txt);
+            WebServerResponseSet responseSet = SerializationUtils.Deserialize<WebServerResponseSet>(txt);
 
-            List<ResultHandlerPair> resultPairs = new List<ResultHandlerPair>();
+            List<ResultHandlerPair> responsePairs = new List<ResultHandlerPair>();
 
-            foreach (IWebResult result in resultSet.Results)
+            foreach (IWebResponse response in responseSet.Responses)
             {
-                bool foundAsyncCommand = false;
-                if (commands != null)
+                bool foundAsyncRequest = false;
+                if (requests != null)
                 {
-                    FullWebCommand command = commands.FirstOrDefault(x => x.ResultType == result.GetType());
-                    if (command != null)
+                    FullWebRequest request = requests.FirstOrDefault(x => x.ResponseType == response.GetType());
+                    if (request != null)
                     {
-                        command.ResultObject = result;
-                        foundAsyncCommand = true;
+                        request.ResponseObject = response;
+                        foundAsyncRequest = true;
                     }
                 }
-                if (_loginResultHandlers.TryGetValue(result.GetType(), out IClientLoginResultHandler handler))
+                if (_loginResultHandlers.TryGetValue(response.GetType(), out IClientLoginResultHandler handler))
                 {
-                    resultPairs.Add(new ResultHandlerPair()
+                    responsePairs.Add(new ResultHandlerPair()
                     {
-                        Result = result,
+                        Result = response,
                         Handler = handler,
                     });
                 }
-                else if (!foundAsyncCommand)
+                else if (!foundAsyncRequest)
                 {
-                    _logService.Error("Unknown Message From Login Server: " + result.GetType().Name);
+                    _logService.Error("Unknown Message From Login Server: " + response.GetType().Name);
                 }
             }
 
-            if (commands != null)
+            if (requests != null)
             {
-                foreach (FullWebCommand fullWebCommand in commands)
+                foreach (FullWebRequest fullWebRequest in requests)
                 {
-                    fullWebCommand.State = EWebCommandState.Complete;
+                    fullWebRequest.State = EWebRequestState.Complete;
                 }
             }
 
-            resultPairs = resultPairs.OrderByDescending(x => x.Handler.Priority()).ToList();
+            responsePairs = responsePairs.OrderByDescending(x => x.Handler.Priority()).ToList();
 
-            foreach (ResultHandlerPair resultPair in resultPairs)
+            foreach (ResultHandlerPair responsePair in responsePairs)
             {
-                resultPair.Handler.Process(resultPair.Result, token);
+                responsePair.Handler.Process(responsePair.Result, token);
             }
         }
         catch (Exception ex)
@@ -178,8 +178,8 @@ public class ClientWebService : IClientWebService
 
     private class WebRequestQueue
     {
-        private List<FullWebCommand> _queue = new List<FullWebCommand>();
-        private List<FullWebCommand> _pending = new List<FullWebCommand>();
+        private List<FullWebRequest> _queue = new List<FullWebRequest>();
+        private List<FullWebRequest> _pending = new List<FullWebRequest>();
         private float _delaySeconds;
         private CancellationToken _token;
         private IClientGameState _gs;
@@ -212,11 +212,11 @@ public class ClientWebService : IClientWebService
             _childQueues.Add(childQueue);
         }
 
-        public FullWebCommand AddRequest(IWebCommand command, CancellationToken token, Type resultType = null)
+        public FullWebRequest AddRequest(IWebRequest request, CancellationToken token, Type responseType = null)
         {
-            FullWebCommand fullWebCommand = new FullWebCommand() { Command = command, Token = token, ResultType = resultType };
-            _queue.Add(fullWebCommand);
-            return fullWebCommand;
+            FullWebRequest fullWebRequest = new FullWebRequest() { Request = request, Token = token, ResponseType = responseType };
+            _queue.Add(fullWebRequest);
+            return fullWebRequest;
         }
 
         public bool HavePendingRequests()
@@ -249,12 +249,12 @@ public class ClientWebService : IClientWebService
                 return;
             }
 
-            _pending = new List<FullWebCommand>(_queue);
+            _pending = new List<FullWebRequest>(_queue);
             _queue.Clear();
 
             ClientWebRequest req = new ClientWebRequest();
 
-            WebServerCommandSet commandSet = new WebServerCommandSet()
+            WebServerRequestSet requestSet = new WebServerRequestSet()
             {
                 UserId = _gs?.user?.Id ?? null,
                 SessionId = _gs?.user?.SessionId ?? null,
@@ -265,16 +265,16 @@ public class ClientWebService : IClientWebService
 
             CancellationTokenSource fullRequestSource = CancellationTokenSource.CreateLinkedTokenSource(allTokens.ToArray());
 
-            commandSet.Commands.AddRange(_pending.Select(x => x.Command));
+            requestSet.Requests.AddRange(_pending.Select(x => x.Request));
 
-            string commandText = SerializationUtils.Serialize(commandSet);
+            string requestText = SerializationUtils.Serialize(requestSet);
 
-            _awaitableService.ForgetAwaitable(req.SendRequest(_logService, _fullEndpoint, commandText, _pending.ToList(), HandleResults, fullRequestSource.Token));
+            _awaitableService.ForgetAwaitable(req.SendRequest(_logService, _fullEndpoint, requestText, _pending.ToList(), HandleResults, fullRequestSource.Token));
         }
 
-        public void HandleResults(string txt, List<FullWebCommand> commands, CancellationToken token)
+        public void HandleResults(string txt, List<FullWebRequest> requests, CancellationToken token)
         {
-            _clientWebService.HandleResults(txt, commands, token);
+            _clientWebService.HandleResponses(txt, requests, token);
             _lastResponseReceivedTime = DateTime.UtcNow;
             _pending.Clear();
         }
@@ -294,58 +294,59 @@ public class ClientWebService : IClientWebService
         return _token;
     }
 
-    public void SendAuthWebCommand(IAuthCommand authCommand, CancellationToken token)
+    public void SendAuthWebRequest(IAuthRequest authRequest, CancellationToken token)
     {
-        SendRequest(AuthEndpoint, authCommand, token);
+        SendRequest(AuthEndpoint, authRequest, token);
     }
 
-    public async Awaitable<T> SendAuthWebCommandAsync<T>(IAuthCommand userCommand, CancellationToken token)
+    public async Awaitable<T> SendAuthWebRequestAsync<T>(IAuthRequest userRequest, CancellationToken token)
     {
-        return await SendWebCommandAsync<T>(AuthEndpoint, userCommand, token);
+        return await SendWebRequestAsync<T>(AuthEndpoint, userRequest, token);
     }
 
 
 
-    public void SendClientWebCommand(IWebCommand userCommand, CancellationToken token)
+    public void SendClientUserWebRequest(IClientUserRequest userRequest, CancellationToken token)
     {
-        SendRequest(ClientEndpoint, userCommand, token);
+        SendRequest(ClientEndpoint, userRequest, token);
     }
     
-    public async Awaitable<T> SendClientWebCommandAsync<T>(IWebCommand userCommand, CancellationToken token)
+    public async Awaitable<T> SendClientUserWebRequestAsync<T>(IClientUserRequest userRequest, CancellationToken token)
     {
-        return await SendWebCommandAsync<T>(ClientEndpoint, userCommand, token);
+        return await SendWebRequestAsync<T>(ClientEndpoint, userRequest, token);
     }
 
 
-    public void SendNoUserWebCommand(INoUserCommand noUserCommand, CancellationToken token)
+
+    public void SendNoUserWebRequest(INoUserRequest noUserRequest, CancellationToken token)
     {
-        SendRequest(NoUserEndpoint, noUserCommand, token);
+        SendRequest(NoUserEndpoint, noUserRequest, token);
     }
 
-    public async Awaitable<T> SendNoUserWebCommandAsync<T>(INoUserCommand userCommand, CancellationToken token)
+    public async Awaitable<T> SendNoUserWebRequestAsync<T>(INoUserRequest userRequest, CancellationToken token)
     {
-        return await SendWebCommandAsync<T>(NoUserEndpoint, userCommand, token);
+        return await SendWebRequestAsync<T>(NoUserEndpoint, userRequest, token);
     }
 
-    private FullWebCommand SendRequest(string endpoint, IWebCommand loginCommand, CancellationToken token, Type resultType = null)
+    private FullWebRequest SendRequest(string endpoint, IWebRequest loginRequest, CancellationToken token, Type responseType = null)
     {
         if (_queues.TryGetValue(endpoint, out WebRequestQueue queue))
         {
-           return queue.AddRequest(loginCommand, token, resultType);
+           return queue.AddRequest(loginRequest, token, responseType);
         }
         return null;
     }
 
-    private async Awaitable<T> SendWebCommandAsync<T>(string endpoint, IWebCommand webCommand, CancellationToken token)
+    private async Awaitable<T> SendWebRequestAsync<T>(string endpoint, IWebRequest webRequest, CancellationToken token)
     {
-        FullWebCommand fullCommand = SendRequest(endpoint, webCommand, token, typeof(T));
+        FullWebRequest fullRequest = SendRequest(endpoint, webRequest, token, typeof(T));
 
-        while (fullCommand.State == EWebCommandState.Pending)
+        while (fullRequest.State == EWebRequestState.Pending)
         {
             await Awaitable.NextFrameAsync(token);
         }
 
-        return (T)fullCommand.ResultObject;
+        return (T)fullRequest.ResponseObject;
     }
 
 

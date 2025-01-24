@@ -9,6 +9,6 @@ namespace Assets.Scripts.Login.Messages
     {
 
         int Priority();
-        void Process(IWebResult result, CancellationToken token);
+        void Process(IWebResponse result, CancellationToken token);
     }
 }

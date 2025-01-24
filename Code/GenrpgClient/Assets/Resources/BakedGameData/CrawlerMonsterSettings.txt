@@ -1,0 +1,15 @@
+{
+  "Id": "default",
+  "BaseMinDam": 1,
+  "BaseMaxDam": 5,
+  "MinDamPerLevel": 1.0,
+  "MaxDamPerLevel": 2.0,
+  "ScalingPerLevel": 0.25,
+  "BaseMinHealth": 3,
+  "BaseMaxHealth": 10,
+  "MinHealthPerLevel": 2.0,
+  "MaxHealthPerLevel": 8.0,
+  "ManaPerLevel": 1000,
+  "Name": "CrawlerMonsterSettings",
+  "UpdateTime": "2025-01-11T21:25:32.13Z"
+}

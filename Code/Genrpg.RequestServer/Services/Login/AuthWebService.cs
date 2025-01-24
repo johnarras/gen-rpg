@@ -2,9 +2,9 @@
 using Genrpg.Shared.Website.Interfaces;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Website.Messages;
-using Genrpg.RequestServer.AuthCommandHandlers;
 using Genrpg.RequestServer.Services.WebServer;
 using Genrpg.RequestServer.Core;
+using Genrpg.RequestServer.Auth.RequestHandlers;
 
 namespace Genrpg.RequestServer.Services.Login
 {
@@ -12,15 +12,15 @@ namespace Genrpg.RequestServer.Services.Login
     {
         private IWebServerService _webServerService = null;
 
-        public async Task HandleAuthCommand(WebContext context, string postData, CancellationToken token)
+        public async Task HandleAuthRequest(WebContext context, string postData, CancellationToken token)
         {
             try
             {
-                WebServerCommandSet commandSet = SerializationUtils.Deserialize<WebServerCommandSet>(postData);
+                WebServerRequestSet commandSet = SerializationUtils.Deserialize<WebServerRequestSet>(postData);
 
-                foreach (IAuthCommand authCommand in commandSet.Commands)
+                foreach (IAuthRequest authCommand in commandSet.Requests)
                 {
-                    IAuthCommandHandler handler = _webServerService.GetAuthCommandHandler(authCommand.GetType());
+                    IAuthRequestHandler handler = _webServerService.GetAuthCommandHandler(authCommand.GetType());
 
                     if (handler != null)
                     {

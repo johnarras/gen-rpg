@@ -1,5 +1,6 @@
 ﻿
 using Assets.Scripts.Assets.Textures;
+using Assets.Scripts.Crawler.UI.StatusUI;
 using Assets.Scripts.MVC;
 using Assets.Scripts.UI.CombatTexts;
 using Genrpg.Shared.Crawler.Constants;
@@ -8,6 +9,7 @@ using Genrpg.Shared.Crawler.Roles.Constants;
 using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Services;
+using Genrpg.Shared.Crawler.States.StateHelpers.Exploring;
 using Genrpg.Shared.MVC.Interfaces;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.UI.Interfaces;
@@ -21,21 +23,8 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
 {
 
 
-
     public class PartyMemberStatusRow : BaseViewController<int,IView>
     {
-        class Names
-        {
-            public const string Index = "Index";
-            public const string Name = "Name";
-            public const string Class = "Class";
-            public const string Level = "Level";
-            public const string Health = "Health";
-            public const string Mana = "Mana";
-            public const string Summons = "Summons";
-            public const string Status = "Status";
-        }
-
         private IStatusEffectService _statusEffectService;
         private ICrawlerService _crawlerService;
 
@@ -49,58 +38,40 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
 
         private PartyMember _partyMember = null;
 
+        private ProgressBar _healthBar;
+        private ProgressBar _manaBar;
 
-        private Dictionary<string, IText> _textFields = new Dictionary<string, IText>();
+        private StatusEffectsUI _statusEffectsUI;
+
+        private GText _nameText;
+        private GText _classText;
+        private GText _levelText;
+        private GText _summonsText;
+
 
         public override async Task Init(int partyMemberIndex, IView view, CancellationToken token)
         {
             await base.Init(partyMemberIndex, view, token);
-            List<string> names = new List<string>()
-            { 
-                Names.Index, 
-                Names.Name,
-                Names.Class,
-                Names.Level,
-                Names.Health,
-                Names.Mana, 
-                Names.Summons,
-                Names.Status,
-            };
+          
 
             Button = view.Get<IButton>("Button");
             _root = view.Get<GameObject>("Root");
-
-            foreach (string name in names)
-            {
-                _textFields[name] = view.Get<IText>(name);
-            }
 
             _portrait = view.Get<AnimatedSprite>("Portrait");
 
             _fastTextUI = view.Get<FastCombatTextUI>("FastCombatText");
 
+            _nameText = _view.Get<GText>("Name");
+            _levelText = _view.Get<GText>("Level");
+            _classText = _view.Get<GText>("Class");
+            _summonsText = _view.Get<GText>("Summons");
+
+            _healthBar = _view.Get<ProgressBar>("HealthBar");
+            _manaBar = _view.Get<ProgressBar>("ManaBar");
+
+            _statusEffectsUI = _view.Get<StatusEffectsUI>("Status");
+
             _uiService.SetButton(Button, GetType().Name, ClickPartyMember);
-
-            if (_model > 0)
-            {
-                SetText(Names.Index, _model.ToString());
-            }
-            else
-            {
-                SetText(Names.Index, "");
-                SetText(Names.Name, "Name");
-                if (_textFields.TryGetValue(Names.Name, out IText textField)) 
-                {
-                    _uiService.SetTextAlignemnt(textField, -1);
-                }
-                SetText(Names.Class, "Cl");
-                SetText(Names.Level, "Lev");
-                SetText(Names.Health, "Health");
-                SetText(Names.Mana, "Mana");
-                SetText(Names.Summons, "Summon");
-                SetText(Names.Status, "Status");
-
-            }
 
             _updateService.AddUpdate(this, OnLateUpdate, UpdateType.Late, GetToken());
             UpdateData();
@@ -114,13 +85,8 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
             {
                 return;
             }
-            
-            if (_crawlerService.GetState() != ECrawlerStates.ExploreWorld)
-            {
-                return;
-            }
-            _crawlerService.ChangeState(ECrawlerStates.PartyMember, _token, _partyMember, _crawlerService.GetState());
 
+            _dispatcher.Dispatch(new CrawlerCharacterScreenData() { Unit = _partyMember });
         }
 
         private bool _needToUpdate = false;
@@ -150,14 +116,6 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
             if (_partyMember == null)
             {
                 _clientEntityService.SetActive(_root, false);
-                SetText(Names.Name, "");
-                SetText(Names.Health, "");
-                SetText(Names.Mana, "");
-                SetText(Names.Class, "");
-                SetText(Names.Level, "");
-                SetText(Names.Summons, "");
-                SetText(Names.Status, "");
-                SetPortrait(null);
                 if (_fastTextUI != null)
                 {
                     _fastTextUI.SetUnitId(null);
@@ -167,32 +125,22 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
             }
             else
             {
-
-
                 if (_fastTextUI != null)
                 {
                     _fastTextUI.SetUnitId(_partyMember.Id);
                 }
 
-
                 _clientEntityService.SetActive(_root, true);
-                SetText(Names.Name, _partyMember.Name);
-                SetText(Names.Level, _partyMember.Level.ToString());
+                _uiService.SetText(_nameText, _partyMember.Name);
+                _uiService.SetText(_levelText, _partyMember.Level.ToString());
+
+
                 long currHp = _partyMember.Stats.Curr(StatTypes.Health);
                 long maxHp = _partyMember.Stats.Max(StatTypes.Health);
-                SetText(Names.Health, currHp + "/" + maxHp);
-                long currMana = _partyMember.Stats.Curr(StatTypes.Mana);
-                long maxMana = _partyMember.Stats.Max(StatTypes.Mana);
 
-                if (maxMana < 1)
-                {
-                    SetText(Names.Mana, "");
-                }
-                else
-                {
-                    SetText(Names.Mana, currMana + "/" + maxMana);
-                }
-
+                _healthBar.InitRange(0, _partyMember.Stats.Max(StatTypes.Health), _partyMember.Stats.Curr(StatTypes.Health));
+                _manaBar.InitRange(0, _partyMember.Stats.Max(StatTypes.Mana), _partyMember.Stats.Curr(StatTypes.Mana));
+                _statusEffectsUI.InitData(_partyMember);
                 SetPortrait(_partyMember.PortraitName);
 
                 RoleSettings roleSettings = _gameData.Get<RoleSettings>(_gs.ch);
@@ -213,26 +161,20 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
                     }
                 }
 
-                SetText(Names.Class, classText);
+                _uiService.SetText(_classText, classText);
 
-                SetText(Names.Status, _statusEffectService.ShowStatusEffects(_partyMember, true));
+                string summonText = "";
 
-
-                if (_partyMember.Summons != null && _partyMember.Summons.Count > 0)
+                if (_partyMember.Summons.Count> 0)
                 {
-                    SetText(Names.Summons, _partyMember.Summons[0].Name);
+                    summonText = _partyMember.Summons[0].Name;
+
+                    if (_partyMember.Summons.Count > 1)
+                    {
+                        summonText += " (" + _partyMember.Summons.Count + ")";
+                    }
                 }
-                else
-                {
-                    SetText(Names.Summons, "");
-                }
-            }
-        }
-        private void SetText(string fieldName, string text)
-        {
-            if (_textFields.TryGetValue(fieldName, out IText textField))
-            {
-                _uiService.SetText(textField, text);
+                _uiService.SetText(_summonsText, summonText);
             }
         }
 

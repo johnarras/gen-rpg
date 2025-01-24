@@ -1,8 +1,7 @@
 using Assets.Scripts.MapTerrain;
 
 using Genrpg.Shared.Constants;
-using Genrpg.Shared.Website.Messages.UploadMap;
-using Genrpg.Shared.ProcGen.Entities;
+using Genrpg.Shared.MapServer.WebApi.UploadMap;
 using System.Threading;
 using UnityEngine;
 
@@ -64,7 +63,7 @@ public class UploadMap : BaseZoneGenerator
     private async Awaitable DelaySendMapSizes(CancellationToken token)
     {
         await Awaitable.WaitForSecondsAsync(2.0f, cancellationToken: token);
-        UploadMapCommand update = new UploadMapCommand()
+        UploadMapRequest update = new UploadMapRequest()
         {
             Map = _mapProvider.GetMap(),
             SpawnData = _mapProvider.GetSpawns(),
@@ -78,7 +77,7 @@ public class UploadMap : BaseZoneGenerator
         _mapProvider.GetSpawns().Id = "UploadedSpawns";
         await _repoService.Save(_mapProvider.GetSpawns());
         _mapProvider.GetSpawns().Id = oldMapId;
-        _webNetworkService.SendClientWebCommand(update, _token);
+        _webNetworkService.SendClientUserWebRequest(update, _token);
         
     }
 }

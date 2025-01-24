@@ -3,15 +3,17 @@
   "ParentId": "default",
   "IdKey": 5,
   "Name": "Weak",
-  "Desc": "",
-  "Icon": "",
+  "Desc": "Melee attacks are weaker",
+  "Icon": "Weak",
   "Art": "",
   "Abbrev": "Weak",
   "ActionEffects": [
     {
       "CombatActionId": 1,
-      "Effect": 1
+      "Effect": 1,
+      "Name": ""
     }
   ],
-  "UpdateTime": "2024-08-01T00:28:13.104Z"
+  "ElementTypeId": 1,
+  "UpdateTime": "2025-01-13T00:11:14.441Z"
 }

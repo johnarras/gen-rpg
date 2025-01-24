@@ -32,6 +32,7 @@ namespace Genrpg.Shared.Entities.Constants
         public const long Vulnerability = 24;
         public const long Resist = 25;
         public const long Crafter = 26;
+        public const long Element = 27;
 
 
         public const long Stat = 31;
@@ -44,7 +45,7 @@ namespace Genrpg.Shared.Entities.Constants
         public const long Attack = 38;
         public const long Shoot = 39;
         public const long Riddle = 40;
-        public const long RoleScaling = 41;
+        public const long RoleScaling = 41;      
 
         // Crawler-specific entitytypes
         public const long CrawlerSpell = 100;

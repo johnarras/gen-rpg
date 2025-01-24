@@ -16,6 +16,16 @@ using System.Threading.Tasks;
 using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using Genrpg.Shared.Inventory.Settings.Slots;
+using Assets.Scripts.UI.Crawler.StatusUI;
+using UnityEngine;
+using Assets.Scripts.Assets.Textures;
+using Genrpg.Shared.Crawler.Info.Services;
+using Genrpg.Shared.Crawler.Roles.Settings;
+using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Crawler.Roles.Services;
+using Genrpg.Shared.Crawler.Roles.Constants;
+using Genrpg.Shared.Units.Settings;
+using Assets.Scripts.ClientEvents;
 
 namespace Assets.Scripts.Crawler.UI.Screens.Characters
 {
@@ -23,45 +33,106 @@ namespace Assets.Scripts.Crawler.UI.Screens.Characters
     {
         ICrawlerService _crawlerService;
         ICrawlerStatService _crawlerStatService;
+        IInfoService _infoService;
+        IRoleService _roleService;
 
-        ECrawlerStates _prevState = ECrawlerStates.GuildMain;
+        public AnimatedSprite Image;
+        public GText NameText;
+        public GText LevelText;
+        public GText RaceText;
+        public GText ClassText;
+        public GText SummonText;
+        public GText TiersText;
 
         protected override bool CalcStatsOnEquipUnequip() { return false; }
         protected override string GetStatSubdirectory() { return "CrawlerUnits"; }
         protected override bool ShowZeroStats() { return false; }
 
+
+        protected PartyMember _partyMember;
+
+
+
         protected override async Task OnStartOpen(object data, CancellationToken token)
         {
-            if (data is CrawlerCharacterScreenData csd)
-            {
-                _unit = csd.Unit;
-                _prevState = csd.PrevState;
-            }
+            _dispatcher.AddListener<CrawlerCharacterScreenData>(OnScreenData, GetToken());
 
-            if (_gs.GameMode != EGameModes.Roguelike)
-            {
-                IReadOnlyList<EquipSlot> equipSlots = _gameData.Get<EquipSlotSettings>(_gs.ch).GetData();
+            IReadOnlyList<EquipSlot> equipSlots = _gameData.Get<EquipSlotSettings>(_gs.ch).GetData();
 
-                foreach (EquipSlot equipSlot in equipSlots)
+            foreach (EquipSlot equipSlot in equipSlots)
+            {
+                if (!equipSlot.IsCrawlerSlot)
                 {
-                    if (!equipSlot.IsCrawlerSlot)
+                    EquipSlotIcon icon = EquipmentIcons.FirstOrDefault(x => x.EquipSlotId == equipSlot.IdKey);
+                    if (icon != null)
                     {
-                        EquipSlotIcon icon = EquipmentIcons.FirstOrDefault(x => x.EquipSlotId == equipSlot.IdKey);
-                        if (icon != null)
-                        {
-                            _clientEntityService.SetActive(icon, false);
-                        }
+                        _clientEntityService.SetActive(icon, false);
                     }
                 }
             }
-
+            if (data is CrawlerCharacterScreenData csd)
+            {
+                OnScreenData(csd);
+            }
 
             await base.OnStartOpen(data, token);
         }
 
+        private void OnScreenData(CrawlerCharacterScreenData csd)
+        {
+            _unit = csd.Unit;
+            _partyMember = csd.Unit;
+
+            PartyData partyData = _crawlerService.GetParty();
+
+            InventoryData idata = _partyMember.Get<InventoryData>();
+
+            idata.SetInvenEquip(partyData.Inventory, _partyMember.Equipment);
+
+            Image.SetImage(_partyMember.PortraitName);
+            _uiService.SetText(NameText, _unit.Name);
+
+            List<Role> allRoles = _gameData.Get<RoleSettings>(_gs.ch).GetRoles(_unit.Roles);
+
+            _uiService.SetText(LevelText, "Level " + _unit.Level);
+
+
+            Role raceRole = allRoles.FirstOrDefault(x => x.RoleCategoryId == RoleCategories.Origin);
+
+
+            if (raceRole != null)
+            {
+                _uiService.SetText(RaceText, _infoService.CreateInfoLink(raceRole));
+            }
+
+
+            List<Role> classRoles = allRoles.Where(x => x.RoleCategoryId == RoleCategories.Class).ToList();
+
+
+            StringBuilder sb = new StringBuilder();
+            foreach (Role classRole in classRoles)
+            {
+                sb.Append(_infoService.CreateInfoLink(classRole) + " ");
+            }
+
+            _uiService.SetText(ClassText, sb.ToString());
+
+
+            sb.Clear();
+            if (_partyMember.Summons.Count > 0)
+            {
+                foreach (PartySummon summon in _partyMember.Summons)
+                {
+                    sb.Append(_infoService.CreateInfoLink(_gameData.Get<UnitSettings>(_gs.ch).Get(summon.UnitTypeId)) + " ");
+                }
+            }
+            _uiService.SetText(SummonText, sb.ToString());
+
+        }
+
         protected override void OnStartClose()
         {
-            _crawlerService.ChangeState(_prevState, _token);
+            _dispatcher.Dispatch(new HideInfoPanelEvent());
             base.OnStartClose();
         }
 

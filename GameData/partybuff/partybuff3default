@@ -3,5 +3,6 @@
   "ParentId": "default",
   "IdKey": 3,
   "Name": "Magic Compass",
-  "UpdateTime": "2024-08-01T00:28:09.662Z"
+  "Desc": "Allows you to see what direction you are facing.",
+  "UpdateTime": "2025-01-13T20:22:09.683Z"
 }

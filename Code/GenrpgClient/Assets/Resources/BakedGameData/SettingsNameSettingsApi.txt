@@ -797,6 +797,20 @@
       "IdKey": 114,
       "Name": "RoleScalingTypeSettings",
       "UpdateTime": "2024-11-26T01:48:34.329Z"
+    },
+    {
+      "Id": "settingsname115default",
+      "ParentId": "default",
+      "IdKey": 115,
+      "Name": "CrawlerMonsterSettings",
+      "UpdateTime": "2025-01-11T16:53:25.352Z"
+    },
+    {
+      "Id": "settingsname116default",
+      "ParentId": "default",
+      "IdKey": 116,
+      "Name": "StoreItemSettings",
+      "UpdateTime": "2025-01-17T21:16:12.194Z"
     }
   ],
   "ParentObj": {

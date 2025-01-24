@@ -16,6 +16,7 @@ using Genrpg.ServerShared.DataStores.DbQueues.Actions;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Setup.Constants;
 using Genrpg.Shared.DataStores.DataGroups;
+using Genrpg.ServerShared.Secrets.Services;
 
 namespace Genrpg.ServerShared.DataStores
 {
@@ -31,6 +32,8 @@ namespace Genrpg.ServerShared.DataStores
     public class ServerRepositoryService : IServerRepositoryService
     {
 
+        private ISecretsService _secretsService;
+
         public async Task Initialize(CancellationToken toke)
         {
             await Task.CompletedTask;
@@ -43,7 +46,6 @@ namespace Genrpg.ServerShared.DataStores
         private IServerConfig _config = null;
 
         private Dictionary<string, string> _environments = new Dictionary<string, string>();
-        private Dictionary<string, string> _connectionStrings = new Dictionary<string, string>();
 
         private ConcurrentDictionary<string, IRepository> _repos = new ConcurrentDictionary<string, IRepository>();
         private ConcurrentDictionary<string, BlobRepository> _blobRepos = new ConcurrentDictionary<string, BlobRepository>();
@@ -56,32 +58,31 @@ namespace Genrpg.ServerShared.DataStores
         {
 
             _environments = _config.DataEnvs;
-            _connectionStrings = _config.GetConnectionStrings();
             _queues = new List<DbQueue>();
             for (int i = 0; i < QueueCount; i++)
             {
                 _queues.Add(new DbQueue(_logger, token));
             }
 
-            string blobRepoTypeName = ERepoTypes.Blob.ToString();
-            string noSqlRepoTypeName = ERepoTypes.NoSQL.ToString();   
 
-            foreach (string key in _connectionStrings.Keys)
+            foreach (EDataCategories category in Enum.GetValues(typeof(EDataCategories)))
             {
-                if (key.IndexOf(blobRepoTypeName) == 0)
+                string env = _environments[category.ToString()];
+                foreach (ERepoTypes repoType in Enum.GetValues(typeof(ERepoTypes)))
                 {
-                    string dataCategory = key.Replace(blobRepoTypeName, "");
-                    string env = _environments[dataCategory];
-                    await AddBlobRepo(_connectionStrings[key], env, dataCategory, blobRepoTypeName);
-                }
-
-                else if (key.IndexOf(noSqlRepoTypeName) == 0)
-                {
-                    string dataCategory = key.Replace(noSqlRepoTypeName, "");
-                    string env = _environments[dataCategory];
-                    AddNoSqlRepo(_connectionStrings[key], env, dataCategory, noSqlRepoTypeName);
+                    string connectionString = await _secretsService.GetSecret(repoType.ToString() + category.ToString());
+                    string dataCategory = category.ToString();
+                    if (repoType == ERepoTypes.Blob)
+                    {
+                        await AddBlobRepo(connectionString, env, dataCategory, repoType.ToString());
+                    }
+                    else if (repoType == ERepoTypes.NoSQL)
+                    {
+                       await AddNoSqlRepo(connectionString, env, dataCategory, repoType.ToString());
+                    }
                 }
             }
+
             await Task.CompletedTask;
         }
 
@@ -93,11 +94,12 @@ namespace Genrpg.ServerShared.DataStores
             _repos[typeKey] = blobRepo;
         }
 
-        public void AddNoSqlRepo(string connectionString, string env, string dataCategory, string dataStoreType)
+        public async Task AddNoSqlRepo(string connectionString, string env, string dataCategory, string dataStoreType)
         {
             string typeKey = GetEnvCategoryStoreTypeKey(env, dataCategory, dataStoreType);
 
             _repos[typeKey] = new NoSQLRepository(_logger, env, dataCategory, connectionString);
+            await Task.CompletedTask;
         }
 
         private string GetEnvCategoryStoreTypeKey(string env, string dataCategory, string dataStoreType)

@@ -8,5 +8,5 @@
   "ChargeDiceMultPower": 0.5,
   "RewardDiceMultPower": 0.5,
   "Name": "ActivationSettings",
-  "UpdateTime": "2024-08-10T23:12:41.084Z"
+  "UpdateTime": "2025-01-17T21:16:12.194Z"
 }

@@ -100,7 +100,7 @@ namespace Genrpg.RequestServer.Spawns.Services
         /// <param name="level">Level of loot</param>
         /// <param name="qualityTypeId">Power of the loot</param>
         /// <param name="depth">Depth of the recursion</param>
-        /// <returns>A list of spawn results</returns>
+        /// <returns>A list of spawn responses</returns>
         private async Task<List<Reward>> RollOnce<SI>(WebContext context, List<SI> items, RollData rollData) where SI : ISpawnItem
         {
             if (items == null)

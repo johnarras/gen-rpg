@@ -5,10 +5,11 @@
       "ParentId": "default",
       "IdKey": 1,
       "Name": "Attack",
-      "Desc": "Melee attack one or more monsters.",
+      "Desc": "Melee attack one or more enemies.",
       "MaxRange": 10,
       "CombatActionId": 1,
       "TargetTypeId": 1,
+      "RoleScalingTypeId": 1,
       "Level": 1,
       "Effects": [
         {
@@ -18,7 +19,7 @@
         }
       ],
       "Flags": 1,
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell2default",
@@ -29,21 +30,23 @@
       "MaxRange": 100,
       "CombatActionId": 2,
       "TargetTypeId": 9,
+      "RoleScalingTypeId": 4,
       "Level": 1,
       "Effects": [],
       "Flags": 1,
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell3default",
       "ParentId": "default",
       "IdKey": 3,
       "Name": "Shoot",
-      "Desc": "Attack one or more monsters that are out of melee range.",
+      "Desc": "Attack one or more enemies that are out of melee range.",
       "MinRange": 20,
       "MaxRange": 100,
       "CombatActionId": 3,
       "TargetTypeId": 1,
+      "RoleScalingTypeId": 2,
       "Level": 1,
       "Effects": [
         {
@@ -53,7 +56,7 @@
         }
       ],
       "Flags": 1,
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell4default",
@@ -64,29 +67,10 @@
       "MaxRange": 100,
       "CombatActionId": 5,
       "TargetTypeId": 9,
+      "RoleScalingTypeId": 6,
       "Level": 1,
       "Effects": [],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
-    },
-    {
-      "Id": "crawlerspell5default",
-      "ParentId": "default",
-      "IdKey": 5,
-      "Name": "Backstab",
-      "Desc": "Leap from the shadows and kill one or more monsters in a group.",
-      "MaxRange": 10,
-      "ReplacesCrawlerSpellId": 1,
-      "CombatActionId": 1,
-      "TargetTypeId": 1,
-      "Level": 1,
-      "Effects": [
-        {
-          "EntityTypeId": 38,
-          "EntityId": 1,
-          "ElementTypeId": 1
-        }
-      ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell6default",
@@ -97,6 +81,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 8,
+      "RoleScalingTypeId": 6,
       "Level": 11,
       "Effects": [
         {
@@ -104,18 +89,19 @@
           "EntityId": 3
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell7default",
       "ParentId": "default",
       "IdKey": 7,
       "Name": "Mesmerize",
-      "Desc": "Make  group of monsters unable to act.",
+      "Desc": "Make  group of enemies unable to act.",
       "PowerCost": 10.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 3,
+      "RoleScalingTypeId": 3,
       "Level": 9,
       "Effects": [
         {
@@ -126,19 +112,20 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell8default",
       "ParentId": "default",
       "IdKey": 8,
       "Name": "Heal Wounds",
-      "Desc": "Heal the wounds of a party member.",
+      "Desc": "Heal the wounds of an ally.",
       "PowerCost": 3.0,
       "PowerPerLevel": 0.5,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 2,
+      "RoleScalingTypeId": 4,
       "Level": 1,
       "Effects": [
         {
@@ -148,19 +135,20 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell9default",
       "ParentId": "default",
       "IdKey": 9,
       "Name": "Heal Party",
-      "Desc": "Heal the wounds of all party members.",
+      "Desc": "Heal the wounds of all allies.",
       "PowerCost": 10.0,
       "PowerPerLevel": 1.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 5,
+      "RoleScalingTypeId": 4,
       "Level": 9,
       "Effects": [
         {
@@ -170,19 +158,20 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell10default",
       "ParentId": "default",
       "IdKey": 10,
       "Name": "Cure",
-      "Desc": "Cure a single party member",
+      "Desc": "Cure a single ally",
       "PowerCost": 5.0,
       "PowerPerLevel": 0.5,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 2,
+      "RoleScalingTypeId": 4,
       "Level": 1,
       "Effects": [
         {
@@ -192,19 +181,20 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell15default",
       "ParentId": "default",
       "IdKey": 15,
       "Name": "Holy Beam",
-      "Desc": "Hit one or more monsters with holy damage.",
+      "Desc": "Hit one or more enemies with holy damage.",
       "PowerCost": 4.0,
       "PowerPerLevel": 0.5,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 1,
+      "RoleScalingTypeId": 4,
       "Level": 1,
       "Effects": [
         {
@@ -215,19 +205,20 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell16default",
       "ParentId": "default",
       "IdKey": 16,
       "Name": "Holy Nova",
-      "Desc": "Hit all monsters in a group with holy damage.",
+      "Desc": "Hit all enemies in a group with holy damage.",
       "PowerCost": 8.0,
       "PowerPerLevel": 1.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 3,
+      "RoleScalingTypeId": 4,
       "Level": 7,
       "Effects": [
         {
@@ -238,7 +229,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell17default",
@@ -250,6 +241,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 8,
+      "RoleScalingTypeId": 6,
       "Level": 11,
       "Effects": [
         {
@@ -258,7 +250,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell18default",
@@ -270,6 +262,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 8,
+      "RoleScalingTypeId": 6,
       "Level": 1,
       "Effects": [
         {
@@ -278,7 +271,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell19default",
@@ -290,6 +283,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 8,
+      "RoleScalingTypeId": 6,
       "Level": 3,
       "Effects": [
         {
@@ -298,7 +292,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell20default",
@@ -310,6 +304,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 8,
+      "RoleScalingTypeId": 6,
       "Level": 5,
       "Effects": [
         {
@@ -318,7 +313,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell21default",
@@ -330,6 +325,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 8,
+      "RoleScalingTypeId": 6,
       "Level": 8,
       "Effects": [
         {
@@ -338,7 +334,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell23default",
@@ -350,6 +346,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 3,
+      "RoleScalingTypeId": 3,
       "Level": 13,
       "Effects": [
         {
@@ -360,7 +357,7 @@
           "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell24default",
@@ -372,6 +369,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 3,
+      "RoleScalingTypeId": 3,
       "Level": 5,
       "Effects": [
         {
@@ -382,7 +380,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell25default",
@@ -395,6 +393,7 @@
       "MaxRange": 10,
       "CombatActionId": 4,
       "TargetTypeId": 1,
+      "RoleScalingTypeId": 1,
       "Level": 1,
       "Effects": [
         {
@@ -405,19 +404,20 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell27default",
       "ParentId": "default",
       "IdKey": 27,
       "Name": "Fireball",
-      "Desc": "Hit one or more monsters in a group with fire damage.",
+      "Desc": "Hit one or more enemies in a group with fire damage.",
       "PowerCost": 5.0,
       "PowerPerLevel": 0.5,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 1,
+      "RoleScalingTypeId": 3,
       "Level": 7,
       "Effects": [
         {
@@ -428,19 +428,20 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell28default",
       "ParentId": "default",
       "IdKey": 28,
       "Name": "Flamestrike",
-      "Desc": "Hit all monsters in a group with fire damage.",
+      "Desc": "Hit all enemies in a group with fire damage.",
       "PowerCost": 10.0,
       "PowerPerLevel": 1.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 3,
+      "RoleScalingTypeId": 3,
       "Level": 2,
       "Effects": [
         {
@@ -451,19 +452,20 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell29default",
       "ParentId": "default",
       "IdKey": 29,
       "Name": "Frostbolt",
-      "Desc": "Hit one or more monsters in a group with cold damage.",
+      "Desc": "Hit one or more enemies in a group with cold damage.",
       "PowerCost": 4.0,
       "PowerPerLevel": 0.5,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 1,
+      "RoleScalingTypeId": 3,
       "Level": 1,
       "Effects": [
         {
@@ -474,19 +476,20 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell30default",
       "ParentId": "default",
       "IdKey": 30,
       "Name": "Cone of Cold",
-      "Desc": "Hit all monsters in a group with cold damage.",
+      "Desc": "Hit all enemies in a group with cold damage.",
       "PowerCost": 8.0,
       "PowerPerLevel": 1.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 3,
+      "RoleScalingTypeId": 3,
       "Level": 3,
       "Effects": [
         {
@@ -497,22 +500,22 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell31default",
       "ParentId": "default",
       "IdKey": 31,
       "Name": "Lightning Bolt",
-      "Desc": "Hit one or more monsters with electric damage.",
+      "Desc": "Hit one or more enemies with electric damage.",
       "Icon": "",
       "Art": "",
       "PowerCost": 6.0,
       "PowerPerLevel": 0.5,
       "MaxRange": 100,
-      "ReplacesCrawlerSpellId": 1,
       "CombatActionId": 4,
       "TargetTypeId": 1,
+      "RoleScalingTypeId": 3,
       "Level": 3,
       "Effects": [
         {
@@ -520,23 +523,23 @@
           "EntityId": 3,
           "MinQuantity": 1,
           "MaxQuantity": 12,
-          "ElementTypeId": 4,
-          "Name": ""
+          "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell32default",
       "ParentId": "default",
       "IdKey": 32,
       "Name": "Chain Lightning",
-      "Desc": "Hit all monsters in a group with electric damage.",
+      "Desc": "Hit all enemies in a group with electric damage.",
       "PowerCost": 12.0,
       "PowerPerLevel": 1.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 3,
+      "RoleScalingTypeId": 3,
       "Level": 5,
       "Effects": [
         {
@@ -547,7 +550,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell33default",
@@ -559,6 +562,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 3,
+      "RoleScalingTypeId": 3,
       "Level": 6,
       "Effects": [
         {
@@ -569,18 +573,19 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell37default",
       "ParentId": "default",
       "IdKey": 37,
       "Name": "Whirlwind",
-      "Desc": "Hit one or more monsters in all groups within melee range.",
+      "Desc": "Hit one or more enemies in all groups within melee range.",
       "MaxRange": 10,
       "ReplacesCrawlerSpellId": 1,
       "CombatActionId": 1,
       "TargetTypeId": 10,
+      "RoleScalingTypeId": 1,
       "Level": 1,
       "Effects": [
         {
@@ -589,19 +594,20 @@
           "ElementTypeId": 1
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell39default",
       "ParentId": "default",
       "IdKey": 39,
       "Name": "Volley",
-      "Desc": "Hit one or more monsters in all groups with ranged damage.",
+      "Desc": "Hit one or more enemies in all groups with ranged damage.",
       "MinRange": 20,
       "MaxRange": 100,
       "ReplacesCrawlerSpellId": 3,
       "CombatActionId": 3,
       "TargetTypeId": 10,
+      "RoleScalingTypeId": 2,
       "Level": 1,
       "Effects": [
         {
@@ -610,20 +616,7 @@
           "ElementTypeId": 1
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
-    },
-    {
-      "Id": "crawlerspell40default",
-      "ParentId": "default",
-      "IdKey": 40,
-      "Name": "UNUSED",
-      "MaxRange": 100,
-      "ReplacesCrawlerSpellId": 12,
-      "CombatActionId": 4,
-      "TargetTypeId": 5,
-      "Level": 18,
-      "Effects": [],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell41default",
@@ -636,6 +629,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
       "Level": 1,
       "Effects": [
         {
@@ -646,7 +640,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell42default",
@@ -654,22 +648,25 @@
       "IdKey": 42,
       "Name": "Conjure Golem",
       "Desc": "Summon a golem.",
+      "Icon": "",
+      "Art": "",
       "PowerCost": 9.0,
       "PowerPerLevel": 1.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
       "Level": 1,
       "Effects": [
         {
           "EntityTypeId": 4,
-          "EntityId": 118,
+          "EntityId": 66,
           "MinQuantity": 1,
           "MaxQuantity": 1,
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell43default",
@@ -682,6 +679,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
       "Level": 1,
       "Effects": [
         {
@@ -692,25 +690,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
-    },
-    {
-      "Id": "crawlerspell44default",
-      "ParentId": "default",
-      "IdKey": 44,
-      "Name": "UNUSED",
-      "MaxRange": 100,
-      "CombatActionId": 4,
-      "TargetTypeId": 8,
-      "Level": 8,
-      "Effects": [
-        {
-          "EntityTypeId": 37,
-          "EntityId": 6,
-          "ElementTypeId": 9
-        }
-      ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell45default",
@@ -722,6 +702,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 3,
+      "RoleScalingTypeId": 3,
       "Level": 9,
       "Effects": [
         {
@@ -732,7 +713,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell46default",
@@ -743,6 +724,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 8,
+      "RoleScalingTypeId": 6,
       "Level": 9,
       "Effects": [
         {
@@ -753,7 +735,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell47default",
@@ -764,6 +746,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 8,
+      "RoleScalingTypeId": 6,
       "Level": 9,
       "Effects": [
         {
@@ -774,7 +757,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell48default",
@@ -785,6 +768,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 3,
+      "RoleScalingTypeId": 1,
       "Level": 9,
       "Effects": [
         {
@@ -795,19 +779,20 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell49default",
       "ParentId": "default",
       "IdKey": 49,
       "Name": "Holy Storm",
-      "Desc": "Hit all monsters with holy damage.",
+      "Desc": "Hit all enemies with holy damage.",
       "PowerCost": 12.0,
       "PowerPerLevel": 1.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 4,
+      "RoleScalingTypeId": 4,
       "Level": 14,
       "Effects": [
         {
@@ -818,19 +803,20 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell50default",
       "ParentId": "default",
       "IdKey": 50,
       "Name": "Firestorm",
-      "Desc": "Hit all monsters with fire damage.",
+      "Desc": "Hit all enemies with fire damage.",
       "PowerCost": 15.0,
       "PowerPerLevel": 1.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 4,
+      "RoleScalingTypeId": 3,
       "Level": 14,
       "Effects": [
         {
@@ -841,18 +827,19 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell51default",
       "ParentId": "default",
       "IdKey": 51,
       "Name": "Lightning Storm",
-      "Desc": "Hit all monsters with electric damage.",
+      "Desc": "Hit all enemies with electric damage.",
       "PowerCost": 18.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 4,
+      "RoleScalingTypeId": 3,
       "Level": 11,
       "Effects": [
         {
@@ -863,18 +850,19 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell52default",
       "ParentId": "default",
       "IdKey": 52,
       "Name": "Blizzard",
-      "Desc": "Hit all monsters with cold damage.",
+      "Desc": "Hit all enemies with cold damage.",
       "PowerCost": 12.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 4,
+      "RoleScalingTypeId": 3,
       "Level": 9,
       "Effects": [
         {
@@ -885,7 +873,7 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell53default",
@@ -897,6 +885,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 5,
+      "RoleScalingTypeId": 4,
       "Level": 5,
       "Effects": [
         {
@@ -906,7 +895,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell58default",
@@ -918,6 +907,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 8,
+      "RoleScalingTypeId": 6,
       "Level": 8,
       "Effects": [
         {
@@ -926,7 +916,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell59default",
@@ -938,6 +928,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 8,
+      "RoleScalingTypeId": 6,
       "Level": 8,
       "Effects": [
         {
@@ -946,7 +937,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell60default",
@@ -958,6 +949,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 8,
+      "RoleScalingTypeId": 6,
       "Level": 8,
       "Effects": [
         {
@@ -966,7 +958,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell61default",
@@ -979,6 +971,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
       "Level": 1,
       "Effects": [
         {
@@ -989,7 +982,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell62default",
@@ -1002,6 +995,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
       "Level": 1,
       "Effects": [
         {
@@ -1012,7 +1006,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell63default",
@@ -1025,6 +1019,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
       "Level": 1,
       "Effects": [
         {
@@ -1035,28 +1030,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
-    },
-    {
-      "Id": "crawlerspell10016default",
-      "ParentId": "default",
-      "IdKey": 10016,
-      "Name": "Enhance Luck",
-      "PowerCost": 10.0,
-      "PowerPerLevel": 1.0,
-      "MaxRange": 100,
-      "CombatActionId": 4,
-      "TargetTypeId": 9,
-      "Level": 1,
-      "Effects": [
-        {
-          "EntityTypeId": 31,
-          "EntityId": 16,
-          "MinQuantity": 1,
-          "MaxQuantity": 1
-        }
-      ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell10020default",
@@ -1068,6 +1042,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
+      "RoleScalingTypeId": 4,
       "Level": 1,
       "Effects": [
         {
@@ -1077,7 +1052,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell10031default",
@@ -1089,6 +1064,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
+      "RoleScalingTypeId": 4,
       "Level": 1,
       "Effects": [
         {
@@ -1098,7 +1074,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell10032default",
@@ -1110,6 +1086,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
+      "RoleScalingTypeId": 4,
       "Level": 1,
       "Effects": [
         {
@@ -1119,7 +1096,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell10033default",
@@ -1131,6 +1108,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
+      "RoleScalingTypeId": 4,
       "Level": 1,
       "Effects": [
         {
@@ -1140,7 +1118,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell10034default",
@@ -1152,6 +1130,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
+      "RoleScalingTypeId": 4,
       "Level": 1,
       "Effects": [
         {
@@ -1161,7 +1140,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell10063default",
@@ -1173,6 +1152,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
+      "RoleScalingTypeId": 4,
       "Level": 1,
       "Effects": [
         {
@@ -1182,7 +1162,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell10070default",
@@ -1194,6 +1174,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
+      "RoleScalingTypeId": 4,
       "Level": 1,
       "Effects": [
         {
@@ -1203,7 +1184,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     },
     {
       "Id": "crawlerspell10071default",
@@ -1215,6 +1196,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
+      "RoleScalingTypeId": 4,
       "Level": 1,
       "Effects": [
         {
@@ -1224,7 +1206,2697 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-12-30T17:06:34.075Z"
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20000default",
+      "ParentId": "default",
+      "IdKey": 20000,
+      "Name": "Summon None",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20001default",
+      "ParentId": "default",
+      "IdKey": 20001,
+      "Name": "Summon Human",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 1,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20002default",
+      "ParentId": "default",
+      "IdKey": 20002,
+      "Name": "Summon Elf",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 2,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20003default",
+      "ParentId": "default",
+      "IdKey": 20003,
+      "Name": "Summon Elf Archer",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 3,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20004default",
+      "ParentId": "default",
+      "IdKey": 20004,
+      "Name": "Summon Elf Mage",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 4,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20005default",
+      "ParentId": "default",
+      "IdKey": 20005,
+      "Name": "Summon Dwarf",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 5,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 3
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20006default",
+      "ParentId": "default",
+      "IdKey": 20006,
+      "Name": "Summon Dwarf Priest",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 6,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 3
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20007default",
+      "ParentId": "default",
+      "IdKey": 20007,
+      "Name": "Summon Mongrel",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 7,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20008default",
+      "ParentId": "default",
+      "IdKey": 20008,
+      "Name": "Summon Mongrel Archer",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 8,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20009default",
+      "ParentId": "default",
+      "IdKey": 20009,
+      "Name": "Summon Mongrel Shaman",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 9,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20010default",
+      "ParentId": "default",
+      "IdKey": 20010,
+      "Name": "Summon Gnome",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 10,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20011default",
+      "ParentId": "default",
+      "IdKey": 20011,
+      "Name": "Summon Gnome Priest",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 11,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20012default",
+      "ParentId": "default",
+      "IdKey": 20012,
+      "Name": "Summon Gnome Mage",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 12,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20013default",
+      "ParentId": "default",
+      "IdKey": 20013,
+      "Name": "Summon Halfling",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 13,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20014default",
+      "ParentId": "default",
+      "IdKey": 20014,
+      "Name": "Summon Halfling Thief",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 14,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20015default",
+      "ParentId": "default",
+      "IdKey": 20015,
+      "Name": "Summon Halfling Archer",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 15,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20016default",
+      "ParentId": "default",
+      "IdKey": 20016,
+      "Name": "Summon Goblin",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 16,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20017default",
+      "ParentId": "default",
+      "IdKey": 20017,
+      "Name": "Summon Goblin Archer",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 17,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20018default",
+      "ParentId": "default",
+      "IdKey": 20018,
+      "Name": "Summon Goblin Lieutenant",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 18,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20019default",
+      "ParentId": "default",
+      "IdKey": 20019,
+      "Name": "Summon Goblin Chieftain",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 19,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20020default",
+      "ParentId": "default",
+      "IdKey": 20020,
+      "Name": "Summon Goblin Shaman",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 20,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20021default",
+      "ParentId": "default",
+      "IdKey": 20021,
+      "Name": "Summon Hobgoblin",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 21,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20022default",
+      "ParentId": "default",
+      "IdKey": 20022,
+      "Name": "Summon Hobgoblin Archer",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 22,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20023default",
+      "ParentId": "default",
+      "IdKey": 20023,
+      "Name": "Summon Hobgoblin Lieutenant",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 23,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20024default",
+      "ParentId": "default",
+      "IdKey": 20024,
+      "Name": "Summon Hobgoblin Chieftain",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 24,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20025default",
+      "ParentId": "default",
+      "IdKey": 20025,
+      "Name": "Summon Hobgoblin Shaman",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 25,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20026default",
+      "ParentId": "default",
+      "IdKey": 20026,
+      "Name": "Summon Warrior",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 26,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20027default",
+      "ParentId": "default",
+      "IdKey": 20027,
+      "Name": "Summon Fighter",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 27,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20028default",
+      "ParentId": "default",
+      "IdKey": 20028,
+      "Name": "Summon Bladesman",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 28,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20029default",
+      "ParentId": "default",
+      "IdKey": 20029,
+      "Name": "Summon Swordsman",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 29,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20030default",
+      "ParentId": "default",
+      "IdKey": 20030,
+      "Name": "Summon Scrapper",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 30,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20031default",
+      "ParentId": "default",
+      "IdKey": 20031,
+      "Name": "Summon Monk",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 31,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20032default",
+      "ParentId": "default",
+      "IdKey": 20032,
+      "Name": "Summon Barbarian",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 32,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20033default",
+      "ParentId": "default",
+      "IdKey": 20033,
+      "Name": "Summon Mage",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 33,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20034default",
+      "ParentId": "default",
+      "IdKey": 20034,
+      "Name": "Summon Magician",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 34,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20035default",
+      "ParentId": "default",
+      "IdKey": 20035,
+      "Name": "Summon Conjurer",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 35,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20036default",
+      "ParentId": "default",
+      "IdKey": 20036,
+      "Name": "Summon Sorcerer",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 36,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20037default",
+      "ParentId": "default",
+      "IdKey": 20037,
+      "Name": "Summon Wizard",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 37,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20038default",
+      "ParentId": "default",
+      "IdKey": 20038,
+      "Name": "Summon Faerie",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 38,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20039default",
+      "ParentId": "default",
+      "IdKey": 20039,
+      "Name": "Summon Cleric",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 39,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20040default",
+      "ParentId": "default",
+      "IdKey": 20040,
+      "Name": "Summon Medusa",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 40,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 5
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20041default",
+      "ParentId": "default",
+      "IdKey": 20041,
+      "Name": "Summon Dog",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 41,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20042default",
+      "ParentId": "default",
+      "IdKey": 20042,
+      "Name": "Summon Hound",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 42,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20043default",
+      "ParentId": "default",
+      "IdKey": 20043,
+      "Name": "Summon Wolf",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 43,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20044default",
+      "ParentId": "default",
+      "IdKey": 20044,
+      "Name": "Summon Coyote",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 44,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20045default",
+      "ParentId": "default",
+      "IdKey": 20045,
+      "Name": "Summon Cat",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 45,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20046default",
+      "ParentId": "default",
+      "IdKey": 20046,
+      "Name": "Summon Tiger",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 46,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20047default",
+      "ParentId": "default",
+      "IdKey": 20047,
+      "Name": "Summon Lion",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 47,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20048default",
+      "ParentId": "default",
+      "IdKey": 20048,
+      "Name": "Summon Skeleton",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 48,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 6
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20049default",
+      "ParentId": "default",
+      "IdKey": 20049,
+      "Name": "Summon Zombie",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 49,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 6
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20050default",
+      "ParentId": "default",
+      "IdKey": 20050,
+      "Name": "Summon Ghoul",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 50,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 6
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20051default",
+      "ParentId": "default",
+      "IdKey": 20051,
+      "Name": "Summon Wight",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 51,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 6
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20052default",
+      "ParentId": "default",
+      "IdKey": 20052,
+      "Name": "Summon Wraith",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 52,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 6
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20053default",
+      "ParentId": "default",
+      "IdKey": 20053,
+      "Name": "Summon Ghost",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 53,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 6
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20054default",
+      "ParentId": "default",
+      "IdKey": 20054,
+      "Name": "Summon Spectre",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 54,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 6
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20055default",
+      "ParentId": "default",
+      "IdKey": 20055,
+      "Name": "Summon Lich",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 55,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20056default",
+      "ParentId": "default",
+      "IdKey": 20056,
+      "Name": "Summon Thief",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 56,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20057default",
+      "ParentId": "default",
+      "IdKey": 20057,
+      "Name": "Summon Rogue",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 57,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20058default",
+      "ParentId": "default",
+      "IdKey": 20058,
+      "Name": "Summon Assassin",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 58,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20059default",
+      "ParentId": "default",
+      "IdKey": 20059,
+      "Name": "Summon Demon",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 59,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 6
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20060default",
+      "ParentId": "default",
+      "IdKey": 20060,
+      "Name": "Summon Demon Lord",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 60,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 6
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20061default",
+      "ParentId": "default",
+      "IdKey": 20061,
+      "Name": "Summon Blue Dragon",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 61,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 4
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20062default",
+      "ParentId": "default",
+      "IdKey": 20062,
+      "Name": "Summon Red Dragon",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 62,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 2
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20063default",
+      "ParentId": "default",
+      "IdKey": 20063,
+      "Name": "Summon White Dragon",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 63,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 3
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20064default",
+      "ParentId": "default",
+      "IdKey": 20064,
+      "Name": "Summon Black Dragon",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 64,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 4
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20065default",
+      "ParentId": "default",
+      "IdKey": 20065,
+      "Name": "Summon Green Dragon",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 65,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 5
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20066default",
+      "ParentId": "default",
+      "IdKey": 20066,
+      "Name": "Summon Stone Golem",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 66,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 1
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20067default",
+      "ParentId": "default",
+      "IdKey": 20067,
+      "Name": "Summon Iron Golem",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 67,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 1
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20068default",
+      "ParentId": "default",
+      "IdKey": 20068,
+      "Name": "Summon Flesh Golem",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 68,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 1
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20069default",
+      "ParentId": "default",
+      "IdKey": 20069,
+      "Name": "Summon Air Elemental",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 69,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 4
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20070default",
+      "ParentId": "default",
+      "IdKey": 20070,
+      "Name": "Summon Earth Elemental",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 70,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 5
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20071default",
+      "ParentId": "default",
+      "IdKey": 20071,
+      "Name": "Summon Fire Elemental",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 71,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 2
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20072default",
+      "ParentId": "default",
+      "IdKey": 20072,
+      "Name": "Summon Water Elemental",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 72,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 3
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20073default",
+      "ParentId": "default",
+      "IdKey": 20073,
+      "Name": "Summon Bear",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 73,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20074default",
+      "ParentId": "default",
+      "IdKey": 20074,
+      "Name": "Summon Slime",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 74,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20075default",
+      "ParentId": "default",
+      "IdKey": 20075,
+      "Name": "Summon Spider",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 75,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20076default",
+      "ParentId": "default",
+      "IdKey": 20076,
+      "Name": "Summon Scorpion",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 76,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20077default",
+      "ParentId": "default",
+      "IdKey": 20077,
+      "Name": "Summon Chimera",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 77,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20078default",
+      "ParentId": "default",
+      "IdKey": 20078,
+      "Name": "Summon Orc",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 78,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20079default",
+      "ParentId": "default",
+      "IdKey": 20079,
+      "Name": "Summon Orc Archer",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 79,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20080default",
+      "ParentId": "default",
+      "IdKey": 20080,
+      "Name": "Summon Orc Lieutenant",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 80,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20081default",
+      "ParentId": "default",
+      "IdKey": 20081,
+      "Name": "Summon Orc Chieftain",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 81,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20082default",
+      "ParentId": "default",
+      "IdKey": 20082,
+      "Name": "Summon Orc Shaman",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 82,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20083default",
+      "ParentId": "default",
+      "IdKey": 20083,
+      "Name": "Summon Ogre",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 83,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20084default",
+      "ParentId": "default",
+      "IdKey": 20084,
+      "Name": "Summon Ogre Archer",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 84,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20085default",
+      "ParentId": "default",
+      "IdKey": 20085,
+      "Name": "Summon Ogre Lieutenant",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 85,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20086default",
+      "ParentId": "default",
+      "IdKey": 20086,
+      "Name": "Summon Ogre Chieftain",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 86,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20087default",
+      "ParentId": "default",
+      "IdKey": 20087,
+      "Name": "Summon Ogre Shaman",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 87,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20088default",
+      "ParentId": "default",
+      "IdKey": 20088,
+      "Name": "Summon Rat",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 88,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20089default",
+      "ParentId": "default",
+      "IdKey": 20089,
+      "Name": "Summon Bat",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 89,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20090default",
+      "ParentId": "default",
+      "IdKey": 20090,
+      "Name": "Summon Salamander",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 90,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 2
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20091default",
+      "ParentId": "default",
+      "IdKey": 20091,
+      "Name": "Summon Wyvern",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 91,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20092default",
+      "ParentId": "default",
+      "IdKey": 20092,
+      "Name": "Summon Frog",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 92,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20093default",
+      "ParentId": "default",
+      "IdKey": 20093,
+      "Name": "Summon Lizardman",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 93,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20094default",
+      "ParentId": "default",
+      "IdKey": 20094,
+      "Name": "Summon Werewolf",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 94,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20095default",
+      "ParentId": "default",
+      "IdKey": 20095,
+      "Name": "Summon Troll",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 95,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 2
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20096default",
+      "ParentId": "default",
+      "IdKey": 20096,
+      "Name": "Summon Troll Archer",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 96,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 2
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20097default",
+      "ParentId": "default",
+      "IdKey": 20097,
+      "Name": "Summon Troll Lieutenant",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 97,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 2
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20098default",
+      "ParentId": "default",
+      "IdKey": 20098,
+      "Name": "Summon Troll Chieftain",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 98,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 2
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20099default",
+      "ParentId": "default",
+      "IdKey": 20099,
+      "Name": "Summon Troll Shaman",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 99,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 2
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20100default",
+      "ParentId": "default",
+      "IdKey": 20100,
+      "Name": "Summon Vampire",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 100,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 6
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20101default",
+      "ParentId": "default",
+      "IdKey": 20101,
+      "Name": "Summon Vampire Lord",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 101,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 6
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20102default",
+      "ParentId": "default",
+      "IdKey": 20102,
+      "Name": "Summon Mummy",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 102,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 6
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20103default",
+      "ParentId": "default",
+      "IdKey": 20103,
+      "Name": "Summon Mummy Lord",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 103,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 6
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20104default",
+      "ParentId": "default",
+      "IdKey": 20104,
+      "Name": "Summon Harpy",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 104,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20105default",
+      "ParentId": "default",
+      "IdKey": 20105,
+      "Name": "Summon Griffon",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 105,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20106default",
+      "ParentId": "default",
+      "IdKey": 20106,
+      "Name": "Summon Manticore",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 106,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20107default",
+      "ParentId": "default",
+      "IdKey": 20107,
+      "Name": "Summon Snake",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 107,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20108default",
+      "ParentId": "default",
+      "IdKey": 20108,
+      "Name": "Summon Steed",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 108,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20109default",
+      "ParentId": "default",
+      "IdKey": 20109,
+      "Name": "Summon Basilisk",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 109,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 5
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20110default",
+      "ParentId": "default",
+      "IdKey": 20110,
+      "Name": "Summon Giant",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 110,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20111default",
+      "ParentId": "default",
+      "IdKey": 20111,
+      "Name": "Summon Guard",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 111,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20112default",
+      "ParentId": "default",
+      "IdKey": 20112,
+      "Name": "Summon Gnoll",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 112,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20113default",
+      "ParentId": "default",
+      "IdKey": 20113,
+      "Name": "Summon Gnoll Archer",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 113,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20114default",
+      "ParentId": "default",
+      "IdKey": 20114,
+      "Name": "Summon Gnoll Lieutenant",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 114,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20115default",
+      "ParentId": "default",
+      "IdKey": 20115,
+      "Name": "Summon Gnoll Chieftain",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 115,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
+    },
+    {
+      "Id": "crawlerspell20116default",
+      "ParentId": "default",
+      "IdKey": 20116,
+      "Name": "Summon Gnoll Shaman",
+      "PowerCost": 100.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 116,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2025-01-19T19:01:07.736Z"
     }
   ],
   "ParentObj": {
@@ -1232,7 +3904,7 @@
     "StatBuffPowerCost": 10.0,
     "StatBuffPowerPerLevel": 1.0,
     "Name": "CrawlerSpellSettings",
-    "UpdateTime": "2024-12-30T17:06:34.075Z"
+    "UpdateTime": "2025-01-19T19:00:57.879Z"
   },
   "Id": "default"
 }

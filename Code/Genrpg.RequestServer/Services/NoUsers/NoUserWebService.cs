@@ -6,7 +6,7 @@ using Genrpg.Shared.Website.Messages;
 using Genrpg.Shared.Website.Messages.Error;
 using Genrpg.RequestServer.Services.WebServer;
 using Genrpg.RequestServer.Core;
-using Genrpg.RequestServer.NoUserCommands;
+using Genrpg.RequestServer.NoUserRequests.RequestHandlers;
 
 namespace Genrpg.RequestServer.Services.NoUsers
 {
@@ -15,15 +15,15 @@ namespace Genrpg.RequestServer.Services.NoUsers
         private ILogService _logService = null;
         private IWebServerService _loginServerService = null;
 
-        public async Task HandleNoUserCommand(WebContext context, string postData, CancellationToken token)
+        public async Task HandleNoUserRequest(WebContext context, string postData, CancellationToken token)
         {
-            WebServerCommandSet commandSet = SerializationUtils.Deserialize<WebServerCommandSet>(postData);
+            WebServerRequestSet commandSet = SerializationUtils.Deserialize<WebServerRequestSet>(postData);
 
             try
             {
-                foreach (INoUserCommand comm in commandSet.Commands)
+                foreach (INoUserRequest comm in commandSet.Requests)
                 {
-                    INoUserCommandHandler handler = _loginServerService.GetNoUserCommandHandler(comm.GetType());
+                    INoUserRequestHandler handler = _loginServerService.GetNoUserCommandHandler(comm.GetType());
 
                     if (handler != null)
                     {
@@ -31,11 +31,11 @@ namespace Genrpg.RequestServer.Services.NoUsers
                     }
                 }
 
-                List<IWebResult> errors = new List<IWebResult>();
+                List<IWebResponse> errors = new List<IWebResponse>();
 
-                foreach (IWebResult result in context.Results)
+                foreach (IWebResponse response in context.Responses)
                 {
-                    if (result is ErrorResult error)
+                    if (response is ErrorResponse error)
                     {
                         errors.Add(error);
                     }
@@ -43,15 +43,15 @@ namespace Genrpg.RequestServer.Services.NoUsers
 
                 if (errors.Count > 0)
                 {
-                    context.Results.Clear();
-                    context.Results.AddRange(errors);
+                    context.Responses.Clear();
+                    context.Responses.AddRange(errors);
                     return;
                 }
 
             }
             catch (Exception e)
             {
-                string errorMessage = "HandleLoginCommand." + commandSet.Commands.Select(x => x.GetType().Name + " ").ToList();
+                string errorMessage = "HandleLoginCommand." + commandSet.Requests.Select(x => x.GetType().Name + " ").ToList();
                 _logService.Exception(e, errorMessage);
                 context.ShowError(errorMessage);
             }

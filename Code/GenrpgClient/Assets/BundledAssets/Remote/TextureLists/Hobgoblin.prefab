@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprites:
-  - {fileID: 21300000, guid: 246876d53f19f1745b617864cc1af04a, type: 3}
+  - {fileID: 21300000, guid: 84e322d44903e054d92496bc9c483497, type: 3}

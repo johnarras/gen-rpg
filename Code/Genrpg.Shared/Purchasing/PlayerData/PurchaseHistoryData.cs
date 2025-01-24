@@ -35,7 +35,7 @@ namespace Genrpg.Shared.Purchasing.PlayerData
         [Key(0)] public DateTime PurchaseTime { get; set; }
         [Key(1)] public double Price { get; set; }
         [Key(2)] public long ProductSkuId { get; set; }
-        [Key(3)] public long OfferProductId { get; set; }
+        [Key(3)] public long StoreItemId { get; set; }
         [Key(4)] public long StoreSlotId { get; set; }
         [Key(5)] public string Name { get; set; }
     }

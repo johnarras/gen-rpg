@@ -3,7 +3,11 @@
   "ParentId": "default",
   "IdKey": 1,
   "Name": "Poisoned",
+  "Desc": "Less Heath Regen",
+  "Icon": "Poisoned",
+  "Art": "",
   "Abbrev": "Pois",
   "ActionEffects": [],
-  "UpdateTime": "2024-08-01T00:28:13.094Z"
+  "ElementTypeId": 8,
+  "UpdateTime": "2025-01-13T00:11:14.441Z"
 }

@@ -9,10 +9,10 @@ using System.Threading;
 
 namespace Assets.Scripts.Login.MessageHandlers
 {
-    public class ErrorResultHandler : BaseClientLoginResultHandler<ErrorResult>
+    public class ErrorResultHandler : BaseClientLoginResultHandler<ErrorResponse>
     {
         private IScreenService _screenService;
-        protected override void InnerProcess(ErrorResult result, CancellationToken token)
+        protected override void InnerProcess(ErrorResponse result, CancellationToken token)
         {
 
             List<ActiveScreen> screens = _screenService.GetAllScreens();

@@ -1,6 +1,7 @@
 ﻿using Genrpg.Editor.Entities.Core;
 using Genrpg.Shared.Crawler.Buffs.Settings;
 using Genrpg.Shared.Crawler.Combat.Constants;
+using Genrpg.Shared.Crawler.Roles.Constants;
 using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.Spells.Constants;
 using Genrpg.Shared.Crawler.Spells.Settings;
@@ -9,6 +10,8 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Settings.Stats;
+using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Units.Settings;
 using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
@@ -62,6 +65,7 @@ namespace Genrpg.Editor.Importers
                     TargetTypeId = TargetTypes.Self,
                     Level = 1,
                     CombatActionId = CombatActions.Cast,
+                    RoleScalingTypeId = RoleScalingTypes.Healing,
                 };
 
                 spells.Add(spell);
@@ -94,7 +98,7 @@ namespace Genrpg.Editor.Importers
                     {
                         RoleBonusBinary spellBonus = role.BinaryBonuses
                             .Where(x => x.EntityTypeId == EntityTypes.CrawlerSpell
-                        && x.EntityId == bonus.EntityId - CrawlerSpellConstants.StatBuffSpellIdOffset)
+                        && x.EntityId == bonus.EntityId + CrawlerSpellConstants.StatBuffSpellIdOffset)
                             .FirstOrDefault();
                         if (spellBonus == null)
                         {
@@ -111,6 +115,142 @@ namespace Genrpg.Editor.Importers
                     role.BinaryBonuses.AddRange(bonusesToAdd);
                     gs.LookedAtObjects.Add(role);
                 }
+            }
+
+            List<UnitType> unitTypes = gs.data.Get<UnitSettings>(null).GetData().ToList();
+
+
+            IReadOnlyList<UnitKeyword> keywordList = gs.data.Get<UnitKeywordSettings>(null).GetData();
+
+            foreach (UnitType utype in unitTypes)
+            {
+
+                List<UnitEffect> allEffects = new List<UnitEffect>();
+
+                TribeType ttype = gs.data.Get<TribeSettings>(null).Get(utype.TribeTypeId);
+
+                bool shouldSaveUnitType = false;
+
+                if (ttype != null)
+                {
+                    UnitKeyword tribeKeyword = keywordList.FirstOrDefault(x => x.Name.ToLower() == ttype.Name.ToLower());
+
+                    if (tribeKeyword != null)
+                    {
+                        allEffects.AddRange(tribeKeyword.Effects.Where(x => x.EntityTypeId == EntityTypes.CrawlerSpell &&
+                        x.EntityId >= CrawlerSpellConstants.MinPlaceholderSpellId && x.EntityId <= CrawlerSpellConstants.MaxPlaceholderSpellId));
+                    }
+                }
+
+                string[] nameWords = utype.Name.Split(' ');
+
+
+                foreach (string nword in nameWords)
+                {
+                    UnitKeyword nameKeyword = keywordList.FirstOrDefault(x => x.Name.ToLower() == nword.ToLower());
+
+                    if (nameKeyword != null)
+                    {
+                        allEffects.AddRange(nameKeyword.Effects.Where(x => x.EntityTypeId == EntityTypes.CrawlerSpell &&
+                        x.EntityId >= CrawlerSpellConstants.MinPlaceholderSpellId && x.EntityId <= CrawlerSpellConstants.MaxPlaceholderSpellId));
+                    }
+                }
+
+                foreach (UnitEffect effect in allEffects)
+                {
+                    if (effect.EntityId == CrawlerSpellConstants.SelfSummonPlaceholderSpellId)
+                    {
+                        long spellId = effect.EntityId + CrawlerSpellConstants.MonsterSummonSpellIdOffset;
+
+                        UnitEffect currEffect = utype.Effects.FirstOrDefault(x => x.EntityTypeId == EntityTypes.CrawlerSpell && x.EntityId >= spellId);
+
+                        if (currEffect == null)
+                        {
+                            utype.Effects.Add(new UnitEffect() { EntityTypeId = EntityTypes.CrawlerSpell, EntityId = spellId, Quantity = 1 });
+                            shouldSaveUnitType = true;
+                        }
+                    }
+                    else if (effect.EntityId == CrawlerSpellConstants.BaseSummonPlaceholderSpellId)
+                    {
+                        int index = unitTypes.IndexOf(utype);
+
+                        if (index > 0)
+                        {
+                            for (int idx = index - 1; idx > 0; idx--)
+                            {
+                                UnitType prevUnitType = unitTypes[idx];
+
+                                if (utype.Name.Contains(prevUnitType.Name))
+                                {
+                                    long spellId = prevUnitType.IdKey + CrawlerSpellConstants.MonsterSummonSpellIdOffset;
+                                    UnitEffect currEffect = utype.Effects.FirstOrDefault(x => x.EntityTypeId == EntityTypes.CrawlerSpell && x.EntityId >= spellId);
+
+                                    if (currEffect == null)
+                                    {
+                                        utype.Effects.Add(new UnitEffect() { EntityTypeId = EntityTypes.CrawlerSpell, EntityId = spellId, Quantity = 1 });
+
+                                        shouldSaveUnitType = true;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (shouldSaveUnitType && !gs.LookedAtObjects.Contains(utype))
+                {
+                    gs.LookedAtObjects.Add(utype);
+                }
+            }
+
+
+
+
+
+            foreach (UnitType utype in unitTypes)
+            {
+                long elementTypeId = ElementTypes.Arcane;
+
+                CrawlerSpell currSpell = spells.FirstOrDefault(x => x.IdKey == utype.IdKey + CrawlerSpellConstants.MonsterSummonSpellIdOffset);
+
+                if (currSpell != null)
+                {
+                    spells.Remove(currSpell);
+                }
+
+                UnitEffect effect = utype.Effects.FirstOrDefault(x => x.EntityTypeId == EntityTypes.Resist);
+
+                if (effect != null && effect.EntityId > 0)
+                {
+                    elementTypeId = effect.EntityId;
+                }
+
+                CrawlerSpell spell = new CrawlerSpell()
+                {
+                    IdKey = utype.IdKey + CrawlerSpellConstants.MonsterSummonSpellIdOffset,
+                    Name = "Summon " + utype.Name,
+                    PowerCost = 100,
+                    PowerPerLevel = 1,
+                    MinRange = 0,
+                    MaxRange = 100,
+                    TargetTypeId = TargetTypes.Self,
+                    Level = 1,
+                    CombatActionId = CombatActions.Cast,
+                    RoleScalingTypeId = RoleScalingTypes.Summon,
+                };
+
+                spell.Effects.Add(new CrawlerSpellEffect()
+                {
+                    EntityTypeId = EntityTypes.Unit,
+                    EntityId = utype.IdKey,
+                    MinQuantity = 1,
+                    MaxQuantity = 1,
+                    ElementTypeId = elementTypeId,               
+                });
+
+                gs.LookedAtObjects.Add(spell);
+                spells.Add(spell);
             }
 
             spellSettings.SetData(spells);

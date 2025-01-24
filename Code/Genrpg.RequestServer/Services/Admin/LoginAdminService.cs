@@ -15,7 +15,7 @@ namespace Genrpg.RequestServer.Services.Admin
                 return;
             }
 
-            await _loginServerService.ResetCommandHandlers();
+            await _loginServerService.ResetRequestHandlers();
 
         }
     }

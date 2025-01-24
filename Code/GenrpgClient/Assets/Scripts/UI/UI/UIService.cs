@@ -59,6 +59,7 @@ namespace Assets.Scripts.UI.Services
                 {
                     if (itext is GText gtext)
                     {
+                        gtext.ClearMesh();
                         gtext.SetText(txt);
                     }
                 });

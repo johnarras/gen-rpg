@@ -11,7 +11,18 @@
       "TribeTypeId": 1,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -19,7 +30,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype2default",
@@ -32,7 +43,18 @@
       "TribeTypeId": 1,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -40,7 +62,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype3default",
@@ -53,7 +75,18 @@
       "TribeTypeId": 1,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -61,7 +94,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype4default",
@@ -74,7 +107,18 @@
       "TribeTypeId": 1,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -82,7 +126,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype5default",
@@ -97,13 +141,19 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
-          "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         },
         {
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -113,7 +163,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype6default",
@@ -128,13 +178,19 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
-          "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         },
         {
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -144,7 +200,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype7default",
@@ -159,8 +215,14 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 100,
-          "EntityId": 2
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -170,7 +232,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype8default",
@@ -185,8 +247,14 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 100,
-          "EntityId": 2
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -196,7 +264,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype9default",
@@ -211,8 +279,14 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 100,
-          "EntityId": 2
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -222,7 +296,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype10default",
@@ -235,7 +309,18 @@
       "TribeTypeId": 1,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -243,7 +328,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype11default",
@@ -256,7 +341,18 @@
       "TribeTypeId": 1,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -264,7 +360,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype12default",
@@ -277,7 +373,18 @@
       "TribeTypeId": 1,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -285,7 +392,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype13default",
@@ -298,7 +405,18 @@
       "TribeTypeId": 1,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -306,7 +424,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype14default",
@@ -319,7 +437,18 @@
       "TribeTypeId": 1,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -327,7 +456,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype15default",
@@ -340,7 +469,18 @@
       "TribeTypeId": 1,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -348,7 +488,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype16default",
@@ -361,7 +501,18 @@
       "TribeTypeId": 10,
       "MinLevel": 5,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -369,7 +520,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype17default",
@@ -382,7 +533,18 @@
       "TribeTypeId": 10,
       "MinLevel": 5,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -390,7 +552,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype18default",
@@ -403,7 +565,18 @@
       "TribeTypeId": 10,
       "MinLevel": 5,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -411,7 +584,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype19default",
@@ -424,7 +597,18 @@
       "TribeTypeId": 10,
       "MinLevel": 5,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -432,7 +616,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype20default",
@@ -445,7 +629,18 @@
       "TribeTypeId": 10,
       "MinLevel": 5,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -453,7 +648,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype21default",
@@ -466,7 +661,18 @@
       "TribeTypeId": 10,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -474,7 +680,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype22default",
@@ -487,7 +693,18 @@
       "TribeTypeId": 10,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -495,7 +712,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype23default",
@@ -508,7 +725,18 @@
       "TribeTypeId": 10,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -516,7 +744,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype24default",
@@ -529,7 +757,18 @@
       "TribeTypeId": 10,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -537,7 +776,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype25default",
@@ -550,7 +789,18 @@
       "TribeTypeId": 10,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -558,7 +808,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype26default",
@@ -573,8 +823,14 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 100,
-          "EntityId": 2
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -584,7 +840,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype27default",
@@ -599,8 +855,18 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityId": 37
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -610,7 +876,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype28default",
@@ -625,8 +891,18 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityId": 37
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -636,7 +912,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype29default",
@@ -651,8 +927,18 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityId": 37
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -662,7 +948,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype30default",
@@ -675,7 +961,22 @@
       "TribeTypeId": 11,
       "MinLevel": 15,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 37
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -683,7 +984,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype31default",
@@ -696,7 +997,18 @@
       "TribeTypeId": 11,
       "MinLevel": 10,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -704,7 +1016,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype32default",
@@ -717,7 +1029,27 @@
       "TribeTypeId": 11,
       "MinLevel": 15,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 37
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20032
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -725,7 +1057,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype33default",
@@ -738,7 +1070,30 @@
       "TribeTypeId": 12,
       "MinLevel": 5,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 27
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 28
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 50
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20071
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -746,7 +1101,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype34default",
@@ -759,7 +1114,30 @@
       "TribeTypeId": 12,
       "MinLevel": 10,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 29
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 30
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 52
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20072
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -767,7 +1145,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype35default",
@@ -780,7 +1158,30 @@
       "TribeTypeId": 12,
       "MinLevel": 10,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 51
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20069
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -788,7 +1189,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype36default",
@@ -801,7 +1202,30 @@
       "TribeTypeId": 12,
       "MinLevel": 15,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 27
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 29
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20071
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -809,7 +1233,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype37default",
@@ -824,8 +1248,30 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 36,
           "EntityId": 7
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 28
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 30
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 51
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20070
         }
       ],
       "PrefixNames": [],
@@ -835,7 +1281,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype38default",
@@ -850,6 +1296,15 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 36,
+          "EntityId": 5
+        },
+        {
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 9
@@ -862,7 +1317,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype39default",
@@ -875,7 +1330,30 @@
       "TribeTypeId": 13,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 15
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 16
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 49
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20031
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -883,7 +1361,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype40default",
@@ -897,6 +1375,11 @@
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
       "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
         {
           "EntityTypeId": 36,
           "EntityId": 13
@@ -914,7 +1397,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype41default",
@@ -927,7 +1410,13 @@
       "TribeTypeId": 2,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -935,7 +1424,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype42default",
@@ -948,7 +1437,13 @@
       "TribeTypeId": 2,
       "MinLevel": 10,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -956,7 +1451,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype43default",
@@ -969,7 +1464,13 @@
       "TribeTypeId": 2,
       "MinLevel": 15,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -977,7 +1478,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype44default",
@@ -990,7 +1491,13 @@
       "TribeTypeId": 2,
       "MinLevel": 5,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -998,7 +1505,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype45default",
@@ -1011,7 +1518,13 @@
       "TribeTypeId": 2,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -1019,7 +1532,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype46default",
@@ -1032,7 +1545,13 @@
       "TribeTypeId": 2,
       "MinLevel": 15,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -1040,7 +1559,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype47default",
@@ -1053,7 +1572,13 @@
       "TribeTypeId": 2,
       "MinLevel": 20,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -1061,20 +1586,25 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype48default",
       "ParentId": "default",
       "IdKey": 48,
-      "Name": "Skeleon",
+      "Name": "Skeleton",
       "PluralName": "Skeletons",
-      "Icon": "Skeleon",
-      "Art": "Skeleon",
+      "Icon": "Skeleton",
+      "Art": "Skeleton",
       "TribeTypeId": 3,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
       "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
         {
           "EntityTypeId": 24,
           "Quantity": 1,
@@ -1093,7 +1623,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype49default",
@@ -1108,8 +1638,9 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
-          "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         },
         {
           "EntityTypeId": 24,
@@ -1129,7 +1660,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype50default",
@@ -1144,6 +1675,11 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 36,
           "EntityId": 5
         },
@@ -1160,6 +1696,11 @@
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 6
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20049
         }
       ],
       "PrefixNames": [],
@@ -1169,7 +1710,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype51default",
@@ -1184,6 +1725,11 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 36,
           "EntityId": 5
         },
@@ -1200,6 +1746,11 @@
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 6
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20050
         }
       ],
       "PrefixNames": [],
@@ -1209,7 +1760,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype52default",
@@ -1223,6 +1774,11 @@
       "MinLevel": 10,
       "SpawnQuantityScale": 1.0,
       "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
         {
           "EntityTypeId": 36,
           "EntityId": 5
@@ -1245,7 +1801,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype53default",
@@ -1260,6 +1816,11 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 36,
           "EntityId": 11
         },
@@ -1272,6 +1833,11 @@
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 6
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20052
         }
       ],
       "PrefixNames": [],
@@ -1281,7 +1847,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype54default",
@@ -1296,6 +1862,11 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 36,
           "EntityId": 11
         },
@@ -1308,6 +1879,11 @@
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 6
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20050
         }
       ],
       "PrefixNames": [],
@@ -1317,7 +1893,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype55default",
@@ -1332,12 +1908,22 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 36,
           "EntityId": 11
         },
         {
           "EntityTypeId": 36,
           "EntityId": 8
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20054
         }
       ],
       "PrefixNames": [],
@@ -1347,7 +1933,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype56default",
@@ -1362,8 +1948,18 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 36,
           "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -1373,7 +1969,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype57default",
@@ -1388,8 +1984,18 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 36,
           "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -1399,7 +2005,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype58default",
@@ -1412,7 +2018,18 @@
       "TribeTypeId": 14,
       "MinLevel": 15,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -1420,7 +2037,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype59default",
@@ -1445,6 +2062,11 @@
           "EntityId": 20
         },
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 100,
           "EntityId": 2
         },
@@ -1466,7 +2088,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype60default",
@@ -1491,6 +2113,11 @@
           "EntityId": 20
         },
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 100,
           "EntityId": 2
         },
@@ -1503,6 +2130,11 @@
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 6
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20059
         }
       ],
       "PrefixNames": [],
@@ -1512,7 +2144,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype61default",
@@ -1537,12 +2169,13 @@
           "EntityId": 20
         },
         {
-          "EntityTypeId": 100,
-          "EntityId": 51
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityId": 51
         },
         {
           "EntityTypeId": 25,
@@ -1557,7 +2190,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype62default",
@@ -1582,12 +2215,13 @@
           "EntityId": 20
         },
         {
-          "EntityTypeId": 100,
-          "EntityId": 50
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityId": 50
         },
         {
           "EntityTypeId": 25,
@@ -1602,7 +2236,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype63default",
@@ -1627,12 +2261,13 @@
           "EntityId": 20
         },
         {
-          "EntityTypeId": 100,
-          "EntityId": 52
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityId": 52
         },
         {
           "EntityTypeId": 25,
@@ -1647,7 +2282,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype64default",
@@ -1672,16 +2307,17 @@
           "EntityId": 20
         },
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 36,
           "EntityId": 2
         },
         {
           "EntityTypeId": 36,
           "EntityId": 5
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 2
         },
         {
           "EntityTypeId": 25,
@@ -1696,7 +2332,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype65default",
@@ -1721,12 +2357,13 @@
           "EntityId": 20
         },
         {
-          "EntityTypeId": 36,
-          "EntityId": 1
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         },
         {
-          "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityTypeId": 36,
+          "EntityId": 1
         },
         {
           "EntityTypeId": 25,
@@ -1741,7 +2378,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype66default",
@@ -1756,12 +2393,13 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
-          "EntityTypeId": 36,
-          "EntityId": 9
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         },
         {
-          "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityTypeId": 36,
+          "EntityId": 9
         },
         {
           "EntityTypeId": 25,
@@ -1776,7 +2414,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype67default",
@@ -1791,12 +2429,13 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
-          "EntityTypeId": 36,
-          "EntityId": 12
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         },
         {
-          "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityTypeId": 36,
+          "EntityId": 12
         },
         {
           "EntityTypeId": 25,
@@ -1811,7 +2450,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype68default",
@@ -1826,6 +2465,11 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 36,
           "EntityId": 3
         },
@@ -1842,7 +2486,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype69default",
@@ -1857,6 +2501,11 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 24,
           "Quantity": 1,
           "EntityId": 5
@@ -1874,7 +2523,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype70default",
@@ -1889,8 +2538,9 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
-          "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         },
         {
           "EntityTypeId": 24,
@@ -1910,7 +2560,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype71default",
@@ -1925,6 +2575,11 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 24,
           "Quantity": 1,
           "EntityId": 3
@@ -1942,7 +2597,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype72default",
@@ -1957,6 +2612,11 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 24,
           "Quantity": 1,
           "EntityId": 2
@@ -1974,7 +2634,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype73default",
@@ -1989,8 +2649,9 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
-          "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         }
       ],
       "PrefixNames": [],
@@ -2000,7 +2661,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype74default",
@@ -2013,7 +2674,13 @@
       "TribeTypeId": 6,
       "MinLevel": 5,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2021,7 +2688,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype75default",
@@ -2034,7 +2701,13 @@
       "TribeTypeId": 2,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2042,7 +2715,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype76default",
@@ -2055,7 +2728,13 @@
       "TribeTypeId": 2,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2063,7 +2742,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype77default",
@@ -2086,6 +2765,11 @@
           "EntityTypeId": 32,
           "Quantity": 50,
           "EntityId": 20
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         }
       ],
       "PrefixNames": [],
@@ -2095,7 +2779,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype78default",
@@ -2108,7 +2792,18 @@
       "TribeTypeId": 10,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2116,7 +2811,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype79default",
@@ -2129,7 +2824,18 @@
       "TribeTypeId": 10,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2137,7 +2843,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype80default",
@@ -2150,7 +2856,18 @@
       "TribeTypeId": 10,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2158,7 +2875,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype81default",
@@ -2171,7 +2888,18 @@
       "TribeTypeId": 10,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2179,7 +2907,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype82default",
@@ -2192,7 +2920,18 @@
       "TribeTypeId": 10,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2200,7 +2939,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype83default",
@@ -2215,8 +2954,14 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 100,
-          "EntityId": 2
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -2226,7 +2971,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype84default",
@@ -2241,8 +2986,14 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 100,
-          "EntityId": 2
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -2252,7 +3003,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype85default",
@@ -2267,8 +3018,14 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 100,
-          "EntityId": 2
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -2278,7 +3035,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype86default",
@@ -2293,8 +3050,14 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 100,
-          "EntityId": 2
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -2304,7 +3067,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype87default",
@@ -2319,8 +3082,14 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 100,
-          "EntityId": 2
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -2330,7 +3099,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype88default",
@@ -2343,7 +3112,13 @@
       "TribeTypeId": 6,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2351,7 +3126,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype89default",
@@ -2364,7 +3139,13 @@
       "TribeTypeId": 2,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2372,7 +3153,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype90default",
@@ -2387,6 +3168,11 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 2
@@ -2399,7 +3185,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype91default",
@@ -2422,6 +3208,11 @@
           "EntityTypeId": 32,
           "Quantity": 50,
           "EntityId": 20
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         }
       ],
       "PrefixNames": [],
@@ -2431,7 +3222,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype92default",
@@ -2444,7 +3235,13 @@
       "TribeTypeId": 2,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2452,7 +3249,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype93default",
@@ -2465,7 +3262,18 @@
       "TribeTypeId": 10,
       "MinLevel": 5,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2473,7 +3281,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype94default",
@@ -2486,7 +3294,18 @@
       "TribeTypeId": 10,
       "MinLevel": 10,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2494,7 +3313,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype95default",
@@ -2509,13 +3328,19 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
-          "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         },
         {
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -2525,7 +3350,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype96default",
@@ -2540,13 +3365,19 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
-          "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         },
         {
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -2556,7 +3387,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype97default",
@@ -2571,13 +3402,19 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
-          "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         },
         {
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -2587,7 +3424,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype98default",
@@ -2602,13 +3439,19 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
-          "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         },
         {
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -2618,7 +3461,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype99default",
@@ -2633,13 +3476,19 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
-          "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         },
         {
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -2649,7 +3498,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype100default",
@@ -2674,6 +3523,11 @@
           "EntityId": 20
         },
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 24,
           "Quantity": 1,
           "EntityId": 7
@@ -2682,6 +3536,11 @@
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 6
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20102
         }
       ],
       "PrefixNames": [],
@@ -2691,7 +3550,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype101default",
@@ -2716,6 +3575,11 @@
           "EntityId": 20
         },
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 24,
           "Quantity": 1,
           "EntityId": 7
@@ -2724,6 +3588,11 @@
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 6
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20102
         }
       ],
       "PrefixNames": [],
@@ -2733,7 +3602,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype102default",
@@ -2748,8 +3617,9 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
-          "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         },
         {
           "EntityTypeId": 24,
@@ -2760,6 +3630,11 @@
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 6
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20048
         }
       ],
       "PrefixNames": [],
@@ -2769,7 +3644,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype103default",
@@ -2784,8 +3659,9 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
-          "EntityTypeId": 100,
-          "EntityId": 2
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
         },
         {
           "EntityTypeId": 24,
@@ -2796,6 +3672,16 @@
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 6
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20048
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20102
         }
       ],
       "PrefixNames": [],
@@ -2805,7 +3691,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype104default",
@@ -2818,7 +3704,13 @@
       "TribeTypeId": 8,
       "MinLevel": 10,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2826,7 +3718,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype105default",
@@ -2839,7 +3731,13 @@
       "TribeTypeId": 8,
       "MinLevel": 15,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2847,7 +3745,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype106default",
@@ -2860,7 +3758,13 @@
       "TribeTypeId": 8,
       "MinLevel": 15,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2868,7 +3772,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype107default",
@@ -2881,7 +3785,13 @@
       "TribeTypeId": 2,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2889,7 +3799,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype108default",
@@ -2902,7 +3812,13 @@
       "TribeTypeId": 2,
       "MinLevel": 1,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2910,7 +3826,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype109default",
@@ -2935,6 +3851,11 @@
           "EntityId": 20
         },
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 5
@@ -2947,7 +3868,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype110default",
@@ -2960,7 +3881,18 @@
       "TribeTypeId": 7,
       "MinLevel": 15,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2968,7 +3900,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype111default",
@@ -2983,8 +3915,14 @@
       "SpawnQuantityScale": 1.0,
       "Effects": [
         {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
           "EntityTypeId": 100,
-          "EntityId": 2
+          "Quantity": 1,
+          "EntityId": 50001
         }
       ],
       "PrefixNames": [],
@@ -2994,7 +3932,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype112default",
@@ -3007,7 +3945,18 @@
       "TribeTypeId": 10,
       "MinLevel": 5,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -3015,7 +3964,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype113default",
@@ -3028,7 +3977,18 @@
       "TribeTypeId": 10,
       "MinLevel": 5,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -3036,7 +3996,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype114default",
@@ -3049,7 +4009,18 @@
       "TribeTypeId": 10,
       "MinLevel": 5,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -3057,7 +4028,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype115default",
@@ -3070,7 +4041,18 @@
       "TribeTypeId": 10,
       "MinLevel": 5,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -3078,7 +4060,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:35:16.683Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     },
     {
       "Id": "unittype116default",
@@ -3091,7 +4073,18 @@
       "TribeTypeId": 10,
       "MinLevel": 5,
       "SpawnQuantityScale": 1.0,
-      "Effects": [],
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 1,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50001
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -3099,13 +4092,13 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2025-01-04T20:37:02.476Z"
+      "UpdateTime": "2025-01-19T14:56:01.421Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "UnitSettings",
-    "UpdateTime": "2025-01-04T20:37:02.476Z"
+    "UpdateTime": "2025-01-19T14:56:01.421Z"
   },
   "Id": "default"
 }

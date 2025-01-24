@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.Apis" Version="1.68.0" />
+    <PackageReference Include="Google.Apis.AndroidPublisher.v3" Version="1.68.0.3654" />
+    <PackageReference Include="Google.Apis.Oauth2.v2" Version="1.68.0.1869" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Genrpg.ServerShared\Genrpg.ServerShared.csproj" />
   </ItemGroup>
 

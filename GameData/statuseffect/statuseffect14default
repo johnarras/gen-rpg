@@ -3,8 +3,8 @@
   "ParentId": "default",
   "IdKey": 14,
   "Name": "Possessed",
-  "Desc": "",
-  "Icon": "",
+  "Desc": "Incapacitated, may attack allies",
+  "Icon": "Possessed",
   "Art": "",
   "Abbrev": "Poss",
   "ActionEffects": [
@@ -13,5 +13,6 @@
       "Effect": 2
     }
   ],
-  "UpdateTime": "2024-10-21T23:08:45.47Z"
+  "ElementTypeId": 9,
+  "UpdateTime": "2025-01-13T00:11:14.441Z"
 }

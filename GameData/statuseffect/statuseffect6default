@@ -3,8 +3,8 @@
   "ParentId": "default",
   "IdKey": 6,
   "Name": "Feeblemind",
-  "Desc": "",
-  "Icon": "",
+  "Desc": "Spells are weaker",
+  "Icon": "Feeblemind",
   "Art": "",
   "Abbrev": "Feeb",
   "ActionEffects": [
@@ -13,5 +13,6 @@
       "Effect": 1
     }
   ],
-  "UpdateTime": "2024-08-01T00:28:13.108Z"
+  "ElementTypeId": 9,
+  "UpdateTime": "2025-01-13T00:11:14.441Z"
 }

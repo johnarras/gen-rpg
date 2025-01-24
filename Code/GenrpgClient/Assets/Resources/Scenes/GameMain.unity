@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -125,7 +126,7 @@ LightingSettings:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Settings.lighting
-  serializedVersion: 8
+  serializedVersion: 9
   m_EnableBakedLightmaps: 0
   m_EnableRealtimeLightmaps: 1
   m_RealtimeEnvironmentLighting: 1
@@ -277,6 +278,12 @@ PrefabInstance:
       propertyPath: ForceDownloadFromAssetBundles
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4984673142366903267, guid: a47566d87e2e8f641be7678647c65008,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8cd30902a90f472499e3683c9059b37f,
+        type: 3}
     - target: {fileID: 7985136876956973675, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: m_Name

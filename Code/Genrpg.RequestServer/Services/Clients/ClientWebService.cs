@@ -8,8 +8,8 @@ using Genrpg.Shared.Website.Messages;
 using Genrpg.Shared.Website.Messages.Error;
 using Genrpg.RequestServer.Services.WebServer;
 using Genrpg.RequestServer.Core;
-using Genrpg.RequestServer.ClientCommands;
 using Genrpg.RequestServer.Resets.Services;
+using Genrpg.RequestServer.ClientUser.RequestHandlers;
 
 namespace Genrpg.RequestServer.Services.Clients
 {
@@ -21,28 +21,28 @@ namespace Genrpg.RequestServer.Services.Clients
         private IWebServerService _loginServerService = null;
         private IHourlyUpdateService _hourlyUpdateService = null;
 
-        public async Task HandleClientWebCommand(WebContext context, string postData, CancellationToken token)
+        public async Task HandleUserClientRequest(WebContext context, string postData, CancellationToken token)
         {
-            WebServerCommandSet commandSet = SerializationUtils.Deserialize<WebServerCommandSet>(postData);
+            WebServerRequestSet commandSet = SerializationUtils.Deserialize<WebServerRequestSet>(postData);
 
             await LoadLoggedInPlayer(context, commandSet.UserId, commandSet.SessionId);
 
             try
             {
-                foreach (IWebCommand comm in commandSet.Commands)
+                foreach (IWebRequest comm in commandSet.Requests)
                 {
-                    IClientCommandHandler handler = _loginServerService.GetClientCommandHandler(comm.GetType());
+                    IClientUserRequestHandler handler = _loginServerService.GetClientCommandHandler(comm.GetType());
                     if (handler != null)
                     {
                         await handler.Execute(context, comm, token);
                     }
                 }
 
-                List<IWebResult> errors = new List<IWebResult>();
+                List<IWebResponse> errors = new List<IWebResponse>();
 
-                foreach (IWebResult result in context.Results)
+                foreach (IWebResponse response in context.Responses)
                 {
-                    if (result is ErrorResult error)
+                    if (response is ErrorResponse error)
                     {
                         errors.Add(error);
                     }
@@ -50,8 +50,8 @@ namespace Genrpg.RequestServer.Services.Clients
 
                 if (errors.Count > 0)
                 {
-                    context.Results.Clear();
-                    context.Results.AddRange(errors);
+                    context.Responses.Clear();
+                    context.Responses.AddRange(errors);
                     return;
                 }
 
@@ -59,7 +59,7 @@ namespace Genrpg.RequestServer.Services.Clients
             }
             catch (Exception e)
             {
-                string errorMessage = "HandleLoginCommand." + commandSet.Commands.Select(x => x.GetType().Name + " ").ToList();
+                string errorMessage = "HandleLoginCommand." + commandSet.Requests.Select(x => x.GetType().Name + " ").ToList();
                 _logService.Exception(e, errorMessage);
                 context.ShowError(errorMessage);
             }

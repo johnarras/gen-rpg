@@ -2,7 +2,9 @@
 using Genrpg.Editor.Constants;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Shared.Crawler.Buffs.Settings;
+using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Roles.Settings;
+using Genrpg.Shared.Crawler.Spells.Constants;
 using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Utils;
@@ -13,18 +15,28 @@ using Genrpg.Shared.UnitEffects.Settings;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Units.Settings;
 using Microsoft.UI.Xaml;
+using SharpCompress.Compressors.Xz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Data.Text;
 using Windows.UI.Popups;
+using static Azure.Core.HttpHeader;
 
 namespace Genrpg.Editor.Importers
 {
 
-    public class UnitKeywordImporter : BaseDataImporter
+
+    public class KeywordSummons
+    {
+        public UnitKeyword Keyword { get; set; }
+        public string Summons { get; set; }
+    }
+
+    public class UnitKeywordImporter : BaseCrawlerDataImporter
     {
         public override string ImportDataFilename => "UnitKeywordImport.csv";
 
@@ -37,6 +49,7 @@ namespace Genrpg.Editor.Importers
         const int MinLevelCol = 4;
         const int VulnerabilityCol = 5;
         const int ResistCol = 6;
+        const int SummonCol = 7;
         const int ColumnCount = 7;
 
         protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, List<string[]> lines)
@@ -56,8 +69,7 @@ namespace Genrpg.Editor.Importers
             gs.LookedAtObjects.Add(gs.data.Get<UnitKeywordSettings>(null));
 
             List<UnitKeyword> newList = new List<UnitKeyword>();
-            newList.Add(new UnitKeyword() { IdKey = 0, Name = "None" });
-
+            List<KeywordSummons> keywordSummons = new List<KeywordSummons>();
             IReadOnlyList<TribeType> tribes = gs.data.Get<TribeSettings>(null).GetData();
 
             int nextIdKey = 1;
@@ -151,9 +163,49 @@ namespace Genrpg.Editor.Importers
                 unitKeyword.Effects.AddRange(ReadElementWords(words[VulnerabilityCol], EntityTypes.Vulnerability, elementTypes));
                 unitKeyword.Effects.AddRange(ReadElementWords(words[ResistCol], EntityTypes.Resist, elementTypes));
 
+                keywordSummons.Add(new KeywordSummons()
+                {
+                    Keyword = unitKeyword,
+                    Summons = words[SummonCol],
+                });
+
                 newList.Add(unitKeyword);
             }
             settings.SetData(newList);
+
+            List<UnitType> unitTypes = gs.data.Get<UnitSettings>(null).GetData().ToList();
+
+            foreach (KeywordSummons summon in keywordSummons)
+            {
+                if (!string.IsNullOrEmpty(summon.Summons))
+                {
+                    string[] slist = summon.Summons.Split(' ');
+
+                    foreach (string word in slist)
+                    {
+                        string lowerWord = word.ToLower();
+
+                        if (lowerWord == "self")
+                        {
+                            summon.Keyword.Effects.Add(new UnitEffect() { EntityTypeId = EntityTypes.CrawlerSpell, EntityId = CrawlerSpellConstants.SelfSummonPlaceholderSpellId, Quantity = 1 });
+                        }
+                        else if (lowerWord == "base")
+                        {
+                            summon.Keyword.Effects.Add(new UnitEffect() { EntityTypeId = EntityTypes.CrawlerSpell, EntityId = CrawlerSpellConstants.BaseSummonPlaceholderSpellId, Quantity = 1 });
+                        }
+                        else
+                        {
+                            UnitType namedType = unitTypes.FirstOrDefault(x => x.Name.Replace(" ", "").Trim().ToLower() == lowerWord);
+
+                            if (namedType != null)
+                            {
+                                summon.Keyword.Effects.Add(new UnitEffect() { EntityTypeId = EntityTypes.CrawlerSpell, EntityId = namedType.IdKey + CrawlerSpellConstants.MonsterSummonSpellIdOffset, Quantity = 1 });
+                            }
+                        }
+                    }
+                }
+            }
+
             foreach (UnitKeyword eyword in newList)
             {
                 gs.LookedAtObjects.Add(eyword);

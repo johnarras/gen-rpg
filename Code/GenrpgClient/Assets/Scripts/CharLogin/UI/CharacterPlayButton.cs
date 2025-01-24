@@ -2,9 +2,9 @@
 using Assets.Scripts.PlayerSearch;
 using Genrpg.Shared.Accounts.PlayerData;
 using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.MapServer.WebApi.LoadIntoMap;
 using Genrpg.Shared.UI.Entities;
 using Genrpg.Shared.Users.PlayerData;
-using Genrpg.Shared.Website.Messages.LoadIntoMap;
 
 public class CharacterPlayButton : BaseBehaviour
 {
@@ -73,7 +73,7 @@ public class CharacterPlayButton : BaseBehaviour
             GetToken());
 
 
-        LoadIntoMapCommand lwd = new LoadIntoMapCommand() { Env= _config.Config.Env, MapId = _mapId, CharId = _charId, GenerateMap = false };
+        LoadIntoMapRequest lwd = new LoadIntoMapRequest() { Env= _config.Config.Env, MapId = _mapId, CharId = _charId, GenerateMap = false };
         _zoneGenService.LoadMap(lwd);
     }
 }

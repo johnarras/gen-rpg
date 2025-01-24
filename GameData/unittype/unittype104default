@@ -9,7 +9,13 @@
   "TribeTypeId": 8,
   "MinLevel": 10,
   "SpawnQuantityScale": 1.0,
-  "Effects": [],
+  "Effects": [
+    {
+      "EntityTypeId": 31,
+      "Quantity": 1,
+      "EntityId": 35
+    }
+  ],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -17,5 +23,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-04T20:35:16.683Z"
+  "UpdateTime": "2025-01-19T14:56:01.421Z"
 }

@@ -17,5 +17,6 @@ namespace Genrpg.Shared.Crawler.Maps.Entities
 
         [Key(4)] public CrawlerWorld World { get; set; }
         [Key(5)] public CrawlerMap Map { get; set; }
+        [Key(6)] public bool ReturnToSafety { get; set; }
     }
 }

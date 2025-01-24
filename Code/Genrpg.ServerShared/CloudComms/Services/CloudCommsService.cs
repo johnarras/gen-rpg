@@ -17,6 +17,7 @@ using Genrpg.ServerShared.CloudComms.Queues.Requests.Entities;
 using MongoDB.Driver.Core.WireProtocol.Messages;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.ServerShared.Config;
+using Genrpg.ServerShared.Secrets.Services;
 
 namespace Genrpg.ServerShared.CloudComms.Services
 {
@@ -24,6 +25,7 @@ namespace Genrpg.ServerShared.CloudComms.Services
     public class CloudCommsService : ICloudCommsService
     {
         private IServiceLocator _loc = null;
+        private ISecretsService _secretsService;
         private string _env;
         private string _serverId;
         private CancellationToken _token = CancellationToken.None;
@@ -49,7 +51,7 @@ namespace Genrpg.ServerShared.CloudComms.Services
             _token = token;
             _env = _config.MessagingEnv.ToLower();
             _serverId = _config.ServerId.ToLower();
-            string serviceBusConnectionString = _config.GetConnectionString(ConnectionNames.ServiceBus);
+            string serviceBusConnectionString = await _secretsService.GetSecret(ConnectionNames.ServiceBus);
             _serviceBusClient = new ServiceBusClient(serviceBusConnectionString);
             _adminClient = new ServiceBusAdministrationClient(serviceBusConnectionString);
 

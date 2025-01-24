@@ -3,12 +3,13 @@
   "ParentId": "default",
   "IdKey": 27,
   "Name": "Fireball",
-  "Desc": "Hit one or more monsters in a group with fire damage.",
+  "Desc": "Hit one or more enemies in a group with fire damage.",
   "PowerCost": 5.0,
   "PowerPerLevel": 0.5,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 1,
+  "RoleScalingTypeId": 3,
   "Level": 7,
   "Effects": [
     {
@@ -19,5 +20,5 @@
       "ElementTypeId": 2
     }
   ],
-  "UpdateTime": "2024-12-30T17:06:34.075Z"
+  "UpdateTime": "2025-01-19T19:01:07.736Z"
 }

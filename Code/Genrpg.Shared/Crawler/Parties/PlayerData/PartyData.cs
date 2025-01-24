@@ -64,26 +64,28 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
         [Key(13)] public int MapZ { get; set; }
         [Key(14)] public int MapRot { get; set; }
 
-        [Key(15)] public long NextId { get; set; }
+        [Key(15)] public long NextGroupId { get; set; }
 
-        [Key(16)] public List<CrawlerMapStatus> Maps { get; set; } = new List<CrawlerMapStatus>();
+        [Key(16)] public long NextItemId { get; set; }
 
-        [Key(17)] public CrawlerMapStatus CurrentMap { get; set; } = new CrawlerMapStatus();
+        [Key(17)] public List<CrawlerMapStatus> Maps { get; set; } = new List<CrawlerMapStatus>();
 
-        [Key(18)] public SmallIndexBitList CompletedMaps { get; set; } = new SmallIndexBitList();
+        [Key(18)] public CrawlerMapStatus CurrentMap { get; set; } = new CrawlerMapStatus();
 
-        [Key(19)] public double HourOfDay { get; set; } = 0;
+        [Key(19)] public SmallIndexBitList CompletedMaps { get; set; } = new SmallIndexBitList();
 
-        [Key(20)] public long DaysPlayed { get; set; } = 0;
+        [Key(20)] public double HourOfDay { get; set; } = 0;
 
-        [Key(21)] public bool InGuildHall { get; set; }
+        [Key(21)] public long DaysPlayed { get; set; } = 0;
 
-        [Key(22)] public EGameModes GameMode { get; set; }
+        [Key(22)] public bool InGuildHall { get; set; }
 
-        [Key(23)] public long MaxLevel { get; set; }
-        [Key(24)] public long UpgradePoints { get; set; }
+        [Key(23)] public EGameModes GameMode { get; set; }
 
-        [Key(25)] public List<PartyRoguelikeUpgrade> RoguelikeUpgrades { get; set; } = new List<PartyRoguelikeUpgrade>();
+        [Key(24)] public long MaxLevel { get; set; }
+        [Key(25)] public long UpgradePoints { get; set; }
+
+        [Key(26)] public List<PartyRoguelikeUpgrade> RoguelikeUpgrades { get; set; } = new List<PartyRoguelikeUpgrade>();
 
         [JsonIgnore] public IWorldPanel WorldPanel = null;
         [JsonIgnore] public IActionPanel ActionPanel = null;
@@ -98,9 +100,14 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
             WorldPanel?.UpdateCombatGroups();
         }
 
-        public string GetNextId()
+        public string GetNextGroupId()
         {
-            return (++NextId).ToString();
+            return (++NextGroupId).ToString();
+        }
+
+        public string GetNextItemId()
+        {
+            return (++NextItemId).ToString();
         }
 
         public PartyMember GetMemberInSlot(int slot)

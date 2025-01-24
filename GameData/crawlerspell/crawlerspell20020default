@@ -1,0 +1,23 @@
+{
+  "Id": "crawlerspell20020default",
+  "ParentId": "default",
+  "IdKey": 20020,
+  "Name": "Summon Goblin Shaman",
+  "PowerCost": 100.0,
+  "PowerPerLevel": 1.0,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 9,
+  "RoleScalingTypeId": 5,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 4,
+      "EntityId": 20,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "ElementTypeId": 9
+    }
+  ],
+  "UpdateTime": "2025-01-19T19:01:07.736Z"
+}

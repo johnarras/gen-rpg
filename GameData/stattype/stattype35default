@@ -1,0 +1,9 @@
+{
+  "Id": "stattype35default",
+  "ParentId": "default",
+  "IdKey": 35,
+  "Name": "RoleScalingPercent",
+  "Abbrev": "",
+  "Desc": "Percent modifier (divide this by 100) to role scaling for this unit.",
+  "UpdateTime": "2025-01-19T14:32:54.228Z"
+}

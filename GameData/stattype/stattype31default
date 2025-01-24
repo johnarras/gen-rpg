@@ -3,7 +3,7 @@
   "ParentId": "default",
   "IdKey": 31,
   "Name": "Armor",
-  "Desc": "Resist Attack",
+  "Desc": "Reduces physical damage.",
   "GenScalePct": 200,
-  "UpdateTime": "2024-08-01T00:28:12.986Z"
+  "UpdateTime": "2025-01-13T19:22:08.794Z"
 }

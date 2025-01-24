@@ -2,8 +2,8 @@
   "Id": "bridgetype1default",
   "ParentId": "default",
   "IdKey": 1,
-  "Name": "Default Footbridge",
+  "Name": "Small Footbridge",
   "Art": "Bridge",
   "Length": 10,
-  "UpdateTime": "2024-08-01T00:27:58.564Z"
+  "UpdateTime": "2025-01-17T21:16:12.194Z"
 }

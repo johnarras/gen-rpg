@@ -8,11 +8,11 @@ using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.Maps;
 using Genrpg.ServerShared.MapSpawns;
 using Genrpg.ServerShared.PlayerData;
-using Genrpg.ServerShared.Purchasing.Services;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Setup.Services;
+using Genrpg.ServerShared.Secrets.Services;
 
 namespace Genrpg.ServerShared.Setup
 {
@@ -30,10 +30,10 @@ namespace Genrpg.ServerShared.Setup
             Set<IMapDataService>(new MapDataService());
             Set<IAchievementService>(new AchievementService());
             Set<IPlayerDataService>(new PlayerDataService());
-            Set<IPurchasingService>(new PurchasingService());
             Set<IAccountService>(new AccountService());
             Set<IAdminService>(new BaseAdminService());
             Set<ICryptoService>(new CryptoService());
+            Set<ISecretsService>(new SecretsService()); 
         }
     }
 }

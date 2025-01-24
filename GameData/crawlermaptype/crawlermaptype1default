@@ -21,15 +21,15 @@
   "DungeonArtId": 1,
   "RandomWallsChance": 0.5,
   "LoopingChance": 0.5,
-  "MinWallChance": 1.0,
+  "MinWallChance": 0.8,
   "MaxWallChance": 0.800000011920929,
   "MinDoorChance": 0.20000000298023224,
-  "MaxDoorChance": 1.0,
+  "MaxDoorChance": 0.8,
   "TrapTileChance": 0.019999999552965164,
   "EffectTileChance": 0.019999999552965164,
   "MinCorridorDensity": 1.1,
   "MaxCorridorDensity": 2.0,
   "MinBuildingDensity": 0.3,
   "MaxBuildingDensity": 0.6,
-  "UpdateTime": "2024-11-02T16:33:25.69Z"
+  "UpdateTime": "2025-01-18T20:05:00.26Z"
 }

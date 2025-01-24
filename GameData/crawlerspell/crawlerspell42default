@@ -4,20 +4,23 @@
   "IdKey": 42,
   "Name": "Conjure Golem",
   "Desc": "Summon a golem.",
+  "Icon": "",
+  "Art": "",
   "PowerCost": 9.0,
   "PowerPerLevel": 1.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 9,
+  "RoleScalingTypeId": 5,
   "Level": 1,
   "Effects": [
     {
       "EntityTypeId": 4,
-      "EntityId": 118,
+      "EntityId": 66,
       "MinQuantity": 1,
       "MaxQuantity": 1,
       "ElementTypeId": 8
     }
   ],
-  "UpdateTime": "2024-12-30T17:06:34.075Z"
+  "UpdateTime": "2025-01-19T19:01:07.736Z"
 }

@@ -2,7 +2,6 @@
 using Genrpg.Shared.DataStores.DataGroups;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MVC.Interfaces;
-using Genrpg.Shared.Website.Messages.CreateChar;
 using System;
 using System.Collections.Generic;
 using System.Threading;

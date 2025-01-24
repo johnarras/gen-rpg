@@ -104,9 +104,15 @@ public class BuildClients
             clientSettings.Version++;
             version = clientSettings.Version;
         }
+
         ClientBuildSettings.UpdateVersionFile(clientSettings, env);
         Debug.Log("Version: " + version);
         string lowerPrefix = gamePrefix.ToLower();
+
+        InitClient initClient = GameObject.Find("InitClient").GetComponent<InitClient>();
+
+
+        lowerPrefix = initClient.GameMode.ToString().ToLower();
         string outputZipFolder = "../../../Build/" + lowerPrefix + "/zips/";
         if (!Directory.Exists(outputZipFolder))
         {

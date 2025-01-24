@@ -1,26 +1,22 @@
 ﻿using Assets.Scripts.BoardGame.Controllers;
 using Assets.Scripts.BoardGame.Players;
 using Assets.Scripts.BoardGame.Tiles;
-using Genrpg.Shared.BoardGame.Messages.RollDice;
 using Genrpg.Shared.BoardGame.PlayerData;
+using Genrpg.Shared.BoardGame.WebApi.RollDice;
 using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Rewards.Services;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
 
 namespace Assets.Scripts.BoardGame.Services
 {
 
     public interface IShowDiceRollService : IInjectable, IInitOnResolve
     {
-        Awaitable ShowDiceRoll(RollDiceResult result, CancellationToken token);
+        Awaitable ShowDiceRoll(RollDiceResponse result, CancellationToken token);
     }
 
     public class ShowDiceRollService : IShowDiceRollService
@@ -37,7 +33,7 @@ namespace Assets.Scripts.BoardGame.Services
         {
         }
 
-        public async Awaitable ShowDiceRoll(RollDiceResult result, CancellationToken token)
+        public async Awaitable ShowDiceRoll(RollDiceResponse result, CancellationToken token)
         {
 
             GameObject player = _playerManager.GetPlayerGameObject();

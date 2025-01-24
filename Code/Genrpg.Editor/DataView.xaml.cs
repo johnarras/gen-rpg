@@ -373,7 +373,6 @@ namespace Genrpg.Editor
             SaveChanges();
             if (_window != null)
             {
-
                 _ = Task.Run(() => _window.SaveData());
             }
         }

@@ -41,6 +41,7 @@ namespace Genrpg.Shared.UnitEffects.Settings
         [Key(6)] public string Art { get; set; }
         [Key(7)] public string Abbrev { get; set; }
         [Key(8)] public List<ActionEffect> ActionEffects { get; set; } = new List<ActionEffect>();
+        [Key(9)] public long ElementTypeId { get; set; }
     }
 
     [MessagePackObject]
