@@ -1,6 +1,7 @@
 ﻿using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.Combat.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.Party.Services;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Entities;
 using Genrpg.Shared.Crawler.TimeOfDay.Settings;
@@ -13,7 +14,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
 {
     public class ProcessCombatRoundStateHelper : BaseCombatStateHelper
     {
-
+        private IPartyService _partyService;
         private IProcessCombatRoundCombatService _processCombatService = null;
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.ProcessCombatRound; }
@@ -75,7 +76,8 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
                     }
                     else if (party.Combat.PartyIsDead())
                     {
-                        party.Reset(_rand);
+
+                        _partyService.Reset(party);
                         _crawlerService.ChangeState(ECrawlerStates.GuildMain, token);
                         party.StatusPanel.RefreshAll();
                     }

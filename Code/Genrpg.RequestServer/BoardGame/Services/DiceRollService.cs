@@ -1,4 +1,5 @@
-﻿using Genrpg.RequestServer.BoardGame.Entities;
+﻿using Genrpg.RequestServer.BoardGame.BoardGen;
+using Genrpg.RequestServer.BoardGame.Entities;
 using Genrpg.RequestServer.BoardGame.Helpers.TileTypeHelpers;
 using Genrpg.RequestServer.Core;
 using Genrpg.RequestServer.Rewards.Services;
@@ -31,6 +32,7 @@ namespace Genrpg.RequestServer.BoardGame.Services
         private ILogService _logService = null;
         private IBoardModeService _boardModeService = null;
         private IBoardPrizeService _boardPrizeService = null;
+        private IBoardGenService _boardGenService = null;
         public async Task RollDice(WebContext context, DiceRollParams rollData)
         {
             try
@@ -52,7 +54,9 @@ namespace Genrpg.RequestServer.BoardGame.Services
                     Helper = _boardModeService.GetBoardModeHelper(boardData.BoardModeId),
                     Mode = _gameData.Get<BoardModeSettings>(context.user).Get(boardData.BoardModeId),
                 };
-                args.Response.StartIndex = boardData.TileIndex;
+                args.Response.NextBoard = args.Board;
+                args.Response.StartIndexReached = boardData.TileIndex;
+                args.Response.InitialIndex = boardData.TileIndex;
 
                 await args.Helper.SetupRollDiceArgs(context, args);
 
@@ -96,6 +100,8 @@ namespace Genrpg.RequestServer.BoardGame.Services
                     context.Responses.Add(new UpdateUserEnergyResponse() { EnergyAdded = 0, LastHourlyReset = userData.LastHourlyReset });
                 }
 
+                await _boardGenService.UpdateTiles(context, boardData, args.Response.InitialIndex, args.Response.TilesIndexesReached.Count);
+
                 context.Responses.Add(args.Response);
             }
             catch (Exception ex)
@@ -125,29 +131,14 @@ namespace Genrpg.RequestServer.BoardGame.Services
             for (int i = 0; i < startRollTotal; i++)
             {
                 endRollTotal++;
-                tileIndex = args.Helper.GetNextTileIndex(context, args, tileIndex);
+                tileIndex = args.Helper.GetNextTileIndex(context, args.Board, tileIndex);
 
                 tileIndexesReached.Add(tileIndex);
 
-                long tileTypeId = args.Board.Tiles[tileIndex];
+                long tileTypeId = args.Board.Tiles.Get(tileIndex);
+           
 
-                if (tileTypeId == TileTypes.EndPath)
-                {
-                    args.ExitMode = true;
-                    break;
-                }
-
-                if (tileTypeId == TileTypes.Home && args.Helper.BonusModeEndType == EBonusModeEndTypes.HomeTile)
-                {
-                    args.Board.ModeLapsLeft--;
-                    if (args.Board.ModeLapsLeft < 1)
-                    {
-                        args.ExitMode = true;
-                        break;
-                    }
-                }              
-
-                if (tileIndex == args.Response.StartIndex && args.Helper.BonusModeEndType == EBonusModeEndTypes.StartTile)
+                if (tileIndex == args.Response.StartIndexReached && args.Helper.BonusModeEndType == EBonusModeEndTypes.StartTile)
                 {
                     args.Board.ModeLapsLeft--;
                     if (args.Board.ModeLapsLeft < 1)
@@ -187,8 +178,8 @@ namespace Genrpg.RequestServer.BoardGame.Services
             args.Response.RollValues = rollValues;
             args.Response.TilesIndexesReached = tileIndexesReached;
             args.Board.TileIndex = tileIndexesReached.Last();
-            args.Response.StartIndex = tileIndexesReached[0];
-            args.Response.EndIndex = tileIndexesReached.Last();
+            args.Response.StartIndexReached = tileIndexesReached[0];
+            args.Response.EndIndexReached = tileIndexesReached.Last();
            
             await Task.CompletedTask;
         }
@@ -202,7 +193,7 @@ namespace Genrpg.RequestServer.BoardGame.Services
                 int tileIndex = args.Response.TilesIndexesReached[step];
                 RollStep rollStep = new RollStep() { Step = step };
                 args.Response.Steps.Add(rollStep);
-                long tileTypeId = args.Board.Tiles[tileIndex];
+                long tileTypeId = args.Board.Tiles.Get(tileIndex);
                 
                 TileType tileType = tileTypes.FirstOrDefault(x => x.IdKey == tileTypeId);
                 if (tileType == null)
@@ -210,69 +201,39 @@ namespace Genrpg.RequestServer.BoardGame.Services
                     continue;
                 }
 
-                bool landing = step == args.Response.TilesIndexesReached.Count - 1;
+                bool landing = (step == args.Response.TilesIndexesReached.Count - 1);
 
                 if (args.Mode.GiveDefaultTileRewards)
                 {
 
-                    if (tileType.ActivationCostScale > 0)
+                    RollData rollData = new RollData()
                     {
-                        TileCharge charge = args.Board.Charges.FirstOrDefault(x => x.TileIndex == tileIndex);
-                        if (charge == null)
-                        {
-                            charge = new TileCharge() { TileIndex = tileIndex };
-                            charge.MaxCharge = activationSettings.GetMaxCharge(context.user.Level, tileType.ActivationCostScale);
-                            charge.CurrCharge = 0;
-                            args.Board.Charges.Add(charge);
-                        }
+                        RewardSourceId = RewardSources.Tile,
+                        Scale = args.PlayMult,
+                        Times = 1,
+                    };
 
-                        charge.CurrCharge += (int)(Math.Pow(args.PlayMult, activationSettings.ChargeDiceMultPower));
+                    List<RewardList> passRewards = await _spawnService.Roll(context, tileType.PassRewards, rollData);
 
-                        if (charge.CurrCharge >= charge.MaxCharge)
-                        {
-                            charge.CurrCharge = 0;
+                    rollStep.Rewards.AddRange(passRewards);
 
-                            RollData rollData = new RollData();
-
-                            List<RewardList> activationRewards = await _spawnService.Roll(context, tileType.LandRewards, rollData);
-
-                            foreach (RewardList rlist in activationRewards)
-                            {
-                                await _rewardService.GiveRewardsAsync(context, rlist.Rewards);
-                            }
-                            rollStep.Rewards.AddRange(activationRewards);
-                        }
-                    }
-                    else
+                    if (landing)
                     {
-                        RollData rollData = new RollData()
-                        {
-                            RewardSourceId = RewardSources.Tile,
-                            Scale = args.PlayMult,
-                            Times = 1,
-                        };
+                        rollData.RewardSourceId = RewardSources.Tile;
 
-                        List<RewardList> passRewards = await _spawnService.Roll(context, tileType.PassRewards, rollData);
+                        List<RewardList> landRewards = await _spawnService.Roll(context, tileType.PassRewards, rollData);
 
-                        rollStep.Rewards.AddRange(passRewards);
-
-                        if (landing)
-                        {
-                            rollData.RewardSourceId = RewardSources.Tile;
-
-                            List<RewardList> landRewards = await _spawnService.Roll(context, tileType.PassRewards, rollData);
-
-                            rollStep.Rewards.AddRange(landRewards);
-                        }
+                        rollStep.Rewards.AddRange(landRewards);
                     }
                 }
 
-                long passReward = args.Board.PassRewards[tileIndex];
-                args.Board.PassRewards[tileIndex] = 0;
+                bool haveBonus = args.Board.Bonuses.HasBit(tileIndex);
+                args.Board.Bonuses.RemoveBit(tileIndex);
 
-                if (passReward > 0)
+                if (haveBonus)
                 {
-                    BoardPrize prize = _gameData.Get<BoardPrizeSettings>(context.user).Get(passReward);
+                    // JRJRA Todo fix this to use events and bonuses
+                    BoardPrize prize = _gameData.Get<BoardPrizeSettings>(context.user).Get(1);
 
                     if (prize != null)
                     {
@@ -290,25 +251,33 @@ namespace Genrpg.RequestServer.BoardGame.Services
                         }
                     }
                 }
+
                 if (landing)
                 {
-                    long landReward = args.Board.LandRewards[tileIndex];
-                    args.Board.LandRewards[tileIndex] = 0;
-                    BoardPrize prize = _gameData.Get<BoardPrizeSettings>(context.user).Get(landReward);
+                    bool haveEvent = args.Board.Events.HasBit(tileIndex);
+                    args.Board.Events.RemoveBit(tileIndex);
 
-                    if (prize != null)
+
+                    if (haveEvent)
                     {
-                        RollData rollData = new RollData()
-                        {
-                            RewardSourceId = RewardSources.LandTile,
-                            EntityId = tileIndex,
-                            Scale = args.PlayMult
-                        };
 
-                        List<RewardList> rewardLists = await _spawnService.Roll(context, prize.LootTable, rollData);
-                        if (rewardLists.Count > 0)
+                        // TODO figure out prize spots
+                        BoardPrize prize = _gameData.Get<BoardPrizeSettings>(context.user).Get(1);
+
+                        if (prize != null)
                         {
-                            rollStep.Rewards.AddRange(rewardLists);
+                            RollData rollData = new RollData()
+                            {
+                                RewardSourceId = RewardSources.LandTile,
+                                EntityId = tileIndex,
+                                Scale = args.PlayMult
+                            };
+
+                            List<RewardList> rewardLists = await _spawnService.Roll(context, prize.LootTable, rollData);
+                            if (rewardLists.Count > 0)
+                            {
+                                rollStep.Rewards.AddRange(rewardLists);
+                            }
                         }
                     }
                 }

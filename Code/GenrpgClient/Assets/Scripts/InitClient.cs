@@ -135,13 +135,17 @@ public class InitClient : BaseBehaviour, IInitClient
 
         // Initial app appearance.
         _clientAppService.TargetFrameRate = 30;
-        if (GameMode == EGameModes.MMO || GameMode == EGameModes.BoardGame)
+        if (GameMode == EGameModes.MMO)
         {
             _clientAppService.SetupScreen(2460, 1440, false, true, 2);
         }
+        else if (GameMode == EGameModes.BoardGame)
+        {
+            _clientAppService.SetupScreen(1080, 1920, false, false, 0);
+        }
         else
         {
-           // _clientAppService.SetupScreen(3840, 2160, true, true, 0);
+           _clientAppService.SetupScreen(3840, 2160, true, true, 0);
         }
         _dispatcher.AddListener<NewVersionEvent>(OnNewVersion, _gameTokenSource.Token);
         _gs.GameMode = GameMode;
@@ -188,7 +192,7 @@ public class InitClient : BaseBehaviour, IInitClient
         SetupService setupService = new SetupService(_gs.loc);
         await setupService.SetupGame(token);
 
-        ClientInitializer clientInitializer = new ClientInitializer(_gs);
+        ClientSetupService clientInitializer = new ClientSetupService(_gs);
         clientInitializer.AddClientServices(this, true, token);
 
         InitialPrefabLoader prefabLoader = _localLoadService.LocalLoad<InitialPrefabLoader>("Prefabs/PrefabLoader");

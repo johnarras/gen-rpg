@@ -37,10 +37,12 @@ namespace Genrpg.Shared.Users.PlayerData
         /// </summary>
         [Key(5)] public long NextActivityReward { get; set; }
 
-        [Key(6)] public IdValList Coins { get; set; } = new IdValList();
-        [Key(7)] public IdValList Abilties { get; set; } = new IdValList();
 
-        [Key(8)] public IdValList Stats { get; set; } = new IdValList();
+        public SmallIdLongCollection Coins { get; set; } = new SmallIdLongCollection();
+
+        public SmallIdShortCollection Abilities { get; set; } = new SmallIdShortCollection();
+
+        public SmallIdShortCollection Stats { get; set; } = new SmallIdShortCollection();
 
         [Key(9)] public DateTime CreationDate { get; set; }
 

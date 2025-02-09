@@ -2,16 +2,12 @@
   "Id": "tiletype5default",
   "ParentId": "default",
   "IdKey": 5,
-  "Name": "PVP",
-  "Desc": "Starts PVP",
-  "Icon": "PVPTile",
-  "Art": "PVPTile",
-  "MaxQuantity": 1,
-  "SpawnPriority": 10.0,
-  "MinPosition": 4,
-  "OnMainPath": true,
-  "ActivationCostScale": 5.0,
+  "Name": "Forest",
+  "Desc": "Lots of trees",
+  "Icon": "ForestTile",
+  "Art": "ForestTile",
+  "SpawnChance": 1.0,
   "PassRewards": [],
   "LandRewards": [],
-  "UpdateTime": "2024-08-11T00:19:54.103Z"
+  "UpdateTime": "2025-02-02T19:57:40.985Z"
 }

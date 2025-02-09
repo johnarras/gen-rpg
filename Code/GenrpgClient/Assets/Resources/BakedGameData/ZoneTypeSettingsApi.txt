@@ -7,6 +7,7 @@
       "Name": "Field",
       "Desc": "",
       "Icon": "Field",
+      "Art": "Field",
       "GenChance": 5.0,
       "GrassDensity": 1.5,
       "GrassFreq": 1.0,
@@ -714,7 +715,6 @@
       ],
       "PlantChoices": "2 5 8 10 20 21 23 24 27 29 30 7 15 25 3 16 18 26 9",
       "FenceChance": 0.1,
-      "Art": "",
       "WeatherTypeId": 1,
       "CreviceCountScale": 0.5,
       "CreviceDepthScale": 0.3,
@@ -722,7 +722,7 @@
       "MusicTypeId": 3,
       "AmbientMusicTypeId": 8,
       "TraveralTimeScale": 2.0,
-      "UpdateTime": "2024-09-14T16:14:39.118Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype2default",
@@ -731,6 +731,7 @@
       "Name": "Forest",
       "Desc": "",
       "Icon": "Forest",
+      "Art": "Forest",
       "MinLevel": 5,
       "GenChance": 20.0,
       "GrassDensity": 1.0,
@@ -1604,12 +1605,11 @@
       ],
       "PlantChoices": "2 5 8 10 20 21 23 24 27 29 30 7 15 25 3 16 18 26 9",
       "FenceChance": 0.1,
-      "Art": "",
       "WeatherTypeId": 2,
       "MusicTypeId": 4,
       "AmbientMusicTypeId": 8,
       "TraveralTimeScale": 5.0,
-      "UpdateTime": "2024-09-14T16:14:39.118Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype3default",
@@ -1618,6 +1618,7 @@
       "Name": "Hills",
       "Desc": "",
       "Icon": "Hills",
+      "Art": "Hills",
       "MinLevel": 5,
       "GenChance": 5.0,
       "GrassDensity": 0.8,
@@ -2392,12 +2393,11 @@
       ],
       "PlantChoices": "33 10 15 16 26 28 30 31 32 9",
       "FenceChance": 0.1,
-      "Art": "",
       "WeatherTypeId": 3,
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 9,
       "TraveralTimeScale": 5.0,
-      "UpdateTime": "2024-09-14T16:14:39.118Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype4default",
@@ -2406,6 +2406,7 @@
       "Name": "Swamp",
       "Desc": "",
       "Icon": "Swamp",
+      "Art": "Swamp",
       "MinLevel": 10,
       "GenChance": 3.0,
       "GrassDensity": 2.0,
@@ -3220,12 +3221,11 @@
       ],
       "PlantChoices": "34 35 2 4 8 10",
       "FenceChance": 0.1,
-      "Art": "",
       "WeatherTypeId": 4,
       "MusicTypeId": 6,
       "AmbientMusicTypeId": 11,
       "TraveralTimeScale": 10.0,
-      "UpdateTime": "2024-09-14T16:14:39.118Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype5default",
@@ -3234,6 +3234,7 @@
       "Name": "Badlands",
       "Desc": "",
       "Icon": "Badlands",
+      "Art": "Badlands",
       "MinLevel": 15,
       "GenChance": 1.0,
       "GrassDensity": 0.25,
@@ -3938,7 +3939,6 @@
       ],
       "PlantChoices": "34 35 36 37 38",
       "FenceChance": 0.1,
-      "Art": "",
       "WeatherTypeId": 5,
       "CreviceCountScale": 10.0,
       "CreviceDepthScale": 1.5,
@@ -3946,7 +3946,7 @@
       "MusicTypeId": 6,
       "AmbientMusicTypeId": 9,
       "TraveralTimeScale": 5.0,
-      "UpdateTime": "2024-09-14T16:14:39.118Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype6default",
@@ -3955,6 +3955,7 @@
       "Name": "Desert",
       "Desc": "",
       "Icon": "Desert",
+      "Art": "Desert",
       "MinLevel": 20,
       "GenChance": 1.0,
       "GrassDensity": 0.05,
@@ -4717,7 +4718,6 @@
       ],
       "PlantChoices": "34 35 36 37 38",
       "FenceChance": 0.1,
-      "Art": "",
       "WeatherTypeId": 6,
       "CreviceCountScale": 4.0,
       "CreviceDepthScale": 0.5,
@@ -4725,7 +4725,7 @@
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 9,
       "TraveralTimeScale": 15.0,
-      "UpdateTime": "2024-09-14T16:14:39.118Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype7default",
@@ -4734,6 +4734,7 @@
       "Name": "DarkForest",
       "Desc": "",
       "Icon": "DarkForest",
+      "Art": "DarkForest",
       "MinLevel": 10,
       "GenChance": 4.0,
       "GrassDensity": 0.75,
@@ -5464,12 +5465,11 @@
       ],
       "PlantChoices": "2 5 8 10 20 21 23 24 27 29 30 7 15 25 3 16 18 26 9",
       "FenceChance": 0.1,
-      "Art": "",
       "WeatherTypeId": 7,
       "MusicTypeId": 2,
       "AmbientMusicTypeId": 7,
       "TraveralTimeScale": 10.0,
-      "UpdateTime": "2024-09-14T16:14:39.118Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype8default",
@@ -5478,6 +5478,7 @@
       "Name": "Savannah",
       "Desc": "",
       "Icon": "Savannah",
+      "Art": "Savannah",
       "MinLevel": 15,
       "GenChance": 2.0,
       "GrassDensity": 1.25,
@@ -6142,12 +6143,11 @@
       ],
       "PlantChoices": "34 35 36 37 38",
       "FenceChance": 0.1,
-      "Art": "",
       "WeatherTypeId": 8,
       "MusicTypeId": 3,
       "AmbientMusicTypeId": 8,
       "TraveralTimeScale": 5.0,
-      "UpdateTime": "2024-09-14T16:14:39.118Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype9default",
@@ -6156,6 +6156,7 @@
       "Name": "Water",
       "Desc": "",
       "Icon": "Water",
+      "Art": "Water",
       "Textures": [
         {
           "TextureTypeId": 13
@@ -6528,12 +6529,11 @@
       "ZoneUnitSpawns": [],
       "PlantChoices": "0",
       "FenceChance": 0.1,
-      "Art": "0",
       "WeatherTypeId": 8,
       "MusicTypeId": 3,
       "AmbientMusicTypeId": 8,
       "TraveralTimeScale": 20.0,
-      "UpdateTime": "2024-09-14T16:14:39.118Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype10default",
@@ -6542,6 +6542,7 @@
       "Name": "Mountains",
       "Desc": "",
       "Icon": "Mountains",
+      "Art": "Mountains",
       "MinLevel": 25,
       "GenChance": 5.0,
       "GrassDensity": 0.8,
@@ -7316,12 +7317,11 @@
       ],
       "PlantChoices": "33 10 15 16 26 28 30 31 32 9",
       "FenceChance": 0.1,
-      "Art": "",
       "WeatherTypeId": 3,
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 8,
       "TraveralTimeScale": 30.0,
-      "UpdateTime": "2024-09-14T16:14:39.118Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype11default",
@@ -7330,6 +7330,7 @@
       "Name": "Snow",
       "Desc": "",
       "Icon": "Snow",
+      "Art": "Snow",
       "MinLevel": 25,
       "GenChance": 5.0,
       "GrassDensity": 0.8,
@@ -7992,12 +7993,11 @@
       ],
       "PlantChoices": "33 10 15 16 26 28 30 31 32 9",
       "FenceChance": 0.1,
-      "Art": "",
       "WeatherTypeId": 3,
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 8,
       "TraveralTimeScale": 20.0,
-      "UpdateTime": "2024-09-14T16:14:39.118Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype12default",
@@ -8006,6 +8006,7 @@
       "Name": "Road",
       "Desc": "",
       "Icon": "Road",
+      "Art": "Road",
       "Textures": [
         {
           "TextureTypeId": 4,
@@ -8023,11 +8024,10 @@
       "Overrides": [],
       "ZoneUnitSpawns": [],
       "PlantChoices": "",
-      "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
       "TraveralTimeScale": 1.0,
-      "UpdateTime": "2024-09-14T16:14:39.118Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype13default",
@@ -8036,6 +8036,7 @@
       "Name": "PointOfInterest",
       "Desc": "",
       "Icon": "PointOfInterest",
+      "Art": "PointOfInterest",
       "Textures": [
         {
           "TextureTypeId": 99,
@@ -8053,11 +8054,10 @@
       "Overrides": [],
       "ZoneUnitSpawns": [],
       "PlantChoices": "",
-      "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
       "TraveralTimeScale": 1.0,
-      "UpdateTime": "2024-08-31T18:56:29.231Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype14default",
@@ -8066,6 +8066,7 @@
       "Name": "City",
       "Desc": "",
       "Icon": "City",
+      "Art": "City",
       "Textures": [
         {
           "TextureTypeId": 99,
@@ -8293,11 +8294,10 @@
         }
       ],
       "PlantChoices": "",
-      "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
       "TraveralTimeScale": 1.0,
-      "UpdateTime": "2024-08-31T18:56:29.231Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype15default",
@@ -8306,6 +8306,7 @@
       "Name": "Dungeon",
       "Desc": "",
       "Icon": "Dungeon",
+      "Art": "Dungeon",
       "Textures": [
         {
           "TextureTypeId": 99,
@@ -8767,11 +8768,10 @@
         }
       ],
       "PlantChoices": "",
-      "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
       "TraveralTimeScale": 1.0,
-      "UpdateTime": "2024-09-14T16:14:39.118Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype16default",
@@ -8780,6 +8780,7 @@
       "Name": "Cave",
       "Desc": "",
       "Icon": "Cave",
+      "Art": "Cave",
       "Textures": [
         {
           "TextureTypeId": 99,
@@ -9293,11 +9294,10 @@
         }
       ],
       "PlantChoices": "",
-      "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
       "TraveralTimeScale": 1.0,
-      "UpdateTime": "2024-08-31T18:56:29.231Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype17default",
@@ -9306,6 +9306,7 @@
       "Name": "Tower",
       "Desc": "",
       "Icon": "Tower",
+      "Art": "Tower",
       "Textures": [
         {
           "TextureTypeId": 99,
@@ -9733,11 +9734,10 @@
         }
       ],
       "PlantChoices": "",
-      "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
       "TraveralTimeScale": 1.0,
-      "UpdateTime": "2024-08-31T18:56:29.231Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype18default",
@@ -9746,6 +9746,7 @@
       "Name": "Lava",
       "Desc": "",
       "Icon": "Lava",
+      "Art": "Lava",
       "MinLevel": 20,
       "GenChance": 1.0,
       "GrassDensity": 0.05,
@@ -10248,7 +10249,6 @@
       ],
       "PlantChoices": "34 35 36 37 38",
       "FenceChance": 0.1,
-      "Art": "",
       "WeatherTypeId": 6,
       "CreviceCountScale": 4.0,
       "CreviceDepthScale": 0.5,
@@ -10256,7 +10256,7 @@
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 9,
       "TraveralTimeScale": 20.0,
-      "UpdateTime": "2024-09-14T16:14:39.118Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype19default",
@@ -10265,6 +10265,7 @@
       "Name": "Arcane",
       "Desc": "",
       "Icon": "Arcane",
+      "Art": "Arcane",
       "Textures": [
         {
           "TextureTypeId": 99,
@@ -10726,11 +10727,10 @@
         }
       ],
       "PlantChoices": "",
-      "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
       "TraveralTimeScale": 1.0,
-      "UpdateTime": "2024-09-14T16:14:39.118Z"
+      "UpdateTime": "2025-01-27T23:56:18.6Z"
     },
     {
       "Id": "zonetype20default",
@@ -10739,6 +10739,7 @@
       "Name": "Unholy",
       "Desc": "",
       "Icon": "Unholy",
+      "Art": "Unholy",
       "Textures": [
         {
           "TextureTypeId": 99,
@@ -11200,17 +11201,490 @@
         }
       ],
       "PlantChoices": "",
-      "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
       "TraveralTimeScale": 1.0,
-      "UpdateTime": "2024-09-14T16:14:39.118Z"
+      "UpdateTime": "2025-02-09T14:46:58.379Z"
+    },
+    {
+      "Id": "zonetype21default",
+      "ParentId": "default",
+      "IdKey": 21,
+      "Name": "Natural",
+      "Desc": "",
+      "Icon": "Natural",
+      "Art": "Natural",
+      "Textures": [
+        {
+          "TextureTypeId": 99,
+          "Name": "Road/Base"
+        }
+      ],
+      "ZoneNames": [
+        {
+          "Weight": 1000.0,
+          "Name": "Tunnels",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Pit",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Caves",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Halls",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Vault",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Tomb",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Catacombs",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Quarters",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Labyrinth",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Pits",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Lair",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Cavern",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Caverns",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Burrows",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Burrow",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Maze",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Dungeon",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Tombs",
+          "Desc": ""
+        }
+      ],
+      "ZoneAdjectives": [],
+      "BridgeTypes": [],
+      "FenceTypes": [],
+      "RockTypes": [],
+      "TreeTypes": [],
+      "CreatureNamePrefixes": [],
+      "CreatureDoubleNamePrefixes": [],
+      "Overrides": [],
+      "ZoneUnitSpawns": [
+        {
+          "UnitTypeId": 1,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 2,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 3,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 4,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 5,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 6,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 7,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 8,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 9,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 10,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 11,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 12,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 13,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 14,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 15,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 16,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 17,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 18,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 19,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 20,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 21,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 22,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 23,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 24,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 25,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 26,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 27,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 28,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 29,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 30,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 31,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 32,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 33,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 34,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 35,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 36,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 37,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 39,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 40,
+          "Chance": 3.0
+        },
+        {
+          "UnitTypeId": 41,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 45,
+          "Chance": 1.0
+        },
+        {
+          "UnitTypeId": 48,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 49,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 50,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 51,
+          "Chance": 3.0
+        },
+        {
+          "UnitTypeId": 53,
+          "Chance": 3.0
+        },
+        {
+          "UnitTypeId": 54,
+          "Chance": 2.0
+        },
+        {
+          "UnitTypeId": 55,
+          "Chance": 2.0
+        },
+        {
+          "UnitTypeId": 56,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 57,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 58,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 59,
+          "Chance": 3.0
+        },
+        {
+          "UnitTypeId": 60,
+          "Chance": 3.0
+        },
+        {
+          "UnitTypeId": 74,
+          "Chance": 9.0
+        },
+        {
+          "UnitTypeId": 78,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 79,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 80,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 81,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 82,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 83,
+          "Chance": 3.0
+        },
+        {
+          "UnitTypeId": 84,
+          "Chance": 3.0
+        },
+        {
+          "UnitTypeId": 85,
+          "Chance": 3.0
+        },
+        {
+          "UnitTypeId": 86,
+          "Chance": 3.0
+        },
+        {
+          "UnitTypeId": 87,
+          "Chance": 3.0
+        },
+        {
+          "UnitTypeId": 88,
+          "Chance": 10.0
+        },
+        {
+          "UnitTypeId": 89,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 91,
+          "Chance": 2.0
+        },
+        {
+          "UnitTypeId": 93,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 94,
+          "Chance": 2.0
+        },
+        {
+          "UnitTypeId": 95,
+          "Chance": 3.0
+        },
+        {
+          "UnitTypeId": 96,
+          "Chance": 3.0
+        },
+        {
+          "UnitTypeId": 97,
+          "Chance": 3.0
+        },
+        {
+          "UnitTypeId": 98,
+          "Chance": 3.0
+        },
+        {
+          "UnitTypeId": 99,
+          "Chance": 3.0
+        },
+        {
+          "UnitTypeId": 100,
+          "Chance": 2.0
+        },
+        {
+          "UnitTypeId": 101,
+          "Chance": 2.0
+        },
+        {
+          "UnitTypeId": 102,
+          "Chance": 3.0
+        },
+        {
+          "UnitTypeId": 103,
+          "Chance": 3.0
+        },
+        {
+          "UnitTypeId": 104,
+          "Chance": 2.0
+        },
+        {
+          "UnitTypeId": 107,
+          "Chance": 10.0
+        },
+        {
+          "UnitTypeId": 109,
+          "Chance": 2.0
+        },
+        {
+          "UnitTypeId": 110,
+          "Chance": 2.0
+        },
+        {
+          "UnitTypeId": 111,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 112,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 113,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 114,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 115,
+          "Chance": 5.0
+        },
+        {
+          "UnitTypeId": 116,
+          "Chance": 5.0
+        }
+      ],
+      "PlantChoices": "",
+      "MusicTypeId": 1,
+      "AmbientMusicTypeId": 1,
+      "TraveralTimeScale": 1.0,
+      "UpdateTime": "2025-02-09T14:46:58.379Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "ZoneTypeSettings",
-    "UpdateTime": "2024-09-14T16:14:39.118Z"
+    "UpdateTime": "2025-02-09T14:46:58.379Z"
   },
   "Id": "default"
 }

@@ -37,6 +37,9 @@ namespace Genrpg.Shared.Crawler.Combat.Settings
         [Key(20)] public double MinDebuffChance { get; set; }
         [Key(21)] public double DebuffChancePerLevel { get; set; }
         [Key(22)] public double MaxDebuffChance { get; set; }
+
+        [Key(23)] public double BaseMonsterAttacks { get; set; }
+        [Key(24)] public double BasePlayerAttacks { get; set; }
     }
 
 

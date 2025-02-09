@@ -1,0 +1,10 @@
+{
+  "Id": "usercointype16default",
+  "ParentId": "default",
+  "IdKey": 16,
+  "Name": "Silver",
+  "Icon": "SilverIcon",
+  "Art": "SilverArt",
+  "Weight": 80.0,
+  "UpdateTime": "2025-02-02T23:59:07.686Z"
+}

@@ -1,6 +1,7 @@
 ﻿using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.Combat.Settings;
+using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Monsters.Settings;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
@@ -295,7 +296,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
             long roguelikeBonusStats = 0;
 
 
-            if (party.GameMode == Core.Constants.EGameModes.Roguelike)
+            if (party.GameMode == ECrawlerGameModes.Roguelite)
             {
                 roguelikeBonusStats = (long)_roguelikeUpgradeService.GetBonus(party, RoguelikeUpgrades.StartStats);
             }
@@ -411,7 +412,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                 baseBonus = 11 + (statValue - 50) / 10;
             }
 
-            if (_gs.GameMode == Core.Constants.EGameModes.Roguelike)
+            if (party.GameMode == ECrawlerGameModes.Roguelite)
             {
                 baseBonus += (long)_roguelikeUpgradeService.GetBonus(party, RoguelikeUpgrades.StatBonusValue);
             }

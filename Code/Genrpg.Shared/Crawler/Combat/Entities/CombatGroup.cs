@@ -27,7 +27,7 @@ namespace Genrpg.Shared.Crawler.Combat.Entities
 
         public string ShowStatus()
         {
-            return Units.Count + " " + (Units.Count == 1 ? SingularName : PluralName) + " (" + Range + "')";
+            return Units.Count + " " + (Units.Count == 1 ? SingularName : PluralName) + (Range > CrawlerCombatConstants.MinRange ? " (" + Range + "')" : "");
         }
 
     }

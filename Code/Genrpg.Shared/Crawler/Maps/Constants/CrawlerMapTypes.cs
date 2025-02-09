@@ -15,7 +15,7 @@ namespace Genrpg.Shared.Crawler.Maps.Constants
         public const long Outdoors = 3;
         public const long Cave = 4;
         public const long Tower = 5;
-
+        public const long Natural = 6;
 
 
 

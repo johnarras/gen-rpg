@@ -2,15 +2,12 @@
   "Id": "tiletype7default",
   "ParentId": "default",
   "IdKey": 7,
-  "Name": "Guard Tower",
-  "Desc": "Adds guard towers to your board.",
-  "Icon": "GuardTowerTile",
-  "Art": "GuardTowerTile",
-  "MaxQuantity": 1,
-  "SpawnPriority": 6.0,
-  "MinPosition": 2,
-  "OnMainPath": true,
+  "Name": "Desert",
+  "Desc": "Lots of sand",
+  "Icon": "DesertTile",
+  "Art": "DesertTile",
+  "SpawnChance": 1.0,
   "PassRewards": [],
   "LandRewards": [],
-  "UpdateTime": "2024-08-11T00:19:54.103Z"
+  "UpdateTime": "2025-02-02T19:57:40.985Z"
 }

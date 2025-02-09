@@ -4,7 +4,8 @@ using UnityEngine; // Needed
 
 public class AudioClipList : BaseBehaviour
 {
-
+    public float Volume = 1f;
+    public bool Is3D = false;
     public bool KeepLoaded;
     public List<AudioClip> Clips;
     public bool IsActiveMusic { get; set; }
@@ -82,14 +83,12 @@ public class AudioClipList : BaseBehaviour
         AudioSource source = playData.parent.AddComponent<AudioSource>();
         source.clip = clip;
         source.loop = playData.looping;
-        source.volume = playData.volume;
-        if (playData.musicData != null)
+        source.volume = playData.volume * Volume;
+        if (playData.musicData != null || !Is3D)
         {
             source.spatialBlend = 0;
-            source.minDistance = 100000;
-            source.maxDistance = 200000;
         }
-        else
+        else if (Is3D)
         {
             source.spatialBlend = 1;
             source.minDistance = 10;

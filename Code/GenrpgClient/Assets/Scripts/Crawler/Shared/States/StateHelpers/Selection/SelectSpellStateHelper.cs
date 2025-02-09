@@ -60,7 +60,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Selection
                     extra = null;
                 }
 
-                stateData.Actions.Add(new CrawlerStateAction(spellText, CharCodes.None, nextState, extraData: extra, forceButton: true,
+                stateData.Actions.Add(new CrawlerStateAction(spellText, CharCodes.None, nextState, extraData: extra, forceButton: false,
                     pointerEnterAction: () => ShowInfo(EntityTypes.CrawlerSpell, spell.IdKey)));
             }
 

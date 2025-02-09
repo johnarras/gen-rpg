@@ -2,11 +2,12 @@
   "Id": "tiletype13default",
   "ParentId": "default",
   "IdKey": 13,
-  "Name": "Teleport Start",
-  "Desc": "Start a teleport",
-  "Icon": "TeleportStartTile",
-  "Art": "TeleportStartTile",
+  "Name": "Tundra",
+  "Desc": "Very cold and barren",
+  "Icon": "TundraTile",
+  "Art": "TundraTile",
+  "SpawnChance": 1.0,
   "PassRewards": [],
   "LandRewards": [],
-  "UpdateTime": "2024-08-11T00:22:11.82Z"
+  "UpdateTime": "2025-02-02T19:57:40.985Z"
 }

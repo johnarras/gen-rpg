@@ -1,4 +1,5 @@
 ﻿using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Roguelikes.Constants;
 using Genrpg.Shared.Crawler.Roguelikes.Services;
@@ -36,7 +37,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds.CreateMember
 
             PartyData partyData = _crawlerService.GetParty();
 
-            if (partyData.GameMode == EGameModes.Roguelike)
+            if (partyData.GameMode == ECrawlerGameModes.Roguelite)
             {
                 totalClasses += (long)_roguelikeUpgradeService.GetBonus(partyData, RoguelikeUpgrades.Classes);
             }

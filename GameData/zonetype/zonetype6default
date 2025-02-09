@@ -5,6 +5,7 @@
   "Name": "Desert",
   "Desc": "",
   "Icon": "Desert",
+  "Art": "Desert",
   "MinLevel": 20,
   "GenChance": 1.0,
   "GrassDensity": 0.05,
@@ -767,7 +768,6 @@
   ],
   "PlantChoices": "34 35 36 37 38",
   "FenceChance": 0.1,
-  "Art": "",
   "WeatherTypeId": 6,
   "CreviceCountScale": 4.0,
   "CreviceDepthScale": 0.5,
@@ -775,5 +775,5 @@
   "MusicTypeId": 5,
   "AmbientMusicTypeId": 9,
   "TraveralTimeScale": 15.0,
-  "UpdateTime": "2024-09-14T16:14:39.118Z"
+  "UpdateTime": "2025-01-27T23:56:18.6Z"
 }

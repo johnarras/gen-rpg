@@ -3,5 +3,7 @@
   "ParentId": "default",
   "IdKey": 8,
   "Name": "Special",
-  "UpdateTime": "2024-08-01T00:28:13.735Z"
+  "Desc": "Movement",
+  "StatBonusScale": 1.0,
+  "UpdateTime": "2025-01-26T21:28:52.636Z"
 }

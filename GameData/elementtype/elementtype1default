@@ -4,6 +4,7 @@
   "IdKey": 1,
   "Name": "Physical",
   "Desc": "Attacks with material objects.",
+  "Icon": "Earth",
   "Art": "Earth",
   "CasterActionName": "Hit",
   "ObserverActionName": "Hits",
@@ -13,5 +14,5 @@
   "BuffEffects": [],
   "DebuffEffects": [],
   "Procs": [],
-  "UpdateTime": "2025-01-13T19:33:17.35Z"
+  "UpdateTime": "2025-02-01T05:18:19.397Z"
 }

@@ -1,0 +1,10 @@
+{
+  "Id": "usercointype15default",
+  "ParentId": "default",
+  "IdKey": 15,
+  "Name": "Sand",
+  "Icon": "SandIcon",
+  "Art": "SandArt",
+  "Weight": 35.0,
+  "UpdateTime": "2025-02-02T23:59:07.686Z"
+}

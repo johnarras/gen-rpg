@@ -1,9 +1,8 @@
 ﻿
+using Assets.Scripts.Crawler.ClientEvents;
 using Assets.Scripts.MVC;
 using Assets.Scripts.UI.Crawler.CrawlerPanels;
-using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Client.Assets.Constants;
-using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.Crawler.States.StateHelpers.Exploring;
@@ -39,7 +38,7 @@ namespace Assets.Scripts.UI.Crawler
 
         protected override async Task OnStartOpen(object data, CancellationToken token)
         {
-            PartyData partyData = await _crawlerService.LoadParty();
+            PartyData partyData = _crawlerService.GetParty();
             AddListener<CrawlerStateData>(OnNewStateData);
 
             _worldParent = View.Get<object>("World");
@@ -54,15 +53,19 @@ namespace Assets.Scripts.UI.Crawler
             _statusPanel = await _assetService.CreateAsync<StatusPanel, CrawlerScreen>(this,
                 AssetCategoryNames.UI, StatusPanelName, _statusParent, _token, Subdirectory);
 
-            partyData.WorldPanel = _worldPanel;
-            partyData.StatusPanel = _statusPanel;
-            partyData.ActionPanel = _actionPanel;
+            OnLinkPartyDataToUI(new LinkPartyDataToUI() { Party = partyData }); 
 
-            await _crawlerService.Init(partyData, token);
-
-            _screenService.CloseAll(new List<ScreenId>() { _crawlerService.GetCrawlerScreenId()});
+            _screenService.CloseAll(new List<ScreenId>() { ScreenId.Crawler });
 
             _dispatcher.AddListener<CrawlerCharacterScreenData>(OnCrawlerCharacterData, GetToken());
+            _dispatcher.AddListener<LinkPartyDataToUI>(OnLinkPartyDataToUI, GetToken());
+        }
+
+        private void OnLinkPartyDataToUI(LinkPartyDataToUI link)
+        {
+            link.Party.WorldPanel = _worldPanel;
+            link.Party.StatusPanel = _statusPanel;
+            link.Party.ActionPanel = _actionPanel;
         }
 
         private void OnNewStateData(CrawlerStateData data)

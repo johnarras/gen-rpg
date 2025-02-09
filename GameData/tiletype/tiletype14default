@@ -2,11 +2,12 @@
   "Id": "tiletype14default",
   "ParentId": "default",
   "IdKey": 14,
-  "Name": "Teleport End",
-  "Desc": "End a teleport",
-  "Icon": "TeleportEndTile",
-  "Art": "TeleportEndTile",
+  "Name": "Grassland",
+  "Desc": "Open fields as far as the eye can see",
+  "Icon": "GrasslandTile",
+  "Art": "GrasslandTile",
+  "SpawnChance": 1.0,
   "PassRewards": [],
   "LandRewards": [],
-  "UpdateTime": "2024-08-11T00:22:11.82Z"
+  "UpdateTime": "2025-02-02T19:57:40.985Z"
 }

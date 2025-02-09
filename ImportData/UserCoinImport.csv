@@ -1,0 +1,23 @@
+header usercointype,Idkey,Name,Icon,Art,Desc,Weight
+usercointype,1,Tokens,TokensIcon,TokensArt,,0
+usercointype,2,Gold,GoldIcon,GoldArt,,100
+usercointype,3,Energy,EnergyIcon,EnergyArt,,0
+usercointype,4,Activity,ActivityIcon,ActivityArt,,0
+usercointype,5,Cosmetics,CosmeticsIcon,CosmeticsArt,,0
+usercointype,6,Upgrades,UpgradesIcon,UpgradesArt,,0
+usercointype,7,Cheese,CheeseIcon,CheeseArt,,10
+usercointype,8,Wood,WoodIcon,WoodArt,,20
+usercointype,9,Stone,StoneIcon,StoneArt,,50
+usercointype,10,Flowers,FlowersIcon,FlowersArt,,5
+usercointype,11,Grass,GrassIcon,GrassArt,,5
+usercointype,12,Seeds,SeedsIcon,SeedsArt,,10
+usercointype,13,Iron,IronIcon,IronArt,,45
+usercointype,14,Fruit,FruitIcon,FruitArt,,20
+usercointype,15,Sand,SandIcon,SandArt,,35
+usercointype,16,Silver,SilverIcon,SilverArt,,80
+usercointype,17,Leather,LeatherIcon,LeatherArt,,50
+usercointype,18,Marble,MarbleIcon,MarbleArt,,75
+usercointype,19,Meat,MeatIcon,MeatArt,,40
+usercointype,20,Grain,GrainIcon,GrainArt,,30
+usercointype,21,Gems,GemsIcon,GemsArt,,15
+usercointype,22,Furs,FursIcon,FursArt,,60

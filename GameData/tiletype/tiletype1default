@@ -2,22 +2,12 @@
   "Id": "tiletype1default",
   "ParentId": "default",
   "IdKey": 1,
-  "Name": "Gold",
-  "Desc": "Gives out basic credits rewards.",
-  "Icon": "GoldTile",
-  "Art": "GoldTile",
-  "HasPrizes": true,
-  "OnMainPath": true,
-  "PassRewards": [
-    {
-      "EntityTypeId": 200,
-      "EntityId": 2,
-      "MinQuantity": 1,
-      "MaxQuantity": 2,
-      "Weight": 100.0,
-      "Name": "None"
-    }
-  ],
+  "Name": "Barren",
+  "Desc": "Not much here.",
+  "Icon": "BarrenTile",
+  "Art": "BarrenTile",
+  "SpawnChance": 1.0,
+  "PassRewards": [],
   "LandRewards": [],
-  "UpdateTime": "2024-08-17T15:13:09.155Z"
+  "UpdateTime": "2025-02-02T19:57:40.985Z"
 }

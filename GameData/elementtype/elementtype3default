@@ -4,8 +4,8 @@
   "IdKey": 3,
   "Name": "Ice",
   "Desc": "Slow the target.",
-  "Icon": "",
-  "Art": "Water",
+  "Icon": "Ice",
+  "Art": "Ice",
   "CasterActionName": "Freeze",
   "ObserverActionName": "Freezes",
   "CastAnim": "",
@@ -25,5 +25,5 @@
       "ElementTypeId": 3
     }
   ],
-  "UpdateTime": "2025-01-13T19:35:55.484Z"
+  "UpdateTime": "2025-02-01T05:18:19.397Z"
 }

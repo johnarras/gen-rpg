@@ -9,7 +9,6 @@ using Genrpg.RequestServer.Rewards.Services;
 using Genrpg.RequestServer.Services.WebServer;
 using Genrpg.RequestServer.Services.NoUsers;
 using Genrpg.RequestServer.Services.Admin;
-using Genrpg.Shared.BoardGame.Services;
 using Genrpg.RequestServer.BoardGame.Services;
 using Genrpg.RequestServer.PlayerData.Services;
 using Genrpg.RequestServer.Activities.Services;
@@ -17,6 +16,7 @@ using Genrpg.RequestServer.Resets.Services;
 using Genrpg.RequestServer.UserMail.Services;
 using Genrpg.RequestServer.Spawns.Services;
 using Genrpg.RequestServer.Purchasing.Services;
+using Genrpg.RequestServer.BoardGame.BoardGen;
 
 namespace Genrpg.RequestServer.Setup
 {

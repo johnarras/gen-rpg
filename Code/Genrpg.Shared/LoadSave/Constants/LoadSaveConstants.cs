@@ -3,7 +3,7 @@ namespace Genrpg.Shared.LoadSave.Constants
 {
     public class LoadSaveConstants
     {
-        public const long MinSlot = 1;
-        public const long MaxSlot = 10;
+        public const int MinSlot = 1;
+        public const int MaxSlot = 10;
     }
 }

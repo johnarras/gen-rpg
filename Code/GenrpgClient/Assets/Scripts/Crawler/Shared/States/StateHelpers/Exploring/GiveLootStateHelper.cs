@@ -15,6 +15,8 @@ using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.UI.Constants;
+using Assets.Scripts.Crawler.Constants;
+using Assets.Scripts.Interfaces;
 
 namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 {
@@ -32,6 +34,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 
         private ILootGenService _lootService = null;
         private ITrainingService _trainingService = null;
+        private IAudioService _audioService;
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.GiveLoot; }
 
@@ -122,6 +125,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
             }
 
 
+            _audioService.PlaySound(CrawlerAudio.Treasure, null);
             AddSpaceAction(stateData);
             await _crawlerService.SaveGame();
 

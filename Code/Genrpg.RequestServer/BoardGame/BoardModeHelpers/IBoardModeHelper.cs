@@ -1,6 +1,7 @@
 ﻿using Genrpg.RequestServer.BoardGame.Entities;
 using Genrpg.RequestServer.Core;
 using Genrpg.Shared.BoardGame.Constants;
+using Genrpg.Shared.BoardGame.PlayerData;
 using Genrpg.Shared.Interfaces;
 
 namespace Genrpg.RequestServer.BoardGame.BoardModeHelpers
@@ -9,7 +10,7 @@ namespace Genrpg.RequestServer.BoardGame.BoardModeHelpers
     {
         Task OnPassTile(WebContext context, RollDiceArgs args, int tileIndex);
         Task OnLandTile(WebContext context, RollDiceArgs args, int tileIndex);
-        int GetNextTileIndex(WebContext context, RollDiceArgs args, int tileIndex);
+        int GetNextTileIndex(WebContext context, BoardData boardData, int tileIndex);
         Task SetupRollDiceArgs(WebContext context, RollDiceArgs args);
         public EBonusModeEndTypes BonusModeEndType { get; }
         public long TriggerTileTypeId { get; }

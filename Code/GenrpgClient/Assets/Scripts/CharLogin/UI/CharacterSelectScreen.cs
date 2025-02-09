@@ -75,7 +75,6 @@ public class CharacterSelectScreen : ErrorMessageScreen
         _uiService.SetButton(LogoutButton, GetName(), ClickLogout);
         _uiService.SetButton(CreateButton, GetName(), ClickCharacterCreate);
         _uiService.SetButton(QuitButton, GetName(), ClickQuit);
-        _uiService.SetButton(CrawlerButton, GetName(), ClickCrawler);
         _uiService.SetButton(BoardGameButton, GetName(), ClickBoardGame);
 
         SetupCharacterGrid();
@@ -121,12 +120,6 @@ public class CharacterSelectScreen : ErrorMessageScreen
     }
 
 #endif
-
-
-    private void ClickCrawler()
-    {
-        _screenService.Open(_crawlerService.GetCrawlerScreenId());
-    }
 
     private void ClickBoardGame()
     {

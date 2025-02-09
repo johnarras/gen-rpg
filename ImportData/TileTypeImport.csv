@@ -1,0 +1,17 @@
+header tiletype,Idkey,Name,Icon,Art,Desc,SpawnChance
+tiletype,1,Barren,BarrenTile,BarrenTile,Not much here.,1
+tiletype,2,Meadow,MeadowTile,MeadowTile,Some flowers.,1
+tiletype,3,Field,FieldTile,FieldTile,Some crops,1
+tiletype,4,Woods,WoodsTile,WoodsTile,Some trees,1
+tiletype,5,Forest,ForestTile,ForestTile,Lots of trees,1
+tiletype,6,Mountains,MountainsTile,MountainsTile,Big mountains,1
+tiletype,7,Desert,DesertTile,DesertTile,Lots of sand,1
+tiletype,8,Wasteland,WastelandTile,WastelandTile,Desolate,1
+tiletype,9,Swamp,SwampTile,SwampTile,Humid lots of trees,1
+tiletype,10,Marsh,MarshTile,MarshTile,Humid lots of plants,1
+tiletype,11,Jungle,JungleTile,JungleTile,Huge trees and lots of life,1
+tiletype,12,Taiga,TaigaTile,TaigaTile,"Cold and barren, some plants",1
+tiletype,13,Tundra,TundraTile,TundraTile,Very cold and barren,1
+tiletype,14,Grassland,GrasslandTile,GrasslandTile,Open fields as far as the eye can see,1
+tiletype,15,Savannah,SavannahTile,SavannahTile,Dry grasslands,1
+tiletype,16,Hills,HillsTile,HillsTile,Cold with lots of elevation,1

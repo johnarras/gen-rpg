@@ -15,6 +15,7 @@ using Genrpg.Shared.Zones.Constants;
 using Genrpg.Shared.Buildings.Constants;
 using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.MapGen.Entities;
+using Genrpg.Shared.Crawler.Constants;
 
 namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 {
@@ -26,7 +27,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
         public override async Task<NewCrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData genData)
         {
             await Task.CompletedTask;
-            MyRandom rand = new MyRandom(genData.World.IdKey * 3 + genData.World.MaxMapId * 17);
+            MyRandom rand = new MyRandom(genData.World.Seed / 2 + genData.World.MaxMapId * 17);
 
             IReadOnlyList<ZoneType> allZoneTypes = _gameData.Get<ZoneTypeSettings>(null).GetData();
 
@@ -35,7 +36,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             long fillerZoneTypeId = ZoneTypes.Field;
             CrawlerMapType mapType = _gameData.Get<CrawlerMapSettings>(_gs.ch).Get(CrawlerMapTypes.City);
 
-            bool isRoguelike = party.GameMode == EGameModes.Roguelike;
+            bool isRoguelike = party.GameMode == ECrawlerGameModes.Roguelite;
 
             int mapEdgeDistance = 1;
 
@@ -345,7 +346,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
                 map.Set((int)currPoint.X, (int)currPoint.Y, CellIndex.Building, GetBuildingTypeFromMapType(dungeonMap.CrawlerMapTypeId));
 
-                if (rand.NextDouble() < 0.6)
+                if (rand.NextDouble() < 0.9)
                 {
                     break;
                 }

@@ -19,7 +19,7 @@ namespace Genrpg.Shared.Crawler.Info.SpellEffectHelpers
 
             if (unitType != null)
             {
-                sb.Append($"Summons {effect.MinQuantity} {_infoService.CreateInfoLink(unitType)} {GetRoleScalingText(spell,effect)} (Permanently if out of combat, and for the duration of combat if in combat.");
+                sb.Append($"Summons {_infoService.CreateInfoLink(unitType)} {GetRoleScalingText(spell,effect)} (Permanently if out of combat, and for the duration of combat if in combat. Scales better as you level up.");
             }
 
 

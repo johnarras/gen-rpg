@@ -28,7 +28,6 @@ using Genrpg.Shared.Zones.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Genrpg.Shared.Crawler.Maps.Entities;
@@ -38,16 +37,10 @@ using Genrpg.Shared.Crawler.TimeOfDay.Services;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.Crawler.States.Constants;
-using Newtonsoft.Json.Serialization;
-using Genrpg.Shared.Crawler.States.StateHelpers.Selection.Entities;
-using Genrpg.Shared.Spells.PlayerData.Spells;
-using System.Reflection.Emit;
-using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.Roguelikes.Settings;
 using Genrpg.Shared.Crawler.Monsters.Settings;
-using Genrpg.Shared.Levels.Settings;
 using Genrpg.Shared.Spells.Settings.Elements;
-using Genrpg.Shared.Factions.Settings;
+using Genrpg.Shared.Crawler.Constants;
 
 namespace Genrpg.Shared.Crawler.Combat.Services
 {
@@ -66,7 +59,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
             List<UnitAction> currentActions = null);
         void SetInitialActions(PartyData party);
         void AddCombatUnits(PartyData partyData, UnitType unitType, long unitQuantity, long factionTypeId,
-            int currRange = CrawlerCombatConstants.MinRange);
+            int currRange = CrawlerCombatConstants.MinRange, long bonusLevels = 0);
 
         FullMonsterStats GetFullMonsterStats(UnitType unitType, long combatLevel);
     }
@@ -126,10 +119,9 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
             foreach (PartyMember member in members)
             {
-
                 if (member.Summons.Count > 0)
                 {
-                    long quantity = _spellService.GetSummonQuantity(party, member);
+                    long summonPower = _spellService.GetSummonPower(party, member);
 
                     foreach (PartySummon summon in member.Summons)
                     {
@@ -137,7 +129,8 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
                         if (unitType != null)
                         {
-                            AddCombatUnits(party, unitType, Math.Max(1,(long)Math.Max(1,quantity*unitType.SpawnQuantityScale)), FactionTypes.Player);
+                            //AddCombatUnits(party, unitType, Math.Max(1,(long)Math.Max(1,power*unitType.SpawnQuantityScale)), FactionTypes.Player);
+                            AddCombatUnits(party, unitType, 1, FactionTypes.Player, CrawlerCombatConstants.MinRange, summonPower);
                         }
                     }
                 }
@@ -195,7 +188,13 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                 }
 
                 groupCount = MathUtils.Clamp(1, groupCount, maxGroups);
-                groupCount = 2;
+
+
+                if (party.GameMode == ECrawlerGameModes.Roguelite)
+                {
+                    groupCount = Math.Max(1, Math.Min(groupCount, party.MaxLevel));
+                }
+
                 List<UnitType> chosenUnitTypes = new List<UnitType>();
 
                 while (chosenUnitTypes.Count < groupCount && spawns.Count > 0)
@@ -240,9 +239,11 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                         }
                     }
 
-                    if (_gs.GameMode == EGameModes.Roguelike)
+                    if (party.GameMode == ECrawlerGameModes.Roguelite)
                     {
-                        quantity = Math.Max(1, (int)(quantity*roguelikeSettings.MonsterQuantityScale));  
+                        quantity = Math.Max(1, (int)(quantity*roguelikeSettings.MonsterQuantityScale));
+
+                        quantity = (int)Math.Min(quantity, party.MaxLevel + 1);
                     }
 
                     quantity = MathUtils.Clamp(1, quantity, 99);
@@ -408,7 +409,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
 
         public void AddCombatUnits(PartyData partyData, UnitType unitType, long unitQuantity, long factionTypeId,
-            int currRange = CrawlerCombatConstants.MinRange)
+            int currRange = CrawlerCombatConstants.MinRange, long bonusLevels = 0)
         {
 
             if (partyData.Combat == null)
@@ -467,7 +468,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                 {
                     Id = partyData.GetNextGroupId(),
                     UnitTypeId = unitType.IdKey,
-                    Level = combatLevel,
+                    Level = combatLevel + bonusLevels,
                     Name = unitType.Name + (i + 1),
                     PortraitName = unitType.Icon,
                     FactionTypeId = factionTypeId,
@@ -862,7 +863,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                     }
                     else
                     {
-                        if (spell.TargetTypeId == TargetTypes.EnemyGroup)
+                        if (spell.TargetTypeId == TargetTypes.AllEnemiesInAGroup)
                         {
                             if (enemyGroups.Count > 0)
                             {
@@ -871,7 +872,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                                 combatAction.FinalTargets = new List<CrawlerUnit>(egroup.Units);
                             }
                         }
-                        else if (spell.TargetTypeId == TargetTypes.AllEnemyGroups)
+                        else if (spell.TargetTypeId == TargetTypes.EnemyInEachGroup)
                         {
                             combatAction.FinalTargets = new List<CrawlerUnit>();
                             foreach (CombatGroup egroup in enemyGroups)
@@ -982,7 +983,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                 }
                 else if (possibleGroups.Count > 1)
                 {
-                    if (spell.TargetTypeId == TargetTypes.AllEnemies || spell.TargetTypeId == TargetTypes.AllEnemyGroups)
+                    if (spell.TargetTypeId == TargetTypes.AllEnemies || spell.TargetTypeId == TargetTypes.EnemyInEachGroup)
                     {
                         for (int g = 0; g < possibleGroups.Count; g++)
                         {
@@ -1140,7 +1141,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
                 double randomChance = combatSettings.RandomEncounterChance;
 
-                if (_gs.GameMode == EGameModes.Roguelike)
+                if (party.GameMode == ECrawlerGameModes.Roguelite)
                 {
                     randomChance *= _gameData.Get<RoguelikeSettings>(_gs.ch).RandomEncounterChanceMult;
                 }
@@ -1149,7 +1150,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                     return;
                 }
 
-                if (!newlyMarked && _gs.GameMode != EGameModes.Roguelike)
+                if (!newlyMarked && party.GameMode != ECrawlerGameModes.Roguelite)
                 {
                     return;
                 }

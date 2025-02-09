@@ -37,6 +37,12 @@ using Genrpg.Shared.Crawler.Maps.Settings;
 using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Zones.Settings;
+using TMPro;
+using Genrpg.Shared.UI.Services;
+using Genrpg.Shared.UI.Entities;
+using Assets.Scripts.Buildings;
+using Genrpg.Shared.Interfaces;
+using UnityEngine.Assertions.Must;
 
 namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 {
@@ -73,6 +79,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         private IClientEntityService _clientEntityService;
         protected ITaskService _taskService;
         private IClientGameState _gs;
+        private IScreenService _screenService;
 
         const int ViewRadius = 8;
         CrawlerMapRoot _crawlerMapRoot = null;
@@ -111,12 +118,12 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 return zoneType.Icon;
             }
 
-            if (_crawlerMapRoot == null || _crawlerMapRoot.Assets == null || string.IsNullOrEmpty(_crawlerMapRoot.Assets.BGImageName))
+            if (_crawlerMapRoot == null || _crawlerMapRoot.DungeonAssets == null || string.IsNullOrEmpty(_crawlerMapRoot.DungeonAssets.BGImageName))
             {
                 return CrawlerClientConstants.DefaultWorldBG;
             }
 
-            return _crawlerMapRoot.Assets.BGImageName;
+            return _crawlerMapRoot.DungeonAssets.BGImageName;
         }
 
         private long _mapType = CrawlerMapTypes.None;
@@ -170,6 +177,14 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
         public async Task EnterMap(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
         {
+            _screenService.Open(ScreenId.Loading);
+
+            while (_screenService.GetScreen(ScreenId.Loading) == null)
+            {
+                await Task.Delay(50);
+            }
+
+
             CleanMap();
             _party = partyData;
             _party.InGuildHall = false;
@@ -187,21 +202,23 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 if (_playerLight != null)
                 {
                     _playerLight.color = new UnityEngine.Color(1.0f, 0.9f, 0.8f, 1.0f);
+                    _playerLight.intensity = 0;
                 }
-                _playerLight.intensity = 0;
 
                 PlayerLightController plc = _playerLightObject.GetComponent<PlayerLightController>();
                 if (plc != null)
                 {
                     plc.enabled = false;
+                    plc.Init();
                 }
             }
 
             _mapType = mapData.Map.CrawlerMapTypeId;
             ICrawlerMapTypeHelper helper = GetMapHelper(_mapType);
 
-            _crawlerMapRoot = await helper.Enter(partyData, mapData, token);
+            _crawlerMapRoot = await helper.EnterMap(partyData, mapData, token);
 
+            _crawlerMapRoot.MapTypeHelper = helper;
             await LoadDungeonAssets(_crawlerMapRoot, token);
 
             _queuedMoves.Clear();
@@ -210,6 +227,8 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
             _dispatcher.Dispatch(new CrawlerUIUpdate());
             await _crawlerService.SaveGame();
+
+            _screenService.Close(ScreenId.Loading);
         }
 
         private async Task LoadDungeonAssets(CrawlerMapRoot mapRoot, CancellationToken token)
@@ -218,12 +237,27 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             CrawlerMapType mtype = _gameData.Get<CrawlerMapSettings>(_gs.ch).Get(mapRoot.Map.CrawlerMapTypeId);
             DungeonArt dungeonArt = _gameData.Get<DungeonArtSettings>(_gs.ch).Get(mtype.DungeonArtId);
 
-            _assetService.LoadAsset(AssetCategoryNames.Dungeons, dungeonArt.Art, OnLoadDungeonAssets, null, null, token);
+            string dungeonArtName = dungeonArt.Art;
 
-            while (mapRoot.Assets == null)
+            _assetService.LoadAsset(AssetCategoryNames.Dungeons, dungeonArtName, OnLoadDungeonAssets, null, null, token);
+
+            _assetService.LoadAsset(AssetCategoryNames.Buildings, "DefaultCityAssets", OnLoadCityAssets, null, null, token, "Default");
+
+            while (mapRoot.DungeonAssets == null || mapRoot.DungeonMaterials == null || mapRoot.CityAssets == null)
             {
                 await Task.Delay(1);
             }
+        }
+        private void OnLoadCityAssets(object obj, object data, CancellationToken token)
+        {
+            GameObject assetGo = obj as GameObject;
+
+            if (assetGo == null)
+            {
+                return;
+            }
+
+            _crawlerMapRoot.CityAssets = assetGo.GetComponent<CityAssets>();
         }
 
         private void OnLoadDungeonAssets(object obj, object data, CancellationToken token)
@@ -235,10 +269,45 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 return;
             }
 
-            _crawlerMapRoot.Assets = assetGo.GetComponent<DungeonAssets>();
+            _crawlerMapRoot.DungeonAssets = assetGo.GetComponent<DungeonAssets>();
+
+            long materialSeed = _crawlerMapRoot.Map.ArtSeed / 5 + 1433;
+
+            int matWeightSum = _crawlerMapRoot.DungeonAssets.Materials.Sum(x => x.Weight);
+
+            int weightChosen = (int)materialSeed % matWeightSum;
+
+            foreach (WeightedDungeonMaterials mat in _crawlerMapRoot.DungeonAssets.Materials)
+            {
+                weightChosen -= mat.Weight;
+
+                if (weightChosen <= 0)
+                {
+                    _crawlerMapRoot.DungeonMaterials = mat.Materials;
+                    break;
+                }
+            }
+
+            // Get doormat for this level.
+
+            List<WeightedMaterial> doorMats = _crawlerMapRoot.DungeonMaterials.GetMaterials(DungeonAssetIndex.Doors);
+
+            long doorWeightSum = doorMats.Sum(x => x.Weight);
+
+            long doorHash = _crawlerMapRoot.Map.ArtSeed / 3 + 317;
+
+            long doorChosen = doorHash % doorWeightSum;
+
+            foreach (WeightedMaterial wmat in doorMats)
+            {
+                doorChosen -= wmat.Weight;
+                if (doorChosen <= 0)
+                {
+                    _crawlerMapRoot.DoorMat = wmat.Mat;
+                    break;
+                }
+            }
         }
-
-
 
         public async Task OnCleanup(CancellationToken token)
         {
@@ -249,13 +318,20 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
         public void CleanMap()
         {
-            if (_crawlerMapRoot != null && _crawlerMapRoot.Assets != null)
-            {
-                _clientEntityService.Destroy(_crawlerMapRoot.Assets.gameObject);
-                _crawlerMapRoot.Assets = null;
-            }
             if (_crawlerMapRoot != null)
             {
+                if (_crawlerMapRoot.DungeonAssets != null)
+                {
+                    _clientEntityService.Destroy(_crawlerMapRoot.DungeonAssets.gameObject);
+                    _crawlerMapRoot.DungeonAssets = null;
+                }
+                if (_crawlerMapRoot.CityAssets != null)
+                {
+                    _clientEntityService.Destroy(_crawlerMapRoot.CityAssets.gameObject);
+                    _crawlerMapRoot.CityAssets = null;
+                }
+                _crawlerMapRoot.DungeonMaterials = null;
+
                 _clientEntityService.Destroy(_crawlerMapRoot.gameObject);
                 _crawlerMapRoot = null;
             }
@@ -295,7 +371,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 _camera.transform.localPosition = new Vector3(0, 0, -bz * 0.5f);
                 _camera.transform.eulerAngles = new Vector3(0, 0, 0);
                 _camera.farClipPlane = CrawlerMapConstants.BlockSize * 8;
-                _camera.fieldOfView = 70f;
+                _camera.fieldOfView = 80f;
             }
 
             _cameraParent.transform.position = new Vector3(_crawlerMapRoot.DrawX, _crawlerMapRoot.DrawY, _crawlerMapRoot.DrawZ);
@@ -472,6 +548,36 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             float dz = endDrawZ - startDrawZ;
             float dx = endDrawX - startDrawX;
 
+            int dxgrid = ex - sx;
+            int dzgrid = ez - sz;
+
+            int cx = sx;
+            int cz = sz;
+
+            bool openEastDoor = dxgrid != 0;
+            if (ex < sx)
+            {
+                cx = (sx + _crawlerMapRoot.Map.Width-1) % _crawlerMapRoot.Map.Width;
+            }
+            if (ez < sz)
+            {
+                cz = (sz + _crawlerMapRoot.Map.Height-1) % _crawlerMapRoot.Map.Height;
+            }
+
+            ClientMapCell mapCell = _crawlerMapRoot.GetCell(cx, cz);
+
+            int assetPosition = (openEastDoor ? DungeonAssetPosition.EastWall : DungeonAssetPosition.NorthWall);
+
+            DungeonAsset posAsset = mapCell.AssetPositions[assetPosition];
+
+            if (posAsset != null)
+            {
+                if (posAsset.SetOpened(true))
+                {
+                    await Task.Delay(100);
+                }
+            }
+
             for (int frame = 1; frame < frames; frame++)
             {
 
@@ -484,6 +590,11 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 {
                     await Task.Delay(1);
                 }
+            }
+
+            if (posAsset != null)
+            {
+                posAsset.SetOpened(false);
             }
 
             ex = MathUtils.ModClamp(ex, _crawlerMapRoot.Map.Width);
@@ -563,6 +674,9 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                         int worldX = x;
                         int worldZ = z;
 
+                        int realCellX = (worldX + _crawlerMapRoot.Map.Width) % _crawlerMapRoot.Map.Width;
+                        int realCellZ = (worldZ + _crawlerMapRoot.Map.Height) % _crawlerMapRoot.Map.Height;
+
                         ClientMapCell cell = _crawlerMapRoot.GetCell(cellX, cellZ);
 
                         if (_crawlerMapRoot.Map.CrawlerMapTypeId == CrawlerMapTypes.Outdoors &&
@@ -596,7 +710,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                         {
                             ICrawlerMapTypeHelper helper = GetMapHelper(_crawlerMapRoot.Map.CrawlerMapTypeId);
 
-                            await helper.DrawCell(_world, _party, _crawlerMapRoot, cell, worldX, worldZ, token);
+                            await helper.DrawCell(_world, _party, _crawlerMapRoot, cell, worldX, worldZ, realCellX, realCellZ, token);
                         }
                     }
                 }

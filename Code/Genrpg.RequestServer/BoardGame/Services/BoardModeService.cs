@@ -1,4 +1,5 @@
-﻿using Genrpg.RequestServer.BoardGame.BoardModeHelpers;
+﻿using Genrpg.RequestServer.BoardGame.BoardGen;
+using Genrpg.RequestServer.BoardGame.BoardModeHelpers;
 using Genrpg.RequestServer.BoardGame.Entities;
 using Genrpg.RequestServer.Core;
 using Genrpg.RequestServer.Services.NoUsers;
@@ -7,6 +8,7 @@ using Genrpg.Shared.BoardGame.Entities;
 using Genrpg.Shared.BoardGame.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.HelperClasses;
+using Genrpg.Shared.Utils.Data;
 using System.Net.Mime;
 
 namespace Genrpg.RequestServer.BoardGame.Services
@@ -70,8 +72,8 @@ namespace Genrpg.RequestServer.BoardGame.Services
                     Tiles = otherBoardData.Tiles,
                 };
 
-                newBoardData.PassRewards.Create(newBoardData.Tiles.Length);
-                newBoardData.LandRewards.Create(newBoardData.Tiles.Length);
+                newBoardData.Events = new SmallIndexBitList();
+                newBoardData.Bonuses = new SmallIndexBitList();
                 
             }
             else // Adventure only.

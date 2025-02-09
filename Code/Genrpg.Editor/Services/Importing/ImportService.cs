@@ -15,7 +15,7 @@ namespace Genrpg.Editor.Services.Importing
     public interface IImportService : IInjectable
     {
         T ImportLine<T>(EditorGameState gs, int row, string[] data, string[] headers, T curr = null) where T : class, new();
-        void ConvertImportWordsToContainer(object import, List<IIdName> children, SmallIdCollection cont);
+        void ConvertImportWordsToContainer(object import, List<IIdName> children, SmallIdLongCollection cont);
     }
 
     public class ImportService : IImportService
@@ -112,7 +112,7 @@ namespace Genrpg.Editor.Services.Importing
 
 
 
-        public void ConvertImportWordsToContainer(object import, List<IIdName> children, SmallIdCollection cont)
+        public void ConvertImportWordsToContainer(object import, List<IIdName> children, SmallIdLongCollection cont)
         {
 
             PropertyInfo[] props = import.GetType().GetProperties();

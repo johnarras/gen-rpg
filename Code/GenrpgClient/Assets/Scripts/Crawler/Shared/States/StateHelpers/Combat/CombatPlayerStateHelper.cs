@@ -2,6 +2,7 @@
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Combat.Settings;
+using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Roguelikes.Constants;
@@ -48,7 +49,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
                 party.Combat.PlayerActionsRemaining = 1;
             }
 
-            if (party.GameMode == EGameModes.Roguelike)
+            if (party.GameMode == ECrawlerGameModes.Roguelite)
             {
                 
                 double extraActions = (long)_roguelikeUpgradeService.GetBonus(party, RoguelikeUpgrades.ActionCount);
@@ -129,7 +130,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
                     };
 
                     stateData.Actions.Add(new CrawlerStateAction("Recast " + unitCombatAction.Spell.Name, 'R', ECrawlerStates.OnSelectSpell,
-                        extraData: selectSpell, forceButton:true, pointerEnterAction: () => ShowInfo(EntityTypes.CrawlerSpell, unitCombatAction.Spell.IdKey)));
+                        extraData: selectSpell, forceButton:false, pointerEnterAction: () => ShowInfo(EntityTypes.CrawlerSpell, unitCombatAction.Spell.IdKey)));
                     continue;
                 }
                 else if (unitCombatAction.Spell == null)

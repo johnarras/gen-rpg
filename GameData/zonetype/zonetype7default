@@ -5,6 +5,7 @@
   "Name": "DarkForest",
   "Desc": "",
   "Icon": "DarkForest",
+  "Art": "DarkForest",
   "MinLevel": 10,
   "GenChance": 4.0,
   "GrassDensity": 0.75,
@@ -735,10 +736,9 @@
   ],
   "PlantChoices": "2 5 8 10 20 21 23 24 27 29 30 7 15 25 3 16 18 26 9",
   "FenceChance": 0.1,
-  "Art": "",
   "WeatherTypeId": 7,
   "MusicTypeId": 2,
   "AmbientMusicTypeId": 7,
   "TraveralTimeScale": 10.0,
-  "UpdateTime": "2024-09-14T16:14:39.118Z"
+  "UpdateTime": "2025-01-27T23:56:18.6Z"
 }

@@ -38,7 +38,7 @@ public class SetupEditorUnityGameState
 
             try
             {
-                ClientInitializer clientInitializer = new ClientInitializer(gs);
+                ClientSetupService clientInitializer = new ClientSetupService(gs);
                 clientInitializer.AddClientServices(initClient, false, _cts.Token);
 
                 await clientInitializer.FinalInitialize(_cts.Token);

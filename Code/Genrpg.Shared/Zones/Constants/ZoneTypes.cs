@@ -24,5 +24,8 @@ namespace Genrpg.Shared.Zones.Constants
         public const long Cave = 16;
         public const long Tower = 17;
         public const long Lava = 18;
+        public const long Arcane = 19;
+        public const long Unholy = 20;
+        public const long Natural = 21;
     }
 }

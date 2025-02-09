@@ -99,6 +99,7 @@ namespace Assets.Scripts.Crawler.UI.Screens.Characters
 
             Role raceRole = allRoles.FirstOrDefault(x => x.RoleCategoryId == RoleCategories.Origin);
 
+            SetEquipment();
 
             if (raceRole != null)
             {
@@ -128,6 +129,20 @@ namespace Assets.Scripts.Crawler.UI.Screens.Characters
             }
             _uiService.SetText(SummonText, sb.ToString());
 
+
+            IReadOnlyList<RoleScalingType> scalingTypes = _gameData.Get<RoleScalingTypeSettings>(_gs.ch).GetData();
+
+            sb.Clear();
+            sb.Append("Tiers: ");
+
+            foreach (RoleScalingType scalingType in scalingTypes)
+            {
+                double tier = _roleService.GetScalingTier(partyData, _partyMember, scalingType.IdKey);
+
+                sb.Append(_infoService.CreateInfoLink(scalingType) + ": " + tier + "   ");
+            }
+
+            _uiService.SetText(TiersText, sb.ToString());
         }
 
         protected override void OnStartClose()

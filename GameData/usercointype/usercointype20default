@@ -1,0 +1,10 @@
+{
+  "Id": "usercointype20default",
+  "ParentId": "default",
+  "IdKey": 20,
+  "Name": "Grain",
+  "Icon": "GrainIcon",
+  "Art": "GrainArt",
+  "Weight": 30.0,
+  "UpdateTime": "2025-02-02T23:59:07.686Z"
+}

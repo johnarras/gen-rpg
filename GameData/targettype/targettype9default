@@ -3,5 +3,7 @@
   "ParentId": "default",
   "IdKey": 9,
   "Name": "Self",
-  "UpdateTime": "2024-08-01T00:28:13.737Z"
+  "Desc": "Cast on self only",
+  "StatBonusScale": 1.0,
+  "UpdateTime": "2025-01-26T20:54:13.482Z"
 }

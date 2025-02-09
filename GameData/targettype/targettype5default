@@ -3,5 +3,7 @@
   "ParentId": "default",
   "IdKey": 5,
   "Name": "AllAllies",
-  "UpdateTime": "2024-08-01T00:28:13.728Z"
+  "Desc": "All allies individually",
+  "StatBonusScale": 0.35,
+  "UpdateTime": "2025-01-26T20:54:13.482Z"
 }

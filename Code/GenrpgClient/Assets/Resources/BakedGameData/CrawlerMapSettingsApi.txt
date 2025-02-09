@@ -10,10 +10,10 @@
       "Art": "",
       "MinWidth": 15,
       "MaxWidth": 20,
-      "MinHeight": 15,
+      "MinHeight": 10,
       "MaxHeight": 20,
-      "MinFloors": 2,
-      "MaxFloors": 5,
+      "MinFloors": 1,
+      "MaxFloors": 3,
       "QuestItemEntranceUnlockChance": 0.2,
       "RiddleUnlockChance": 0.4,
       "SpecialTileChance": 0.05,
@@ -23,17 +23,18 @@
       "DungeonArtId": 1,
       "RandomWallsChance": 0.5,
       "LoopingChance": 0.5,
-      "MinWallChance": 0.8,
-      "MaxWallChance": 0.800000011920929,
+      "MinWallChance": 0.4,
+      "MaxWallChance": 0.8,
       "MinDoorChance": 0.20000000298023224,
-      "MaxDoorChance": 0.8,
+      "MaxDoorChance": 0.6,
       "TrapTileChance": 0.019999999552965164,
       "EffectTileChance": 0.019999999552965164,
       "MinCorridorDensity": 1.1,
       "MaxCorridorDensity": 2.0,
       "MinBuildingDensity": 0.3,
       "MaxBuildingDensity": 0.6,
-      "UpdateTime": "2025-01-18T20:05:00.26Z"
+      "WeatherTypeId": 11,
+      "UpdateTime": "2025-02-09T16:27:09.206Z"
     },
     {
       "Id": "crawlermaptype2default",
@@ -57,7 +58,8 @@
       "MaxCorridorDensity": 1.3,
       "MinBuildingDensity": 0.6,
       "MaxBuildingDensity": 1.3,
-      "UpdateTime": "2024-11-02T16:33:25.69Z"
+      "WeatherTypeId": 10,
+      "UpdateTime": "2025-02-09T16:27:09.206Z"
     },
     {
       "Id": "crawlermaptype3default",
@@ -79,7 +81,8 @@
       "MaxCorridorDensity": 0.3,
       "MinBuildingDensity": 0.01,
       "MaxBuildingDensity": 0.02,
-      "UpdateTime": "2025-01-18T20:05:00.26Z"
+      "WeatherTypeId": 9,
+      "UpdateTime": "2025-02-09T16:27:09.206Z"
     },
     {
       "Id": "crawlermaptype4default",
@@ -91,10 +94,10 @@
       "Art": "",
       "MinWidth": 15,
       "MaxWidth": 20,
-      "MinHeight": 15,
+      "MinHeight": 10,
       "MaxHeight": 20,
-      "MinFloors": 2,
-      "MaxFloors": 5,
+      "MinFloors": 1,
+      "MaxFloors": 3,
       "QuestItemEntranceUnlockChance": 0.2,
       "RiddleUnlockChance": 0.4,
       "SpecialTileChance": 0.05,
@@ -110,7 +113,8 @@
       "MaxCorridorDensity": 2.0,
       "MinBuildingDensity": 0.1,
       "MaxBuildingDensity": 0.4,
-      "UpdateTime": "2025-01-18T20:05:00.26Z"
+      "WeatherTypeId": 11,
+      "UpdateTime": "2025-02-09T16:27:09.206Z"
     },
     {
       "Id": "crawlermaptype5default",
@@ -124,8 +128,8 @@
       "MaxWidth": 10,
       "MinHeight": 6,
       "MaxHeight": 10,
-      "MinFloors": 2,
-      "MaxFloors": 5,
+      "MinFloors": 1,
+      "MaxFloors": 3,
       "QuestItemEntranceUnlockChance": 0.2,
       "RiddleUnlockChance": 0.4,
       "SpecialTileChance": 0.05,
@@ -134,24 +138,54 @@
       "ZoneTypeId": 17,
       "DungeonArtId": 1,
       "RandomWallsChance": 1.0,
-      "MinWallChance": 0.6000000238418579,
+      "MinWallChance": 0.4,
       "MaxWallChance": 0.8,
       "MinDoorChance": 0.2,
-      "MaxDoorChance": 0.8,
-      "TrapTileChance": 0.019999999552965164,
+      "MaxDoorChance": 0.6,
+      "TrapTileChance": 0.02,
       "EffectTileChance": 0.019999999552965164,
       "MinCorridorDensity": 1.2,
       "MaxCorridorDensity": 2.0,
       "MinBuildingDensity": 0.1,
       "MaxBuildingDensity": 0.3,
-      "UpdateTime": "2025-01-18T20:05:00.26Z"
+      "WeatherTypeId": 11,
+      "UpdateTime": "2025-02-09T16:27:09.206Z"
+    },
+    {
+      "Id": "crawlermaptype6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Natural",
+      "Desc": "Natural outdoor map",
+      "Icon": "Natural",
+      "Art": "Natural",
+      "MinWidth": 25,
+      "MaxWidth": 35,
+      "MinHeight": 25,
+      "MaxHeight": 35,
+      "MinFloors": 1,
+      "MaxFloors": 1,
+      "QuestItemEntranceUnlockChance": 0.2,
+      "RiddleUnlockChance": 0.2,
+      "SpecialTileChance": 0.05,
+      "DungeonGenChance": 1.0,
+      "BuildingTypeId": 22,
+      "ZoneTypeId": 21,
+      "DungeonArtId": 3,
+      "MinWallChance": 0.4,
+      "MaxWallChance": 0.6,
+      "TrapTileChance": 0.04,
+      "MinCorridorDensity": 2.0,
+      "MaxCorridorDensity": 4.0,
+      "WeatherTypeId": 9,
+      "UpdateTime": "2025-02-09T16:27:09.206Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "CorridorDungeonSizeScale": 1.5,
     "Name": "CrawlerMapSettings",
-    "UpdateTime": "2025-01-18T20:05:00.26Z"
+    "UpdateTime": "2025-02-09T16:27:09.206Z"
   },
   "Id": "default"
 }

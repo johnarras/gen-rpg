@@ -41,34 +41,34 @@ namespace Assets.Scripts.BoardGame.Services
             {
                 TileController tileArt = _controller.GetTile(i);
 
-                long[] prizeIds = new long[BoardPrizeSlots.Max];
+                bool[] prizeIds = new bool[ExtraTileSlots.Max];
 
-                prizeIds[BoardPrizeSlots.Pass] = boardData.PassRewards[i];
-                prizeIds[BoardPrizeSlots.Land] = boardData.LandRewards[i];
+                prizeIds[ExtraTileSlots.Bonus] = boardData.Bonuses.HasBit(i);
+                prizeIds[ExtraTileSlots.Event] = boardData.Events.HasBit(i);
 
-                for (int s = 0; s < BoardPrizeSlots.Max; s++)
+                for (int s = 0; s < ExtraTileSlots.Max; s++)
                 {
 
                     try
                     {
-                        if (tileArt.PrizeIds[s] != prizeIds[s])
+                        if (tileArt.ExtraData[s] != prizeIds[s])
                         {
-                            tileArt.PrizeIds[s] = prizeIds[s];
+                            tileArt.ExtraData[s] = prizeIds[s];
                         }
-                        if (prizeIds[s] == 0)
+                        if (prizeIds[s] == false)
                         {
                             _clientEntityService.DestroyAllChildren(tileArt.PrizeAnchors[s]);
                         }
                         else
                         {
-                            BoardPrize prize = prizeSettings.Get(tileArt.PrizeIds[s]);
+                            BoardPrize prize = prizeSettings.Get(s + 1);
                             _assetService.LoadAssetInto(tileArt.PrizeAnchors[s], AssetCategoryNames.BoardPrizes, prize.Art, null, null, token);
 
                         }
                     }
                     catch (Exception e)
                     {
-                        _logService.Exception(e, "Exception on load prize in tile: " + i + " " + boardData.Tiles[i]);
+                        _logService.Exception(e, "Exception on load prize in tile: " + i + " " + boardData.Tiles.Get(i));
                     }
                 }
             }

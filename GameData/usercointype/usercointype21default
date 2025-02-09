@@ -1,0 +1,10 @@
+{
+  "Id": "usercointype21default",
+  "ParentId": "default",
+  "IdKey": 21,
+  "Name": "Gems",
+  "Icon": "GemsIcon",
+  "Art": "GemsArt",
+  "Weight": 15.0,
+  "UpdateTime": "2025-02-02T23:59:07.686Z"
+}

@@ -21,6 +21,7 @@ using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.Roguelikes.Constants;
 using Genrpg.Shared.Crawler.Roguelikes.Services;
 using Genrpg.Shared.Inventory.Settings.Qualities;
+using Genrpg.Shared.Crawler.Constants;
 
 public class CrawlerVendorScreen : ItemIconScreen
 {
@@ -90,7 +91,7 @@ public class CrawlerVendorScreen : ItemIconScreen
             double quality = 0;
             
 
-            if (_party.GameMode == EGameModes.Roguelike)
+            if (_party.GameMode == ECrawlerGameModes.Roguelite)
             {
                 level = _party.MaxLevel;
                 quality = _roguelikeUpgradeService.GetBonus(_party, RoguelikeUpgrades.VendorQuality);

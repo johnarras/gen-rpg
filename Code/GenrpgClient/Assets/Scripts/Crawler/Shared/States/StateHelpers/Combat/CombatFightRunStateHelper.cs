@@ -2,6 +2,7 @@
 using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
+using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Constants;
@@ -118,7 +119,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
 
 
 
-            if (partyData.GameMode != EGameModes.Roguelike)
+            if (partyData.GameMode != ECrawlerGameModes.Roguelite)
             {
                 stateData.Actions.Add(new CrawlerStateAction("Run", 'R', ECrawlerStates.CombatConfirm,
                     onClickAction: delegate ()

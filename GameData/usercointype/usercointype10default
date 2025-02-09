@@ -1,0 +1,10 @@
+{
+  "Id": "usercointype10default",
+  "ParentId": "default",
+  "IdKey": 10,
+  "Name": "Flowers",
+  "Icon": "FlowersIcon",
+  "Art": "FlowersArt",
+  "Weight": 5.0,
+  "UpdateTime": "2025-02-02T23:59:07.686Z"
+}

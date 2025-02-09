@@ -1,5 +1,6 @@
 ﻿using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Crawler.MapGen.Entities;
 using Genrpg.Shared.Crawler.Maps.Constants;
 using Genrpg.Shared.Crawler.Maps.Entities;
@@ -21,7 +22,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
         public override async Task<NewCrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData genData)
         {
             await Task.CompletedTask;
-            IRandom rand = new MyRandom(genData.World.IdKey * 5 + genData.World.MaxMapId * 19 + genData.CurrFloor);
+            IRandom rand = new MyRandom(genData.World.Seed / 3 + genData.World.MaxMapId * 19 + genData.CurrFloor);
 
             CrawlerMap map = null;
 
@@ -30,10 +31,11 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             CrawlerMapType mapType = mapSettings.Get(genData.MapType);
 
             int roomEdgeDist = 3;
+
             if (genData.MaxFloor == 0 || genData.PrevMap == null)
             {
                 genData.MaxFloor = MathUtils.IntRange(mapType.MinFloors, mapType.MaxFloors, rand);
-                if (party.GameMode == EGameModes.Roguelike)
+                if (party.GameMode == ECrawlerGameModes.Roguelite)
                 {
                     genData.MaxFloor = 1000;
                 }
@@ -41,7 +43,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 {
                     genData.CurrFloor = 1;
                 }
-                if (rand.NextDouble() < 0.2f)
+                if (rand.NextDouble() < 0.2f && mapType.MaxFloors > 1)
                 {
                     genData.MaxFloor++;
                 }
@@ -52,7 +54,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 int width = MathUtils.IntRange(mapType.MinWidth, mapType.MaxWidth, rand);
                 int height = MathUtils.IntRange(mapType.MinHeight, mapType.MaxHeight, rand);
 
-                if (_gs.GameMode == EGameModes.Roguelike)
+                if (party.GameMode == ECrawlerGameModes.Roguelite)
                 {
                     genData.RandomWallsDungeon = true;
                     width /= 2;
@@ -396,7 +398,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 genData.FromMapX = exitX;
                 genData.FromMapZ = exitZ;
 
-                if (party.GameMode != EGameModes.Roguelike)
+                if (party.GameMode != ECrawlerGameModes.Roguelite)
                 {
                     await _mapGenService.Generate(party, world, genData);
                 }
@@ -405,7 +407,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 genData.FromMapX = currFromX;
                 genData.FromMapZ = currFromZ;
 
-                if (party.GameMode == EGameModes.Roguelike)
+                if (party.GameMode == ECrawlerGameModes.Roguelite)
                 {
                     List<PointXZ> okPoints = new List<PointXZ>();
 

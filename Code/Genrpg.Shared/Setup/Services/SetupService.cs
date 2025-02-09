@@ -1,4 +1,3 @@
-using Genrpg.Shared.BoardGame.Services;
 using Genrpg.Shared.Charms.Services;
 using Genrpg.Shared.Crafting.Services;
 using Genrpg.Shared.Entities.Services;
@@ -6,6 +5,7 @@ using Genrpg.Shared.Factions.Services;
 using Genrpg.Shared.Ftue.Services;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Services;
+using Genrpg.Shared.LoadSave.Services;
 using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Names.Services;
 using Genrpg.Shared.Pathfinding.Services;
@@ -74,10 +74,9 @@ namespace Genrpg.Shared.Setup.Services
             Set<ISharedItemService>(new SharedItemService());
             Set<ITaskService>(new TaskService());
             Set<IRiddleService>(new RiddleService());
+            Set<ILoadSaveService>(new LoadSaveService());   
             // Use for crawler
 
-            // Board game
-            Set<ISharedBoardGenService>(new SharedBoardGenService());   
         }
 
         public virtual async Task SetupGame(CancellationToken token)

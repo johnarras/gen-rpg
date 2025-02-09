@@ -1,16 +1,6 @@
 ﻿using Assets.Scripts.TextureLists.Services;
-using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Crawler.TextureLists.Services;
-using Genrpg.Shared.UI.Interfaces;
-using Microsoft.SqlServer.Server;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine.SearchService;
 
 namespace Assets.Scripts.Assets.Textures
 {

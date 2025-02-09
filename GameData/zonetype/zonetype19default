@@ -5,6 +5,7 @@
   "Name": "Arcane",
   "Desc": "",
   "Icon": "Arcane",
+  "Art": "Arcane",
   "Textures": [
     {
       "TextureTypeId": 99,
@@ -466,9 +467,8 @@
     }
   ],
   "PlantChoices": "",
-  "Art": "",
   "MusicTypeId": 1,
   "AmbientMusicTypeId": 1,
   "TraveralTimeScale": 1.0,
-  "UpdateTime": "2024-09-14T16:14:39.118Z"
+  "UpdateTime": "2025-01-27T23:56:18.6Z"
 }

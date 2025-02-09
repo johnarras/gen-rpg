@@ -32,7 +32,7 @@ namespace Genrpg.RequestServer.PlayerData.LoadUpdateHelpers
             if (userData.Stats.Get(UserStats.CreditsMult) == 0)
             {
                 userData.Coins.Add(UserCoinTypes.Gems, newUserSettings.StartGems);
-                userData.Coins.Add(UserCoinTypes.Credits, newUserSettings.StartCredits);    
+                userData.Coins.Add(UserCoinTypes.Gold, newUserSettings.StartCredits);    
                 userData.Coins.Add(UserCoinTypes.Energy, newUserSettings.StartEnergy);
             }
 
@@ -46,7 +46,7 @@ namespace Genrpg.RequestServer.PlayerData.LoadUpdateHelpers
 
             if (userData.Stats.Get(userStatId) < minValue)
             {
-                userData.Stats.Set(userStatId, minValue);
+                userData.Stats.Set(userStatId, (short) minValue);
             }
         }
     }

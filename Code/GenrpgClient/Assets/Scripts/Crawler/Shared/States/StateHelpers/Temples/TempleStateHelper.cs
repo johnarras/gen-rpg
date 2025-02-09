@@ -54,7 +54,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Temples
                         () =>
                         {
                             _templeService.HealPartyMember(partyData, member, newResult);
-                        }, forceButton: true, extraData: newResult));
+                        }, forceButton: false, extraData: newResult));
                 }
             }
 

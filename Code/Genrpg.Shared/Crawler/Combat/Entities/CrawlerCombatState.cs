@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Genrpg.Shared.UnitEffects.Constants;
 using Genrpg.Shared.Stats.Entities;
+using Genrpg.Shared.Crawler.Parties.PlayerData;
 
 namespace Genrpg.Shared.Crawler.Combat.Entities
 {
@@ -57,7 +58,8 @@ namespace Genrpg.Shared.Crawler.Combat.Entities
             {
                 foreach (CrawlerUnit unit in group.Units)
                 {
-                    if (!unit.StatusEffects.HasBit(StatusEffects.Dead))
+                    if (unit is PartyMember member &&
+                        !member.StatusEffects.HasBit(StatusEffects.Dead))
                     {
                         haveAlivePartyMember = true;
                         break;

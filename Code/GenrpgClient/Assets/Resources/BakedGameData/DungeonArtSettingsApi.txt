@@ -6,9 +6,9 @@
       "IdKey": 1,
       "Name": "Basic Dungeon",
       "Desc": "Basic Art Assets",
-      "Icon": "",
+      "Icon": "Basic",
       "Art": "Basic",
-      "UpdateTime": "2024-10-27T20:00:36.363Z"
+      "UpdateTime": "2025-02-09T16:00:03.637Z"
     },
     {
       "Id": "dungeonart2default",
@@ -16,15 +16,25 @@
       "IdKey": 2,
       "Name": "City",
       "Desc": "City Art Assets",
-      "Icon": "",
+      "Icon": "City",
       "Art": "City",
-      "UpdateTime": "2024-10-27T20:00:36.363Z"
+      "UpdateTime": "2025-02-09T16:00:03.637Z"
+    },
+    {
+      "Id": "dungeonart3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Natural",
+      "Desc": "Natural Art Assets",
+      "Icon": "Natural",
+      "Art": "Natural",
+      "UpdateTime": "2025-02-09T16:00:03.637Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "DungeonArtSettings",
-    "UpdateTime": "2024-10-27T20:00:36.363Z"
+    "UpdateTime": "2025-02-09T16:00:03.637Z"
   },
   "Id": "default"
 }

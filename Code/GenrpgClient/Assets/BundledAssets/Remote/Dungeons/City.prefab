@@ -44,10 +44,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60d64699a20d0e146a320c2f1d07b95f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Wall: {fileID: 1682565954592356688, guid: 6639f81ce601fdc47bfa39c87cdd7c3e, type: 3}
-  Door: {fileID: 1682565954592356688, guid: a7c762cb586e7d04faa2c9555c535bf5, type: 3}
-  Floor: {fileID: 1682565954592356688, guid: 45f35ca6e722a7a4f92b2836fb433816, type: 3}
-  Ceiling: {fileID: 1682565954592356688, guid: f984bfbcf5aad61498a237a628d27ee5, type: 3}
-  Barricade: {fileID: 1682565954592356688, guid: 5e8bbe6acaea7e94ab25656ce548c46a,
-    type: 3}
+  Walls:
+  - Weight: 1000
+    Asset: {fileID: 1749629461542026580, guid: e928e5ba6e530f148a7e33983f5cd77b, type: 3}
+  Doors:
+  - Weight: 1000
+    Asset: {fileID: 3407185426078540857, guid: 7436c72f397844d478deffd6e2dd6470, type: 3}
+  Floors:
+  - Weight: 1000
+    Asset: {fileID: 3482044050699462100, guid: 2695af68c9220a04e99ba55e6f12e300, type: 3}
+  Ceilings:
+  - Weight: 1000
+    Asset: {fileID: 1601673429369704490, guid: 0ae46ee49c4411e40998dabe89c9e5ec, type: 3}
+  Pillars:
+  - Weight: 1000
+    Asset: {fileID: 3364665630173942227, guid: 9511a413e0fbdcb448834aeaa7ffc747, type: 3}
+  Fences:
+  - Weight: 1000
+    Asset: {fileID: 834326517629799472, guid: 074ef87292a2aa340b20387ca374da98, type: 3}
+  Materials:
+  - Weight: 1000
+    Materials: {fileID: 498994976476964596, guid: 25748523792193840920f0def651efae,
+      type: 3}
   BGImageName: CityBG

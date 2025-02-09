@@ -8,6 +8,6 @@ namespace Genrpg.Editor.Constants
 {
     public class ScalingConstants
     {
-        public const double DisplayScaling = 1.5f;
+        public const double DisplayScaling = 1.0f;
     }
 }

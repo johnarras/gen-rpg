@@ -1,12 +1,10 @@
 ﻿
 using Assets.Scripts.MVC;
-using Assets.Scripts.ProcGen.Components;
 using Genrpg.Shared.BoardGame.Constants;
-using Genrpg.Shared.BoardGame.Settings;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.MVC.Interfaces;
 using Genrpg.Shared.Tiles.Settings;
 using Genrpg.Shared.UI.Interfaces;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -19,16 +17,19 @@ namespace Assets.Scripts.BoardGame.Tiles
     {
         public TileType TileType { get; set; }
         public int Index { get; set; }
+        public int GridX { get; set; }
+        public int GridZ { get; set; }
+        public float XPos { get; set; }
+        public float ZPos { get; set; }
     }
 
     public class TileController : BaseViewController<TileTypeWithIndex,IView>
     {
-        public MarkerPosition MarkerPos { get; set; }
         public object PieceAnchor;
         public IAnimator Animator;
         public object TileMesh;
         public object[] PrizeAnchors;
-        public long[] PrizeIds { get; set; } = new long[BoardPrizeSlots.Max];
+        public bool[] ExtraData { get; set; } = new bool[ExtraTileSlots.Max];
 
         public int GeTTileIndex()
         {
@@ -44,11 +45,11 @@ namespace Assets.Scripts.BoardGame.Tiles
         {
             if (landing)
             {
-                _clientEntityService.DestroyAllChildren(PrizeAnchors[BoardPrizeSlots.Land]);
-                PrizeIds[BoardPrizeSlots.Land] = 0;
+                _clientEntityService.DestroyAllChildren(PrizeAnchors[ExtraTileSlots.Event]);
+                ExtraData[ExtraTileSlots.Event] = false;
             }
-            _clientEntityService.DestroyAllChildren(PrizeAnchors[BoardPrizeSlots.Pass]);
-            PrizeIds[BoardPrizeSlots.Pass] = 0;
+            _clientEntityService.DestroyAllChildren(PrizeAnchors[ExtraTileSlots.Bonus]);
+            ExtraData[ExtraTileSlots.Bonus] = false;
         }
 
         public override async Task Init(TileTypeWithIndex tileType, IView view, CancellationToken token)
@@ -57,7 +58,7 @@ namespace Assets.Scripts.BoardGame.Tiles
             PieceAnchor = _view.Get<object>("PieceAnchor");
             TileMesh = _view.Get<object>("TileMesh");
             Animator = _view.Get<IAnimator>("Animator");
-            PrizeAnchors = new object[BoardPrizeSlots.Max];
+            PrizeAnchors = new object[ExtraTileSlots.Max];
             PrizeAnchors[0] = _view.Get<object>("PassLootAnchor");
             PrizeAnchors[1] = _view.Get<object>("LandLootAnchor");
         }

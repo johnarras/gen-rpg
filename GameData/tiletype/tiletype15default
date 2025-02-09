@@ -2,12 +2,12 @@
   "Id": "tiletype15default",
   "ParentId": "default",
   "IdKey": 15,
-  "Name": "Side Path",
-  "Desc": "Takes you to a side path",
-  "Icon": "SidePathTile",
-  "Art": "SidePathTile",
-  "HasPrizes": true,
+  "Name": "Savannah",
+  "Desc": "Dry grasslands",
+  "Icon": "SavannahTile",
+  "Art": "SavannahTile",
+  "SpawnChance": 1.0,
   "PassRewards": [],
   "LandRewards": [],
-  "UpdateTime": "2024-08-11T18:10:43.748Z"
+  "UpdateTime": "2025-02-02T19:57:40.985Z"
 }

@@ -5,6 +5,7 @@
   "Name": "PointOfInterest",
   "Desc": "",
   "Icon": "PointOfInterest",
+  "Art": "PointOfInterest",
   "Textures": [
     {
       "TextureTypeId": 99,
@@ -22,9 +23,8 @@
   "Overrides": [],
   "ZoneUnitSpawns": [],
   "PlantChoices": "",
-  "Art": "",
   "MusicTypeId": 1,
   "AmbientMusicTypeId": 1,
   "TraveralTimeScale": 1.0,
-  "UpdateTime": "2024-08-31T18:56:29.231Z"
+  "UpdateTime": "2025-01-27T23:56:18.6Z"
 }

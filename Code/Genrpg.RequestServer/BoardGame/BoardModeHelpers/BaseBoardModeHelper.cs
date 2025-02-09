@@ -1,6 +1,7 @@
 ﻿using Genrpg.RequestServer.BoardGame.Entities;
 using Genrpg.RequestServer.Core;
 using Genrpg.Shared.BoardGame.Constants;
+using Genrpg.Shared.BoardGame.PlayerData;
 using Genrpg.Shared.BoardGame.Settings;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.GameSettings;
@@ -69,26 +70,19 @@ namespace Genrpg.RequestServer.BoardGame.BoardModeHelpers
             await Task.CompletedTask;
         }
 
-        public virtual int GetNextTileIndex(WebContext context, RollDiceArgs args, int tileIndex)
+        public virtual int GetNextTileIndex(WebContext context, BoardData boardData, int tileIndex)
         {
-            if (tileIndex < 0 || tileIndex >= args.Board.Tiles.Length)
+            if (tileIndex < 0 || tileIndex >= boardData.Length)
             {
                 tileIndex = 0;
             }
 
-            long currentTileTypeId = args.Board.Tiles[tileIndex];
+            long currentTileTypeId = boardData.Tiles.Get(tileIndex);
             int nextTileIndex = tileIndex + 1;
        
-            if (nextTileIndex >= args.Board.Tiles.Length)
+            if (nextTileIndex >= boardData.Length)
             {
                 nextTileIndex = BoardGameConstants.FirstTileIndex;
-            }
-            else
-            {
-                if (args.Board.Tiles[nextTileIndex] == TileTypes.StartPath)
-                {
-                    nextTileIndex = BoardGameConstants.FirstTileIndex;
-                }
             }
 
             return nextTileIndex;

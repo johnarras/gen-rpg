@@ -1,28 +1,20 @@
 using MessagePack;
-using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Units.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Genrpg.Shared.Spells.Casting;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Loaders;
 using Genrpg.Shared.Inventory.PlayerData;
-using Genrpg.Shared.Currencies.PlayerData;
-using Genrpg.Shared.Crawler.Parties.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Newtonsoft.Json;
 using Genrpg.Shared.Crawler.UI.Interfaces;
-using Newtonsoft.Json.Serialization;
 using Genrpg.Shared.Units.Mappers;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Crawler.Items.Entities;
 using Genrpg.Shared.Crawler.Combat.Constants;
-using Genrpg.Shared.Core.Constants;
-using Genrpg.Shared.Crawler.TimeOfDay.Settings;
-using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.Crawler.Constants;
 
 namespace Genrpg.Shared.Crawler.Parties.PlayerData
 {
@@ -31,61 +23,68 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
     /// </summary>
 
     [MessagePackObject]
-    public class PartyData : NoChildPlayerData, IUserData
+    public class PartyData : NoChildPlayerData, IUserData, INamedUpdateData
     {
         [Key(0)] public override string Id { get; set; }
 
         [Key(1)] public List<PartyMember> Members { get; set; } = new List<PartyMember>();
 
-        [JsonIgnore]
-        [Key(2)] public List<Item> Inventory { get; set; } = new List<Item> ();
-
-        [Key(3)] public List<CrawlerSaveItem> SaveInventory { get; set; } = new List<CrawlerSaveItem>();
+        [Key(2)] public string Name { get; set; }
+        [Key(3)] public DateTime UpdateTime { get; set; }
 
         [JsonIgnore]
-        [Key(4)] public List<Item> VendorBuyback { get; set; } = new List<Item>();
+        [Key(4)] public List<Item> Inventory { get; set; } = new List<Item> ();
+
+        [Key(5)] public List<CrawlerSaveItem> SaveInventory { get; set; } = new List<CrawlerSaveItem>();
 
         [JsonIgnore]
-        [Key(5)] public List<Item> VendorItems { get; set; } = new List<Item>();
+        [Key(6)] public List<Item> VendorBuyback { get; set; } = new List<Item>();
 
-        [Key(6)] public List<PartyQuestItem> QuestItems { get; set; } = new List<PartyQuestItem>();
+        [JsonIgnore]
+        [Key(7)] public List<Item> VendorItems { get; set; } = new List<Item>();
 
-        [Key(7)] public DateTime LastVendorRefresh { get; set; }
+        [Key(8)] public List<PartyQuestItem> QuestItems { get; set; } = new List<PartyQuestItem>();
 
-        [Key(8)] public long Gold { get; set; } = 0;
+        [Key(9)] public DateTime LastVendorRefresh { get; set; }
 
-        [Key(9)] public long Seed { get; set; }
+        [Key(10)] public long Gold { get; set; } = 0;
 
-        [Key(10)] public long WorldId { get; set; }
+        [Key(11)] public long Seed { get; set; }
 
-        [Key(11)] public long MapId { get; set; }
+        [Key(12)] public long WorldId { get; set; }
 
-        [Key(12)] public int MapX { get; set; }
-        [Key(13)] public int MapZ { get; set; }
-        [Key(14)] public int MapRot { get; set; }
+        [Key(13)] public long MapId { get; set; }
 
-        [Key(15)] public long NextGroupId { get; set; }
+        [Key(14)] public int MapX { get; set; }
+        [Key(15)] public int MapZ { get; set; }
+        [Key(16)] public int MapRot { get; set; }
 
-        [Key(16)] public long NextItemId { get; set; }
+        [Key(17)] public long NextGroupId { get; set; }
 
-        [Key(17)] public List<CrawlerMapStatus> Maps { get; set; } = new List<CrawlerMapStatus>();
+        [Key(18)] public long NextItemId { get; set; }
 
-        [Key(18)] public CrawlerMapStatus CurrentMap { get; set; } = new CrawlerMapStatus();
+        [Key(19)] public List<CrawlerMapStatus> Maps { get; set; } = new List<CrawlerMapStatus>();
 
-        [Key(19)] public SmallIndexBitList CompletedMaps { get; set; } = new SmallIndexBitList();
+        [Key(20)] public CrawlerMapStatus CurrentMap { get; set; } = new CrawlerMapStatus();
 
-        [Key(20)] public double HourOfDay { get; set; } = 0;
+        [Key(21)] public SmallIndexBitList CompletedMaps { get; set; } = new SmallIndexBitList();
 
-        [Key(21)] public long DaysPlayed { get; set; } = 0;
+        [Key(22)] public double HourOfDay { get; set; } = 0;
 
-        [Key(22)] public bool InGuildHall { get; set; }
+        [Key(23)] public long DaysPlayed { get; set; } = 0;
 
-        [Key(23)] public EGameModes GameMode { get; set; }
+        [Key(24)] public bool InGuildHall { get; set; }
 
-        [Key(24)] public long MaxLevel { get; set; }
-        [Key(25)] public long UpgradePoints { get; set; }
+        [Key(25)] public ECrawlerGameModes GameMode { get; set; }
 
-        [Key(26)] public List<PartyRoguelikeUpgrade> RoguelikeUpgrades { get; set; } = new List<PartyRoguelikeUpgrade>();
+        [Key(26)] public int MaxLevel { get; set; }
+        [Key(27)] public long UpgradePoints { get; set; }
+
+        [Key(28)] public List<PartyRoguelikeUpgrade> RoguelikeUpgrades { get; set; } = new List<PartyRoguelikeUpgrade>();
+
+        [Key(29)] public long SaveSlotId { get; set; }
+
+        [Key(30)] public float CombatTextScrollDelay { get; set; } = CrawlerCombatConstants.MaxCombatTextScrollDelay;
 
         [JsonIgnore] public IWorldPanel WorldPanel = null;
         [JsonIgnore] public IActionPanel ActionPanel = null;
@@ -112,85 +111,13 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
         public PartyMember GetMemberInSlot(int slot)
         {
-            if (slot >= 1 && slot <= GetMaxPartySize())
-            {
-                return Members.FirstOrDefault(x=>x.PartySlot == slot);
-            }
-            return null;
+            return Members.FirstOrDefault(x => x.PartySlot == slot);
         }
-
-        public long GetMaxPartySize()
-        {
-            return GameMode != EGameModes.Roguelike ? PartyConstants.MaxPartySize : PartyConstants.MaxRoguelikePartySize;
-        }
-
-        public void AddPartyMember(PartyMember member)
-        {
-            for (int i = 1; i <= GetMaxPartySize(); i++)
-            {
-                if (GetMemberInSlot(i) == null)
-                {
-                    member.PartySlot = i;
-                }
-            }
-
-            FixPartySlots();
-        }
-
-        public void RemovePartyMember(PartyMember member)
-        {
-            member.PartySlot = 0;
-            FixPartySlots();
-        }
-
-        public void DeletePartyMember(PartyMember member)
-        {
-            if (member.PartySlot > 0)
-            {
-                return;
-            }
-            Members.Remove(member);
-            if (GameMode == EGameModes.Roguelike && Members.Count < 1)
-            {
-                Gold = 0;
-                Inventory = new List<Item>();
-                VendorBuyback = new List<Item>();
-                VendorItems = new List<Item>();
-            }
-            FixPartySlots();
-        }
-
-        public void FixPartySlots()
-        {
-            List<PartyMember> currentMembers = Members.Where(x => x.PartySlot > 0).OrderBy(x => x.PartySlot).ToList();
-
-            for (int i = 0; i< currentMembers.Count; i++)
-            {
-                if (i < GetMaxPartySize())
-                {
-                    currentMembers[i].PartySlot = i + 1;
-                }
-                else
-                {
-                    currentMembers[i].PartySlot = 0;
-                }
-            }
-            StatusPanel?.RefreshAll();
-        }
-
+     
         public List<PartyMember> GetActiveParty()
         {
-            List<PartyMember> retval = new List<PartyMember>();
 
-            for (int i = 1; i <= GetMaxPartySize(); i++)
-            {
-                PartyMember member = GetMemberInSlot(i);
-                if (member != null)
-                {
-                    retval.Add(member);
-                }
-            }
-            return retval;
+            return Members.Where(x => x.PartySlot > 0).ToList();
         }
 
         public EActionCategories GetActionCategory()
@@ -206,44 +133,10 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
             return EActionCategories.Combat;
         }
 
-        public void Reset(IClientRandom rand)
-        {
-            WorldId = DateTime.UtcNow.Ticks % 1000000;
-            Maps = new List<CrawlerMapStatus>();
-            CurrentMap = new CrawlerMapStatus();
-            LastVendorRefresh = DateTime.UtcNow.AddDays(-1);
-            Inventory = new List<Item>();
-            VendorBuyback = new List<Item>();
-            VendorItems = new List<Item>();
-            
-            WorldId = rand.Next() % 1000000000;
-            MapId = 0;
-            MapX = 0;
-            MapZ = 0;
-            InGuildHall = true;
-            DaysPlayed = 0;
-            if (GameMode == EGameModes.Roguelike)
-            {
-                Members.Clear();
-            }
-            else
-            {
-                foreach (PartyMember member in Members)
-                {
-                    member.StatusEffects.Clear();
-                }
-                RoguelikeUpgrades = new List<PartyRoguelikeUpgrade>();
-                MaxLevel = 0;
-            }
-            Gold = 0;
-            HourOfDay = 0;
-            CompletedMaps.Clear();
-        }
-
         public long GetUpgradeTier(long roguelikeUpgradeId)
         {
 
-            if (GameMode != EGameModes.Roguelike)
+            if (GameMode != ECrawlerGameModes.Roguelite)
             {
                 return 0;
             }
@@ -259,7 +152,7 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
         public void SetUpgradeTier(long roguelikeUpgradeId, long newTier)
         {
 
-            if (GameMode != EGameModes.Roguelike)
+            if (GameMode != ECrawlerGameModes.Roguelite)
             {
                 return;
             }

@@ -2,16 +2,12 @@
   "Id": "tiletype9default",
   "ParentId": "default",
   "IdKey": 9,
-  "Name": "Adventure",
-  "Desc": "Takes you to a bonus board.",
-  "Icon": "AdventureTile",
-  "Art": "AdventureTile",
-  "MaxQuantity": 1,
-  "SpawnPriority": 4.0,
-  "MinPosition": 6,
-  "OnMainPath": true,
-  "ActivationCostScale": 4.0,
+  "Name": "Swamp",
+  "Desc": "Humid lots of trees",
+  "Icon": "SwampTile",
+  "Art": "SwampTile",
+  "SpawnChance": 1.0,
   "PassRewards": [],
   "LandRewards": [],
-  "UpdateTime": "2024-08-13T22:41:31.68Z"
+  "UpdateTime": "2025-02-02T19:57:40.985Z"
 }

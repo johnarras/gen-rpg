@@ -1,5 +1,6 @@
 ﻿using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Monsters.Settings;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
@@ -20,7 +21,7 @@ namespace Genrpg.Shared.Crawler.Roles.Services
     public interface IRoleService : IInjectable
     {
         double GetScalingBonusPerLevel(PartyData partyData, CrawlerUnit unit, long roleScalingTypeId);
-        long GetBaseScalingTier(PartyData partyData, CrawlerUnit unit, long roleScalingTypeId);
+        double GetScalingTier(PartyData partyData, CrawlerUnit unit, long roleScalingTypeId);    
     }
 
     public class RoleService : IRoleService
@@ -34,9 +35,15 @@ namespace Genrpg.Shared.Crawler.Roles.Services
 
         public long GetBaseScalingTier(PartyData partyData, CrawlerUnit unit, long roleScalingTypeId)
         {
-            double scalingPerLevel = GetScalingBonusPerLevel(partyData, unit, roleScalingTypeId);
 
-            return (long)(1 + scalingPerLevel * (unit.Level - 1));
+            return (long)GetScalingTier(partyData, unit, roleScalingTypeId);    
+        }
+
+        public double GetScalingTier(PartyData partyData, CrawlerUnit unit, long roleScalingTypeId)
+        {
+
+            double scalingPerLevel = GetScalingBonusPerLevel(partyData, unit, roleScalingTypeId);
+            return (1 + scalingPerLevel * (unit.Level - 1));
         }
 
         public double GetScalingBonusPerLevel(PartyData partyData, CrawlerUnit unit, long roleScalingTypeId)
@@ -68,7 +75,7 @@ namespace Genrpg.Shared.Crawler.Roles.Services
                 }
             }
 
-            if (_gs.GameMode == EGameModes.Roguelike)
+            if (partyData.GameMode == ECrawlerGameModes.Roguelite)
             {
                 roleScaling += _roguelikeUpgradeService.GetBonus(partyData, RoguelikeUpgrades.AttackQuantity);
             }

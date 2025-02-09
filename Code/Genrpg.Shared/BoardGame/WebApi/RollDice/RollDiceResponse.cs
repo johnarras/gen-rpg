@@ -21,8 +21,8 @@ namespace Genrpg.Shared.BoardGame.WebApi.RollDice
     {
 
         [Key(0)] public long DiceRollResult { get; set; } = DiceRollResults.Ok;
-        [Key(1)] public int StartIndex { get; set; }
-        [Key(2)] public int EndIndex { get; set; }
+        [Key(1)] public int StartIndexReached { get; set; }
+        [Key(2)] public int EndIndexReached { get; set; }
 
         [Key(3)] public int DiceCount { get; set; } = 2;
         [Key(4)] public int DiceSides { get; set; } = 6;
@@ -36,6 +36,8 @@ namespace Genrpg.Shared.BoardGame.WebApi.RollDice
         [Key(10)] public BoardData NextBoard { get; set; }
 
         [Key(11)] public long DiceCost { get; set; }
+
+        [Key(12)] public int InitialIndex { get; set; }
 
     }
 }

@@ -4,7 +4,7 @@
   "IdKey": 9,
   "Name": "Arcane",
   "Desc": "Pure magic.",
-  "Icon": "",
+  "Icon": "Arcane",
   "Art": "Arcane",
   "CasterActionName": "Bewitch",
   "ObserverActionName": "Bewitches",
@@ -16,5 +16,5 @@
   "BuffEffects": [],
   "DebuffEffects": [],
   "Procs": [],
-  "UpdateTime": "2025-01-13T19:36:41.082Z"
+  "UpdateTime": "2025-02-01T05:18:19.397Z"
 }

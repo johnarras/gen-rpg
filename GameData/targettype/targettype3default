@@ -2,6 +2,8 @@
   "Id": "targettype3default",
   "ParentId": "default",
   "IdKey": 3,
-  "Name": "EnemyGroup",
-  "UpdateTime": "2024-08-01T00:28:13.723Z"
+  "Name": "AllEnemiesInAGroup",
+  "Desc": "All Enemies in a group",
+  "StatBonusScale": 0.6,
+  "UpdateTime": "2025-01-26T21:28:52.636Z"
 }

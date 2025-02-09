@@ -5,6 +5,7 @@
   "Name": "Water",
   "Desc": "",
   "Icon": "Water",
+  "Art": "Water",
   "Textures": [
     {
       "TextureTypeId": 13
@@ -377,10 +378,9 @@
   "ZoneUnitSpawns": [],
   "PlantChoices": "0",
   "FenceChance": 0.1,
-  "Art": "0",
   "WeatherTypeId": 8,
   "MusicTypeId": 3,
   "AmbientMusicTypeId": 8,
   "TraveralTimeScale": 20.0,
-  "UpdateTime": "2024-09-14T16:14:39.118Z"
+  "UpdateTime": "2025-01-27T23:56:18.6Z"
 }

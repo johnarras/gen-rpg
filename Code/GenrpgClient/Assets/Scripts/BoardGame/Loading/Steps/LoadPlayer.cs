@@ -5,8 +5,6 @@ using Assets.Scripts.BoardGame.Tiles;
 using Genrpg.Shared.BoardGame.PlayerData;
 using Genrpg.Shared.BoardGame.Settings;
 using Genrpg.Shared.Client.Assets.Constants;
-using Genrpg.Shared.Client.Core;
-using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Users.PlayerData;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,10 +14,7 @@ namespace Assets.Scripts.BoardGame.Loading.Steps
 {
     public class LoadPlayer : BaseLoadBoardStep
     {
-        private IClientGameState _gs;
-        private IGameData _gameData;
         private IPlayerManager _playerManager;
-        private IBoardGameController _boardGameController;
         public override async Awaitable Execute(BoardData boardData, CancellationToken token)
         {
             CoreUserData userData = _gs.ch.Get<CoreUserData>();

@@ -4,7 +4,7 @@
   "IdKey": 6,
   "Name": "Shadow",
   "Desc": "Evil magic that drains life",
-  "Icon": "",
+  "Icon": "Fire",
   "Art": "Fire",
   "CasterActionName": "Drain",
   "ObserverActionName": "Drains",
@@ -16,5 +16,5 @@
   "BuffEffects": [],
   "DebuffEffects": [],
   "Procs": [],
-  "UpdateTime": "2025-01-13T19:36:41.082Z"
+  "UpdateTime": "2025-02-01T05:18:19.397Z"
 }

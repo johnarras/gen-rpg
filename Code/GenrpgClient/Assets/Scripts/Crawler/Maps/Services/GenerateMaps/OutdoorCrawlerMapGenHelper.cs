@@ -25,6 +25,7 @@ using System.Text;
 using Genrpg.Shared.Riddles.Services;
 using Genrpg.Shared.Crawler.MapGen.Entities;
 using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.Constants;
 
 namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 {
@@ -72,7 +73,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
         public override async Task<NewCrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData genData)
         {
-            IRandom rand = new MyRandom(genData.World.IdKey * 13 + genData.World.MaxMapId * 131);
+            IRandom rand = new MyRandom(genData.World.Seed / 4 + genData.World.MaxMapId * 131);
             int width = 16 * MathUtils.IntRange(6, 10, rand);
             int height = 16 * MathUtils.IntRange(4, 6, rand);
 
@@ -623,7 +624,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             // Add random dungeons and stuff on the map
             samplingData = new SamplingData()
             {
-                Count = map.Width * map.Height / 80,
+                Count = map.Width * map.Height / 150,
                 MaxAttemptsPerItem = 20,
                 XMin = cityDistanceFromEdge,
                 XMax = map.Width - cityDistanceFromEdge,
@@ -785,7 +786,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                     }
                 }
 
-                if (party.GameMode != EGameModes.Roguelike)
+                if (party.GameMode != ECrawlerGameModes.Roguelite)
                 {
                     await _riddleService.GenerateRiddles(floors, rand);
                 }

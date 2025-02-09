@@ -66,10 +66,11 @@ PrefabInstance:
     - target: {fileID: 5670627786776222177, guid: 95ff5fc923d2fa9439b0c26ad948ee3a,
         type: 3}
       propertyPath: m_Name
-      value: ArcaneBlast
+      value: GemsPrize
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3830628820273668163, guid: 95ff5fc923d2fa9439b0c26ad948ee3a, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95ff5fc923d2fa9439b0c26ad948ee3a, type: 3}

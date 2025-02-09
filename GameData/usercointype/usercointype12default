@@ -1,0 +1,10 @@
+{
+  "Id": "usercointype12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "Seeds",
+  "Icon": "SeedsIcon",
+  "Art": "SeedsArt",
+  "Weight": 10.0,
+  "UpdateTime": "2025-02-02T23:59:07.686Z"
+}

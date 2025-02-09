@@ -1,4 +1,7 @@
 ﻿
+using Assets.Scripts.BoardGame.Controllers;
+using Assets.Scripts.Lockouts.Constants;
+using Assets.Scripts.Lockouts.Services;
 using Genrpg.Shared.BoardGame.WebApi.RollDice;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,7 +11,8 @@ namespace Assets.Scripts.UI.MobileHUD
     public class MobileHUDScreen : BaseScreen
     {
 
-        private IClientWebService _webService;
+        private IBoardGameController _boardGameController;
+
 
         public GButton RollButton;
 
@@ -22,7 +26,7 @@ namespace Assets.Scripts.UI.MobileHUD
 
         private void RollDice()
         {
-            _webService.SendClientUserWebRequest(new RollDiceRequest(), _token);
+            _boardGameController.RollDice();
         }
     }
 }

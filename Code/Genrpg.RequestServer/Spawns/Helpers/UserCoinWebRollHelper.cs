@@ -21,11 +21,11 @@ namespace Genrpg.RequestServer.Spawns.Helpers
 
         protected override async Task<long> GetQuantityMult<SI>(WebContext context, RollData rollData, SI si)
         {
-            if (si.EntityId == UserCoinTypes.Credits)
+            if (si.EntityId == UserCoinTypes.Gold)
             {
                 CoreUserData userData = await context.GetAsync<CoreUserData>();
 
-                return Math.Max(1, userData.Stats.Get(UserStats.CreditsMult));
+                return Math.Max(1L, userData.Stats.Get(UserStats.CreditsMult));
             }
 
             return 1;

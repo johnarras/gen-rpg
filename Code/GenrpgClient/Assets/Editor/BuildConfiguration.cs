@@ -59,13 +59,17 @@ public class BuildConfiguration
             ClientPlatform = ClientPlatformNames.Win,
         });
 
-        //list.Add(new PlatformBuildData()
-        //{
-        //    Target = BuildTarget.Android,
-        //    FilePath = PlatformAssetPrefixes.Android,
-        //    ClientPlatform = ClientPlatformNames.Android,
-        //});
+        bool useAndroid = false;
 
+        if (useAndroid)
+        {
+            list.Add(new PlatformBuildData()
+            {
+                Target = BuildTarget.Android,
+                FilePath = PlatformAssetPrefixes.Android,
+                ClientPlatform = ClientPlatformNames.Android,
+            });
+        }
         return list;
     }
 }

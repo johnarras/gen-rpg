@@ -14,7 +14,7 @@ namespace Genrpg.RequestServer.BoardGame.BoardModeHelpers
 
         public override long GetKey() { return BoardModes.Adventure; }
         public override EBonusModeEndTypes BonusModeEndType => EBonusModeEndTypes.HomeTile;
-        public override long TriggerTileTypeId => TileTypes.Adventure;
+        public override long TriggerTileTypeId => 0;
         protected override EPlayRollTypes PlayMultTypes => EPlayRollTypes.Average;
         public override bool UseOwnerBoardWhenSwitching() { return false; }
 

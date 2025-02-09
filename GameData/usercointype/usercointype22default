@@ -1,0 +1,10 @@
+{
+  "Id": "usercointype22default",
+  "ParentId": "default",
+  "IdKey": 22,
+  "Name": "Furs",
+  "Icon": "FursIcon",
+  "Art": "FursArt",
+  "Weight": 60.0,
+  "UpdateTime": "2025-02-02T23:59:07.686Z"
+}

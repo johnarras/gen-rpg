@@ -2,22 +2,12 @@
   "Id": "tiletype2default",
   "ParentId": "default",
   "IdKey": 2,
-  "Name": "Home",
-  "Desc": "Gives out a burst of gold on pass/land",
-  "Icon": "HomeTile",
-  "Art": "HomeTile",
-  "MaxQuantity": 1,
-  "OnMainPath": true,
-  "PassRewards": [
-    {
-      "EntityTypeId": 200,
-      "EntityId": 2,
-      "MinQuantity": 10,
-      "MaxQuantity": 20,
-      "Weight": 100.0,
-      "Name": "None"
-    }
-  ],
+  "Name": "Meadow",
+  "Desc": "Some flowers.",
+  "Icon": "MeadowTile",
+  "Art": "MeadowTile",
+  "SpawnChance": 1.0,
+  "PassRewards": [],
   "LandRewards": [],
-  "UpdateTime": "2024-08-17T15:09:18.977Z"
+  "UpdateTime": "2025-02-02T19:57:40.985Z"
 }

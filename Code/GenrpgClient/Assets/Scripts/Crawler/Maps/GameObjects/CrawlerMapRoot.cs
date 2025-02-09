@@ -1,6 +1,9 @@
 ﻿using Genrpg.Shared.Crawler.Maps.Entities;
 using Assets.Scripts.Dungeons;
 using System.Collections.Generic;
+using UnityEngine;
+using Assets.Scripts.Buildings;
+using Assets.Scripts.Crawler.Maps.Services.Helpers;
 
 namespace Assets.Scripts.Crawler.Maps.GameObjects
 {
@@ -11,7 +14,15 @@ namespace Assets.Scripts.Crawler.Maps.GameObjects
 
         public Dictionary<string, ClientMapCell> Cells { get; set; } = new Dictionary<string, ClientMapCell>();
 
-        public DungeonAssets Assets { get; set; }
+        public DungeonAssets DungeonAssets { get; set; }
+
+        public DungeonMaterials DungeonMaterials { get; set; }
+
+        public Material DoorMat { get; set; }
+
+        public CityAssets CityAssets { get; set; }
+
+        public ICrawlerMapTypeHelper MapTypeHelper { get; set; }
 
         public ClientMapCell GetCell(int x, int z)
         {

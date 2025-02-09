@@ -8,7 +8,7 @@ namespace Genrpg.RequestServer.BoardGame.BoardModeHelpers
     {
         public override long GetKey() { return BoardModes.SidePath; }
         public override EBonusModeEndTypes BonusModeEndType => EBonusModeEndTypes.RollCount;
-        public override long TriggerTileTypeId => TileTypes.SidePath;
+        public override long TriggerTileTypeId => 0;
         protected override EPlayRollTypes PlayMultTypes => EPlayRollTypes.Average;
 
         public override async Task EnterMode(WebContext context, RollDiceArgs args)

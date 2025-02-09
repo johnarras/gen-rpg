@@ -6,6 +6,7 @@ using Genrpg.Shared.BoardGame.Settings;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Rewards.Entities;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.Utils.Data;
 using System.Reflection;
 
 namespace Genrpg.RequestServer.BoardGame.Services
@@ -41,7 +42,11 @@ namespace Genrpg.RequestServer.BoardGame.Services
 
             long maxPathIndex = BoardGameConstants.StartPathIndex;
 
-            for (int i = 0; i < boardData.Tiles.Length; i++)
+
+            bool haveEvent = boardData.Events.HasAnyBits();
+            bool haveBonus = boardData.Bonuses.HasAnyBits();
+
+            for (int i = 0; i < boardData.Length; i++)
             {
                 long pathIndex = boardData.GetPathIndex(i);
                 if (pathIndex > maxPathIndex)
@@ -51,7 +56,7 @@ namespace Genrpg.RequestServer.BoardGame.Services
             }
             List<long> okTileTypes = _boardService.GetTileTypesWithPrizes(context);
 
-            bool havePrizes = boardData.PassRewards.Data.Any(x => x > 0) || boardData.LandRewards.Data.Any(x => x > 0);
+            bool havePrizes = haveEvent || haveBonus;
 
             BoardModePrizeRule globalRule = boardMode.PrizeRules.FirstOrDefault(x => x.PathIndex == 0);
             for (long p = BoardGameConstants.StartPathIndex; p <= maxPathIndex; p++)
@@ -103,7 +108,7 @@ namespace Genrpg.RequestServer.BoardGame.Services
                         continue;
                     }
 
-                    if (!okTileTypes.Contains(boardData.Tiles[t]))
+                    if (!okTileTypes.Contains(boardData.Tiles.Get(t)))
                     {
                         continue;
                     }
@@ -112,12 +117,12 @@ namespace Genrpg.RequestServer.BoardGame.Services
                     totalTileQuantity++;
                 }
 
-                AddOneRewardTypeToPath(context.rand, boardData.PassRewards, rule.PassRewardPercent, rule.PassPrizes, okTileIndexes, totalTileQuantity);
-                AddOneRewardTypeToPath(context.rand, boardData.LandRewards, rule.LandRewardPercent, rule.LandPrizes, okTileIndexes, totalTileQuantity);
+                AddOneRewardTypeToPath(context.rand, boardData.Events, rule.EventPercent, rule.PassPrizes, okTileIndexes, totalTileQuantity);
+                AddOneRewardTypeToPath(context.rand, boardData.Bonuses, rule.BonusPercent, rule.LandPrizes, okTileIndexes, totalTileQuantity);
             }
         }
         private void AddOneRewardTypeToPath(IRandom rand,
-            DataArray currArray,
+            SmallIndexBitList currArray,
             double spawnDensity,
             List<PrizeSpawn> prizeSpawns,
             List<long> okTileIndexes,
@@ -128,7 +133,7 @@ namespace Genrpg.RequestServer.BoardGame.Services
             int totalPrizes = 0;
             foreach (long tileIndex in okTileIndexes)
             {
-                if (currArray[(int)tileIndex] == 0)
+                if (!currArray.HasBit(tileIndex))
                 {
                     openTileIndexes.Add(tileIndex);
                 }
@@ -173,7 +178,7 @@ namespace Genrpg.RequestServer.BoardGame.Services
                     chanceChosen -= prizeSpawns[i].Weight;
                     if (chanceChosen <= 0)
                     {
-                        currArray[(int)newPrizeIndexes[n]] = prizeSpawns[i].BoardPrizeId;
+                        currArray.SetBit(newPrizeIndexes[n]);
                         break;
                     }
                 }

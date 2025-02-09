@@ -41,8 +41,8 @@ namespace Genrpg.Editor
         private Window _parentForm;
 
 
-        int width = 2500;
-        int height = 1200;
+        int width = 2400;
+        int height = 1350;
 
         public int Width => width;
         public int Height => height;

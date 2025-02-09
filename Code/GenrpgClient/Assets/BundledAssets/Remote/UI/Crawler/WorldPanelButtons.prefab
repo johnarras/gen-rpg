@@ -140,12 +140,12 @@ PrefabInstance:
     - target: {fileID: 6282348067021977358, guid: 5c9869171580d75409477c4264a26770,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 96
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 6282348067021977358, guid: 5c9869171580d75409477c4264a26770,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 96
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 6282348067021977358, guid: 5c9869171580d75409477c4264a26770,
         type: 3}
@@ -287,12 +287,12 @@ PrefabInstance:
     - target: {fileID: 6282348067021977358, guid: 5c9869171580d75409477c4264a26770,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 96
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 6282348067021977358, guid: 5c9869171580d75409477c4264a26770,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 96
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 6282348067021977358, guid: 5c9869171580d75409477c4264a26770,
         type: 3}
@@ -434,12 +434,12 @@ PrefabInstance:
     - target: {fileID: 6282348067021977358, guid: 5c9869171580d75409477c4264a26770,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 96
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 6282348067021977358, guid: 5c9869171580d75409477c4264a26770,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 96
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 6282348067021977358, guid: 5c9869171580d75409477c4264a26770,
         type: 3}
@@ -581,12 +581,12 @@ PrefabInstance:
     - target: {fileID: 6282348067021977358, guid: 5c9869171580d75409477c4264a26770,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 96
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 6282348067021977358, guid: 5c9869171580d75409477c4264a26770,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 96
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 6282348067021977358, guid: 5c9869171580d75409477c4264a26770,
         type: 3}

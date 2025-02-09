@@ -8,9 +8,9 @@
   "PowerPerLevel": 1.0,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 4,
+  "TargetTypeId": 3,
   "RoleScalingTypeId": 3,
-  "Level": 14,
+  "Level": 7,
   "Effects": [
     {
       "EntityTypeId": 33,
@@ -20,5 +20,5 @@
       "ElementTypeId": 2
     }
   ],
-  "UpdateTime": "2025-01-19T19:01:07.736Z"
+  "UpdateTime": "2025-01-26T21:39:02.417Z"
 }

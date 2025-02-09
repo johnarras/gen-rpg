@@ -1,0 +1,10 @@
+{
+  "Id": "usercointype17default",
+  "ParentId": "default",
+  "IdKey": 17,
+  "Name": "Leather",
+  "Icon": "LeatherIcon",
+  "Art": "LeatherArt",
+  "Weight": 50.0,
+  "UpdateTime": "2025-02-02T23:59:07.686Z"
+}

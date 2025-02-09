@@ -1,0 +1,10 @@
+{
+  "Id": "usercointype19default",
+  "ParentId": "default",
+  "IdKey": 19,
+  "Name": "Meat",
+  "Icon": "MeatIcon",
+  "Art": "MeatArt",
+  "Weight": 40.0,
+  "UpdateTime": "2025-02-02T23:59:07.686Z"
+}

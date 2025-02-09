@@ -50,7 +50,11 @@ namespace Genrpg.Shared.Crawler.Maps.Entities
         [Key(13)] public string RiddleAnswer { get; set; }
         [Key(14)] public string RiddleError { get; set; }
         [Key(15)] public byte[] Data { get; set; }
-        public List<MapCellDetail> Details = new List<MapCellDetail>();
+        [Key(16)] public long ArtSeed { get; set; }
+
+
+        [Key(17)] public List<MapCellDetail> Details { get; set; } = new List<MapCellDetail>();
+
 
         public void SetupDataBlocks()
         {

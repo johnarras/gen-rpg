@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.UI.Interfaces;
 using Genrpg.Shared.Core.Interfaces;
+using Assets.Scripts.Crawler.Maps.Services.Helpers;
 
 namespace Genrpg.Shared.Crawler.Maps.Services
 {
@@ -26,6 +27,7 @@ namespace Genrpg.Shared.Crawler.Maps.Services
         Task AddKeyInput(char keyChar, CancellationToken token);
         bool IsDungeon(long crawlerMapTypeId);
         long GetMapType();
+        ICrawlerMapTypeHelper GetMapHelper(long mapType);
         string GetBGImageName();
 
     }

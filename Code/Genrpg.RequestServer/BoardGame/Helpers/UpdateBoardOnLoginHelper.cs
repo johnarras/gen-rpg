@@ -1,4 +1,5 @@
-﻿using Genrpg.RequestServer.BoardGame.Services;
+﻿using Genrpg.RequestServer.BoardGame.BoardGen;
+using Genrpg.RequestServer.BoardGame.Services;
 using Genrpg.RequestServer.Core;
 using Genrpg.RequestServer.PlayerData.LoadUpdateHelpers;
 using Genrpg.Shared.Accounts.PlayerData;
@@ -20,7 +21,7 @@ namespace Genrpg.RequestServer.BoardGame.Helpers
         {
             BoardData boardData = await context.GetAsync<BoardData>();
 
-            if (boardData.Length == 0)
+            if (!boardData.IsValid())
             {
                 boardData = await _boardGenService.GenerateBoard(context);
                 await _repoService.Save(boardData);

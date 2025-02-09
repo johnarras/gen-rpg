@@ -10,14 +10,13 @@ namespace Genrpg.Shared.Core.Constants
         MMO = 0,
         Crawler = 1,
         BoardGame = 2,
-        Roguelike = 3,
     }
 
     public class GameModeUtils
     {
         public static bool IsPureClientMode(EGameModes mode)
         {
-            return mode == EGameModes.Crawler || mode == EGameModes.Roguelike;
+            return mode == EGameModes.Crawler;
         }
     }
 

@@ -108,6 +108,10 @@ namespace Assets.Scripts.Crawler.Maps
                 }
             }
 
+            if (genData.ArtSeed == 0)
+            {
+                genData.ArtSeed = _rand.Next(1000000000);
+            }
 
             ICrawlerMapGenHelper helper = GetGenHelper(genData.MapType);
             NewCrawlerMap newMap = await helper.Generate(party, world, genData);

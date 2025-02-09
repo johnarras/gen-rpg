@@ -130,6 +130,8 @@ public class BuildClients
 
         Assembly servicesAssembly = Assembly.GetAssembly(typeof(SetupService));
 
+        //PlayerSettings.productName = lowerPrefix;
+
         string lowerEnv = env.ToLower();
         foreach (PlatformBuildData config in configs)
         {

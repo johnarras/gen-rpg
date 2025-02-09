@@ -82,6 +82,7 @@ namespace Genrpg.Editor.UI
                 Name = name,
                 TextAlignment = alignment,
                 FontSize = fontSize,
+                TextWrapping = TextWrapping.Wrap,
                 Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 255, 255, 255)),
             };
 

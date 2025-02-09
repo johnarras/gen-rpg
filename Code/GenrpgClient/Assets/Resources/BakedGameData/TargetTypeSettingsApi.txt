@@ -5,76 +5,96 @@
       "ParentId": "default",
       "IdKey": 1,
       "Name": "Enemy",
-      "UpdateTime": "2024-08-01T00:28:13.718Z"
+      "Desc": "Attack one enemy in a group with a chaining attack.",
+      "StatBonusScale": 1.0,
+      "UpdateTime": "2025-01-26T21:28:52.636Z"
     },
     {
       "Id": "targettype2default",
       "ParentId": "default",
       "IdKey": 2,
       "Name": "Ally",
-      "UpdateTime": "2024-08-01T00:28:13.72Z"
+      "Desc": "",
+      "StatBonusScale": 1.0,
+      "UpdateTime": "2025-01-26T21:28:52.636Z"
     },
     {
       "Id": "targettype3default",
       "ParentId": "default",
       "IdKey": 3,
-      "Name": "EnemyGroup",
-      "UpdateTime": "2024-08-01T00:28:13.723Z"
+      "Name": "AllEnemiesInAGroup",
+      "Desc": "All Enemies in a group",
+      "StatBonusScale": 0.6,
+      "UpdateTime": "2025-01-26T21:28:52.636Z"
     },
     {
       "Id": "targettype4default",
       "ParentId": "default",
       "IdKey": 4,
       "Name": "AllEnemies",
-      "UpdateTime": "2024-08-01T00:28:13.725Z"
+      "Desc": "All enemies individually",
+      "StatBonusScale": 0.35,
+      "UpdateTime": "2025-01-26T21:28:52.636Z"
     },
     {
       "Id": "targettype5default",
       "ParentId": "default",
       "IdKey": 5,
       "Name": "AllAllies",
-      "UpdateTime": "2024-08-01T00:28:13.728Z"
+      "Desc": "All allies individually",
+      "StatBonusScale": 0.35,
+      "UpdateTime": "2025-01-26T20:54:13.482Z"
     },
     {
       "Id": "targettype6default",
       "ParentId": "default",
       "IdKey": 6,
       "Name": "Location",
-      "UpdateTime": "2024-08-01T00:28:13.73Z"
+      "Desc": "Location",
+      "StatBonusScale": 1.0,
+      "UpdateTime": "2025-01-26T20:54:13.482Z"
     },
     {
       "Id": "targettype7default",
       "ParentId": "default",
       "IdKey": 7,
       "Name": "Item",
-      "UpdateTime": "2024-08-01T00:28:13.732Z"
+      "Desc": "Some Item",
+      "StatBonusScale": 1.0,
+      "UpdateTime": "2025-01-26T20:54:13.482Z"
     },
     {
       "Id": "targettype8default",
       "ParentId": "default",
       "IdKey": 8,
       "Name": "Special",
-      "UpdateTime": "2024-08-01T00:28:13.735Z"
+      "Desc": "Movement",
+      "StatBonusScale": 1.0,
+      "UpdateTime": "2025-01-26T21:28:52.636Z"
     },
     {
       "Id": "targettype9default",
       "ParentId": "default",
       "IdKey": 9,
       "Name": "Self",
-      "UpdateTime": "2024-08-01T00:28:13.737Z"
+      "Desc": "Cast on self only",
+      "StatBonusScale": 1.0,
+      "UpdateTime": "2025-01-26T20:54:13.482Z"
     },
     {
       "Id": "targettype10default",
       "ParentId": "default",
       "IdKey": 10,
-      "Name": "AllEnemyGroups",
-      "UpdateTime": "2024-08-01T00:28:13.715Z"
+      "Name": "EnemyInEachGroup",
+      "Desc": "Attack each group with a single target chaining attack.",
+      "StatBonusScale": 1.0,
+      "UpdateTime": "2025-01-26T21:28:52.636Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "TargetTypeSettings",
-    "UpdateTime": "2024-08-01T00:28:13.74Z"
+    "UpdateTime": "2025-01-26T21:28:52.636Z"
   },
   "Id": "default"
 }

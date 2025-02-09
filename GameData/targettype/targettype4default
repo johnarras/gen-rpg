@@ -3,5 +3,7 @@
   "ParentId": "default",
   "IdKey": 4,
   "Name": "AllEnemies",
-  "UpdateTime": "2024-08-01T00:28:13.725Z"
+  "Desc": "All enemies individually",
+  "StatBonusScale": 0.35,
+  "UpdateTime": "2025-01-26T21:28:52.636Z"
 }

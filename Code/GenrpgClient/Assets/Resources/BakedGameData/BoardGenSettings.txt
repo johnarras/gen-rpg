@@ -2,6 +2,12 @@
   "Id": "default",
   "SidePathMinLength": 15,
   "SidePathMaxLength": 25,
+  "EdgeMinGap": 1,
+  "EdgeMaxGap": 4,
+  "SlopeMax": 1.0,
+  "MinPointCount": 17,
+  "MaxPointCount": 24,
+  "RadDelta": 0.5,
   "Name": "BoardGenSettings",
-  "UpdateTime": "2024-08-08T21:47:14.108Z"
+  "UpdateTime": "2025-02-02T23:35:21.938Z"
 }

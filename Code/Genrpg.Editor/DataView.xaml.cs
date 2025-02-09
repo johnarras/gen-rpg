@@ -406,7 +406,6 @@ namespace Genrpg.Editor
                 return;
             }
 
-            SmallPopup form = UIHelper.ShowBlockingDialog(_window, "Setting up data");
             _singleGrid.Visibility = Visibility.Collapsed;
             _multiGrid.Visibility = Visibility.Visible;
             SetMultiGridDataSource(Obj);
@@ -415,7 +414,6 @@ namespace Genrpg.Editor
             CopyButton.Visibility = Visibility.Visible;
             DetailsButton.Visibility = Visibility.Visible;
 
-            form.StartClose();
         }
 
         public bool AllowEditing(GameState gs, MemberInfo mem, bool primitiveEditor)
@@ -448,8 +446,6 @@ namespace Genrpg.Editor
             {
                 return;
             }
-
-            SmallPopup form = UIHelper.ShowBlockingDialog(_window, "Setting up data");
 
             _singleGrid.Children.Clear();
             ShowMultiItemButtonsOnSingleItemView();
@@ -555,8 +551,6 @@ namespace Genrpg.Editor
                 numEditorsShown++;
             }
 
-
-            form.StartClose();
         }
 
         private void AddEntityDesc(object parentObject, MemberInfo mem, Panel panel, int sx, int sy, int tx, int ty)

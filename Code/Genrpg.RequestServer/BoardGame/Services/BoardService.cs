@@ -23,7 +23,7 @@ namespace Genrpg.RequestServer.BoardGame.Services
 
         public List<long> GetTileTypesWithPrizes(WebContext context)
         {
-            return _gameData.Get<TileTypeSettings>(context.user).GetData().Where(x => x.HasPrizes).Select(X => X.IdKey).ToList();
+            return _gameData.Get<TileTypeSettings>(context.user).GetData().Select(X => X.IdKey).ToList();
         }
     }
 }

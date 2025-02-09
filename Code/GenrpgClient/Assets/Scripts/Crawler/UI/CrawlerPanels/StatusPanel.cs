@@ -1,20 +1,15 @@
 ﻿using Assets.Scripts.UI.Crawler.StatusUI;
 using Genrpg.Shared.Client.Assets.Constants;
-using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.Combat.Settings;
 using Genrpg.Shared.Crawler.Monsters.Entities;
-using Genrpg.Shared.Crawler.Parties.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.Settings;
 using Genrpg.Shared.Crawler.UI.Interfaces;
 using Genrpg.Shared.MVC.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using UnityEditor;
-using UnityEngine;
 
 namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 {
@@ -33,7 +28,9 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
             Content = view.Get<object>("Content");
 
-            for (int i = 0; i < PartyConstants.MaxPartySize; i++)
+            CrawlerSettings crawlerSettings = _gameData.Get<CrawlerSettings>(_gs.ch);
+
+            for (int i = 0; i < crawlerSettings.CrawlerPartySize; i++)
             {
                 _rows.Add(await _assetService.CreateAsync<PartyMemberStatusRow, int>(i + 1, AssetCategoryNames.UI, StatusRowPrefab, Content, token, screen.Subdirectory));
             }

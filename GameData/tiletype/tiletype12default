@@ -2,15 +2,12 @@
   "Id": "tiletype12default",
   "ParentId": "default",
   "IdKey": 12,
-  "Name": "Chest",
-  "Desc": "Chest unlock tile",
-  "Icon": "ChestTile",
-  "Art": "ChestTile",
-  "MaxQuantity": 1,
-  "SpawnPriority": 6.0,
-  "MinPosition": 1,
-  "OnMainPath": true,
+  "Name": "Taiga",
+  "Desc": "Cold and barren, some plants",
+  "Icon": "TaigaTile",
+  "Art": "TaigaTile",
+  "SpawnChance": 1.0,
   "PassRewards": [],
   "LandRewards": [],
-  "UpdateTime": "2024-08-11T00:19:54.103Z"
+  "UpdateTime": "2025-02-02T19:57:40.985Z"
 }

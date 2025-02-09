@@ -120,7 +120,7 @@
       "Art": "GuardTower",
       "Radius": 4,
       "VariationCount": 1,
-      "UpdateTime": "2025-01-03T15:09:53.462Z"
+      "UpdateTime": "2025-02-09T15:06:56.662Z"
     },
     {
       "Id": "buildingtype12default",
@@ -204,7 +204,7 @@
       "Art": "Cave",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-24T23:03:45.66Z"
+      "UpdateTime": "2025-02-09T16:31:00.887Z"
     },
     {
       "Id": "buildingtype19default",
@@ -240,13 +240,25 @@
       "Art": "City",
       "Radius": 5,
       "VariationCount": 2,
-      "UpdateTime": "2024-08-24T23:03:45.66Z"
+      "UpdateTime": "2025-02-09T16:31:00.887Z"
+    },
+    {
+      "Id": "buildingtype22default",
+      "ParentId": "default",
+      "IdKey": 22,
+      "Name": "Natural",
+      "Desc": "",
+      "Icon": "Natural",
+      "Art": "Natural",
+      "Radius": 5,
+      "VariationCount": 1,
+      "UpdateTime": "2025-02-09T16:31:00.887Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "BuildingSettings",
-    "UpdateTime": "2025-01-03T15:09:53.462Z"
+    "UpdateTime": "2025-02-09T16:31:00.887Z"
   },
   "Id": "default"
 }

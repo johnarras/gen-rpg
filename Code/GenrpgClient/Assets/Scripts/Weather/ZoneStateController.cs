@@ -19,6 +19,8 @@ using System.Linq;
 using Genrpg.Shared.Crawler.Maps.Constants;
 using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.UI.Entities;
+using Assets.Scripts.Crawler.Maps.Services.Helpers;
+using Genrpg.Shared.Crawler.Maps.Settings;
 
 public struct UpdateColor
 {
@@ -275,25 +277,12 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
             {
 
                 IReadOnlyList<WeatherType> weatherTypes = _gameData.Get<WeatherTypeSettings>(_gs.ch).GetData();
-                long mapType = _crawlerMapService.GetMapType();
+                long mapTypeId = _crawlerMapService.GetMapType();
 
-                if (_crawlerMapService.IsDungeon(mapType))
-                {
-                    _dataWeather = weatherTypes.FirstOrDefault(x => x.Name == "CrawlerDungeon");
-                }
-                else if (mapType == CrawlerMapTypes.City)
-                {
-                    _dataWeather = weatherTypes.FirstOrDefault(x => x.Name == "CrawlerCity");
-                }
-                else if (mapType == CrawlerMapTypes.Outdoors)
-                {
-                    _dataWeather = weatherTypes.FirstOrDefault(x => x.Name == "CrawlerOutdoors");
-                }
+                CrawlerMapType mapType = _gameData.Get<CrawlerMapSettings>(_gs.ch).Get(mapTypeId);
 
-                if (_dataWeather == null)
-                {
-                    _dataWeather = weatherTypes.FirstOrDefault(x => x.IdKey > 0);
-                }
+
+                _dataWeather = _gameData.Get<WeatherTypeSettings>(_gs.ch).Get(mapType.WeatherTypeId);
             }
 
             if (_dataWeather == null)

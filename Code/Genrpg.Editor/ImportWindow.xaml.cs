@@ -22,6 +22,7 @@ using System.Text;
 using System.Reflection;
 using Genrpg.Shared.Entities.Utils;
 using System.IO;
+using System.Data;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -71,44 +72,30 @@ namespace Genrpg.Editor
                 getLeftRightPadding(), getTopBottomPadding(), 20);
             buttonCount++;
 
-            string[] envWords = { "dev" };
-            string[] actionWords = 
-            {
-                "ImportRoles",
-                "ImportUnits",
-                "ImportUnitSpawns",
-                "ImportUnitKeywords",
-                "ImportSpells",
-                "ImportRiddles",
-                "ImportAphorisms",
-            };
+            string[] envWords = { "Import" };
+
+            string[] actionWords = Enum.GetNames(typeof(EImportTypes));
+
 
             int column = 0;
             for (int e = 0; e < envWords.Length; e++)
             {
                 string env = envWords[e];
 
-                if (env != EnvNames.Dev)
+                for (int a = 0; a < actionWords.Length; a++)
                 {
-                    continue;
-                }
-                if (env != EnvNames.Test)
-                {
-                    for (int a = 0; a < actionWords.Length; a++)
-                    {
-                        string action = actionWords[a];
+                    string action = actionWords[a];
 
-                        UIHelper.CreateButton(this,
-                            EButtonTypes.Default,
-                            env + " " + action,
-                            env + " " + action,
-                            getButtonWidth(),
-                            getButtonHeight(),
-                            getLeftRightPadding() + column * (getButtonWidth() + column * getButtonGap()),
-                            getTotalHeight(buttonCount),
-                            OnClickButton);
-                        buttonCount++;
-                    }
+                    UIHelper.CreateButton(this,
+                        EButtonTypes.Default,
+                        env + " " + action,
+                        env + " " + action,
+                        getButtonWidth(),
+                        getButtonHeight(),
+                        getLeftRightPadding() + column * (getButtonWidth() + column * getButtonGap()),
+                        getTotalHeight(buttonCount),
+                        OnClickButton);
+                    buttonCount++;
                 }
             }
 
@@ -160,41 +147,15 @@ namespace Genrpg.Editor
             String action = words[1];
 
             Action<EditorGameState> afterAction = null;
-            if (action == "ImportRoles")
-            {
-                afterAction = (gs) => { ImportData(gs, EImportTypes.CrawlerRoles); };
-                action = "Data";
-            }
-            if (action == "ImportUnits")
-            {
-                afterAction = (gs) => { ImportData(gs, EImportTypes.UnitTypes); };
-                action = "Data";
-            }
-            if (action == "ImportUnitSpawns")
-            {
-                afterAction = (gs) => { ImportData(gs, EImportTypes.UnitSpawns); };
-                action = "Data";
-            }
-            if (action == "ImportUnitKeywords")
-            {
-                afterAction = (gs) => { ImportData(gs, EImportTypes.UnitKeywords); };
-                action = "Data";
-            }
-            if (action == "ImportSpells")
-            {
-                afterAction = (gs) => { ImportData(gs, EImportTypes.CrawlerSpells); };
-                action = "Data";
-            }
-            if (action == "ImportRiddles")
-            {
-                afterAction = (gs) => { ImportData(gs, EImportTypes.Riddles); };
-                action = "Data";
-            }
-            if (action == "ImportAphorisms")
-            {
-                afterAction = (gs) => { ImportData(gs, EImportTypes.Aphorisms); };
-                action = "Data";
-            }
+
+
+            string[] actionWords = Enum.GetNames(typeof(EImportTypes));
+
+            EImportTypes importType = Enum.Parse<EImportTypes>(action);
+
+            afterAction = (gs) => { ImportData(gs, importType); };
+            action = "Data";
+
 
             Task.Run(() => OnClickButtonAsync(action, env, afterAction));
         }

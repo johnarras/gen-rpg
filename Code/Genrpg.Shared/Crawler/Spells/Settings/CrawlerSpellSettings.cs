@@ -38,11 +38,11 @@ namespace Genrpg.Shared.Crawler.Spells.Settings
         [Key(13)] public long TargetTypeId { get; set; }
         [Key(14)] public long RoleScalingTypeId { get; set; }
 
-        [Key(14)] public long Level { get; set; }
+        [Key(15)] public long Level { get; set; }
 
-        [Key(15)] public List<CrawlerSpellEffect> Effects { get; set; } = new List<CrawlerSpellEffect>();
+        [Key(16)] public List<CrawlerSpellEffect> Effects { get; set; } = new List<CrawlerSpellEffect>();
 
-        [Key(16)] public int Flags { get; set; }
+        [Key(17)] public int Flags { get; set; }
         public bool HasFlag(int flagBits) { return (Flags & flagBits) != 0; }
         public void AddFlags(int flagBits) { Flags |= flagBits; }
         public void RemoveFlags(int flagBits) { Flags &= ~flagBits; }

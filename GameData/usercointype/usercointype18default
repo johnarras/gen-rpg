@@ -1,0 +1,10 @@
+{
+  "Id": "usercointype18default",
+  "ParentId": "default",
+  "IdKey": 18,
+  "Name": "Marble",
+  "Icon": "MarbleIcon",
+  "Art": "MarbleArt",
+  "Weight": 75.0,
+  "UpdateTime": "2025-02-02T23:59:07.686Z"
+}

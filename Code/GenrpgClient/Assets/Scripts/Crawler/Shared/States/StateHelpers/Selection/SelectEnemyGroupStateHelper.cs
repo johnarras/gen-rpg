@@ -58,7 +58,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Selection
                 };
 
                 CrawlerStateAction newAction = new CrawlerStateAction(char.ToUpper(c) + " " + group.ShowStatus(), c,
-                    selectAction.Action.NextState, onClickAction: clickRowAction, forceButton: true);
+                    selectAction.Action.NextState, onClickAction: clickRowAction, forceButton: false);
 
                 stateData.Actions.Add(newAction);
 

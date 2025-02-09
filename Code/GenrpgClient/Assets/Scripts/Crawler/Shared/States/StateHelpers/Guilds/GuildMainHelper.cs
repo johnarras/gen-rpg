@@ -20,6 +20,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds
     public class GuildMainHelper : BuildingStateHelper
     {
         private ITimeOfDayService _timeService = null;
+        private ICrawlerMapService _mapService;
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.GuildMain; }
         public override long TriggerBuildingId() { return BuildingTypes.Guild; }
@@ -47,6 +48,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds
                 if (map == null || map.CrawlerMapTypeId == CrawlerMapTypes.City)
                 {
                     await _worldService.GenerateWorld(party);
+                    _mapService.CleanMap();
                 }
             }
 
@@ -60,7 +62,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds
             {
                 stateData.Actions.Add(new CrawlerStateAction("Enter Map", 'E', ECrawlerStates.ExploreWorld));
             }
-            if (party.GameMode == EGameModes.Roguelike)
+            if (party.GameMode == ECrawlerGameModes.Roguelite)
             {
                 stateData.Actions.Add(new CrawlerStateAction("Upgrades", 'U', ECrawlerStates.UpgradeParty));
             }

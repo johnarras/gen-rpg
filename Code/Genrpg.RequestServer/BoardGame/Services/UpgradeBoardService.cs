@@ -48,7 +48,7 @@ namespace Genrpg.RequestServer.BoardGame.Services
 
             if (userData.Stats.Get(UserStats.TotalUpgradeCost) < 1)
             {
-                userData.Stats.Set(UserStats.TotalUpgradeCost, totalUpgradeCost);
+                userData.Stats.Set(UserStats.TotalUpgradeCost, (short)totalUpgradeCost);
             }
 
             return totalUpgradeCost;
@@ -70,7 +70,7 @@ namespace Genrpg.RequestServer.BoardGame.Services
             UpgradeBoardSettings upgradeSettings = _gameData.Get<UpgradeBoardSettings>(context.user);
 
 
-            long totalUpgradeCount = _userAbilityService.GetAbilityTotal(context.user, UserAbilityTypes.UpgradeQuantiy, userData.Abilties.Get(UserAbilityTypes.UpgradeQuantiy));
+            long totalUpgradeCount = _userAbilityService.GetAbilityTotal(context.user, UserAbilityTypes.UpgradeQuantiy, userData.Abilities.Get(UserAbilityTypes.UpgradeQuantiy));
 
             long totalUpgradeWeight = upgradeSettings.GetTotalUpgradeWeight(totalUpgradeCount);
 

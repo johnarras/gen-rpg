@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb3bb3cf0fac9e344b1a397c605995af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KeepLoaded: 0
+  Volume: 1
+  Is3D: 0
+  KeepLoaded: 1
   Clips:
   - {fileID: 8300000, guid: c7c92e27cf7161944ae511ce64d1fc23, type: 3}

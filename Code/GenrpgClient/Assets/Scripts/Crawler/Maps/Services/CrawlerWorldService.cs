@@ -29,6 +29,10 @@ using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.MapGen.Services;
 using Genrpg.Shared.Crawler.MapGen.Helpers;
 using System.Diagnostics.CodeAnalysis;
+using Genrpg.Shared.Crawler.Constants;
+using Genrpg.Shared.Crawler.Party.Services;
+using Genrpg.Shared.LoadSave.Constants;
+using Genrpg.Shared.LoadSave.Services;
 
 namespace Assets.Scripts.Crawler.Maps.Services
 {
@@ -45,20 +49,50 @@ namespace Assets.Scripts.Crawler.Maps.Services
         private IDispatcher _dispatcher;
         private IClientAppService _clientAppService;
         private IClientGameState _gs;
+        private IPartyService _partyService;
+        private ILoadSaveService _loadSaveService;
 
         private CrawlerWorld _world = null;
 
         public async Task<CrawlerWorld> GenerateWorld(PartyData partyData)
         {
 
-            partyData.GameMode = _gs.GameMode;
-            partyData.Reset(_rand);
-            if (partyData.Members.Count < 1)
+            long oldWorldId = partyData.WorldId;
+            partyData.GameMode = ECrawlerGameModes.Crawler;
+            _partyService.Reset(partyData);
+
+            for (int i = LoadSaveConstants.MinSlot; i <= LoadSaveConstants.MaxSlot; i++)
             {
-                partyData.MaxLevel = 0;
+                PartyData slotData = _crawlerService.LoadParty(i);
+
+                if (slotData != null && slotData.WorldId == oldWorldId)
+                {
+                    _partyService.Reset(slotData);
+                    _loadSaveService.Save(slotData, slotData.SaveSlotId);
+                }
             }
+
             CrawlerWorld world = await GenerateInternal(partyData.WorldId);
+
+            CrawlerMap firstCityMap = world.Maps.FirstOrDefault(x => x.CrawlerMapTypeId == CrawlerMapTypes.City);
+
+
+            for (int i = LoadSaveConstants.MinSlot; i <= LoadSaveConstants.MaxSlot; i++)
+            {
+                PartyData slotData = _crawlerService.LoadParty(i);
+
+                if (slotData != null && slotData.WorldId == oldWorldId)
+                {
+                    _partyService.Reset(slotData);
+                    slotData.MapId = firstCityMap.IdKey;
+                    _loadSaveService.Save(slotData, slotData.SaveSlotId);
+                }
+            }
+
+            await _crawlerService.SaveGame();
+
             _dispatcher.Dispatch(new CrawlerUIUpdate());
+            _world = world;
             return world;
         }
 
@@ -97,7 +131,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
 
         private string WorldPathPrefix(long worldId)
         {
-            return (Application.isEditor?"Editor":"") + "World" + "/";
+            return (Application.isEditor?"Editor":"") + "World" + worldId + "/";
         }
 
         public async Task SaveWorld(CrawlerWorld world)
@@ -166,15 +200,15 @@ namespace Assets.Scripts.Crawler.Maps.Services
 
             PartyData partyData = _crawlerService.GetParty();
 
-            if (partyData.GameMode == EGameModes.Roguelike)
+            if (partyData.GameMode == ECrawlerGameModes.Roguelite)
             {
                 try
                 {
-                    CrawlerWorld world = new CrawlerWorld() { Id = "World", Name = "World", IdKey = worldId };
+                    CrawlerWorld world = new CrawlerWorld() { Id = "World", Name = "World", IdKey = worldId, Seed = _rand.Next() };
 
                     ICrawlerMapGenHelper helper = _mapGenService.GetGenHelper(CrawlerMapTypes.City);
 
-                    MyRandom rand = new MyRandom(worldId + 1);
+                    MyRandom rand = new MyRandom(_rand.Next());
 
                     CrawlerMapGenData genData = new CrawlerMapGenData()
                     {
@@ -233,7 +267,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
             {
                 try
                 {
-                    CrawlerWorld world = new CrawlerWorld() { Id = "World", Name = "World", IdKey = worldId };
+                    CrawlerWorld world = new CrawlerWorld() { Id = "World", Name = "World", IdKey = worldId, Seed = _rand.Next() };
 
                     ICrawlerMapGenHelper helper = _mapGenService.GetGenHelper(CrawlerMapTypes.Outdoors);
 

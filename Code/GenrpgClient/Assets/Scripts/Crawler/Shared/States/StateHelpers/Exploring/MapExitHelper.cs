@@ -16,6 +16,7 @@ using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.MapGen.Services;
 using Genrpg.Shared.Crawler.Maps.Constants;
+using Genrpg.Shared.Crawler.Constants;
 
 namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 {
@@ -58,7 +59,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 
             if (nextMap == null)
             {
-                if (partyData.GameMode == EGameModes.Roguelike && currMap != null)
+                if (partyData.GameMode == ECrawlerGameModes.Roguelite && currMap != null)
                 {
                     long nextId = world.Maps.Max(x => x.IdKey) + 1;
 

@@ -5,6 +5,7 @@
   "Name": "Swamp",
   "Desc": "",
   "Icon": "Swamp",
+  "Art": "Swamp",
   "MinLevel": 10,
   "GenChance": 3.0,
   "GrassDensity": 2.0,
@@ -819,10 +820,9 @@
   ],
   "PlantChoices": "34 35 2 4 8 10",
   "FenceChance": 0.1,
-  "Art": "",
   "WeatherTypeId": 4,
   "MusicTypeId": 6,
   "AmbientMusicTypeId": 11,
   "TraveralTimeScale": 10.0,
-  "UpdateTime": "2024-09-14T16:14:39.118Z"
+  "UpdateTime": "2025-01-27T23:56:18.6Z"
 }

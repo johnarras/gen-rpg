@@ -51,6 +51,7 @@ namespace Genrpg.Shared.Crawler.Maps.Settings
         [Key(29)] public double MaxCorridorDensity { get; set; }
         [Key(30)] public double MinBuildingDensity { get; set; }
         [Key(31)] public double MaxBuildingDensity { get; set; }
+        [Key(32)] public long WeatherTypeId { get; set; }
     }
 
     [MessagePackObject]

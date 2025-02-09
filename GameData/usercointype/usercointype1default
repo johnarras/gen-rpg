@@ -2,8 +2,8 @@
   "Id": "usercointype1default",
   "ParentId": "default",
   "IdKey": 1,
-  "Name": "Gem",
-  "PluralName": "Gems",
-  "Icon": "IconGems",
-  "UpdateTime": "2024-08-10T14:23:54.115Z"
+  "Name": "Tokens",
+  "Icon": "TokensIcon",
+  "Art": "TokensArt",
+  "UpdateTime": "2025-02-02T23:59:07.686Z"
 }

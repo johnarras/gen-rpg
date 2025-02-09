@@ -92,8 +92,12 @@ Light:
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
+  m_ForceVisible: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+  m_LightUnit: 1
+  m_LuxAtDistance: 1
+  m_EnableSpotReflector: 1
 --- !u!114 &135759578931522764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,4 +169,5 @@ MonoBehaviour:
   TargetIntensityScale: 0
   Range: 60
   Headlight: {fileID: 2827752772893039626}
-  MaxIntensity: 1.75
+  MaxIntensity: 150
+  Offset: {x: 0, y: 0, z: 0}

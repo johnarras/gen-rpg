@@ -4,55 +4,216 @@
       "Id": "usercointype1default",
       "ParentId": "default",
       "IdKey": 1,
-      "Name": "Gem",
-      "PluralName": "Gems",
-      "Icon": "IconGems",
-      "UpdateTime": "2024-08-10T14:23:54.115Z"
+      "Name": "Tokens",
+      "Icon": "TokensIcon",
+      "Art": "TokensArt",
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
     },
     {
       "Id": "usercointype2default",
       "ParentId": "default",
       "IdKey": 2,
-      "Name": "Credits",
-      "PluralName": "Credits",
-      "Icon": "IconCredits",
-      "UpdateTime": "2024-08-10T14:23:54.115Z"
+      "Name": "Gold",
+      "Icon": "GoldIcon",
+      "Art": "GoldArt",
+      "Weight": 100.0,
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
     },
     {
       "Id": "usercointype3default",
       "ParentId": "default",
       "IdKey": 3,
       "Name": "Energy",
-      "PluralName": "Energy",
-      "Icon": "IconEnergy",
-      "UpdateTime": "2024-08-10T14:23:54.115Z"
+      "Icon": "EnergyIcon",
+      "Art": "EnergyArt",
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
     },
     {
       "Id": "usercointype4default",
       "ParentId": "default",
       "IdKey": 4,
       "Name": "Activity",
-      "PluralName": "Activity",
-      "Icon": "IconActivity",
-      "UpdateTime": "2024-08-10T14:23:54.115Z"
+      "Icon": "ActivityIcon",
+      "Art": "ActivityArt",
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
     },
     {
       "Id": "usercointype5default",
       "ParentId": "default",
       "IdKey": 5,
       "Name": "Cosmetics",
-      "PluralName": "Cosmetics",
-      "Icon": "IconCosmetics",
-      "UpdateTime": "2024-08-10T14:23:54.115Z"
+      "Icon": "CosmeticsIcon",
+      "Art": "CosmeticsArt",
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
     },
     {
       "Id": "usercointype6default",
       "ParentId": "default",
       "IdKey": 6,
-      "Name": "Upgrade",
-      "PluralName": "Upgrades",
-      "Icon": "IconUpgrade",
-      "UpdateTime": "2024-08-10T14:23:54.115Z"
+      "Name": "Upgrades",
+      "Icon": "UpgradesIcon",
+      "Art": "UpgradesArt",
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
+    },
+    {
+      "Id": "usercointype7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "Cheese",
+      "Icon": "CheeseIcon",
+      "Art": "CheeseArt",
+      "Weight": 10.0,
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
+    },
+    {
+      "Id": "usercointype8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Wood",
+      "Icon": "WoodIcon",
+      "Art": "WoodArt",
+      "Weight": 20.0,
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
+    },
+    {
+      "Id": "usercointype9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "Stone",
+      "Icon": "StoneIcon",
+      "Art": "StoneArt",
+      "Weight": 50.0,
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
+    },
+    {
+      "Id": "usercointype10default",
+      "ParentId": "default",
+      "IdKey": 10,
+      "Name": "Flowers",
+      "Icon": "FlowersIcon",
+      "Art": "FlowersArt",
+      "Weight": 5.0,
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
+    },
+    {
+      "Id": "usercointype11default",
+      "ParentId": "default",
+      "IdKey": 11,
+      "Name": "Grass",
+      "Icon": "GrassIcon",
+      "Art": "GrassArt",
+      "Weight": 5.0,
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
+    },
+    {
+      "Id": "usercointype12default",
+      "ParentId": "default",
+      "IdKey": 12,
+      "Name": "Seeds",
+      "Icon": "SeedsIcon",
+      "Art": "SeedsArt",
+      "Weight": 10.0,
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
+    },
+    {
+      "Id": "usercointype13default",
+      "ParentId": "default",
+      "IdKey": 13,
+      "Name": "Iron",
+      "Icon": "IronIcon",
+      "Art": "IronArt",
+      "Weight": 45.0,
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
+    },
+    {
+      "Id": "usercointype14default",
+      "ParentId": "default",
+      "IdKey": 14,
+      "Name": "Fruit",
+      "Icon": "FruitIcon",
+      "Art": "FruitArt",
+      "Weight": 20.0,
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
+    },
+    {
+      "Id": "usercointype15default",
+      "ParentId": "default",
+      "IdKey": 15,
+      "Name": "Sand",
+      "Icon": "SandIcon",
+      "Art": "SandArt",
+      "Weight": 35.0,
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
+    },
+    {
+      "Id": "usercointype16default",
+      "ParentId": "default",
+      "IdKey": 16,
+      "Name": "Silver",
+      "Icon": "SilverIcon",
+      "Art": "SilverArt",
+      "Weight": 80.0,
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
+    },
+    {
+      "Id": "usercointype17default",
+      "ParentId": "default",
+      "IdKey": 17,
+      "Name": "Leather",
+      "Icon": "LeatherIcon",
+      "Art": "LeatherArt",
+      "Weight": 50.0,
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
+    },
+    {
+      "Id": "usercointype18default",
+      "ParentId": "default",
+      "IdKey": 18,
+      "Name": "Marble",
+      "Icon": "MarbleIcon",
+      "Art": "MarbleArt",
+      "Weight": 75.0,
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
+    },
+    {
+      "Id": "usercointype19default",
+      "ParentId": "default",
+      "IdKey": 19,
+      "Name": "Meat",
+      "Icon": "MeatIcon",
+      "Art": "MeatArt",
+      "Weight": 40.0,
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
+    },
+    {
+      "Id": "usercointype20default",
+      "ParentId": "default",
+      "IdKey": 20,
+      "Name": "Grain",
+      "Icon": "GrainIcon",
+      "Art": "GrainArt",
+      "Weight": 30.0,
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
+    },
+    {
+      "Id": "usercointype21default",
+      "ParentId": "default",
+      "IdKey": 21,
+      "Name": "Gems",
+      "Icon": "GemsIcon",
+      "Art": "GemsArt",
+      "Weight": 15.0,
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
+    },
+    {
+      "Id": "usercointype22default",
+      "ParentId": "default",
+      "IdKey": 22,
+      "Name": "Furs",
+      "Icon": "FursIcon",
+      "Art": "FursArt",
+      "Weight": 60.0,
+      "UpdateTime": "2025-02-02T23:59:07.686Z"
     }
   ],
   "ParentObj": {

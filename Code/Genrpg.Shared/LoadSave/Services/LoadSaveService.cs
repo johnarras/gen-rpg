@@ -12,7 +12,7 @@ namespace Genrpg.Shared.LoadSave.Services
         T ContinueGame<T>() where T : BasePlayerData, INamedUpdateData;
         T LoadSlot<T>(long slotId) where T : BasePlayerData, INamedUpdateData;
         bool OkSlotId(long slotId);
-        bool Save<T>(T looperData, long slotId) where T : BasePlayerData, INamedUpdateData;
+        bool Save<T>(T playerData, long slotId) where T : BasePlayerData, INamedUpdateData;
         bool HaveCurrentGame<T>() where T : BasePlayerData, INamedUpdateData;
         bool HaveSaveGame<T>(long slotId) where T : BasePlayerData, INamedUpdateData;
         void Delete<T>(long slotId) where T : BasePlayerData, INamedUpdateData;
@@ -38,6 +38,11 @@ namespace Genrpg.Shared.LoadSave.Services
             return slotId >= LoadSaveConstants.MinSlot && slotId <= LoadSaveConstants.MaxSlot;
         }
 
+        private string GetFilenameFromSlot<T>(long slotId)
+        {
+            return typeof(T).Name + slotId;
+        }
+
         public T LoadSlot<T>(long slotId) where T : BasePlayerData, INamedUpdateData
         {
 
@@ -46,28 +51,28 @@ namespace Genrpg.Shared.LoadSave.Services
                 return null;
             }
 
-            T looperData = _repoService.Load<T>(slotId.ToString()).Result;
+            T playerData = _repoService.Load<T>(GetFilenameFromSlot<T>(slotId)).Result;
 
-            if (looperData == null)
+            if (playerData == null)
             {
                 return null;
             }
 
             UpdateCurrentSaveSlot(slotId);
 
-            return looperData;
+            return playerData;
         }
 
-        public bool Save<T>(T looperData, long slotId) where T : BasePlayerData, INamedUpdateData
+        public bool Save<T>(T playerData, long slotId) where T : BasePlayerData, INamedUpdateData
         {
             if (!OkSlotId(slotId))
             {
                 return false;
             }
 
-            looperData.Id = slotId.ToString();
+            playerData.Id = GetFilenameFromSlot<T>(slotId);
 
-            _repoService.Save(looperData);
+            _repoService.Save(playerData);
 
             UpdateCurrentSaveSlot(slotId);
 

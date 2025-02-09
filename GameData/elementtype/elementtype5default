@@ -4,7 +4,7 @@
   "IdKey": 5,
   "Name": "Earth",
   "Desc": "Slow the target",
-  "Icon": "",
+  "Icon": "Earth",
   "Art": "Earth",
   "CasterActionName": "Crush",
   "ObserverActionName": "Crushes",
@@ -16,5 +16,5 @@
   "BuffEffects": [],
   "DebuffEffects": [],
   "Procs": [],
-  "UpdateTime": "2025-01-13T19:35:55.484Z"
+  "UpdateTime": "2025-02-01T05:18:19.397Z"
 }

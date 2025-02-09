@@ -5,6 +5,7 @@
   "Name": "Savannah",
   "Desc": "",
   "Icon": "Savannah",
+  "Art": "Savannah",
   "MinLevel": 15,
   "GenChance": 2.0,
   "GrassDensity": 1.25,
@@ -669,10 +670,9 @@
   ],
   "PlantChoices": "34 35 36 37 38",
   "FenceChance": 0.1,
-  "Art": "",
   "WeatherTypeId": 8,
   "MusicTypeId": 3,
   "AmbientMusicTypeId": 8,
   "TraveralTimeScale": 5.0,
-  "UpdateTime": "2024-09-14T16:14:39.118Z"
+  "UpdateTime": "2025-01-27T23:56:18.6Z"
 }

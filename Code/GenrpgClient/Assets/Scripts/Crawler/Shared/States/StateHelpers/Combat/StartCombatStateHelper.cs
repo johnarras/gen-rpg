@@ -1,4 +1,6 @@
-﻿using Genrpg.Shared.Crawler.Combat.Entities;
+﻿using Assets.Scripts.Crawler.Constants;
+using Assets.Scripts.Interfaces;
+using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Constants;
@@ -11,6 +13,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
 {
     public class StartCombatStateHelper : BaseCombatStateHelper
     {
+        private IAudioService _audioService;
         public override ECrawlerStates GetKey() { return ECrawlerStates.StartCombat; }
 
         public override async Task<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
@@ -28,6 +31,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
 
             if (await _combatService.StartCombat(_crawlerService.GetParty(), initialState))
             {
+                _audioService.PlaySound(CrawlerAudio.StartCombat);
                 stateData = new CrawlerStateData(ECrawlerStates.CombatFightRun, true);
             }
             else

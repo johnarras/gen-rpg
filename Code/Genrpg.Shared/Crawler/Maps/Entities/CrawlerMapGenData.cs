@@ -18,6 +18,7 @@ namespace Genrpg.Shared.Crawler.Maps.Entities
         [Key(8)] public string Name { get; set; }
         [Key(9)] public bool RandomWallsDungeon { get; set; }
         [Key(10)] public CrawlerMap PrevMap { get; set; }
+        [Key(11)] public long ArtSeed { get; set; }
     }
 
 }

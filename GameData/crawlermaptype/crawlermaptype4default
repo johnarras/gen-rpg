@@ -8,10 +8,10 @@
   "Art": "",
   "MinWidth": 15,
   "MaxWidth": 20,
-  "MinHeight": 15,
+  "MinHeight": 10,
   "MaxHeight": 20,
-  "MinFloors": 2,
-  "MaxFloors": 5,
+  "MinFloors": 1,
+  "MaxFloors": 3,
   "QuestItemEntranceUnlockChance": 0.2,
   "RiddleUnlockChance": 0.4,
   "SpecialTileChance": 0.05,
@@ -27,5 +27,6 @@
   "MaxCorridorDensity": 2.0,
   "MinBuildingDensity": 0.1,
   "MaxBuildingDensity": 0.4,
-  "UpdateTime": "2025-01-18T20:05:00.26Z"
+  "WeatherTypeId": 11,
+  "UpdateTime": "2025-02-09T16:27:09.206Z"
 }

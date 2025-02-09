@@ -13,7 +13,7 @@ namespace Genrpg.RequestServer.BoardGame.BoardModeHelpers
     {
         public override long GetKey() { return BoardModes.LevelUp; }
         public override EBonusModeEndTypes BonusModeEndType => EBonusModeEndTypes.StartTile;
-        public override long TriggerTileTypeId => TileTypes.None;
+        public override long TriggerTileTypeId => 0;
         protected override EPlayRollTypes PlayMultTypes => EPlayRollTypes.Average;
 
         public override async Task EnterMode(WebContext context, RollDiceArgs args)

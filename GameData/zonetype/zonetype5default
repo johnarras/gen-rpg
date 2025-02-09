@@ -5,6 +5,7 @@
   "Name": "Badlands",
   "Desc": "",
   "Icon": "Badlands",
+  "Art": "Badlands",
   "MinLevel": 15,
   "GenChance": 1.0,
   "GrassDensity": 0.25,
@@ -709,7 +710,6 @@
   ],
   "PlantChoices": "34 35 36 37 38",
   "FenceChance": 0.1,
-  "Art": "",
   "WeatherTypeId": 5,
   "CreviceCountScale": 10.0,
   "CreviceDepthScale": 1.5,
@@ -717,5 +717,5 @@
   "MusicTypeId": 6,
   "AmbientMusicTypeId": 9,
   "TraveralTimeScale": 5.0,
-  "UpdateTime": "2024-09-14T16:14:39.118Z"
+  "UpdateTime": "2025-01-27T23:56:18.6Z"
 }

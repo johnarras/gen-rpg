@@ -21,6 +21,8 @@
   "MinDebuffChance": 0.01,
   "DebuffChancePerLevel": 0.001,
   "MaxDebuffChance": 0.05,
+  "BaseMonsterAttacks": 1.0,
+  "BasePlayerAttacks": 1.5,
   "Name": "CrawlerCombatSettings",
-  "UpdateTime": "2025-01-12T17:43:35.961Z"
+  "UpdateTime": "2025-01-27T23:56:18.6Z"
 }

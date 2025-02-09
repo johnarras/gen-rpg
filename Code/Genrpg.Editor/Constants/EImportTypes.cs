@@ -15,5 +15,7 @@ namespace Genrpg.Editor.Constants
         CrawlerSpells = 4,
         Riddles =5,
         Aphorisms=6,
+        TileTypes=7,
+        UserCoins=8,
     };
 }

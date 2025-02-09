@@ -80,7 +80,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
             }
             if (maxPartySlot > 0)
             {
-                stateData.Actions.Add(new CrawlerStateAction("1- " + maxPartySlot + " or the status panel below to view members", CharCodes.None, ECrawlerStates.None));
+                stateData.Actions.Add(new CrawlerStateAction("1-" + maxPartySlot + " to view a member", CharCodes.None, ECrawlerStates.None));
                 foreach (PartyMember member in members)
                 {
                     stateData.Actions.Add(new CrawlerStateAction("", (char)(member.PartySlot + '0'),
@@ -97,6 +97,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
             stateData.Actions.Add(new CrawlerStateAction(null, rowFiller: true));
 
             CrawlerWorld world = await _worldService.GetWorld(party.WorldId);
+            stateData.Actions.Add(new CrawlerStateAction("Use WASDQE to move."));
             stateData.Actions.Add(new CrawlerStateAction("Cast", 'C', ECrawlerStates.SelectAlly));
             stateData.Actions.Add(new CrawlerStateAction("Recall", 'R', ECrawlerStates.ReturnToSafety));
             stateData.Actions.Add(new CrawlerStateAction("Fight", 'F', ECrawlerStates.StartCombat));
@@ -120,7 +121,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
                 stateData.Actions.Add(new CrawlerStateAction(nmk.Name, nmk.Key, ECrawlerStates.DoNotChangeState, () =>
                 {
                     _crawlerMapService.AddKeyInput(nmk.Key, token);
-                }));
+                }, hideText:true));
                 moveKeysShown++;
 
                 if (moveKeysShown % 3 ==0)
@@ -160,7 +161,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
                     {
                         _screenService.Open(ScreenId.CrawlerMainMenu);
                     }
-                }));
+                }, hideText:true));
 
             await _crawlerMapService.EnterMap(party, mapData, token);
 

@@ -50,13 +50,18 @@ public class CharacterScreen : ItemIconScreen
         {
             _unit = _gs.ch;
         }
+        SetEquipment();
+    }
+
+    protected void SetEquipment()
+    { 
         InitEquipmentIcons();
 
         ShowStats();
 
         if (Items != null)
         {
-            Items.Init(InventoryGroup.Equipment, this, _unit, null, token);
+            Items.Init(InventoryGroup.Equipment, this, _unit, null, _token);
         }
     }
 

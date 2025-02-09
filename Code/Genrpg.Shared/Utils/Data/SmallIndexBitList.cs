@@ -78,5 +78,17 @@ namespace Genrpg.Shared.Utils.Data
 
             return (Bits[0] & bits) != 0;
         }
+
+        public bool HasAnyBits()
+        {
+            for (int b = 0; b < Bits.Length; b++)
+            {
+                if (Bits[b] != 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

@@ -2,15 +2,12 @@
   "Id": "tiletype6default",
   "ParentId": "default",
   "IdKey": 6,
-  "Name": "Draw Card",
-  "Desc": "Draws a random card with a reward",
-  "Icon": "DrawCardTile",
-  "Art": "DrawCardTile",
-  "MaxQuantity": 1,
-  "SpawnPriority": 9.0,
-  "MinPosition": 2,
-  "OnMainPath": true,
+  "Name": "Mountains",
+  "Desc": "Big mountains",
+  "Icon": "MountainsTile",
+  "Art": "MountainsTile",
+  "SpawnChance": 1.0,
   "PassRewards": [],
   "LandRewards": [],
-  "UpdateTime": "2024-08-11T00:19:54.103Z"
+  "UpdateTime": "2025-02-02T19:57:40.985Z"
 }

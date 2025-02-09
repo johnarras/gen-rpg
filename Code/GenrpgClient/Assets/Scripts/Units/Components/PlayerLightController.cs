@@ -2,6 +2,7 @@
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Genrpg.Shared.Crawler.Maps.Constants;
 using Genrpg.Shared.Crawler.Maps.Services;
+using Genrpg.Shared.Utils;
 using UnityEngine;
 
 namespace Assets.Scripts.Controllers
@@ -10,31 +11,38 @@ namespace Assets.Scripts.Controllers
     {
         private IModTextureService _modTextureService;
         private ICrawlerMapService _crawlerMapService;
-        public float TargetIntensityScale = 0;
 
         public float Range = 75;
 
         public Light Headlight;
 
-        float currentIntensity = 0;
-        float targetIntensity = 0;
+        float _currIntensity = 0;
+        float _targetIntensity = 0;
 
-        const float IntensityDelta = 0.04f;
+        const float IntensityDelta = 10f;
 
-        public float MaxIntensity = 1.5f;
+        public float MaxIntensity = 150;
 
         public Vector3 Offset;
+
+        private float _startMaxIntensity;
+
+        private int _maxStableTicks = 5;
+        private int _stableTicksLeft = 0;
 
         public override void Init()
         {
             base.Init();
             AddUpdate(LightUpdate, UpdateType.Late);
+            _startMaxIntensity = MaxIntensity;
+            _targetIntensity = MaxIntensity;
+            _currIntensity = MaxIntensity;
         }
 
         bool haveSetPosition = false;
         private void LightUpdate()
         {
-            if (_crawlerMapService.IsDungeon(_crawlerMapService.GetMapType()))
+            if (!_crawlerMapService.IsDungeon(_crawlerMapService.GetMapType()))
             {
                 return;
             }
@@ -43,14 +51,26 @@ namespace Assets.Scripts.Controllers
                entity.transform.localPosition = Offset;
             }
             haveSetPosition = true;
-            targetIntensity = MaxIntensity * (1.0f - ZoneStateController.AmbientScale);
 
+            if (_currIntensity != _targetIntensity)
+            {
+                _currIntensity = _modTextureService.MoveCurrFloatToTarget(_currIntensity, _targetIntensity, MathUtils.FloatRange(0, IntensityDelta * 2, _rand));
+            }
 
-            currentIntensity = _modTextureService.MoveCurrFloatToTarget(currentIntensity, targetIntensity, IntensityDelta);
+            if (_currIntensity == _targetIntensity)
+            {
+                _stableTicksLeft--;
+
+                if (_stableTicksLeft <= 0)
+                {
+                    _targetIntensity = MathUtils.FloatRange(_startMaxIntensity * 2 / 3, _startMaxIntensity,_rand);
+                    _stableTicksLeft = MathUtils.IntRange(0, _maxStableTicks, _rand);
+                }
+            }
 
             if (Headlight != null)
             {
-                Headlight.intensity = currentIntensity;
+                Headlight.intensity = _currIntensity;
                 Headlight.range = Range;
             }
 

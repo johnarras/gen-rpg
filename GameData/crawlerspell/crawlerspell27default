@@ -10,7 +10,7 @@
   "CombatActionId": 4,
   "TargetTypeId": 1,
   "RoleScalingTypeId": 3,
-  "Level": 7,
+  "Level": 1,
   "Effects": [
     {
       "EntityTypeId": 33,
@@ -20,5 +20,5 @@
       "ElementTypeId": 2
     }
   ],
-  "UpdateTime": "2025-01-19T19:01:07.736Z"
+  "UpdateTime": "2025-01-26T21:39:02.417Z"
 }

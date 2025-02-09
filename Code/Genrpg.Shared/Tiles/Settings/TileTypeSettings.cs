@@ -32,21 +32,12 @@ namespace Genrpg.Shared.Tiles.Settings
         [Key(4)] public string Desc { get; set; }
         [Key(5)] public string Icon { get; set; }
         [Key(6)] public string Art { get; set; }
-        [Key(7)] public int MaxQuantity { get; set; } = 0;
-        [Key(8)] public double SpawnPriority { get; set; } = 0;
-        [Key(9)] public int MinPosition { get; set; } = 0;
-        [Key(10)] public bool HasPrizes { get; set; } = false;
-        [Key(11)] public bool OnMainPath { get; set; } = false;
+        [Key(7)] public double SpawnChance { get; set; }
 
-        /// <summary>
-        /// If this is > 0, then this tile doesn't autotrigger on pass/land but instead charges up.
-        /// </summary>
-        [Key(12)] public double ActivationCostScale { get; set; } = 0.0;
-
-        [Key(13)] public List<SpawnItem> PassRewards { get; set; } = new List<SpawnItem>();
+        [Key(8)] public List<SpawnItem> PassRewards { get; set; } = new List<SpawnItem>();
 
         // If this has an ActivationCostScale > 0, do not give on all lands, instead wait for chargeup.
-        [Key(14)] public List<SpawnItem> LandRewards { get; set; } = new List<SpawnItem>();
+        [Key(9)] public List<SpawnItem> LandRewards { get; set; } = new List<SpawnItem>();
     }
 
     [MessagePackObject]

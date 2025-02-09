@@ -104,12 +104,12 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
                 CrawlerStateAction action = stateData.Actions[a];
 
-                if (action.Key == CharCodes.Escape && stateData.HasInput())
+                if (action.HideText || (action.Key == CharCodes.Escape && stateData.HasInput()))
                 {
                     continue;
                 }
 
-                if (action.ForceText || (!action.ForceButton && !action.RowFiller && (action.Key == CharCodes.Escape || action.Key == CharCodes.Space ||
+                if (!action.ForceButton || action.ForceText || (!action.ForceButton && !action.RowFiller && (action.Key == CharCodes.Escape || action.Key == CharCodes.Space ||
                     string.IsNullOrEmpty(action.Text) || action.Text.Length >= 20 ||
                     action.NextState == ECrawlerStates.None)))
                 {

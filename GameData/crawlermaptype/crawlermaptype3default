@@ -18,5 +18,6 @@
   "MaxCorridorDensity": 0.3,
   "MinBuildingDensity": 0.01,
   "MaxBuildingDensity": 0.02,
-  "UpdateTime": "2025-01-18T20:05:00.26Z"
+  "WeatherTypeId": 9,
+  "UpdateTime": "2025-02-09T16:27:09.206Z"
 }

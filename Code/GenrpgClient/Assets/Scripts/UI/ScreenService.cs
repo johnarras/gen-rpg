@@ -13,6 +13,7 @@ using Genrpg.Shared.Client.Tokens;
 using Genrpg.Shared.Client.Assets.Constants;
 using Assets.Scripts.Awaitables;
 using UnityEngine.UI;
+using System;
 
 public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, IInjectOnLoad<IScreenService>
 {
@@ -203,7 +204,14 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
             canvas2.enabled = false;
         }
 
-        await nextItem.Screen.StartOpen(nextItem.Data, nextItem.Screen.GetToken());
+        try
+        {
+            await nextItem.Screen.StartOpen(nextItem.Data, nextItem.Screen.GetToken());
+        }
+        catch (Exception ex)
+        {
+            _logService.Exception(ex, "ScreenStartOpen: " + nextItem.ScreenId);
+        }
         ClearAllScreensList();
 
         await Awaitable.NextFrameAsync(token);

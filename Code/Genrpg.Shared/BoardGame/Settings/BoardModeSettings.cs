@@ -27,8 +27,8 @@ namespace Genrpg.Shared.BoardGame.Settings
     {
         [Key(0)] public long PathIndex { get; set; }
 
-        [Key(1)] public double PassRewardPercent { get; set; }
-        [Key(2)] public double LandRewardPercent { get; set; }
+        [Key(1)] public double EventPercent { get; set; }
+        [Key(2)] public double BonusPercent { get; set; }
         [Key(3)] public bool SpawnOnce { get; set; }
 
         [Key(4)] public List<PrizeSpawn> PassPrizes { get; set; } = new List<PrizeSpawn>();

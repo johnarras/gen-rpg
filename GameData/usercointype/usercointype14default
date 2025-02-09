@@ -1,0 +1,10 @@
+{
+  "Id": "usercointype14default",
+  "ParentId": "default",
+  "IdKey": 14,
+  "Name": "Fruit",
+  "Icon": "FruitIcon",
+  "Art": "FruitArt",
+  "Weight": 20.0,
+  "UpdateTime": "2025-02-02T23:59:07.686Z"
+}

@@ -2,8 +2,8 @@
   "Id": "usercointype6default",
   "ParentId": "default",
   "IdKey": 6,
-  "Name": "Upgrade",
-  "PluralName": "Upgrades",
-  "Icon": "IconUpgrade",
-  "UpdateTime": "2024-08-10T14:23:54.115Z"
+  "Name": "Upgrades",
+  "Icon": "UpgradesIcon",
+  "Art": "UpgradesArt",
+  "UpdateTime": "2025-02-02T23:59:07.686Z"
 }

@@ -1,0 +1,10 @@
+{
+  "Id": "usercointype13default",
+  "ParentId": "default",
+  "IdKey": 13,
+  "Name": "Iron",
+  "Icon": "IronIcon",
+  "Art": "IronArt",
+  "Weight": 45.0,
+  "UpdateTime": "2025-02-02T23:59:07.686Z"
+}

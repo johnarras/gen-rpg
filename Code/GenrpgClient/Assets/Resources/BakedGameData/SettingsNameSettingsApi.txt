@@ -811,6 +811,13 @@
       "IdKey": 116,
       "Name": "StoreItemSettings",
       "UpdateTime": "2025-01-17T21:16:12.194Z"
+    },
+    {
+      "Id": "settingsname117default",
+      "ParentId": "default",
+      "IdKey": 117,
+      "Name": "CrawlerSettings",
+      "UpdateTime": "2025-01-26T00:07:47.409Z"
     }
   ],
   "ParentObj": {

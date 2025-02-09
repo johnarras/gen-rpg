@@ -96,7 +96,8 @@ namespace Assets.Scripts.Login.MessageHandlers
 
             if (GameModeUtils.IsPureClientMode(_gs.GameMode))
             {
-                _screenService.Open(_crawlerService.GetCrawlerScreenId());
+                _screenService.CloseAll();
+                _screenService.Open(ScreenId.CrawlerMainMenu);
             }
             else
             {

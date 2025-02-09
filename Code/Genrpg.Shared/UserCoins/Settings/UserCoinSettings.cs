@@ -34,6 +34,7 @@ namespace Genrpg.Shared.UserCoins.Settings
         [Key(5)] public string Desc { get; set; }
         [Key(6)] public string Icon { get; set; }
         [Key(7)] public string Art { get; set; }
+        [Key(8)] public double Weight { get; set; }
 
     }
     [MessagePackObject]

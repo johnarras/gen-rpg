@@ -1,5 +1,6 @@
 ﻿using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Roguelikes.Settings;
 using Genrpg.Shared.Entities.Constants;
@@ -38,7 +39,7 @@ namespace Genrpg.Shared.Crawler.Roguelikes.Services
         public double GetBonus(PartyData party, long roguelikeUgradeId, long tierOverride = 0)
         {
 
-            if (party.GameMode != EGameModes.Roguelike)
+            if (party.GameMode != ECrawlerGameModes.Roguelite)
             {
                 return 0;
             }
@@ -81,7 +82,7 @@ namespace Genrpg.Shared.Crawler.Roguelikes.Services
         public bool PayForUpgrade(PartyData party, long roguelikeUpgradeId)
         {
 
-            if (party.Members.Count > 0 || party.GameMode != EGameModes.Roguelike)
+            if (party.Members.Count > 0 || party.GameMode != ECrawlerGameModes.Roguelite)
             {
                 return false;
             }
@@ -114,7 +115,7 @@ namespace Genrpg.Shared.Crawler.Roguelikes.Services
         public long UpdateOnLevelup(PartyData partyData, long newLevel)
         {
 
-            if (partyData.GameMode  != EGameModes.Roguelike)
+            if (partyData.GameMode  != ECrawlerGameModes.Roguelite)
             {
                 return 0;
             }
@@ -124,7 +125,7 @@ namespace Genrpg.Shared.Crawler.Roguelikes.Services
                 return 0;
             }
 
-            partyData.MaxLevel = newLevel;
+            partyData.MaxLevel = (int)newLevel;
 
             long newPoints = GetLevelupPoints(newLevel);
             partyData.UpgradePoints += newPoints;
@@ -133,7 +134,7 @@ namespace Genrpg.Shared.Crawler.Roguelikes.Services
 
         public bool ResetPoints(PartyData party)
         {
-            if (party.Members.Count > 0 || party.GameMode != EGameModes.Roguelike)
+            if (party.Members.Count > 0 || party.GameMode != ECrawlerGameModes.Roguelite)
             {
                 return false;
             }

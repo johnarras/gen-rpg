@@ -58,10 +58,8 @@ namespace Assets.Scripts.Login.MessageHandlers
             await Awaitable.NextFrameAsync(cancellationToken: token);
             await Awaitable.NextFrameAsync(cancellationToken: token);
 
-            ScreenId screenId = _crawlerService.GetCrawlerScreenId();
-
+            ScreenId screenId = ScreenId.CrawlerMainMenu;
             _screenService.Open(screenId);
-
 
             while (_screenService.GetScreen(screenId) == null)
             {

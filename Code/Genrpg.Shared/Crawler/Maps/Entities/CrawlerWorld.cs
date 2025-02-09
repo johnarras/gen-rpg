@@ -18,8 +18,9 @@ namespace Genrpg.Shared.Crawler.Maps.Entities
 
         [Key(4)] public List<WorldQuestItem> QuestItems { get; set; } = new List<WorldQuestItem>();
 
-        [Key(5)] public long MaxMapId { get; set; } 
+        [Key(5)] public long MaxMapId { get; set; }
 
+        [Key(6)] public long Seed { get; set; }
 
         public CrawlerMap CreateMap(CrawlerMapGenData genData, int width, int height)
         {
@@ -34,6 +35,7 @@ namespace Genrpg.Shared.Crawler.Maps.Entities
                 Level = genData.Level,
                 IdKey = mapId,
                 MapFloor = genData.CurrFloor,
+                ArtSeed = genData.ArtSeed,
             };
 
             map.SetupDataBlocks();

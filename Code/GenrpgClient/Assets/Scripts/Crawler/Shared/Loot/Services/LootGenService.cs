@@ -32,6 +32,10 @@ using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.Roguelikes.Settings;
 using Genrpg.Shared.Crawler.Roguelikes.Services;
 using Genrpg.Shared.Crawler.Roguelikes.Constants;
+using Genrpg.Shared.Crawler.Constants;
+using Genrpg.Shared.Crawler.States.Services;
+using System.Runtime.InteropServices;
+using Genrpg.Shared.Logging.Interfaces;
 
 namespace Genrpg.Shared.Crawler.Loot.Services
 {
@@ -69,6 +73,8 @@ namespace Genrpg.Shared.Crawler.Loot.Services
         protected IClientRandom _rand;
         protected IItemGenService _itemGenService;
         private IRoguelikeUpgradeService _roguelikeUpgradeService;
+        private ICrawlerService _crawlerService;
+        private ILogService _logService;
 
         public Item GenerateItem(ItemGenData lootGenData)
         {
@@ -79,6 +85,9 @@ namespace Genrpg.Shared.Crawler.Loot.Services
         public Item GenerateEquipment(ItemGenData lootGenData)
         {
             long level = lootGenData.Level;
+
+
+            PartyData party = _crawlerService.GetParty();
 
             CrawlerLootSettings lootSettings = _gameData.Get<CrawlerLootSettings>(null);
 
@@ -118,7 +127,7 @@ namespace Genrpg.Shared.Crawler.Loot.Services
                 itemType = _gameData.Get<ItemTypeSettings>(_gs.ch).Get(lootGenData.ItemTypeId);
             }
 
-            bool allItemSlotsOk = _gs.GameMode == EGameModes.Roguelike;
+            bool allItemSlotsOk = party.GameMode == ECrawlerGameModes.Roguelite;
 
             if (itemType == null)
             {
@@ -344,7 +353,7 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 
             double lootScale = 1.0f;
 
-            if (_gs.GameMode == EGameModes.Roguelike)
+            if (party.GameMode == ECrawlerGameModes.Roguelite)
             {
                 lootScale = _gameData.Get<RoguelikeSettings>(_gs.ch).LootScale;
 
@@ -386,54 +395,61 @@ namespace Genrpg.Shared.Crawler.Loot.Services
                 }
             }
 
-            List<long> questItems = map.Details.Where(x => x.EntityTypeId == EntityTypes.QuestItem && x.EntityId > 0).Select(x => x.EntityId).ToList();
-
-            foreach (long questItemId in questItems)
+            try
             {
-                loot.NewQuestItems.Add(questItemId);
-                PartyQuestItem pqi = party.QuestItems.FirstOrDefault(x => x.CrawlerQuestItemId == questItemId);
-                if (pqi == null)
+                List<long> questItems = map?.Details?.Where(x => x.EntityTypeId == EntityTypes.QuestItem && x.EntityId > 0).Select(x => x.EntityId).ToList() ?? new List<long>();
+
+                foreach (long questItemId in questItems)
                 {
-                    pqi = new PartyQuestItem() { CrawlerQuestItemId = questItemId };
-                    party.QuestItems.Add(pqi);
+                    loot.NewQuestItems.Add(questItemId);
+                    PartyQuestItem pqi = party.QuestItems.FirstOrDefault(x => x.CrawlerQuestItemId == questItemId);
+                    if (pqi == null)
+                    {
+                        pqi = new PartyQuestItem() { CrawlerQuestItemId = questItemId };
+                        party.QuestItems.Add(pqi);
+                    }
+                    pqi.Quantity++;
                 }
-                pqi.Quantity++;
+
+                items = items.OrderByDescending(x => x.BuyCost).ToList();
+
+                while (items.Count > lootSettings.MaxLootItems)
+                {
+                    Item lastItem = items.Last();
+                    items.Remove(lastItem);
+
+                    genData.Gold += lastItem.BuyCost;
+                }
+
+                loot.Items = items;
+
+                party.Gold += genData.Gold;
+
+                loot.Gold = genData.Gold;
+
+                List<PartyMember> activeMembers = party.GetActiveParty()
+                    .Where(x => !x.StatusEffects.HasBit(StatusEffects.Dead)).ToList();
+
+                int aliveCount = activeMembers.Count;
+
+                if (aliveCount < 1)
+                {
+                    return new PartyLoot();
+                }
+                loot.Exp = genData.Exp / aliveCount;
+
+                foreach (PartyMember member in activeMembers)
+                {
+                    member.Exp += loot.Exp;
+                }
+
+                party.Inventory.AddRange(loot.Items);
+
             }
-
-            items = items.OrderByDescending(x => x.BuyCost).ToList();
-
-            while (items.Count > lootSettings.MaxLootItems)
+            catch (Exception ee)
             {
-                Item lastItem = items.Last();
-                items.Remove(lastItem);
-
-                genData.Gold += lastItem.BuyCost;
+                _logService.Exception(ee, "GiveLoot");
             }
-
-            loot.Items = items;
-
-            party.Gold += genData.Gold;
-
-            loot.Gold = genData.Gold;
-
-            List<PartyMember> activeMembers = party.GetActiveParty()
-                .Where(x => !x.StatusEffects.HasBit(StatusEffects.Dead)).ToList();
-
-            int aliveCount = activeMembers.Count;
-
-            if (aliveCount < 1)
-            {
-                return new PartyLoot();
-            }
-            loot.Exp = genData.Exp / aliveCount;
-
-            foreach (PartyMember member in activeMembers)
-            {
-                member.Exp += loot.Exp;
-            }
-
-            party.Inventory.AddRange(loot.Items);
-
             return loot;
         }
 

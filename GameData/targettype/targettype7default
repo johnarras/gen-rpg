@@ -3,5 +3,7 @@
   "ParentId": "default",
   "IdKey": 7,
   "Name": "Item",
-  "UpdateTime": "2024-08-01T00:28:13.732Z"
+  "Desc": "Some Item",
+  "StatBonusScale": 1.0,
+  "UpdateTime": "2025-01-26T20:54:13.482Z"
 }

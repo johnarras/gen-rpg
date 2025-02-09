@@ -51,6 +51,7 @@ SpriteAtlas:
     - 3207d5322d4f7a748a52a638d15ce791: 21300000
     - 32a13f3242bfac64eae5a3a5f11346ae: 21300000
     - d946bcc285593264281d551f3a9e33b9: 21300000
+    - 062844d2aa7d46241956a6c42c3d5144: 21300000
     - a5f722f28491778459ef23b9b1fa51af: 21300000
     - 0f058123d9deb974186cdc29a9eef02f: 21300000
     - 4fcea52318122e4419f6b509ca5d0f00: 21300000
@@ -126,6 +127,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 3207d5322d4f7a748a52a638d15ce791, type: 3}
   - {fileID: 21300000, guid: 32a13f3242bfac64eae5a3a5f11346ae, type: 3}
   - {fileID: 21300000, guid: d946bcc285593264281d551f3a9e33b9, type: 3}
+  - {fileID: 21300000, guid: 062844d2aa7d46241956a6c42c3d5144, type: 3}
   - {fileID: 21300000, guid: a5f722f28491778459ef23b9b1fa51af, type: 3}
   - {fileID: 21300000, guid: 0f058123d9deb974186cdc29a9eef02f, type: 3}
   - {fileID: 21300000, guid: 4fcea52318122e4419f6b509ca5d0f00, type: 3}
@@ -200,6 +202,7 @@ SpriteAtlas:
   - DDWWWall
   - TowerTerrain
   - GuildBuilding
+  - NaturalBuilding
   - DDOOWall
   - CityTerrain
   - PointOfInterestObject

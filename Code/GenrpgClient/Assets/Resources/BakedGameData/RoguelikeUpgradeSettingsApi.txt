@@ -87,7 +87,7 @@
       "MaxTier": 5,
       "BonusPerTier": 0.5,
       "BasePointCost": 2,
-      "UpdateTime": "2024-11-27T22:29:50.685Z"
+      "UpdateTime": "2025-01-26T01:32:06.959Z"
     },
     {
       "Id": "roguelikeupgrade8default",
@@ -102,6 +102,20 @@
       "BonusPerTier": 0.05,
       "BasePointCost": 2,
       "UpdateTime": "2024-11-27T22:29:50.685Z"
+    },
+    {
+      "Id": "roguelikeupgrade9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "PartySize",
+      "NameId": "",
+      "Desc": "Increases the size of your party.",
+      "Icon": "",
+      "Art": "",
+      "MaxTier": 2,
+      "BonusPerTier": 1.0,
+      "BasePointCost": 10,
+      "UpdateTime": "2025-01-26T01:32:06.959Z"
     }
   ],
   "ParentObj": {
@@ -109,7 +123,7 @@
     "BasePointsPerLevel": 3,
     "ExtraPointsPerLevel": 0.2,
     "Name": "RoguelikeUpgradeSettings",
-    "UpdateTime": "2024-11-29T02:33:50.038Z"
+    "UpdateTime": "2025-01-26T01:32:06.959Z"
   },
   "Id": "default"
 }

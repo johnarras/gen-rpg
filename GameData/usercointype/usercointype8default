@@ -1,0 +1,10 @@
+{
+  "Id": "usercointype8default",
+  "ParentId": "default",
+  "IdKey": 8,
+  "Name": "Wood",
+  "Icon": "WoodIcon",
+  "Art": "WoodArt",
+  "Weight": 20.0,
+  "UpdateTime": "2025-02-02T23:59:07.686Z"
+}

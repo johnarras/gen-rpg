@@ -1,0 +1,10 @@
+{
+  "Id": "usercointype11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "Grass",
+  "Icon": "GrassIcon",
+  "Art": "GrassArt",
+  "Weight": 5.0,
+  "UpdateTime": "2025-02-02T23:59:07.686Z"
+}

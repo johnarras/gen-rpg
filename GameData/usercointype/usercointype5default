@@ -3,7 +3,7 @@
   "ParentId": "default",
   "IdKey": 5,
   "Name": "Cosmetics",
-  "PluralName": "Cosmetics",
-  "Icon": "IconCosmetics",
-  "UpdateTime": "2024-08-10T14:23:54.115Z"
+  "Icon": "CosmeticsIcon",
+  "Art": "CosmeticsArt",
+  "UpdateTime": "2025-02-02T23:59:07.686Z"
 }

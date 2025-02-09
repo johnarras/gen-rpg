@@ -29,6 +29,8 @@ namespace Genrpg.Shared.Spells.Settings.Targets
         [Key(4)] public string Desc { get; set; }
         [Key(5)] public string Icon { get; set; }
         [Key(6)] public string Art { get; set; }
+
+        [Key(7)] public double StatBonusScale { get; set; }
     }
     [MessagePackObject]
     public class TargetTypeSettings : ParentSettings<TargetType>

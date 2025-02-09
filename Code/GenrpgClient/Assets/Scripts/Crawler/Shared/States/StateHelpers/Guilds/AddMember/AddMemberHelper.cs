@@ -1,4 +1,5 @@
 ﻿using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.Party.Services;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Entities;
 using Genrpg.Shared.Utils;
@@ -10,6 +11,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds.AddMember
 {
     public class AddMemberHelper : BaseStateHelper
     {
+        private IPartyService _partyService;
         public override ECrawlerStates GetKey() { return ECrawlerStates.AddMember; }
 
         public override async Task<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
@@ -26,7 +28,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds.AddMember
                 {
                     continue;
                 }
-                stateData.Actions.Add(new CrawlerStateAction(member.Name, CharCodes.None, ECrawlerStates.AddMember,
+                    stateData.Actions.Add(new CrawlerStateAction(member.Name, CharCodes.None, ECrawlerStates.AddMember,
                     delegate
                     {
                         if (member.PartySlot > 0)
@@ -36,7 +38,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds.AddMember
 
                         partyData = _crawlerService.GetParty();
 
-                        partyData.AddPartyMember(member);
+                        _partyService.AddPartyMember(partyData, member);
                         _statService.CalcPartyStats(partyData, true);
                         _crawlerService.SaveGame();
 

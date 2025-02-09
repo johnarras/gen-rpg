@@ -5,8 +5,6 @@ using Genrpg.Shared.Crawler.Maps.Constants;
 using Genrpg.Shared.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Tilemaps;
 using Assets.Scripts.Crawler.UI.WorldUI;
-using Assets.Scripts.ProcGen.Services;
-using Assets.Scripts.UI.Crawler.WorldUI;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.UI.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
@@ -19,10 +17,6 @@ using Genrpg.Shared.Client.Assets.Constants;
 using Genrpg.Shared.MVC.Interfaces;
 using System.Threading.Tasks;
 using Genrpg.Shared.UI.Interfaces;
-using UnityEngine;
-using UnityEngine.UI;
-using Assets.Scripts.TextureLists.Services;
-using Genrpg.Shared.Crawler.TextureLists.Services;
 using Assets.Scripts.Assets.Textures;
 using Genrpg.Shared.Crawler.Constants;
 using Assets.Scripts.Crawler.Combat;
@@ -41,7 +35,6 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         const string PanelTextPrefab = "WorldPanelText";
         const string DefaultWorldBG = "DefaultWorldBG";
         private ICrawlerMapService _crawlerMapService;
-        private ICurveGenService _curveGenService;
         private ICrawlerWorldService _worldService;
 
 

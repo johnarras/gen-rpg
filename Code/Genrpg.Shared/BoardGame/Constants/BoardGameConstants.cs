@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,5 +15,8 @@ namespace Genrpg.Shared.BoardGame.Constants
 
 
         public const string NewBoardModeTempFilename = "NewBoard";
+
+        public const int MapWidth = 20;
+        public const int MapHeight = 20;
     }
 }

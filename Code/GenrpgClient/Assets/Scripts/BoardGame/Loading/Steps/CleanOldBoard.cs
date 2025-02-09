@@ -22,7 +22,7 @@ namespace Assets.Scripts.BoardGame.Loading
             _mapGenData.HaveSetHeights = false;
             _terrainManager.ClearPatches();
             _cameraController.SetupForBoardGame();
-            _clientEntityService.DestroyAllChildren(_controller.GetBoardAnchor());
+            _clientEntityService.DestroyAllChildren(_boardGameController.GetBoardAnchor());
             await Task.CompletedTask;
         }
     }

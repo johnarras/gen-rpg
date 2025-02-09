@@ -26,8 +26,6 @@ namespace Assets.Scripts.BoardGame.Loading.Steps
 
         protected IMapProvider _mapProvier;
         protected IBoardGameController _boardController;
-        protected IClientGameState _gs;
-        protected IGameData _gameData;
         protected IMapTerrainManager _mapTerrainManager;
 
         public override ELoadBoardSteps GetKey() { return ELoadBoardSteps.AddTrees; }
@@ -90,7 +88,7 @@ namespace Assets.Scripts.BoardGame.Loading.Steps
                 int cz = (int)pos.z;
 
                 int radius = 3;
-                if (tile.MarkerPos.Index <= maxMainPathIndex)
+                if (tile.GeTTileIndex() <= maxMainPathIndex)
                 {
                     minx = Math.Min(cx, minx);
                     maxx = Math.Max(cx, maxx);
