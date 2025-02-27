@@ -1,0 +1,12 @@
+{
+  "Id": "buildingtype25default",
+  "ParentId": "default",
+  "IdKey": 25,
+  "Name": "Arcane",
+  "Desc": "",
+  "Icon": "Arcane",
+  "Art": "Arcane",
+  "Radius": 5,
+  "VariationCount": 1,
+  "UpdateTime": "2025-02-19T19:49:32.624Z"
+}

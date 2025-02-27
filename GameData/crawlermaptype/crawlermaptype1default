@@ -6,31 +6,108 @@
   "Desc": "",
   "Icon": "",
   "Art": "",
-  "MinWidth": 15,
-  "MaxWidth": 20,
-  "MinHeight": 10,
-  "MaxHeight": 20,
-  "MinFloors": 1,
-  "MaxFloors": 3,
-  "QuestItemEntranceUnlockChance": 0.2,
-  "RiddleUnlockChance": 0.4,
-  "SpecialTileChance": 0.05,
-  "DungeonGenChance": 1.0,
-  "BuildingTypeId": 19,
-  "ZoneTypeId": 15,
-  "DungeonArtId": 1,
-  "RandomWallsChance": 0.5,
-  "LoopingChance": 0.5,
-  "MinWallChance": 0.4,
-  "MaxWallChance": 0.8,
-  "MinDoorChance": 0.20000000298023224,
-  "MaxDoorChance": 0.6,
-  "TrapTileChance": 0.019999999552965164,
-  "EffectTileChance": 0.019999999552965164,
-  "MinCorridorDensity": 1.1,
-  "MaxCorridorDensity": 2.0,
-  "MinBuildingDensity": 0.3,
-  "MaxBuildingDensity": 0.6,
-  "WeatherTypeId": 11,
-  "UpdateTime": "2025-02-09T16:27:09.206Z"
+  "GenTypes": [
+    {
+      "Name": "Dungeon",
+      "MinWidth": 15,
+      "MaxWidth": 20,
+      "MinHeight": 15,
+      "MaxHeight": 20,
+      "MinFloors": 1,
+      "MaxFloors": 3,
+      "SpecialTileChance": 0.05,
+      "Weight": 1.0,
+      "RandomWallsChance": 0.5,
+      "LoopingChance": 0.5,
+      "MinWallChance": 0.4,
+      "MaxWallChance": 0.6,
+      "MinDoorChance": 0.2,
+      "MaxDoorChance": 0.4,
+      "TrapTileChance": 0.02,
+      "EffectTileChance": 0.02,
+      "MinCorridorDensity": 1.1,
+      "MaxCorridorDensity": 2.0,
+      "MinBuildingDensity": 0.3,
+      "MaxBuildingDensity": 0.6,
+      "IsIndoors": true,
+      "WeightedZones": [
+        {
+          "Name": "None",
+          "Weight": 1.0,
+          "ZoneTypeId": 16
+        },
+        {
+          "Weight": 1.0,
+          "ZoneTypeId": 15
+        },
+        {
+          "Weight": 1.0,
+          "ZoneTypeId": 20
+        }
+      ]
+    },
+    {
+      "Name": "Tower",
+      "MinWidth": 6,
+      "MaxWidth": 10,
+      "MinHeight": 6,
+      "MaxHeight": 10,
+      "MinFloors": 1,
+      "MaxFloors": 3,
+      "SpecialTileChance": 0.05,
+      "Weight": 1.0,
+      "RandomWallsChance": 1.0,
+      "MinWallChance": 0.4,
+      "MaxWallChance": 0.7,
+      "MinDoorChance": 0.2,
+      "MaxDoorChance": 0.4,
+      "TrapTileChance": 0.02,
+      "EffectTileChance": 0.02,
+      "MinCorridorDensity": 1.2,
+      "MaxCorridorDensity": 2.0,
+      "MinBuildingDensity": 0.1,
+      "MaxBuildingDensity": 0.3,
+      "IsIndoors": true,
+      "WeightedZones": [
+        {
+          "Name": "None",
+          "Weight": 1.0,
+          "ZoneTypeId": 17
+        }
+      ]
+    },
+    {
+      "Name": "Outdoors",
+      "MinWidth": 25,
+      "MaxWidth": 35,
+      "MinHeight": 25,
+      "MaxHeight": 35,
+      "MinFloors": 1,
+      "MaxFloors": 1,
+      "SpecialTileChance": 0.05,
+      "Weight": 1.0,
+      "MinWallChance": 0.4,
+      "MaxWallChance": 0.6,
+      "TrapTileChance": 0.04,
+      "EffectTileChance": 0.02,
+      "MinCorridorDensity": 2.0,
+      "MaxCorridorDensity": 4.0,
+      "WeightedZones": [
+        {
+          "Name": "None",
+          "Weight": 1.0,
+          "ZoneTypeId": 18
+        },
+        {
+          "Weight": 1.0,
+          "ZoneTypeId": 19
+        },
+        {
+          "Weight": 1.0,
+          "ZoneTypeId": 21
+        }
+      ]
+    }
+  ],
+  "UpdateTime": "2025-02-23T21:16:55.239Z"
 }

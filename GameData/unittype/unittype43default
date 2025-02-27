@@ -2,20 +2,14 @@
   "Id": "unittype43default",
   "ParentId": "default",
   "IdKey": 43,
-  "Name": "Wolf",
-  "PluralName": "Wolves",
-  "Icon": "Wolf",
-  "Art": "Wolf",
+  "Name": "Coyote",
+  "PluralName": "Coyotes",
+  "Icon": "Coyote",
+  "Art": "Coyote",
   "TribeTypeId": 2,
-  "MinLevel": 15,
+  "MinLevel": 5,
   "SpawnQuantityScale": 1.0,
-  "Effects": [
-    {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    }
-  ],
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -23,5 +17,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

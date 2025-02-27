@@ -125,8 +125,24 @@
           "EntityId": 59
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 3
+          "EntityTypeId": 100,
+          "EntityId": 64
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 65
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 66
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 67
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 68
         },
         {
           "EntityTypeId": 100,
@@ -170,10 +186,10 @@
         {
           "EntityTypeId": 41,
           "EntityId": 6,
-          "Amount": 1.0
+          "Amount": 0.15
         }
       ],
-      "UpdateTime": "2025-01-19T18:38:17.905Z"
+      "UpdateTime": "2025-02-25T14:19:41.267Z"
     },
     {
       "Id": "role2default",
@@ -277,8 +293,28 @@
           "EntityId": 61
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 1
+          "EntityTypeId": 100,
+          "EntityId": 64
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 65
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 66
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 67
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 68
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 69
         },
         {
           "EntityTypeId": 100,
@@ -322,10 +358,10 @@
         {
           "EntityTypeId": 41,
           "EntityId": 6,
-          "Amount": 1.0
+          "Amount": 0.15
         }
       ],
-      "UpdateTime": "2025-01-19T18:38:17.905Z"
+      "UpdateTime": "2025-02-25T14:19:41.267Z"
     },
     {
       "Id": "role3default",
@@ -441,16 +477,28 @@
           "EntityId": 60
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 1
+          "EntityTypeId": 100,
+          "EntityId": 64
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 4
+          "EntityTypeId": 100,
+          "EntityId": 65
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 5
+          "EntityTypeId": 100,
+          "EntityId": 66
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 67
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 68
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 69
         },
         {
           "EntityTypeId": 100,
@@ -490,10 +538,10 @@
         {
           "EntityTypeId": 41,
           "EntityId": 6,
-          "Amount": 1.0
+          "Amount": 0.25
         }
       ],
-      "UpdateTime": "2025-01-19T18:38:17.905Z"
+      "UpdateTime": "2025-02-25T14:19:41.267Z"
     },
     {
       "Id": "role4default",
@@ -599,6 +647,26 @@
         },
         {
           "EntityTypeId": 100,
+          "EntityId": 64
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 65
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 66
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 67
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 68
+        },
+        {
+          "EntityTypeId": 100,
           "EntityId": 10031
         },
         {
@@ -647,10 +715,10 @@
         {
           "EntityTypeId": 41,
           "EntityId": 6,
-          "Amount": 1.0
+          "Amount": 0.1
         }
       ],
-      "UpdateTime": "2025-01-19T18:38:17.905Z"
+      "UpdateTime": "2025-02-25T14:19:41.267Z"
     },
     {
       "Id": "role5default",
@@ -748,8 +816,24 @@
           "EntityId": 63
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 2
+          "EntityTypeId": 100,
+          "EntityId": 64
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 65
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 66
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 67
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 68
         },
         {
           "EntityTypeId": 100,
@@ -793,10 +877,10 @@
         {
           "EntityTypeId": 41,
           "EntityId": 6,
-          "Amount": 1.0
+          "Amount": 0.2
         }
       ],
-      "UpdateTime": "2025-01-19T18:38:17.905Z"
+      "UpdateTime": "2025-02-25T14:19:41.267Z"
     },
     {
       "Id": "role6default",
@@ -892,16 +976,24 @@
           "EntityId": 60
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 1
+          "EntityTypeId": 100,
+          "EntityId": 64
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 3
+          "EntityTypeId": 100,
+          "EntityId": 65
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 5
+          "EntityTypeId": 100,
+          "EntityId": 66
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 67
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 68
         },
         {
           "EntityTypeId": 100,
@@ -941,10 +1033,10 @@
         {
           "EntityTypeId": 41,
           "EntityId": 6,
-          "Amount": 1.0
+          "Amount": 0.1
         }
       ],
-      "UpdateTime": "2025-01-19T18:38:17.905Z"
+      "UpdateTime": "2025-02-25T14:19:41.267Z"
     },
     {
       "Id": "role7default",
@@ -1052,12 +1144,24 @@
           "EntityId": 63
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 4
+          "EntityTypeId": 100,
+          "EntityId": 64
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 5
+          "EntityTypeId": 100,
+          "EntityId": 65
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 66
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 67
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 68
         },
         {
           "EntityTypeId": 100,
@@ -1101,10 +1205,10 @@
         {
           "EntityTypeId": 41,
           "EntityId": 6,
-          "Amount": 1.0
+          "Amount": 0.2
         }
       ],
-      "UpdateTime": "2025-01-19T18:38:17.905Z"
+      "UpdateTime": "2025-02-25T14:19:41.267Z"
     },
     {
       "Id": "role8default",
@@ -1245,16 +1349,28 @@
           "EntityId": 60
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 3
+          "EntityTypeId": 100,
+          "EntityId": 64
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 4
+          "EntityTypeId": 100,
+          "EntityId": 65
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 5
+          "EntityTypeId": 100,
+          "EntityId": 66
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 67
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 68
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 69
         },
         {
           "EntityTypeId": 100,
@@ -1298,10 +1414,10 @@
         {
           "EntityTypeId": 41,
           "EntityId": 6,
-          "Amount": 1.0
+          "Amount": 0.1
         }
       ],
-      "UpdateTime": "2025-01-19T18:38:17.905Z"
+      "UpdateTime": "2025-02-25T14:19:41.267Z"
     },
     {
       "Id": "role9default",
@@ -1406,8 +1522,24 @@
           "EntityId": 62
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 2
+          "EntityTypeId": 100,
+          "EntityId": 64
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 65
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 66
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 67
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 68
         },
         {
           "EntityTypeId": 100,
@@ -1451,10 +1583,10 @@
         {
           "EntityTypeId": 41,
           "EntityId": 6,
-          "Amount": 1.0
+          "Amount": 0.1
         }
       ],
-      "UpdateTime": "2025-01-19T18:38:17.905Z"
+      "UpdateTime": "2025-02-25T14:19:41.267Z"
     },
     {
       "Id": "role10default",
@@ -1563,8 +1695,24 @@
           "EntityId": 61
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 1
+          "EntityTypeId": 100,
+          "EntityId": 64
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 65
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 66
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 67
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 68
         },
         {
           "EntityTypeId": 100,
@@ -1612,10 +1760,10 @@
         {
           "EntityTypeId": 41,
           "EntityId": 6,
-          "Amount": 1.0
+          "Amount": 0.1
         }
       ],
-      "UpdateTime": "2025-01-19T18:38:17.905Z"
+      "UpdateTime": "2025-02-25T14:19:41.267Z"
     },
     {
       "Id": "role11default",
@@ -1743,16 +1891,28 @@
           "EntityId": 60
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 1
+          "EntityTypeId": 100,
+          "EntityId": 64
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 2
+          "EntityTypeId": 100,
+          "EntityId": 65
         },
         {
-          "EntityTypeId": 101,
-          "EntityId": 4
+          "EntityTypeId": 100,
+          "EntityId": 66
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 67
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 68
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 69
         },
         {
           "EntityTypeId": 100,
@@ -1796,10 +1956,10 @@
         {
           "EntityTypeId": 41,
           "EntityId": 6,
-          "Amount": 1.0
+          "Amount": 0.15
         }
       ],
-      "UpdateTime": "2025-01-19T18:38:17.905Z"
+      "UpdateTime": "2025-02-25T14:19:41.267Z"
     },
     {
       "Id": "role12default",
@@ -1812,7 +1972,7 @@
       "StartStatBonuses": "1 1 1 1 1 1",
       "BinaryBonuses": [],
       "AmountBonuses": [],
-      "UpdateTime": "2025-01-19T18:38:17.905Z"
+      "UpdateTime": "2025-02-25T14:19:41.267Z"
     },
     {
       "Id": "role13default",
@@ -1831,7 +1991,7 @@
           "Amount": 0.1
         }
       ],
-      "UpdateTime": "2025-01-19T18:38:17.905Z"
+      "UpdateTime": "2025-02-25T14:19:41.267Z"
     },
     {
       "Id": "role14default",
@@ -1845,7 +2005,7 @@
       "StartStatBonuses": "2 0 2 0 2 0",
       "BinaryBonuses": [],
       "AmountBonuses": [],
-      "UpdateTime": "2025-01-19T18:38:17.905Z"
+      "UpdateTime": "2025-02-25T14:19:41.267Z"
     },
     {
       "Id": "role15default",
@@ -1864,7 +2024,7 @@
           "Amount": 0.1
         }
       ],
-      "UpdateTime": "2025-01-19T18:38:17.905Z"
+      "UpdateTime": "2025-02-25T14:19:41.267Z"
     },
     {
       "Id": "role16default",
@@ -1883,7 +2043,7 @@
           "Amount": 0.1
         }
       ],
-      "UpdateTime": "2025-01-19T18:38:17.905Z"
+      "UpdateTime": "2025-02-25T14:19:41.267Z"
     },
     {
       "Id": "role17default",
@@ -1897,7 +2057,7 @@
       "StartStatBonuses": "0 0 0 3 0 3",
       "BinaryBonuses": [],
       "AmountBonuses": [],
-      "UpdateTime": "2025-01-19T18:38:17.905Z"
+      "UpdateTime": "2025-02-25T14:19:41.267Z"
     }
   ],
   "ParentObj": {

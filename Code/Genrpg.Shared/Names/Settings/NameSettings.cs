@@ -8,13 +8,14 @@ using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.Shared.Names.Settings
 {
     [MessagePackObject]
-    public class WeightedName
+    public class WeightedName : IWeightedItem
     {
-        [Key(0)] public float Weight { get; set; }
+        [Key(0)] public double Weight { get; set; }
         [Key(1)] public bool Ignore { get; set; }
         [Key(2)] public string Name { get; set; }
         [Key(3)] public string Desc { get; set; }
@@ -62,12 +63,8 @@ namespace Genrpg.Shared.Names.Settings
         [Key(1)] public override string ParentId { get; set; }
         [Key(2)] public override string Name { get; set; }
         [Key(3)] public string ListName { get; set; }
-        [Key(4)] public List<WeightedName> Names { get; set; }
+        [Key(4)] public List<WeightedName> Names { get; set; } = new List<WeightedName>();
 
-        public NameList()
-        {
-            Names = new List<WeightedName>();
-        }
     }
 
     [MessagePackObject]

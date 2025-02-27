@@ -2,35 +2,33 @@
   "Id": "unittype35default",
   "ParentId": "default",
   "IdKey": 35,
-  "Name": "Conjurer",
-  "PluralName": "Conjurers",
-  "Icon": "Conjurer",
-  "Art": "Conjurer",
+  "Name": "Sorcerer",
+  "PluralName": "Sorcerers",
+  "Icon": "Sorcerer",
+  "Art": "Sorcerer",
   "TribeTypeId": 12,
-  "MinLevel": 10,
+  "MinLevel": 15,
   "SpawnQuantityScale": 1.0,
   "Effects": [
     {
-      "EntityTypeId": 31,
+      "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 35
+      "EntityId": 27
     },
     {
       "EntityTypeId": 100,
+      "Quantity": 1,
+      "EntityId": 29
+    },
+    {
+      "EntityTypeId": 100,
+      "Quantity": 1,
       "EntityId": 31
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 32
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 51
-    },
-    {
-      "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 20069
+      "EntityId": 20070
     }
   ],
   "PrefixNames": [],
@@ -40,5 +38,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

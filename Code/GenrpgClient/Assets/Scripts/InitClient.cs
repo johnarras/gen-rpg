@@ -91,13 +91,11 @@ public class InitClient : BaseBehaviour, IInitClient
         _gameTokenSource = new CancellationTokenSource();
         _globalUpdater = null;
 
-        List<IGameCleanup> cleanups = new List<IGameCleanup>();
-
         foreach (IInjectable inj in _gs.loc.GetVals())
         {
-            if (inj is IGameCleanup cleanup)
+            if (inj is IClientResetCleanup cleanup)
             {
-                await cleanup.OnCleanup(_gameTokenSource.Token);
+                await cleanup.OnClientResetCleanup(_gameTokenSource.Token);
             }
         }
         _clientEntityService.DestroyAllChildren(_globalRoot);

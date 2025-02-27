@@ -54,7 +54,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 
             PartyData party = _crawlerService.GetParty();
 
-            party.EndCombat();
+            _combatService.EndCombat(party);
 
             if (mapData == null)
             {

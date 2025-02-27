@@ -17,6 +17,7 @@
       "RegenHours": 2.0
     }
   ],
+  "LevitateSpeedup": 1.5,
   "Name": "TimeOfDaySettings",
-  "UpdateTime": "2024-09-14T21:54:26.403Z"
+  "UpdateTime": "2025-02-25T14:30:57.257Z"
 }

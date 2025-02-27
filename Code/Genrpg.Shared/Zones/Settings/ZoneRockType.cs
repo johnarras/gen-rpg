@@ -1,5 +1,6 @@
 using MessagePack;
 using Genrpg.Shared.Utils.Data;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.Shared.Zones.Settings
 {
@@ -7,10 +8,10 @@ namespace Genrpg.Shared.Zones.Settings
     /// Used to override data about plant types in the zone type and zone
     /// </summary>
     [MessagePackObject]
-    public class ZoneRockType
+    public class ZoneRockType : IWeightedItem
     {
         [Key(0)] public long RockTypeId { get; set; }
-        [Key(1)] public float ChanceScale { get; set; }
+        [Key(1)] public double Weight { get; set; } = 1.0f;
         [Key(2)] public string Name { get; set; }
 
 
@@ -18,9 +19,6 @@ namespace Genrpg.Shared.Zones.Settings
 
         public ZoneRockType()
         {
-            ChanceScale = 1.0f;
-
-
             BaseColor = new MyColorF();
         }
     }

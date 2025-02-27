@@ -2,25 +2,14 @@
   "Id": "unittype81default",
   "ParentId": "default",
   "IdKey": 81,
-  "Name": "Orc Chieftain",
-  "PluralName": "Orc Chieftains",
-  "Icon": "OrcChieftain",
-  "Art": "OrcChieftain",
+  "Name": "Orc Shaman",
+  "PluralName": "Orc Shamans",
+  "Icon": "OrcShaman",
+  "Art": "OrcShaman",
   "TribeTypeId": 10,
   "MinLevel": 1,
   "SpawnQuantityScale": 1.0,
-  "Effects": [
-    {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
-      "EntityTypeId": 100,
-      "Quantity": 1,
-      "EntityId": 50001
-    }
-  ],
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -28,5 +17,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

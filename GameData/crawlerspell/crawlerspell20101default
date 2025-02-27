@@ -2,7 +2,7 @@
   "Id": "crawlerspell20101default",
   "ParentId": "default",
   "IdKey": 20101,
-  "Name": "Summon Vampire Lord",
+  "Name": "Monster Call Mummy",
   "PowerCost": 100.0,
   "PowerPerLevel": 1.0,
   "MaxRange": 100,
@@ -19,5 +19,5 @@
       "ElementTypeId": 6
     }
   ],
-  "UpdateTime": "2025-01-26T21:39:02.417Z"
+  "UpdateTime": "2025-02-25T19:39:14.046Z"
 }

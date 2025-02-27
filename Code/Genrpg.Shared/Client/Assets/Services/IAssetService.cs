@@ -22,7 +22,7 @@ namespace Genrpg.Shared.Client.Assets.Services
         public long ObjectsUnloaded = 0;
 
     }
-    public interface IAssetService : IInitializable, IGameCleanup
+    public interface IAssetService : IInitializable, IClientResetCleanup
     {
         bool IsInitialized();
         void LoadAssetInto(object parent, string assetCategory, string assetPath, OnDownloadHandler handler, object data, CancellationToken token, string subdirectory = null);

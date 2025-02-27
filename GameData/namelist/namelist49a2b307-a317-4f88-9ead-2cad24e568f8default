@@ -1,0 +1,504 @@
+{
+  "Id": "namelist49a2b307-a317-4f88-9ead-2cad24e568f8default",
+  "ParentId": "default",
+  "Name": "NameList",
+  "ListName": "UnitAdjectives",
+  "Names": [
+    {
+      "Weight": 1.0,
+      "Name": "Blazing",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Frozen",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Thunderous",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Venomous",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Corrosive",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Shrouded",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Volcanic",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Abyssal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Tainted",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Tempestuous",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Malevolent",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Sinister",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Cursed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Dreaded",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Wretched",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Forsaken",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Unholy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Malefic",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Nightmarish",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Shadowbound",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Brutal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Hulking",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Savage",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Feral",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Bloodthirsty",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Monstrous",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Colossal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Titanic",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Barbed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Razorclawed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Eldritch",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Spectral",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Voidborn",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Netherbound",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Arcane",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Haunting",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Phantasmal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Chimeric",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Possessed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Runebound",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Ravenous",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Writhing",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Doomed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Infernal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Deathly",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Lurking",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Stalking",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Howling",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Baneful",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Rotting",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Blighted",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Charnel",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Sundered",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Warped",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Twisted",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Malformed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Grotesque",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Pestilent",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Decayed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Morbid",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Ghastly",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Grisly",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Hideous",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Unseen",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Malevolent",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Putrid",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Withering",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Smoldering",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Seething",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Baleful",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Vicious",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Murderous",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Bloodied",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Frenzied",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Berserk",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Relentless",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Unyielding",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Unstoppable",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Unbreakable",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Cacophonous",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Thundering",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Roaring",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Trembling",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Raging",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Unnatural",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Corrupt",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Profane",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Desecrated",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Hexed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Warped",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Mutated",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Aberrant",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Disfigured",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Relentless",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Titanic",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Immense",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Looming",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Unfathomable",
+      "Desc": ""
+    },
+    {
+      "Weight": 1.0,
+      "Name": "Insatiable",
+      "Desc": ""
+    }
+  ],
+  "UpdateTime": "2025-02-22T18:54:56.433Z"
+}

@@ -76,14 +76,15 @@ namespace Genrpg.Shared.Crawler.Tavern.Services
             }
 
 
-            if (_rand.NextDouble() < 050f)
+            if (_rand.NextDouble() < 0.50f)
             {
                 CrawlerMap map = world.GetMap(questItem.FoundInMapId);
                 if (map == null)
                 {
                     return questItem.Name + "\nis out there someplace...";
                 }
-                return questItem.Name + "\ncan be found in\n" + map.Name;
+         
+                return questItem.Name + "\ncan be found in\n" + map.Name + (!string.IsNullOrEmpty(questItem.GuardName) ? "\nguarded by\n" + questItem.GuardName : "");
             }
             else 
             {

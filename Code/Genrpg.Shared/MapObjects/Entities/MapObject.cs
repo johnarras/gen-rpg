@@ -18,6 +18,7 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Units.Entities;
+using Newtonsoft.Json;
 
 namespace Genrpg.Shared.MapObjects.Entities
 {
@@ -55,9 +56,9 @@ namespace Genrpg.Shared.MapObjects.Entities
 
         public float FinalZ { get; set; } = -1;
 
-        public WaypointList Waypoints { get; private set; } = new WaypointList();
+        [JsonIgnore] public WaypointList Waypoints { get; private set; } = new WaypointList();
 
-        public List<IDisplayEffect> Effects { get; set; } = new List<IDisplayEffect>();
+        [JsonIgnore] public List<IDisplayEffect> Effects { get; set; } = new List<IDisplayEffect>();
 
         public SmallIndexBitList StatusEffects { get; set; } = new SmallIndexBitList();
 
@@ -169,7 +170,7 @@ namespace Genrpg.Shared.MapObjects.Entities
         
         public string TargetId { get; set; }
         
-        public object OnActionLock = new object();
+        [JsonIgnore] public object OnActionLock { get; set; } = new object();
         
         public IMapApiMessage OnActionMessage { get; set; }
         

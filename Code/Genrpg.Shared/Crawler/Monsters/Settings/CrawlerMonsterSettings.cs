@@ -24,6 +24,8 @@ namespace Genrpg.Shared.Crawler.Monsters.Settings
 
 
         [Key(10)] public long ManaPerLevel { get; set; }
+        [Key(11)] public double ExtraHealthScalePerLevel { get; set; }
+        [Key(12)] public double ExtraDamageScalePerLevel { get; set; }
     }
 
 

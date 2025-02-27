@@ -15,5 +15,7 @@ namespace Genrpg.Shared.Crawler.Maps.Entities
         [Key(1)] public string Name { get; set; }
         [Key(2)] public long FoundInMapId { get; set; }
         [Key(3)] public long UnlocksMapId { get; set; }
+        [Key(4)] public string GuardName { get; set; }
+        [Key(5)] public long GuardUnitTypeId { get; set; }
     }
 }

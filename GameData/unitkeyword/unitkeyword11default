@@ -3,22 +3,25 @@
   "ParentId": "default",
   "IdKey": 11,
   "Name": "Golem",
+  "PluralName": "Golems",
   "Icon": "Golem",
   "Art": "Golem",
   "Effects": [
     {
+      "EntityTypeId": 25,
+      "Quantity": 1,
+      "EntityId": 1
+    },
+    {
       "EntityTypeId": 36,
+      "Quantity": 1,
       "EntityId": 12
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 2
-    },
-    {
-      "EntityTypeId": 25,
       "Quantity": 1,
-      "EntityId": 1
+      "EntityId": 2
     }
   ],
-  "UpdateTime": "2025-01-11T16:06:35.196Z"
+  "UpdateTime": "2025-02-17T09:10:53.635Z"
 }

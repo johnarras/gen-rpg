@@ -2,20 +2,14 @@
   "Id": "unittype92default",
   "ParentId": "default",
   "IdKey": 92,
-  "Name": "Frog",
-  "PluralName": "Frogs",
-  "Icon": "Frog",
-  "Art": "Frog",
-  "TribeTypeId": 2,
-  "MinLevel": 1,
+  "Name": "Lizardman",
+  "PluralName": "Lizardmen",
+  "Icon": "Lizardman",
+  "Art": "Lizardman",
+  "TribeTypeId": 10,
+  "MinLevel": 5,
   "SpawnQuantityScale": 1.0,
-  "Effects": [
-    {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    }
-  ],
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -23,5 +17,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

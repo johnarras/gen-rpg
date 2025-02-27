@@ -36,7 +36,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Casting
                 return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "Missing Special Select Spell Effect" };
             }
 
-            ISpecialMagicHelper helper = _spellService.GetSpecialEffectHelper(specialEffect.EntityId);
+            ISpecialMagicHelper helper = _crawlerSpellService.GetSpecialEffectHelper(specialEffect.EntityId);
             if (helper != null)
             {
                 return await helper.HandleEffect(stateData, selectSpellAction, spell, specialEffect, token);

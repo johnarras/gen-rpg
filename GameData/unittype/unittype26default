@@ -2,23 +2,18 @@
   "Id": "unittype26default",
   "ParentId": "default",
   "IdKey": 26,
-  "Name": "Warrior",
-  "PluralName": "Warriors",
-  "Icon": "Warrior",
-  "Art": "Warrior",
+  "Name": "Fighter",
+  "PluralName": "Fighters",
+  "Icon": "Fighter",
+  "Art": "Fighter",
   "TribeTypeId": 11,
   "MinLevel": 1,
   "SpawnQuantityScale": 1.0,
   "Effects": [
     {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
       "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 50001
+      "EntityId": 37
     }
   ],
   "PrefixNames": [],
@@ -28,5 +23,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

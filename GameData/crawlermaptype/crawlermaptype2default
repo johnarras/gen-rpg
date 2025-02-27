@@ -6,20 +6,48 @@
   "Desc": "",
   "Icon": "",
   "Art": "",
-  "MinWidth": 20,
-  "MaxWidth": 25,
-  "MinHeight": 20,
-  "MaxHeight": 25,
-  "MinFloors": 1,
-  "MaxFloors": 1,
-  "SpecialTileChance": 0.5,
-  "BuildingTypeId": 21,
-  "ZoneTypeId": 14,
-  "DungeonArtId": 2,
-  "MinCorridorDensity": 1.0,
-  "MaxCorridorDensity": 1.3,
-  "MinBuildingDensity": 0.6,
-  "MaxBuildingDensity": 1.3,
-  "WeatherTypeId": 10,
-  "UpdateTime": "2025-02-09T16:27:09.206Z"
+  "GenTypes": [
+    {
+      "Name": "Town",
+      "MinWidth": 10,
+      "MaxWidth": 10,
+      "MinHeight": 10,
+      "MaxHeight": 10,
+      "MinFloors": 1,
+      "MaxFloors": 1,
+      "Weight": 1.0,
+      "MinCorridorDensity": 1.2,
+      "MaxCorridorDensity": 1.5,
+      "MinBuildingDensity": 1.0,
+      "MaxBuildingDensity": 2.0,
+      "WeightedZones": [
+        {
+          "Weight": 1.0,
+          "ZoneTypeId": 14
+        }
+      ]
+    },
+    {
+      "Name": "City",
+      "MinWidth": 12,
+      "MaxWidth": 16,
+      "MinHeight": 12,
+      "MaxHeight": 16,
+      "MinFloors": 1,
+      "MaxFloors": 1,
+      "Weight": 1.0,
+      "MinCorridorDensity": 1.2,
+      "MaxCorridorDensity": 1.5,
+      "MinBuildingDensity": 1.0,
+      "MaxBuildingDensity": 2.0,
+      "WeightedZones": [
+        {
+          "Name": "",
+          "Weight": 1.0,
+          "ZoneTypeId": 14
+        }
+      ]
+    }
+  ],
+  "UpdateTime": "2025-02-19T22:39:37.878Z"
 }

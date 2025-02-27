@@ -108,7 +108,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
         _awaitableService.ForgetAwaitable(UpdateRecentlyLoadedSpawns(token));
         if (!_didAddUpdate)
         {
-            _updateService.AddTokenUpdate(this, FrameUpdate, UpdateType.Regular, token);
+            _updateService.AddTokenUpdate(this, FrameUpdate, UpdateTypes.Regular, token);
             _didAddUpdate = true;
         }
         if (Application.isPlaying)

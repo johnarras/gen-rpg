@@ -172,16 +172,7 @@ namespace Genrpg.RequestServer.BoardGame.Services
 
             for (int n = 0; n < newPrizeIndexes.Count; n++)
             {
-                double chanceChosen = rand.NextDouble() * weightSum;
-                for (int i = 0; i < prizeSpawns.Count; i++)
-                {
-                    chanceChosen -= prizeSpawns[i].Weight;
-                    if (chanceChosen <= 0)
-                    {
-                        currArray.SetBit(newPrizeIndexes[n]);
-                        break;
-                    }
-                }
+                currArray.SetBit(newPrizeIndexes[n]);
             }
         }
     }

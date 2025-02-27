@@ -2,35 +2,14 @@
   "Id": "unittype109default",
   "ParentId": "default",
   "IdKey": 109,
-  "Name": "Basilisk",
-  "PluralName": "Basilisks",
-  "Icon": "Basilisk",
-  "Art": "Basilisk",
-  "TribeTypeId": 8,
-  "MinLevel": 20,
-  "SpawnQuantityScale": 0.1,
-  "Effects": [
-    {
-      "EntityTypeId": 32,
-      "Quantity": 100,
-      "EntityId": 1
-    },
-    {
-      "EntityTypeId": 32,
-      "Quantity": 50,
-      "EntityId": 20
-    },
-    {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
-      "EntityTypeId": 25,
-      "Quantity": 1,
-      "EntityId": 5
-    }
-  ],
+  "Name": "Giant",
+  "PluralName": "Giants",
+  "Icon": "Giant",
+  "Art": "Giant",
+  "TribeTypeId": 7,
+  "MinLevel": 15,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -38,5 +17,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

@@ -48,7 +48,7 @@ namespace Assets.Scripts.UI.CombatTexts
             _framesPerSecond = _appService.TargetFrameRate;
             _dispatcher.AddListener<ShowCombatText>(OnShowCombatText, GetToken());
 
-            _updateService.AddUpdate(this, OnUpdate, UpdateType.Regular, GetToken());
+            _updateService.AddUpdate(this, OnUpdate, UpdateTypes.Regular, GetToken());
         }
 
         private void OnShowCombatText(ShowCombatText showCombatText)

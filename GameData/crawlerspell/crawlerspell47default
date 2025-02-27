@@ -2,8 +2,10 @@
   "Id": "crawlerspell47default",
   "ParentId": "default",
   "IdKey": 47,
-  "Name": "Disarm Traps",
+  "Name": "Cleanse Area",
   "Desc": "Disarm any traps nearby.",
+  "PowerCost": 50.0,
+  "PowerPerLevel": 5.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 8,
@@ -12,11 +14,11 @@
   "Effects": [
     {
       "EntityTypeId": 37,
-      "EntityId": 4,
+      "EntityId": 7,
       "MinQuantity": 1,
       "MaxQuantity": 2,
       "ElementTypeId": 4
     }
   ],
-  "UpdateTime": "2025-01-26T21:39:02.417Z"
+  "UpdateTime": "2025-02-25T19:39:14.046Z"
 }

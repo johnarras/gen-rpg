@@ -20,7 +20,7 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
     {
         Task<object> Load(string id);
         Task<bool> TransactionSave(object t, IClientSessionHandle session);
-        Task<bool> Save(object t);
+        Task<bool> Save(object t, bool verbose = false);
         Task<bool> Delete(object t);
         Task<bool> DeleteAll(object func);
         Task<bool> UpdateDict(string id, Dictionary<string, object> fieldNameUpdates);
@@ -117,9 +117,9 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
             return null;
         }
 
-        public async Task<bool> Save(object obj)
+        public async Task<bool> Save(object obj, bool verbose = false)
         {
-            return await InnerSave(obj, null);
+            return await InnerSave(obj, null, verbose);
         }
 
         public async Task<bool> TransactionSave(object obj, IClientSessionHandle session)
@@ -127,7 +127,7 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
             return await InnerSave(obj, session);
         }
 
-        protected async Task<bool> InnerSave(object obj, IClientSessionHandle session)
+        protected async Task<bool> InnerSave(object obj, IClientSessionHandle session, bool verbose = false)
         {
             T t = (T)obj;
 

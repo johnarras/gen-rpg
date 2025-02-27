@@ -12,6 +12,7 @@ using Genrpg.Shared.Achievements.Settings;
 using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Spawns.Settings;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.Shared.Tiles.Settings
 {
@@ -22,7 +23,7 @@ namespace Genrpg.Shared.Tiles.Settings
     }
 
     [MessagePackObject]
-    public class TileType : ChildSettings, IIndexedGameItem
+    public class TileType : ChildSettings, IIndexedGameItem, IWeightedItem
     {
 
         [Key(0)] public override string Id { get; set; }
@@ -32,7 +33,7 @@ namespace Genrpg.Shared.Tiles.Settings
         [Key(4)] public string Desc { get; set; }
         [Key(5)] public string Icon { get; set; }
         [Key(6)] public string Art { get; set; }
-        [Key(7)] public double SpawnChance { get; set; }
+        [Key(7)] public double Weight { get; set; }
 
         [Key(8)] public List<SpawnItem> PassRewards { get; set; } = new List<SpawnItem>();
 

@@ -2,31 +2,18 @@
   "Id": "unittype55default",
   "ParentId": "default",
   "IdKey": 55,
-  "Name": "Lich",
-  "PluralName": "Liches",
-  "Icon": "Lich",
-  "Art": "Lich",
-  "TribeTypeId": 3,
-  "MinLevel": 20,
+  "Name": "Thief",
+  "PluralName": "Thieves",
+  "Icon": "Thief",
+  "Art": "Thief",
+  "TribeTypeId": 14,
+  "MinLevel": 1,
   "SpawnQuantityScale": 1.0,
   "Effects": [
     {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
       "EntityTypeId": 36,
-      "EntityId": 11
-    },
-    {
-      "EntityTypeId": 36,
-      "EntityId": 8
-    },
-    {
-      "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 20054
+      "EntityId": 1
     }
   ],
   "PrefixNames": [],
@@ -36,5 +23,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

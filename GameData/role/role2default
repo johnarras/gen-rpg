@@ -100,8 +100,28 @@
       "EntityId": 61
     },
     {
-      "EntityTypeId": 101,
-      "EntityId": 1
+      "EntityTypeId": 100,
+      "EntityId": 64
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 65
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 66
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 67
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 68
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 69
     },
     {
       "EntityTypeId": 100,
@@ -145,8 +165,8 @@
     {
       "EntityTypeId": 41,
       "EntityId": 6,
-      "Amount": 1.0
+      "Amount": 0.15
     }
   ],
-  "UpdateTime": "2025-01-19T18:38:17.905Z"
+  "UpdateTime": "2025-02-25T14:19:41.267Z"
 }

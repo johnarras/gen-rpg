@@ -2,27 +2,23 @@
   "Id": "unittype67default",
   "ParentId": "default",
   "IdKey": 67,
-  "Name": "Iron Golem",
-  "PluralName": "Iron Golems",
-  "Icon": "IronGolem",
-  "Art": "IronGolem",
+  "Name": "Flesh Golem",
+  "PluralName": "Flesh Golems",
+  "Icon": "FleshGolem",
+  "Art": "FleshGolem",
   "TribeTypeId": 17,
   "MinLevel": 15,
   "SpawnQuantityScale": 1.0,
   "Effects": [
     {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
-      "EntityTypeId": 36,
-      "EntityId": 12
-    },
-    {
       "EntityTypeId": 25,
       "Quantity": 1,
       "EntityId": 1
+    },
+    {
+      "EntityTypeId": 36,
+      "Quantity": 1,
+      "EntityId": 3
     }
   ],
   "PrefixNames": [],
@@ -32,5 +28,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

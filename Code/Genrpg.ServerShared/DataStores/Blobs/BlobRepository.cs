@@ -79,7 +79,14 @@ namespace Genrpg.ServerShared.DataStores.Blobs
         #endregion
 
         #region Save
-        public async Task<bool> Save<T>(T t) where  T : class, IStringId
+        /// <summary>
+        /// Save to a blob
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t"></param>
+        /// <param name="verbose">This does nothing here.</param>
+        /// <returns></returns>
+        public async Task<bool> Save<T>(T t, bool verbose = false) where  T : class, IStringId
         {
             string data = SerializationUtils.Serialize(t);
 

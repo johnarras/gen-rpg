@@ -114,361 +114,84 @@
   "Overrides": [],
   "ZoneUnitSpawns": [
     {
-      "UnitTypeId": 1,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 2,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 3,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 4,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 5,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 6,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 7,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 8,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 9,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 10,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 11,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 12,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 13,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 14,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 15,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 16,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 17,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 18,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 19,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 20,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 21,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 22,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 23,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 24,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 25,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 26,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 27,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 28,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 29,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 30,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 31,
-      "Chance": 1.0
-    },
-    {
       "UnitTypeId": 32,
-      "Chance": 1.0
+      "Weight": 100.0
     },
     {
       "UnitTypeId": 33,
-      "Chance": 1.0
+      "Weight": 100.0
     },
     {
       "UnitTypeId": 34,
-      "Chance": 1.0
+      "Weight": 100.0
     },
     {
       "UnitTypeId": 35,
-      "Chance": 1.0
+      "Weight": 100.0
     },
     {
       "UnitTypeId": 36,
-      "Chance": 1.0
+      "Weight": 100.0
     },
     {
       "UnitTypeId": 37,
-      "Chance": 1.0
+      "Weight": 100.0
+    },
+    {
+      "UnitTypeId": 38,
+      "Weight": 100.0
     },
     {
       "UnitTypeId": 39,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 40,
-      "Chance": 3.0
-    },
-    {
-      "UnitTypeId": 41,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 45,
-      "Chance": 1.0
-    },
-    {
-      "UnitTypeId": 48,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 49,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 50,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 51,
-      "Chance": 3.0
-    },
-    {
-      "UnitTypeId": 53,
-      "Chance": 3.0
-    },
-    {
-      "UnitTypeId": 54,
-      "Chance": 2.0
-    },
-    {
-      "UnitTypeId": 55,
-      "Chance": 2.0
-    },
-    {
-      "UnitTypeId": 56,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 57,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 58,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 59,
-      "Chance": 3.0
+      "Weight": 10.0
     },
     {
       "UnitTypeId": 60,
-      "Chance": 3.0
+      "Weight": 100.0
     },
     {
-      "UnitTypeId": 74,
-      "Chance": 9.0
+      "UnitTypeId": 61,
+      "Weight": 10.0
     },
     {
-      "UnitTypeId": 78,
-      "Chance": 5.0
+      "UnitTypeId": 62,
+      "Weight": 10.0
     },
     {
-      "UnitTypeId": 79,
-      "Chance": 5.0
+      "UnitTypeId": 63,
+      "Weight": 10.0
     },
     {
-      "UnitTypeId": 80,
-      "Chance": 5.0
+      "UnitTypeId": 64,
+      "Weight": 10.0
     },
     {
-      "UnitTypeId": 81,
-      "Chance": 5.0
+      "UnitTypeId": 68,
+      "Weight": 10.0
     },
     {
-      "UnitTypeId": 82,
-      "Chance": 5.0
+      "UnitTypeId": 69,
+      "Weight": 10.0
     },
     {
-      "UnitTypeId": 83,
-      "Chance": 3.0
+      "UnitTypeId": 70,
+      "Weight": 10.0
     },
     {
-      "UnitTypeId": 84,
-      "Chance": 3.0
+      "UnitTypeId": 71,
+      "Weight": 10.0
     },
     {
-      "UnitTypeId": 85,
-      "Chance": 3.0
-    },
-    {
-      "UnitTypeId": 86,
-      "Chance": 3.0
-    },
-    {
-      "UnitTypeId": 87,
-      "Chance": 3.0
-    },
-    {
-      "UnitTypeId": 88,
-      "Chance": 10.0
-    },
-    {
-      "UnitTypeId": 89,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 91,
-      "Chance": 2.0
-    },
-    {
-      "UnitTypeId": 93,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 94,
-      "Chance": 2.0
-    },
-    {
-      "UnitTypeId": 95,
-      "Chance": 3.0
-    },
-    {
-      "UnitTypeId": 96,
-      "Chance": 3.0
-    },
-    {
-      "UnitTypeId": 97,
-      "Chance": 3.0
-    },
-    {
-      "UnitTypeId": 98,
-      "Chance": 3.0
-    },
-    {
-      "UnitTypeId": 99,
-      "Chance": 3.0
-    },
-    {
-      "UnitTypeId": 100,
-      "Chance": 2.0
-    },
-    {
-      "UnitTypeId": 101,
-      "Chance": 2.0
-    },
-    {
-      "UnitTypeId": 102,
-      "Chance": 3.0
-    },
-    {
-      "UnitTypeId": 103,
-      "Chance": 3.0
-    },
-    {
-      "UnitTypeId": 104,
-      "Chance": 2.0
-    },
-    {
-      "UnitTypeId": 107,
-      "Chance": 10.0
-    },
-    {
-      "UnitTypeId": 109,
-      "Chance": 2.0
-    },
-    {
-      "UnitTypeId": 110,
-      "Chance": 2.0
-    },
-    {
-      "UnitTypeId": 111,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 112,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 113,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 114,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 115,
-      "Chance": 5.0
-    },
-    {
-      "UnitTypeId": 116,
-      "Chance": 5.0
+      "UnitTypeId": 108,
+      "Weight": 10.0
     }
   ],
   "PlantChoices": "",
+  "WeatherTypeId": 9,
+  "BuildingTypeId": 25,
   "MusicTypeId": 1,
   "AmbientMusicTypeId": 1,
   "TraveralTimeScale": 1.0,
-  "UpdateTime": "2025-01-27T23:56:18.6Z"
+  "ZoneCategoryId": 3,
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

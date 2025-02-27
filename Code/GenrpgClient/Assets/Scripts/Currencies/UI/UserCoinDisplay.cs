@@ -32,7 +32,7 @@ namespace Assets.Scripts.UI.MobileGame
 
         public override void Init()
         {
-            _updateService.AddUpdate(this, UpdateQuantity, UpdateType.Late, GetToken());
+            _updateService.AddUpdate(this, UpdateQuantity, UpdateTypes.Late, GetToken());
             AddListener<AddUserCoinVisual>(OnAddUserCoinVisual);
 
             CoreUserData userData = _gs.ch.Get<CoreUserData>();

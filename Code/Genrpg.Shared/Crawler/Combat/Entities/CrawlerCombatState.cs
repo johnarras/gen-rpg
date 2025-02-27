@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using Genrpg.Shared.UnitEffects.Constants;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Quests.WorldData;
+using Genrpg.Shared.Crawler.Maps.Entities;
 
 namespace Genrpg.Shared.Crawler.Combat.Entities
 {
@@ -15,6 +17,7 @@ namespace Genrpg.Shared.Crawler.Combat.Entities
         [Key(0)] public long Level { get; set; }
         [Key(1)] public double Difficulty { get; set; } = 1.0f;
         [Key(2)] public List<InitialCombatGroup> CombatGroups { get; set; } = new List<InitialCombatGroup>();
+        [Key(3)] public WorldQuestItem QuestItem { get; set; }
     }
 
 
@@ -24,6 +27,9 @@ namespace Genrpg.Shared.Crawler.Combat.Entities
         [Key(0)] public long UnitTypeId { get; set; }
         [Key(1)] public long Quantity { get; set; }
         [Key(2)] public int Range { get; set; }
+        [Key(3)] public string BossName { get; set; }
+        [Key(4)] public long Level { get; set; }
+        [Key(5)] public long FactionTypeId { get; set; }
     }
 
 

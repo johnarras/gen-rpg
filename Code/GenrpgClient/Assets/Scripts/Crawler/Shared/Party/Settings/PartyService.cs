@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.Client.Core;
+﻿using Assets.Scripts.Crawler.ClientEvents.StatusPanelEvents;
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Roguelikes.Constants;
@@ -30,6 +31,7 @@ namespace Genrpg.Shared.Crawler.Party.Services
         private IClientGameState _gs;
         private IClientRandom _rand;
         private IRoguelikeUpgradeService _upgradeService;
+        private IDispatcher _dispatcher;
 
 
         public long GetMaxPartySize(PartyData partyData)
@@ -97,7 +99,7 @@ namespace Genrpg.Shared.Crawler.Party.Services
                     currentMembers[i].PartySlot = 0;
                 }
             }
-            partyData.StatusPanel?.RefreshAll();
+            _dispatcher.Dispatch(new RefreshPartyStatus());
         }
 
 
@@ -108,7 +110,7 @@ namespace Genrpg.Shared.Crawler.Party.Services
                 partyData.WorldId = _rand.Next() % 100000000;
             }
             partyData.Maps = new List<CrawlerMapStatus>();
-            partyData.CurrentMap = new CrawlerMapStatus();
+            partyData.CurrentMap = new CurrentMapStatus();
             partyData.LastVendorRefresh = DateTime.UtcNow.AddDays(-1);
             partyData.Inventory = new List<Item>();
             partyData.VendorBuyback = new List<Item>();

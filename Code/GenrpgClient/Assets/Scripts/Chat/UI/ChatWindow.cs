@@ -33,7 +33,7 @@ namespace UI
             base.Init();
             AddListener<OnChatMessage>(OnChatMessageHandler);
             AddListener<OnGetWhoList>(OnGetWhoListHandler);
-            AddUpdate(UpdateChat, UpdateType.Regular);
+            AddUpdate(UpdateChat, UpdateTypes.Regular);
         }
 
         private void UpdateChat()

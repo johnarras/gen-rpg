@@ -2,10 +2,10 @@
   "Id": "unittype59default",
   "ParentId": "default",
   "IdKey": 59,
-  "Name": "Demon",
-  "PluralName": "Demons",
-  "Icon": "Demon",
-  "Art": "Demon",
+  "Name": "Demon Lord",
+  "PluralName": "Demon Lords",
+  "Icon": "DemonLord",
+  "Art": "DemonLord",
   "TribeTypeId": 15,
   "MinLevel": 20,
   "SpawnQuantityScale": 0.1,
@@ -21,15 +21,6 @@
       "EntityId": 20
     },
     {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 2
-    },
-    {
       "EntityTypeId": 24,
       "Quantity": 1,
       "EntityId": 7
@@ -38,6 +29,11 @@
       "EntityTypeId": 25,
       "Quantity": 1,
       "EntityId": 6
+    },
+    {
+      "EntityTypeId": 100,
+      "Quantity": 1,
+      "EntityId": 2
     }
   ],
   "PrefixNames": [],
@@ -47,5 +43,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

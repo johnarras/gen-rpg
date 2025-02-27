@@ -2,10 +2,10 @@
   "Id": "unittype61default",
   "ParentId": "default",
   "IdKey": 61,
-  "Name": "Blue Dragon",
-  "PluralName": "Blue Dragons",
-  "Icon": "BlueDragon",
-  "Art": "BlueDragon",
+  "Name": "Red Dragon",
+  "PluralName": "Red Dragons",
+  "Icon": "RedDragon",
+  "Art": "RedDragon",
   "TribeTypeId": 16,
   "MinLevel": 20,
   "SpawnQuantityScale": 0.1,
@@ -21,18 +21,14 @@
       "EntityId": 20
     },
     {
-      "EntityTypeId": 31,
+      "EntityTypeId": 25,
       "Quantity": 1,
-      "EntityId": 35
+      "EntityId": 2
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 51
-    },
-    {
-      "EntityTypeId": 25,
       "Quantity": 1,
-      "EntityId": 4
+      "EntityId": 50
     }
   ],
   "PrefixNames": [],
@@ -42,5 +38,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

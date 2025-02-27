@@ -192,7 +192,7 @@
       "Radius": 5,
       "IsCrawlerBuilding": true,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-24T23:03:45.66Z"
+      "UpdateTime": "2025-02-19T19:49:32.624Z"
     },
     {
       "Id": "buildingtype18default",
@@ -204,7 +204,7 @@
       "Art": "Cave",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2025-02-09T16:31:00.887Z"
+      "UpdateTime": "2025-02-19T19:49:32.624Z"
     },
     {
       "Id": "buildingtype19default",
@@ -216,7 +216,7 @@
       "Art": "Dungeon",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-24T23:03:45.66Z"
+      "UpdateTime": "2025-02-19T19:49:32.624Z"
     },
     {
       "Id": "buildingtype20default",
@@ -228,7 +228,7 @@
       "Art": "Tower",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-24T23:03:45.66Z"
+      "UpdateTime": "2025-02-19T19:49:32.624Z"
     },
     {
       "Id": "buildingtype21default",
@@ -252,13 +252,49 @@
       "Art": "Natural",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2025-02-09T16:31:00.887Z"
+      "UpdateTime": "2025-02-19T19:49:32.624Z"
+    },
+    {
+      "Id": "buildingtype23default",
+      "ParentId": "default",
+      "IdKey": 23,
+      "Name": "Lava",
+      "Desc": "",
+      "Icon": "Lava",
+      "Art": "Lava",
+      "Radius": 5,
+      "VariationCount": 1,
+      "UpdateTime": "2025-02-19T19:49:32.624Z"
+    },
+    {
+      "Id": "buildingtype24default",
+      "ParentId": "default",
+      "IdKey": 24,
+      "Name": "Unholy",
+      "Desc": "",
+      "Icon": "Unholy",
+      "Art": "Unholy",
+      "Radius": 5,
+      "VariationCount": 1,
+      "UpdateTime": "2025-02-19T19:49:32.624Z"
+    },
+    {
+      "Id": "buildingtype25default",
+      "ParentId": "default",
+      "IdKey": 25,
+      "Name": "Arcane",
+      "Desc": "",
+      "Icon": "Arcane",
+      "Art": "Arcane",
+      "Radius": 5,
+      "VariationCount": 1,
+      "UpdateTime": "2025-02-19T19:49:32.624Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "BuildingSettings",
-    "UpdateTime": "2025-02-09T16:31:00.887Z"
+    "UpdateTime": "2025-02-19T19:49:32.624Z"
   },
   "Id": "default"
 }

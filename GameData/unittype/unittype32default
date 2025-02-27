@@ -2,32 +2,33 @@
   "Id": "unittype32default",
   "ParentId": "default",
   "IdKey": 32,
-  "Name": "Barbarian",
-  "PluralName": "Barbarians",
-  "Icon": "Barbarian",
-  "Art": "Barbarian",
-  "TribeTypeId": 11,
-  "MinLevel": 15,
+  "Name": "Mage",
+  "PluralName": "Mages",
+  "Icon": "Mage",
+  "Art": "Mage",
+  "TribeTypeId": 12,
+  "MinLevel": 5,
   "SpawnQuantityScale": 1.0,
   "Effects": [
     {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
       "EntityTypeId": 100,
-      "EntityId": 37
+      "Quantity": 1,
+      "EntityId": 27
     },
     {
       "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 20032
+      "EntityId": 28
     },
     {
       "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 50001
+      "EntityId": 50
+    },
+    {
+      "EntityTypeId": 100,
+      "Quantity": 1,
+      "EntityId": 20070
     }
   ],
   "PrefixNames": [],
@@ -37,5 +38,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

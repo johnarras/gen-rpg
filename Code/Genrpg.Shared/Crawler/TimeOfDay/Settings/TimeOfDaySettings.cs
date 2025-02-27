@@ -22,18 +22,20 @@ namespace Genrpg.Shared.Crawler.TimeOfDay.Settings
     public class TimeOfDaySettings : NoChildSettings // No List
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public double DailyResetHour { get; set; } = 8;
-        [Key(2)] public double BaseMoveMinutes { get; set; } = 1;
-        [Key(3)] public double CombatRoundMinutes { get; set; } = 1;
-        [Key(4)] public double RestHours { get; set; } = 8;
+        [Key(1)] public double DailyResetHour { get; set; }
+        [Key(2)] public double BaseMoveMinutes { get; set; }
+        [Key(3)] public double CombatRoundMinutes { get; set; }
+        [Key(4)] public double RestHours { get; set; }
 
 
-        [Key(5)] public double EatHours { get; set; } = 1.0f;
-        [Key(6)] public double DrinkHours { get; set; } = 0.5f;
-        [Key(7)] public double RumorHours { get; set; } = 0.25f;
+        [Key(5)] public double EatHours { get; set; }
+        [Key(6)] public double DrinkHours { get; set; } 
+        [Key(7)] public double RumorHours { get; set; }
 
 
         [Key(8)] public List<StatRegenHours> RegenHours { get; set; }
+
+        [Key(9)] public double LevitateSpeedup { get; set; }
     }
 
 

@@ -12,7 +12,7 @@ namespace Genrpg.Shared.LoadSave.Services
         T ContinueGame<T>() where T : BasePlayerData, INamedUpdateData;
         T LoadSlot<T>(long slotId) where T : BasePlayerData, INamedUpdateData;
         bool OkSlotId(long slotId);
-        bool Save<T>(T playerData, long slotId) where T : BasePlayerData, INamedUpdateData;
+        bool Save<T>(T playerData, long slotId, bool verbose = false) where T : BasePlayerData, INamedUpdateData;
         bool HaveCurrentGame<T>() where T : BasePlayerData, INamedUpdateData;
         bool HaveSaveGame<T>(long slotId) where T : BasePlayerData, INamedUpdateData;
         void Delete<T>(long slotId) where T : BasePlayerData, INamedUpdateData;
@@ -63,7 +63,7 @@ namespace Genrpg.Shared.LoadSave.Services
             return playerData;
         }
 
-        public bool Save<T>(T playerData, long slotId) where T : BasePlayerData, INamedUpdateData
+        public bool Save<T>(T playerData, long slotId, bool verbose = false) where T : BasePlayerData, INamedUpdateData
         {
             if (!OkSlotId(slotId))
             {
@@ -72,7 +72,7 @@ namespace Genrpg.Shared.LoadSave.Services
 
             playerData.Id = GetFilenameFromSlot<T>(slotId);
 
-            _repoService.Save(playerData);
+            _repoService.Save(playerData, verbose);
 
             UpdateCurrentSaveSlot(slotId);
 

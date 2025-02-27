@@ -40,6 +40,9 @@ namespace Genrpg.Shared.Crawler.Combat.Settings
 
         [Key(23)] public double BaseMonsterAttacks { get; set; }
         [Key(24)] public double BasePlayerAttacks { get; set; }
+
+        [Key(25)] public double SummonQuantityScale { get; set; }
+
     }
 
 

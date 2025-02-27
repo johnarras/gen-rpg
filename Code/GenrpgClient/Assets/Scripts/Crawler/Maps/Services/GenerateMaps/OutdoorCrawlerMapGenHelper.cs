@@ -26,6 +26,7 @@ using Genrpg.Shared.Riddles.Services;
 using Genrpg.Shared.Crawler.MapGen.Entities;
 using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.Constants;
+using Genrpg.Shared.Names.Services;
 
 namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 {
@@ -36,6 +37,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
         ILineGenService _lineGenService;
         ILootGenService _lootGenService;
         IRiddleService _riddleService;
+        INameGenService _nameGenService;
 
         public override long GetKey() { return CrawlerMapTypes.Outdoors; }
 
@@ -77,7 +79,9 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             int width = 16 * MathUtils.IntRange(6, 10, rand);
             int height = 16 * MathUtils.IntRange(4, 6, rand);
 
-            CrawlerMap map = genData.World.CreateMap(genData, width, height);
+            CrawlerMap map = _worldService.CreateMap(genData, width, height);
+            map.ZoneTypeId = 0;
+            map.ZoneUnits = new List<ZoneUnitSpawn>();
 
 
             byte[,] overrides = new byte[map.Width, map.Height];
@@ -573,7 +577,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 CrawlerMapGenData cityGenData = new CrawlerMapGenData()
                 {
                     World = genData.World,
-                    MapType = CrawlerMapTypes.City,
+                    MapTypeId = CrawlerMapTypes.City,
                     Level = cityLevel,
                     FromMapId = map.IdKey,
                     FromMapX = (int)(pt.X),
@@ -672,7 +676,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 CrawlerMapGenData dungeonGenData = new CrawlerMapGenData()
                 {
                     World = genData.World,
-                    MapType = CrawlerMapTypes.RandomDungeon,
+                    MapTypeId = CrawlerMapTypes.Dungeon,
                     Level = (int)dungeonLevel,
                     FromMapId = map.IdKey,
                     FromMapX = (int)(xx),
@@ -683,17 +687,14 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
                 dungeonSuccess++;
 
-
-
-                long buildingTypeId = GetBuildingTypeFromMapType(dungeonMap.CrawlerMapTypeId);
-                map.Set(xx, yy, CellIndex.Building, buildingTypeId);
+                map.Set(xx, yy, CellIndex.Building, dungeonMap.BuildingTypeId);
             }
 
             List<Riddle> riddles = _gameData.Get<RiddleSettings>(_gs.ch).GetData().ToList();
 
             CrawlerMapSettings mapSettings = _gameData.Get<CrawlerMapSettings>(_gs.ch);
 
-            List<CrawlerMap> dungeonMaps = world.Maps.Where(x => _crawlerMapService.IsDungeon(x.CrawlerMapTypeId) && x.MapFloor == 1).OrderBy(x => x.Level).ToList();
+            List<CrawlerMap> dungeonMaps = world.Maps.Where(x => x.CrawlerMapTypeId == CrawlerMapTypes.Dungeon && x.MapFloor == 1).OrderBy(x => x.Level).ToList();
 
 
             List<List<CrawlerMap>> dungeonMapGroups = new List<List<CrawlerMap>>();
@@ -702,7 +703,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             {
                 CrawlerMap dmap = dungeonMaps[d];
 
-                List<CrawlerMap> otherDungeonMaps = world.Maps.Where(x => _crawlerMapService.IsDungeon(x.CrawlerMapTypeId)  &&
+                List<CrawlerMap> otherDungeonMaps = world.Maps.Where(x => x.CrawlerMapTypeId == CrawlerMapTypes.Dungeon  &&
                 x.Name == dmap.Name && x.IdKey >= dmap.IdKey && x.IdKey <= dmap.IdKey + 6).OrderBy(x => x.MapFloor).ToList();
 
                 dungeonMapGroups.Add(otherDungeonMaps);
@@ -738,14 +739,12 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
                 CrawlerMap entranceMap = floors.First();
 
-                CrawlerMapType dungeonType = mapSettings.Get(dungeonMaps[dungeonIndex].CrawlerMapTypeId);
-
-                if ((dungeonIndex > 4 && rand.NextDouble() < dungeonType.QuestItemEntranceUnlockChance) || dungeonIndex == dungeonMapGroups.Count - 1)
+                if ((dungeonIndex > 0 && rand.NextDouble() < mapSettings.QuestItemEntranceUnlockChance) || dungeonIndex == dungeonMapGroups.Count - 1)
                 {
 
                     string questItemName = _lootGenService.GenerateItemNames(rand, 1).First();
 
-                    int lookbackDistance = Math.Min(dungeonIndex - 1, 4 + dungeonIndex / 3);
+                    int lookbackDistance = 2;
 
                     List<int> okIndexes = new List<int>();
 
@@ -756,31 +755,63 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
                     int chosenIndex = okIndexes[rand.Next() % okIndexes.Count];
 
-                    List<CrawlerMap> targetMaps = dungeonMapGroups[chosenIndex];
+                    List<CrawlerMap> questItemContainingMaps = dungeonMapGroups[chosenIndex];
 
                     List<MapCellDetail> openQuestDetails = new List<MapCellDetail>();
 
-                    foreach (CrawlerMap cmap in targetMaps)
+                    List<CrawlerMap> okMaps = new List<CrawlerMap>();
+
+                    foreach (CrawlerMap cmap in questItemContainingMaps)
                     {
-                        openQuestDetails.AddRange(cmap.Details.Where(x => x.EntityTypeId == EntityTypes.QuestItem && x.EntityId == 0));
+                        if (cmap.Details.Any(x => x.EntityTypeId == EntityTypes.QuestItem && x.EntityId == 0))
+                        {
+                            okMaps.Add(cmap);
+                        }
                     }
 
-                    if (openQuestDetails.Count > 0)
+                    if (okMaps.Count < 1)
                     {
-                        MapCellDetail chosenDetail = openQuestDetails[rand.Next() % openQuestDetails.Count];
+                        continue;
+                    }
 
+                    CrawlerMap questItemMap = okMaps[rand.Next() % okMaps.Count];
+                    List<MapCellDetail> okDetails = questItemMap.Details.Where(x => x.EntityTypeId == EntityTypes.QuestItem && x.EntityId == 0).ToList();
+
+                    MapCellDetail chosenDetail = okDetails[rand.Next() % okDetails.Count];
+
+                    if (questItemMap != null && chosenDetail != null)
+                    { 
                         long nextQuestItemId = 1;
                         if (world.QuestItems.Count > 0)
                         {
                             nextQuestItemId = world.QuestItems.Max(x => x.IdKey) + 1;
                         }
-                        world.QuestItems.Add(new WorldQuestItem()
+
+                        WorldQuestItem wqi = new WorldQuestItem()
                         {
                             IdKey = nextQuestItemId,
                             Name = questItemName,
-                            FoundInMapId = targetMaps[0].IdKey,
+                            FoundInMapId = questItemMap.IdKey,
                             UnlocksMapId = entranceMap.IdKey,
-                        });
+                        };
+
+
+                        world.QuestItems.Add(wqi);
+                        chosenDetail.EntityId = wqi.IdKey;
+
+                        questItemMap.Details = questItemMap.Details.Where(x=>x.EntityTypeId != EntityTypes.QuestItem || x.EntityId > 0).ToList();   
+
+                        if (questItemMap.ZoneUnits.Count > 0)
+                        {
+                            questItemMap.ZoneUnits = questItemMap.ZoneUnits.OrderBy(x => Guid.NewGuid()).ToList();
+                            questItemMap.ZoneUnits = questItemMap.ZoneUnits.OrderBy(x => x.Weight).ToList();
+
+                            ZoneUnitSpawn firstUnit = questItemMap.ZoneUnits.First();
+
+                            wqi.GuardUnitTypeId = firstUnit.UnitTypeId;
+                            wqi.GuardName = _nameGenService.GenerateUnitName(rand, true);
+
+                        }
 
                         entranceMap.MapQuestItemId = nextQuestItemId;
                     }
@@ -788,7 +819,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
                 if (party.GameMode != ECrawlerGameModes.Roguelite)
                 {
-                    await _riddleService.GenerateRiddles(floors, rand);
+                    await _riddleService.GenerateRiddles(floors, genData.GenType, rand);
                 }
             }
 

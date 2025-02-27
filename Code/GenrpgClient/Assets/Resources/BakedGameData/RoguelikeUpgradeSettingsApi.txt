@@ -115,7 +115,21 @@
       "MaxTier": 2,
       "BonusPerTier": 1.0,
       "BasePointCost": 10,
-      "UpdateTime": "2025-01-26T01:32:06.959Z"
+      "UpdateTime": "2025-02-24T16:02:19.574Z"
+    },
+    {
+      "Id": "roguelikeupgrade10default",
+      "ParentId": "default",
+      "IdKey": 10,
+      "Name": "ExpPercent",
+      "NameId": "",
+      "Desc": "Increases experience earned.",
+      "Icon": "",
+      "Art": "",
+      "MaxTier": 10,
+      "BonusPerTier": 20.0,
+      "BasePointCost": 1,
+      "UpdateTime": "2025-02-24T16:02:19.574Z"
     }
   ],
   "ParentObj": {
@@ -123,7 +137,7 @@
     "BasePointsPerLevel": 3,
     "ExtraPointsPerLevel": 0.2,
     "Name": "RoguelikeUpgradeSettings",
-    "UpdateTime": "2025-01-26T01:32:06.959Z"
+    "UpdateTime": "2025-02-24T16:02:19.574Z"
   },
   "Id": "default"
 }

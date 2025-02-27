@@ -2,27 +2,14 @@
   "Id": "unittype51default",
   "ParentId": "default",
   "IdKey": 51,
-  "Name": "Wight",
-  "PluralName": "Wights",
-  "Icon": "Wight",
-  "Art": "Wight",
+  "Name": "Wraith",
+  "PluralName": "Wraiths",
+  "Icon": "Wraith",
+  "Art": "Wraith",
   "TribeTypeId": 3,
-  "MinLevel": 5,
+  "MinLevel": 10,
   "SpawnQuantityScale": 1.0,
   "Effects": [
-    {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
-      "EntityTypeId": 36,
-      "EntityId": 5
-    },
-    {
-      "EntityTypeId": 36,
-      "EntityId": 3
-    },
     {
       "EntityTypeId": 24,
       "Quantity": 1,
@@ -34,9 +21,9 @@
       "EntityId": 6
     },
     {
-      "EntityTypeId": 100,
+      "EntityTypeId": 36,
       "Quantity": 1,
-      "EntityId": 20050
+      "EntityId": 5
     }
   ],
   "PrefixNames": [],
@@ -46,5 +33,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

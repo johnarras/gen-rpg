@@ -1,6 +1,7 @@
 ﻿using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Crawler.Combat.Services;
 using Genrpg.Shared.Crawler.Maps.Services;
+using Genrpg.Shared.Crawler.Roles.Services;
 using Genrpg.Shared.Crawler.Spells.Services;
 using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.Crawler.States.Services;
@@ -25,6 +26,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Casting.SpecialMagicHelpers
         protected ILogService _logService;
         protected ICrawlerSpellService _spellService;
         protected ITextService _textService;
+        protected IRoleService _roleService;
 
         public abstract long GetKey();
 

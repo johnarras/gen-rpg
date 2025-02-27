@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.Client.Core;
+﻿using Assets.Scripts.Crawler.ClientEvents.StatusPanelEvents;
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.Combat.Settings;
 using Genrpg.Shared.Crawler.Constants;
@@ -12,6 +13,7 @@ using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.States.StateHelpers.Casting.SpecialMagicHelpers;
 using Genrpg.Shared.Crawler.Stats.Settings;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.PlayerData;
@@ -39,6 +41,9 @@ namespace Genrpg.Shared.Crawler.Stats.Services
         List<NameIdValue> GetInitialStatBonuses(long roleId);
 
         long GetStatBonus(PartyData party, CrawlerUnit unit, long statId);
+
+
+        void Add(PartyData party, CrawlerUnit unit, long statTypeId, int statCategory, long value, long elementTypeId = 0);
     }
 
 
@@ -50,6 +55,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
         protected IClientGameState _gs;
         protected IClientRandom _rand;
         private IRoguelikeUpgradeService _roguelikeUpgradeService;
+        private IDispatcher _dispatcher;
 
         public void CalcPartyStats(PartyData party, bool resetCurrStats)
         {
@@ -72,6 +78,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
             RoleSettings roleSettings = _gameData.Get<RoleSettings>(_gs.ch);
             CrawlerCombatSettings combatSettings = _gameData.Get<CrawlerCombatSettings>(_gs.ch);
             CrawlerMonsterSettings monsterSettings = _gameData.Get<CrawlerMonsterSettings>(_gs.ch);
+            CrawlerStatSettings statSettings = _gameData.Get<CrawlerStatSettings>(_gs.ch);
 
             IReadOnlyList<StatType> allStats = _gameData.Get<StatSettings>(_gs.ch).GetData();
 
@@ -177,7 +184,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                 }
             }
             else if (unit is Monster monster)
-        {
+            {
                 UnitType unitType = _gameData.Get<UnitSettings>(_gs.ch).Get(unit.UnitTypeId);
 
                 List<UnitEffect> effects = unitType.Effects.Where(x => x.EntityTypeId == EntityTypes.Stat).ToList();
@@ -189,11 +196,15 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
                 foreach (StatType statType in allStats)
                 {
-                    if ((statType.IdKey >= StatConstants.PrimaryStatStart && statType.IdKey <= StatConstants.PrimaryStatEnd) ||
-                        buffStatTypes.Contains(statType.IdKey))
+                    if (statType.IdKey >= StatConstants.PrimaryStatStart && statType.IdKey <= StatConstants.PrimaryStatEnd)
+                    {
+                        _statService.Set(unit, statType.IdKey, StatCategories.Base, unit.Level + statSettings.StartStat);
+                    }
+                    else if (buffStatTypes.Contains(statType.IdKey))
                     {
                         _statService.Set(unit, statType.IdKey, StatCategories.Base, unit.Level);
                     }
+
                 }
 
                 long minHealth = (long)(monsterSettings.BaseMinHealth + unit.Level * monsterSettings.MinHealthPerLevel);
@@ -204,13 +215,19 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
                 double qualityScaling = _roguelikeUpgradeService.GetBonus(party, RoguelikeUpgrades.SummonQuality);
 
-                if (qualityScaling > 0)
+                double levelHealthScaling = 0;
+                double levelDamageScaling = 0;
+
+                if (unit.FactionTypeId != FactionTypes.Player)
                 {
-                    minHealth = (long)(minHealth * (1 + qualityScaling));
-                    maxHealth = (long)(maxHealth * (1 + qualityScaling));
-                    monster.MinDam = (long)(monster.MinDam * (1 + qualityScaling));
-                    monster.MaxDam = (long)(monster.MaxDam * (1 + qualityScaling));
+                    levelHealthScaling = monsterSettings.ExtraHealthScalePerLevel * unit.Level;
+                    levelDamageScaling = monsterSettings.ExtraDamageScalePerLevel * unit.Level;
                 }
+
+                minHealth = (long)(minHealth * (1 + qualityScaling + levelHealthScaling));
+                maxHealth = (long)(maxHealth * (1 + qualityScaling + levelHealthScaling));
+                monster.MinDam = (long)(monster.MinDam * (1 + qualityScaling + levelDamageScaling));
+                monster.MaxDam = (long)(monster.MaxDam * (1 + qualityScaling + levelDamageScaling));
                 
                 long startHealth = MathUtils.LongRange(minHealth, maxHealth, _rand);
 
@@ -419,6 +436,12 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
             return baseBonus;
 
+        }
+
+        public void Add(PartyData party, CrawlerUnit unit, long statTypeId, int statCategory, long value, long elementTypeId = 0)
+        {
+            _statService.Add(unit, statTypeId, statCategory, value);
+            _dispatcher.Dispatch(new RefreshUnitStatus() { Unit = unit, ElementTypeId = elementTypeId });
         }
     }
 }

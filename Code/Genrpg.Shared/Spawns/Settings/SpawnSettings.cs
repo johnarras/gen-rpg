@@ -11,10 +11,11 @@ using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Purchasing.Settings;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Helpers;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.Shared.Spawns.Settings
 {
-    public interface ISpawnItem
+    public interface ISpawnItem : IWeightedItem
     {
         long EntityTypeId { get; }
         long EntityId { get; }

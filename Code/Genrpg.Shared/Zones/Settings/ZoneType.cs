@@ -5,6 +5,8 @@ using Genrpg.Shared.Names.Settings;
 using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.Dungeons.Constants;
+using Genrpg.Shared.Characters.PlayerData;
 
 namespace Genrpg.Shared.Zones.Settings
 {
@@ -66,15 +68,18 @@ namespace Genrpg.Shared.Zones.Settings
         [Key(35)] public float FenceChance { get; set; }
 
         [Key(36)] public long WeatherTypeId { get; set; }
+        [Key(37)] public long BuildingTypeId { get; set; }
 
-        [Key(37)] public float CreviceCountScale { get; set; }
-        [Key(38)] public float CreviceDepthScale { get; set; }
-        [Key(39)] public float CreviceWidthScale { get; set; }
+        [Key(38)] public float CreviceCountScale { get; set; }
+        [Key(39)] public float CreviceDepthScale { get; set; }
+        [Key(40)] public float CreviceWidthScale { get; set; }
 
-        [Key(40)] public long MusicTypeId { get; set; }
-        [Key(41)] public long AmbientMusicTypeId { get; set; }
+        [Key(41)] public long MusicTypeId { get; set; }
+        [Key(42)] public long AmbientMusicTypeId { get; set; }
 
-        [Key(42)] public double TraveralTimeScale { get; set; } = 1.0;
+        [Key(43)] public double TraveralTimeScale { get; set; } = 1.0;
+
+        [Key(44)] public long ZoneCategoryId { get; set; }
 
         public ZoneType()
         {

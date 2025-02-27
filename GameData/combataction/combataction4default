@@ -3,5 +3,8 @@
   "ParentId": "default",
   "IdKey": 4,
   "Name": "Cast",
-  "UpdateTime": "2025-01-11T15:37:36.985Z"
+  "WeaponDamageScale": 0.5,
+  "StatBonusDamageScale": 2.0,
+  "QuantityIsBaseAmount": true,
+  "UpdateTime": "2025-02-22T22:34:44.653Z"
 }

@@ -22,6 +22,8 @@ using Genrpg.Shared.Crawler.Maps.Settings;
 using Genrpg.Shared.Crawler.MapGen.Services;
 using Genrpg.Shared.Crawler.MapGen.Helpers;
 using Genrpg.Shared.Crawler.MapGen.Entities;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Buildings.Settings;
 
 namespace Assets.Scripts.Crawler.Maps
 {
@@ -62,58 +64,42 @@ namespace Assets.Scripts.Crawler.Maps
             return null;
         }
 
-        public async Awaitable<CrawlerMap> GenerateDungeon(PartyData party, CrawlerWorld world, CrawlerMapGenData genData)
-        {
-            List<CrawlerMapType> dungeonTypes = _gameData.Get<CrawlerMapSettings>(_gs.ch).GetData().Where(x=>x.DungeonGenChance > 0).ToList();
-
-            double chanceSum = dungeonTypes.Sum(x => x.DungeonGenChance);
-
-            double chanceChosen = _rand.NextDouble() * chanceSum;
-
-            for (int i = 0; i < dungeonTypes.Count; i++)
-            {
-                chanceChosen -= dungeonTypes[i].DungeonGenChance;
-
-                if (chanceChosen <= 0)
-                {
-                    genData.MapType = dungeonTypes[i].IdKey;
-                    return await Generate(party, world, genData);
-                }
-            }
-            return null;
-        }
-
         public async Task<CrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData genData)
         {
 
-            if (genData.MapType == CrawlerMapTypes.RandomDungeon)
+            CrawlerMapType mtype = _gameData.Get<CrawlerMapSettings>(_gs.ch).Get(genData.MapTypeId);
+
+            if (mtype == null)
             {
+                return null;
+            }
 
-                genData.MapType = CrawlerMapTypes.Dungeon;
-                List<CrawlerMapType> dungeonTypes = _gameData.Get<CrawlerMapSettings>(_gs.ch).GetData().Where(x => x.DungeonGenChance > 0).ToList();
+            IClientRandom rand = new ClientRandom(world.MaxMapId + 3 + world.Seed / 3);
 
-                double chanceSum = dungeonTypes.Sum(x => x.DungeonGenChance);
+            if (genData.GenType == null)
+            {
+                genData.GenType = RandomUtils.GetRandomElement(mtype.GenTypes, rand);
+            }
 
-                double chanceChosen = _rand.NextDouble() * chanceSum;
+            if (genData.ZoneType == null)
+            {
+                long zoneTypeId = RandomUtils.GetRandomElement(genData.GenType.WeightedZones, rand).ZoneTypeId;
 
-                for (int i = 0; i < dungeonTypes.Count; i++)
-                {
-                    chanceChosen -= dungeonTypes[i].DungeonGenChance;
+                genData.ZoneType = _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zoneTypeId);
 
-                    if (chanceChosen <= 0)
-                    {
-                        genData.MapType = dungeonTypes[i].IdKey;
-                        break;
-                    }
-                }
+            }
+
+            if (genData.BuildingArtId == 0)
+            {
+                genData.BuildingArtId = RandomUtils.GetRandomElement(_gameData.Get<BuildingArtSettings>(_gs.ch).GetData(), rand).IdKey;
             }
 
             if (genData.ArtSeed == 0)
             {
-                genData.ArtSeed = _rand.Next(1000000000);
+                genData.ArtSeed = _rand.Next(1000000000); // Use global rand here to make it random each time we generate
             }
 
-            ICrawlerMapGenHelper helper = GetGenHelper(genData.MapType);
+            ICrawlerMapGenHelper helper = GetGenHelper(genData.MapTypeId);
             NewCrawlerMap newMap = await helper.Generate(party, world, genData);
 
             if (genData.FromMapId > 0 && newMap.EnterX >= 0 && newMap.EnterZ >= 0)

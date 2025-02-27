@@ -1,11 +1,9 @@
-﻿using Assets.Scripts.Crawler.UI.ActionUI;
-using Assets.Scripts.MVC;
-using Assets.Scripts.UI.Core;
+﻿using Assets.Scripts.Crawler.ClientEvents.ActionPanelEvents;
+using Assets.Scripts.Crawler.UI.ActionUI;
 using Assets.Scripts.UI.Crawler.ActionUI;
 using Genrpg.Shared.Client.Assets.Constants;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Entities;
-using Genrpg.Shared.Crawler.UI.Interfaces;
 using Genrpg.Shared.MVC.Interfaces;
 using Genrpg.Shared.UI.Interfaces;
 using Genrpg.Shared.Utils;
@@ -22,7 +20,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         public string Text { get; set; }
         public Action ClickAction { get; set; }
     }
-    public class ActionPanel : BaseCrawlerPanel, IActionPanel
+    public class ActionPanel : BaseCrawlerPanel
     {
 
         public string PanelRowPrefab = "ActionPanelRow";
@@ -34,7 +32,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
         private object _root;
 
-        private ConcurrentQueue<TextAction> _textToShow = new ConcurrentQueue<TextAction>();    
+        private ConcurrentQueue<AddActionPanelText> _textToShow = new ConcurrentQueue<AddActionPanelText>();    
 
         public const int InputCount = 3;
         private List<ILabeledInputField> _inputs = new List<ILabeledInputField>();
@@ -65,6 +63,8 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
             _scrollRect = view.Get<IScrollRect>("ScrollRect");
 
+            _dispatcher.AddListener<AddActionPanelText>(OnAddActionPanelText, GetToken());
+
             _panelRow = await _assetService.LoadAssetAsync<IView>(AssetCategoryNames.UI, PanelRowPrefab + model.ActionPanelElementSuffix, _root, _token, _model.Subdirectory);
             _clientEntityService.SetActive(_panelRow, false);
             _panelText = await _assetService.LoadAssetAsync<IView>(AssetCategoryNames.UI, PanelTextPrefab + model.ActionPanelElementSuffix, _root, _token, _model.Subdirectory);
@@ -74,7 +74,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             _panelButton = await _assetService.LoadAssetAsync<IView>(AssetCategoryNames.UI, PanelButtonPrefab + model.ActionPanelElementSuffix, _root, _token, _model.Subdirectory);
             _clientEntityService.SetActive(_panelButton, false);
 
-            AddUpdate(OnLateUpdate, UpdateType.Late);
+            AddUpdate(OnLateUpdate, UpdateTypes.Late);
         }
 
         private bool IsSetUp()
@@ -183,9 +183,9 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             _subObjects.Clear();
         }
 
-        public void AddText(string text, Action onClickHandler = null)
+        private void OnAddActionPanelText(AddActionPanelText addText)
         {
-            _textToShow.Enqueue(new TextAction() { Text=text, ClickAction=onClickHandler });
+            _textToShow.Enqueue(addText);
         }
 
         private bool _showingText = false;
@@ -206,9 +206,9 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         private async Task OnLateUpdateAsync()
         { 
             bool showedText = false;
-            while (_textToShow.TryDequeue(out TextAction action))
+            while (_textToShow.TryDequeue(out AddActionPanelText action))
             {
-                ActionPanelText actionPanelRow = await _assetService.InitViewController<ActionPanelText, TextAction>(
+                ActionPanelText actionPanelRow = await _assetService.InitViewController<ActionPanelText, AddActionPanelText>(
                     action,
                     _panelText,
                     _content, _token);

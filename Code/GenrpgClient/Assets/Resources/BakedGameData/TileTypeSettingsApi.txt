@@ -8,7 +8,6 @@
       "Desc": "Not much here.",
       "Icon": "BarrenTile",
       "Art": "BarrenTile",
-      "SpawnChance": 1.0,
       "PassRewards": [],
       "LandRewards": [],
       "UpdateTime": "2025-02-02T19:57:40.985Z"
@@ -21,7 +20,6 @@
       "Desc": "Some flowers.",
       "Icon": "MeadowTile",
       "Art": "MeadowTile",
-      "SpawnChance": 1.0,
       "PassRewards": [],
       "LandRewards": [],
       "UpdateTime": "2025-02-02T19:57:40.985Z"
@@ -34,7 +32,6 @@
       "Desc": "Some crops",
       "Icon": "FieldTile",
       "Art": "FieldTile",
-      "SpawnChance": 1.0,
       "PassRewards": [],
       "LandRewards": [],
       "UpdateTime": "2025-02-02T19:57:40.985Z"
@@ -47,7 +44,6 @@
       "Desc": "Some trees",
       "Icon": "WoodsTile",
       "Art": "WoodsTile",
-      "SpawnChance": 1.0,
       "PassRewards": [],
       "LandRewards": [],
       "UpdateTime": "2025-02-02T19:57:40.985Z"
@@ -60,7 +56,6 @@
       "Desc": "Lots of trees",
       "Icon": "ForestTile",
       "Art": "ForestTile",
-      "SpawnChance": 1.0,
       "PassRewards": [],
       "LandRewards": [],
       "UpdateTime": "2025-02-02T19:57:40.985Z"
@@ -73,7 +68,6 @@
       "Desc": "Big mountains",
       "Icon": "MountainsTile",
       "Art": "MountainsTile",
-      "SpawnChance": 1.0,
       "PassRewards": [],
       "LandRewards": [],
       "UpdateTime": "2025-02-02T19:57:40.985Z"
@@ -86,7 +80,6 @@
       "Desc": "Lots of sand",
       "Icon": "DesertTile",
       "Art": "DesertTile",
-      "SpawnChance": 1.0,
       "PassRewards": [],
       "LandRewards": [],
       "UpdateTime": "2025-02-02T19:57:40.985Z"
@@ -99,7 +92,6 @@
       "Desc": "Desolate",
       "Icon": "WastelandTile",
       "Art": "WastelandTile",
-      "SpawnChance": 1.0,
       "PassRewards": [],
       "LandRewards": [],
       "UpdateTime": "2025-02-02T19:57:40.985Z"
@@ -112,7 +104,6 @@
       "Desc": "Humid lots of trees",
       "Icon": "SwampTile",
       "Art": "SwampTile",
-      "SpawnChance": 1.0,
       "PassRewards": [],
       "LandRewards": [],
       "UpdateTime": "2025-02-02T19:57:40.985Z"
@@ -125,7 +116,6 @@
       "Desc": "Humid lots of plants",
       "Icon": "MarshTile",
       "Art": "MarshTile",
-      "SpawnChance": 1.0,
       "PassRewards": [],
       "LandRewards": [],
       "UpdateTime": "2025-02-02T19:57:40.985Z"
@@ -138,7 +128,6 @@
       "Desc": "Huge trees and lots of life",
       "Icon": "JungleTile",
       "Art": "JungleTile",
-      "SpawnChance": 1.0,
       "PassRewards": [],
       "LandRewards": [],
       "UpdateTime": "2025-02-02T19:57:40.985Z"
@@ -151,7 +140,6 @@
       "Desc": "Cold and barren, some plants",
       "Icon": "TaigaTile",
       "Art": "TaigaTile",
-      "SpawnChance": 1.0,
       "PassRewards": [],
       "LandRewards": [],
       "UpdateTime": "2025-02-02T19:57:40.985Z"
@@ -164,7 +152,6 @@
       "Desc": "Very cold and barren",
       "Icon": "TundraTile",
       "Art": "TundraTile",
-      "SpawnChance": 1.0,
       "PassRewards": [],
       "LandRewards": [],
       "UpdateTime": "2025-02-02T19:57:40.985Z"
@@ -177,7 +164,6 @@
       "Desc": "Open fields as far as the eye can see",
       "Icon": "GrasslandTile",
       "Art": "GrasslandTile",
-      "SpawnChance": 1.0,
       "PassRewards": [],
       "LandRewards": [],
       "UpdateTime": "2025-02-02T19:57:40.985Z"
@@ -190,7 +176,6 @@
       "Desc": "Dry grasslands",
       "Icon": "SavannahTile",
       "Art": "SavannahTile",
-      "SpawnChance": 1.0,
       "PassRewards": [],
       "LandRewards": [],
       "UpdateTime": "2025-02-02T19:57:40.985Z"
@@ -203,7 +188,6 @@
       "Desc": "Cold with lots of elevation",
       "Icon": "HillsTile",
       "Art": "HillsTile",
-      "SpawnChance": 1.0,
       "PassRewards": [],
       "LandRewards": [],
       "UpdateTime": "2025-02-02T19:57:40.985Z"

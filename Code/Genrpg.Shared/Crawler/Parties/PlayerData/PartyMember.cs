@@ -21,7 +21,7 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
     public class StatRegenFraction
     {
         [Key(0)] public long StatTypeId { get; set; }
-        [Key(1)] public double Fraction { get; set; }
+        [Key(1)] public float Fraction { get; set; }
     }
 
     [MessagePackObject]
@@ -68,7 +68,11 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
             StringBuilder sb = new StringBuilder();
             for (int i =0; i < _permStats.Length; i++)
             {
-                sb.Append(_permStats[i].ToString() + " ");
+                sb.Append(_permStats[i].ToString());
+                if (i < _permStats.Length - 1)
+                {
+                    sb.Append(" ");
+                }
             }
             PermStats = sb.ToString();  
         }

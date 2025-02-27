@@ -30,7 +30,7 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
     public override void Init()
     {
         base.Init();
-        AddUpdate(ScreenUpdate, UpdateType.Regular);
+        AddUpdate(ScreenUpdate, UpdateTypes.Regular);
     }
 
     protected virtual void OnEnable()

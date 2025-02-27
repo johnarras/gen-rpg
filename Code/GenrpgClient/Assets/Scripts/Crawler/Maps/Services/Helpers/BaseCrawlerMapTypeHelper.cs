@@ -47,14 +47,11 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
         public abstract long GetKey();
 
-        protected virtual bool IsIndoors() { return false; }
-
         public virtual async Awaitable<CrawlerMapRoot> EnterMap(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
         {
-            if (partyData.CurrentMap.MapId != mapData.MapId)
+            if (partyData.MapId!= mapData.MapId)
             {
-                partyData.CurrentMap.Visited.Clear();
-                partyData.MapId = mapData.MapId;
+                partyData.CurrentMap.Clear();
             }
 
             if (partyData.MapX < 0 || partyData.MapZ < 0)
@@ -182,7 +179,9 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             CrawlerBuilding crawlerBuilding = _clientEntityService.FullInstantiate(buildingIn);
             _clientEntityService.AddToParent(crawlerBuilding, parent);
 
-            crawlerBuilding.InitData(loadData.BuildingType, loadData.Seed, mats);
+
+
+            crawlerBuilding.InitData(loadData.BuildingType, loadData.Seed, loadData.MapRoot, loadData.MapCell, mats);
             crawlerBuilding.transform.eulerAngles = new Vector3(0, loadData.Angle, 0);
             crawlerBuilding.transform.localScale = Vector3.one;
         }
@@ -333,7 +332,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             bool nIsRoom = (mapRoot.Map.Get(cell.X, dnz, CellIndex.Walls) & (1 << MapWallBits.IsRoomBitOffset)) != 0;
 
 
-            if (!IsIndoors())
+            if (!mapRoot.Map.IsIndoors)
             {
                 GameObject imageChild = new GameObject() { name = "Image" };
                 _clientEntityService.AddToParent(imageChild, go);
@@ -372,7 +371,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             {
                 AddWallComponent(mapRoot, cell, DungeonAssetPosition.NorthWall, DungeonAssetIndex.Fences, go, nOffset, nRot, realCellX, realCellZ);
             }
-            if (isRoom != nIsRoom && IsIndoors())
+            if (isRoom != nIsRoom && mapRoot.Map.IsIndoors)
             {
                 AddWallComponent(mapRoot, cell, DungeonAssetPosition.NorthUpper, DungeonAssetIndex.Walls, go, nOffset + new Vector3(0, bz, 0), nRot, realCellX, realCellZ);
                 IsTallBorder = true;
@@ -398,7 +397,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                 AddWallComponent(mapRoot, cell, DungeonAssetPosition.EastWall, DungeonAssetIndex.Fences, go, eOffset, eRot, realCellX, realCellZ);
             }
 
-            if (isRoom != eIsRoom && IsIndoors())
+            if (isRoom != eIsRoom && mapRoot.Map.IsIndoors)
             {
                 AddWallComponent(mapRoot, cell, DungeonAssetPosition.EastUpper, DungeonAssetIndex.Walls, go, eOffset + new Vector3(0, bz, 0), eRot, realCellX, realCellZ);
                 IsTallBorder = true;
@@ -484,7 +483,6 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                     }
 
                     int angle = mapRoot.Map.Get(cell.X, cell.Z, CellIndex.Dir) * CrawlerMapConstants.DirToAngleMult;
-
 
                     CrawlerObjectLoadData loadData = new CrawlerObjectLoadData()
                     {

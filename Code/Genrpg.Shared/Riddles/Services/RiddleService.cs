@@ -27,7 +27,7 @@ namespace Genrpg.Shared.Riddles.Services
 
     public interface IRiddleService : IInitializable
     {
-        Task GenerateRiddles(List<CrawlerMap> floors, IRandom rand);
+        Task GenerateRiddles(List<CrawlerMap> floors, CrawlerMapGenType genType, IRandom rand);
     }
 
     public class RiddleService : IRiddleService
@@ -185,18 +185,18 @@ namespace Genrpg.Shared.Riddles.Services
         }
 
 
-        public async Task GenerateRiddles(List<CrawlerMap> floors, IRandom rand)
+        public async Task GenerateRiddles(List<CrawlerMap> floors, CrawlerMapGenType genType, IRandom rand)
         {
 
             InitWords();
             long minFloor = Math.Max(2, floors.Min(x => x.MapFloor));
             long maxFloor = floors.Max(x => x.MapFloor);
 
-            CrawlerMapType mapType = _gameData.Get<CrawlerMapSettings>(_gs.ch).Get(floors[0].CrawlerMapTypeId);
+            CrawlerMapSettings mapSettings = _gameData.Get<CrawlerMapSettings>(_gs.ch);
 
             for (long floorChosen = minFloor; floorChosen < maxFloor; floorChosen++)
             {
-                if (rand.NextDouble() > mapType.RiddleUnlockChance)
+                if (rand.NextDouble() > mapSettings.RiddleUnlockChance)
                 {
                     continue;
                 }
@@ -223,8 +223,7 @@ namespace Genrpg.Shared.Riddles.Services
                     {
                         if (prevFloor.Get(x, z, CellIndex.Terrain) < 1 ||
                            prevFloor.Get(x, z, CellIndex.Encounter) > 0 ||
-                            prevFloor.Get(x, z, CellIndex.Magic) > 0 ||
-                            prevFloor.Get(x, z, CellIndex.Disables) > 0)
+                            prevFloor.Get(x, z, CellIndex.Magic) > 0)
                         {
                             continue;
                         }

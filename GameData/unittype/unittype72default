@@ -2,30 +2,14 @@
   "Id": "unittype72default",
   "ParentId": "default",
   "IdKey": 72,
-  "Name": "Water Elemental",
-  "PluralName": "Water Elementals",
-  "Icon": "WaterElemental",
-  "Art": "WaterElemental",
-  "TribeTypeId": 4,
-  "MinLevel": 15,
+  "Name": "Bear",
+  "PluralName": "Bears",
+  "Icon": "Bear",
+  "Art": "Bear",
+  "TribeTypeId": 2,
+  "MinLevel": 1,
   "SpawnQuantityScale": 1.0,
-  "Effects": [
-    {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
-      "EntityTypeId": 24,
-      "Quantity": 1,
-      "EntityId": 2
-    },
-    {
-      "EntityTypeId": 25,
-      "Quantity": 1,
-      "EntityId": 3
-    }
-  ],
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -33,5 +17,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

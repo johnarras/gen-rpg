@@ -3,13 +3,15 @@
   "ParentId": "default",
   "IdKey": 5,
   "Name": "Mythological",
+  "PluralName": "Mythologicals",
   "Icon": "Mythological",
   "Art": "Mythological",
   "Effects": [
     {
       "EntityTypeId": 36,
+      "Quantity": 1,
       "EntityId": 13
     }
   ],
-  "UpdateTime": "2025-01-11T16:06:35.196Z"
+  "UpdateTime": "2025-02-17T09:10:53.635Z"
 }

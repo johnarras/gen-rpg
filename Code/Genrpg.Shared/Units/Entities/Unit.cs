@@ -50,7 +50,7 @@ namespace Genrpg.Shared.Units.Entities
         public bool DidFailAIUpdate { get; set; }
         public bool UnitWasNotOk { get; set; }
 
-        public DateTime LastUpdateTime { get; set; } = DateTime.UtcNow;
+        [JsonIgnore] public DateTime LastUpdateTime { get; set; } = DateTime.UtcNow;
 
         private List<AttackerInfo> _attackers = new List<AttackerInfo>();
 
@@ -71,7 +71,7 @@ namespace Genrpg.Shared.Units.Entities
 
         private int _flags = 0;
 
-        public DateTime GlobalCooldownEnds = DateTime.UtcNow;
+        [JsonIgnore] public DateTime GlobalCooldownEnds { get; set; } = DateTime.UtcNow;
 
         public Unit(IRepositoryService repositoryService) : base(repositoryService) { }
 

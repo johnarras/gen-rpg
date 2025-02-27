@@ -6,7 +6,6 @@
   "Desc": "Cold with lots of elevation",
   "Icon": "HillsTile",
   "Art": "HillsTile",
-  "SpawnChance": 1.0,
   "PassRewards": [],
   "LandRewards": [],
   "UpdateTime": "2025-02-02T19:57:40.985Z"

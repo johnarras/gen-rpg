@@ -20,6 +20,11 @@ namespace Genrpg.Shared.Utils
         double NextDouble();
     }
 
+    public interface IWeightedItem
+    {
+        double Weight { get; }
+    }
+
     [MessagePackObject]
     public class MyRandom : IRandom
     {

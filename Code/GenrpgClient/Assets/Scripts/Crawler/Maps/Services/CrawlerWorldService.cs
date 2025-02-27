@@ -68,7 +68,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
                 if (slotData != null && slotData.WorldId == oldWorldId)
                 {
                     _partyService.Reset(slotData);
-                    _loadSaveService.Save(slotData, slotData.SaveSlotId);
+                    await _crawlerService.SaveGame();
                 }
             }
 
@@ -85,7 +85,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
                 {
                     _partyService.Reset(slotData);
                     slotData.MapId = firstCityMap.IdKey;
-                    _loadSaveService.Save(slotData, slotData.SaveSlotId);
+                    await _crawlerService.SaveGame();
                 }
             }
 
@@ -94,6 +94,73 @@ namespace Assets.Scripts.Crawler.Maps.Services
             _dispatcher.Dispatch(new CrawlerUIUpdate());
             _world = world;
             return world;
+        }
+
+        public CrawlerMap CreateMap(CrawlerMapGenData genData, int width, int height)
+        {
+            long mapId = ++genData.World.MaxMapId;
+            CrawlerMap map = new CrawlerMap()
+            {
+                Id = "Map" + mapId,
+                CrawlerMapTypeId = genData.MapTypeId,
+                Looping = genData.Looping,
+                Width = width,
+                Height = height,
+                Level = genData.Level,
+                IdKey = mapId,
+                MapFloor = genData.CurrFloor,
+                ArtSeed = genData.ArtSeed,
+                ZoneTypeId = genData.ZoneType.IdKey,
+                BuildingTypeId = genData.ZoneType.BuildingTypeId,
+                WeatherTypeId = genData.ZoneType.WeatherTypeId,
+                BuildingArtId = genData.BuildingArtId,
+                IsIndoors = genData.GenType.IsIndoors,
+            };
+
+            map.SetupDataBlocks();
+            genData.World.Maps.Add(map);
+
+            if (genData.ZoneType.ZoneUnitSpawns.Count > 0)
+            {
+                List<ZoneUnitSpawn> spawns = genData.ZoneType.ZoneUnitSpawns.Where(x => x.Weight > 0).OrderBy(x => x.Weight).ToList();
+
+                if (spawns.Count > 0)
+                {
+
+                    CrawlerMapSettings mapSettings = _gameData.Get<CrawlerMapSettings>(_gs.ch);
+
+                    int spawnCount = MathUtils.IntRange(mapSettings.MinZoneUnitSpawns, mapSettings.MaxZoneUnitSpawns, _rand);
+
+                    double minWeight = spawns.Min(x => x.Weight);
+
+                    List<ZoneUnitSpawn> rareSpawns = spawns.Where(x => x.Weight <= minWeight * 2).ToList();
+
+
+                    map.ZoneUnits = new List<ZoneUnitSpawn>();
+
+                    for (int i = 0; i < mapSettings.RareSpawnCount; i++)
+                    {
+                        if (rareSpawns.Count > 0)
+                        {
+                            ZoneUnitSpawn rare = rareSpawns[_rand.Next() % rareSpawns.Count];
+                            rareSpawns.Remove(rare);
+                            spawns.Remove(rare);
+                            map.ZoneUnits.Add(rare);
+                        }
+                    }
+
+                    while (map.ZoneUnits.Count < spawnCount && spawns.Count > 0)
+                    {
+                        ZoneUnitSpawn spawn = RandomUtils.GetRandomElement(spawns, _rand);
+
+                        spawns.Remove(spawn);
+                        map.ZoneUnits.Add(spawn);
+                    }
+
+                }
+            }
+
+            return map;
         }
 
         public CrawlerMap GetMap(long mapId)
@@ -212,11 +279,10 @@ namespace Assets.Scripts.Crawler.Maps.Services
 
                     CrawlerMapGenData genData = new CrawlerMapGenData()
                     {
-                        MapType = CrawlerMapTypes.City,
+                        MapTypeId = CrawlerMapTypes.City,
                         World = world,
                         Level = 1,
                         Looping = false,
-                        ZoneTypeId = 0,
                     };
 
                     CrawlerMap outdoorMap = await _mapGenService.Generate(_crawlerService.GetParty(), world, genData);
@@ -275,11 +341,10 @@ namespace Assets.Scripts.Crawler.Maps.Services
 
                     CrawlerMapGenData genData = new CrawlerMapGenData()
                     {
-                        MapType = CrawlerMapTypes.Outdoors,
+                        MapTypeId = CrawlerMapTypes.Outdoors,
                         World = world,
                         Level = 1,
                         Looping = false,
-                        ZoneTypeId = 0,
                     };
 
                     CrawlerMap outdoorMap = await _mapGenService.Generate(_crawlerService.GetParty(), world, genData);
@@ -337,13 +402,11 @@ namespace Assets.Scripts.Crawler.Maps.Services
                 return null;
             }
 
-            CrawlerMapType mapType = _gameData.Get<CrawlerMapSettings>(_gs.ch).Get(map.CrawlerMapTypeId);
-
             IReadOnlyList<ZoneType> allZoneTypes = _gameData.Get<ZoneTypeSettings>(_gs.ch).GetData();
 
-            if (mapType.ZoneTypeId > 0)
+            if (map.ZoneTypeId > 0)
             {
-                return allZoneTypes.FirstOrDefault(x => x.IdKey == mapType.ZoneTypeId);
+                return allZoneTypes.FirstOrDefault(x => x.IdKey == map.ZoneTypeId);
             }
 
             int index = map.GetIndex(partyData.MapX, partyData.MapZ);

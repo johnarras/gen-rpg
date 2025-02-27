@@ -3,17 +3,20 @@
   "ParentId": "default",
   "IdKey": 17,
   "Name": "Shaman",
+  "PluralName": "Shamans",
   "Icon": "Shaman",
   "Art": "Shaman",
   "Effects": [
     {
       "EntityTypeId": 100,
+      "Quantity": 1,
       "EntityId": 31
     },
     {
       "EntityTypeId": 100,
+      "Quantity": 1,
       "EntityId": 32
     }
   ],
-  "UpdateTime": "2025-01-11T16:06:35.196Z"
+  "UpdateTime": "2025-02-17T09:10:53.635Z"
 }

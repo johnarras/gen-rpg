@@ -9,7 +9,7 @@ using Assets.Scripts.Crawler.Maps.Services.Helpers;
 
 namespace Genrpg.Shared.Crawler.Maps.Services
 {
-    public interface ICrawlerMapService : IInitializable, IGameCleanup
+    public interface ICrawlerMapService : IInitializable, IClientResetCleanup
     {
         Task EnterMap(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token);
         Task UpdateMovement(CancellationToken token);
@@ -25,10 +25,13 @@ namespace Genrpg.Shared.Crawler.Maps.Services
         void MovePartyTo(PartyData partyData, int x, int z, int rot, CancellationToken token, bool rotationOnly = false);
         FullWallTileImage GetMinimapWallFilename(CrawlerMap map, int x, int z);
         Task AddKeyInput(char keyChar, CancellationToken token);
-        bool IsDungeon(long crawlerMapTypeId);
-        long GetMapType();
+        bool InDungeonMap();
+        bool IsIndoors();
         ICrawlerMapTypeHelper GetMapHelper(long mapType);
         string GetBGImageName();
+        void MarkCellCleansed(int x, int z);
+        int GetMagicBits(long mapId, int x, int z);
+        bool HasMagicBit(int x, int z, long bit);
 
     }
 }

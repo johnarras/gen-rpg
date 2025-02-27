@@ -3,17 +3,10 @@
   "ParentId": "default",
   "IdKey": 22,
   "Name": "Water",
+  "PluralName": "Waters",
   "Icon": "Water",
   "Art": "Water",
   "Effects": [
-    {
-      "EntityTypeId": 100,
-      "EntityId": 29
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 30
-    },
     {
       "EntityTypeId": 24,
       "Quantity": 1,
@@ -23,7 +16,17 @@
       "EntityTypeId": 25,
       "Quantity": 1,
       "EntityId": 3
+    },
+    {
+      "EntityTypeId": 100,
+      "Quantity": 1,
+      "EntityId": 29
+    },
+    {
+      "EntityTypeId": 100,
+      "Quantity": 1,
+      "EntityId": 30
     }
   ],
-  "UpdateTime": "2025-01-11T16:06:35.196Z"
+  "UpdateTime": "2025-02-17T09:10:53.635Z"
 }

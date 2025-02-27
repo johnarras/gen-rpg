@@ -2,39 +2,18 @@
   "Id": "unittype37default",
   "ParentId": "default",
   "IdKey": 37,
-  "Name": "Wizard",
-  "PluralName": "Wizards",
-  "Icon": "Wizard",
-  "Art": "Wizard",
-  "TribeTypeId": 12,
+  "Name": "Faerie",
+  "PluralName": "Faeries",
+  "Icon": "Faerie",
+  "Art": "Faerie",
+  "TribeTypeId": 8,
   "MinLevel": 20,
   "SpawnQuantityScale": 1.0,
   "Effects": [
     {
-      "EntityTypeId": 31,
+      "EntityTypeId": 25,
       "Quantity": 1,
-      "EntityId": 35
-    },
-    {
-      "EntityTypeId": 36,
-      "EntityId": 7
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 28
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 30
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 51
-    },
-    {
-      "EntityTypeId": 100,
-      "Quantity": 1,
-      "EntityId": 20070
+      "EntityId": 9
     }
   ],
   "PrefixNames": [],
@@ -44,5 +23,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

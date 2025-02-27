@@ -1,8 +1,10 @@
 ﻿
+using Assets.Scripts.Crawler.ClientEvents.WorldPanelEvents;
 using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Constants;
+using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Constants;
@@ -19,6 +21,9 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
 {
     public class CombatFightRunStateHelper : BaseCombatStateHelper
     {
+
+        private ICrawlerMapService _crawlerMapService;
+
         public override ECrawlerStates GetKey() { return ECrawlerStates.CombatFightRun; }
 
         public override async Task<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
@@ -44,7 +49,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
 
                 if (!didShowPortrait)
                 {
-                    partyData.WorldPanel.SetPicture(group.Units[0].PortraitName, false);
+                    _dispatcher.Dispatch(new SetWorldPicture(group.Units[0].PortraitName, false));
                     stateData.WorldSpriteName = group.Units[0].PortraitName;
                     didShowPortrait = true;
                 }
@@ -144,6 +149,8 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
                }));
             }
 
+
+            _crawlerMapService.ClearMovement();
 
             await Task.CompletedTask;
             return stateData;

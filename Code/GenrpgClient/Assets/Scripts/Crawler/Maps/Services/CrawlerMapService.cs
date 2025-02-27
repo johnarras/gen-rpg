@@ -9,7 +9,6 @@ using Genrpg.Shared.Buildings.Settings;
 using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.TimeOfDay.Constants;
-using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.HelperClasses;
 using Genrpg.Shared.Logging.Interfaces;
@@ -32,17 +31,18 @@ using Genrpg.Shared.Crawler.States.StateHelpers.Exploring;
 using UnityEngine;
 using Genrpg.Shared.Tasks.Services;
 using Genrpg.Shared.Crawler.States.Entities;
-using Genrpg.Shared.Dungeons.Settings;
 using Genrpg.Shared.Crawler.Maps.Settings;
 using Genrpg.Shared.Crawler.Constants;
-using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Zones.Settings;
-using TMPro;
 using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.UI.Entities;
 using Assets.Scripts.Buildings;
-using Genrpg.Shared.Interfaces;
-using UnityEngine.Assertions.Must;
+using Genrpg.Shared.Crawler.Loot.Settings;
+using Genrpg.Shared.Stats.Constants;
+using Genrpg.Shared.UnitEffects.Constants;
+using Genrpg.Shared.Crawler.Stats.Services;
+using Assets.Scripts.Crawler.ClientEvents.WorldPanelEvents;
+using Genrpg.Shared.Spells.Constants;
 
 namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 {
@@ -67,9 +67,9 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
         private List<MovementKeyCode> _movementKeyCodes = new List<MovementKeyCode>();
 
-        IAssetService _assetService;
-        ICameraController _cameraController;
-        ICrawlerService _crawlerService;
+        private IAssetService _assetService;
+        private ICameraController _cameraController;
+        private ICrawlerService _crawlerService;
         private IInputService _inputService;
         private IDispatcher _dispatcher;
         private ILogService _logService;
@@ -77,9 +77,12 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         private ICrawlerWorldService _worldService;
         private ITimeOfDayService _timeService;
         private IClientEntityService _clientEntityService;
-        protected ITaskService _taskService;
+        private ITaskService _taskService;
         private IClientGameState _gs;
         private IScreenService _screenService;
+        private IClientRandom _rand;
+        private IStatService _statService;
+        private ICrawlerStatService _crawlerStatService;
 
         const int ViewRadius = 8;
         CrawlerMapRoot _crawlerMapRoot = null;
@@ -126,12 +129,6 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             return _crawlerMapRoot.DungeonAssets.BGImageName;
         }
 
-        private long _mapType = CrawlerMapTypes.None;
-        public long GetMapType()
-        {
-            return _mapType;
-        }
-        
         private GameObject _playerLightObject = null;
         private Light _playerLight = null;
         public async Task Initialize(CancellationToken token)
@@ -213,8 +210,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 }
             }
 
-            _mapType = mapData.Map.CrawlerMapTypeId;
-            ICrawlerMapTypeHelper helper = GetMapHelper(_mapType);
+            ICrawlerMapTypeHelper helper = GetMapHelper(mapData.Map.CrawlerMapTypeId);
 
             _crawlerMapRoot = await helper.EnterMap(partyData, mapData, token);
 
@@ -234,14 +230,20 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         private async Task LoadDungeonAssets(CrawlerMapRoot mapRoot, CancellationToken token)
         {
 
-            CrawlerMapType mtype = _gameData.Get<CrawlerMapSettings>(_gs.ch).Get(mapRoot.Map.CrawlerMapTypeId);
-            DungeonArt dungeonArt = _gameData.Get<DungeonArtSettings>(_gs.ch).Get(mtype.DungeonArtId);
+            ZoneType ztype = _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(mapRoot.Map.ZoneTypeId);
 
-            string dungeonArtName = dungeonArt.Art;
+            if (ztype == null)
+            {
+                ztype = _gameData.Get<ZoneTypeSettings>(_gs.ch).GetData().FirstOrDefault(x => x.Name == "Outdoors");
+            }
+
+            string dungeonArtName = ztype.Art;
+
+            string buildingArtFolder = _gameData.Get<BuildingArtSettings>(_gs.ch).Get(mapRoot.Map.BuildingArtId).Art;
 
             _assetService.LoadAsset(AssetCategoryNames.Dungeons, dungeonArtName, OnLoadDungeonAssets, null, null, token);
 
-            _assetService.LoadAsset(AssetCategoryNames.Buildings, "DefaultCityAssets", OnLoadCityAssets, null, null, token, "Default");
+            _assetService.LoadAsset(AssetCategoryNames.Buildings, "CityAssets", OnLoadCityAssets, null, null, token, buildingArtFolder);
 
             while (mapRoot.DungeonAssets == null || mapRoot.DungeonMaterials == null || mapRoot.CityAssets == null)
             {
@@ -309,7 +311,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             }
         }
 
-        public async Task OnCleanup(CancellationToken token)
+        public async Task OnClientResetCleanup(CancellationToken token)
         {
             CleanMap();
             await Task.CompletedTask;
@@ -347,7 +349,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             if (_playerLight != null)
             {
 
-                if (IsDungeon(_mapType))
+                if (InDungeonMap())
                 {
                     _playerLight.intensity = 100;
                     _playerLight.range = 1000;
@@ -376,7 +378,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
             _cameraParent.transform.position = new Vector3(_crawlerMapRoot.DrawX, _crawlerMapRoot.DrawY, _crawlerMapRoot.DrawZ);
             _cameraParent.transform.eulerAngles = new Vector3(0, _crawlerMapRoot.DrawRot + 90, 0);
-            _party.WorldPanel.SetPicture(null,false);
+            _dispatcher.Dispatch(new SetWorldPicture(null,false));
             if (_playerLightObject != null && _camera != null)
             {
                 _playerLightObject.transform.position = _camera.transform.position;
@@ -468,15 +470,60 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 }
                 else
                 {
-                    await Rot(kc.RotationAmount, token);
+                    await Rot(kc.RotationAmount, false, token);
                 }
 
                 await _crawlerService.OnFinishMove(kc.RotationAmount == 0, token);
                 MovePartyTo(_party, _party.MapX, _party.MapZ, _party.MapRot, token, isRotation);
 
+                await ApplyMagicBits(token);
+               
+
                 await _timeService.UpdateTime(_party, ECrawlerTimeUpdateTypes.Move);
             }
             _updatingMovement = false;
+        }
+
+        private async Task ApplyMagicBits(CancellationToken token)
+        {
+            if (HasMagicBit(_party.MapX, _party.MapZ, MapMagic.Spinner))
+            {
+                int rotateAmount = MathUtils.IntRange(-1, 2, _rand);
+                if (rotateAmount != 0)
+                {
+                    await Rot(rotateAmount, true, token);
+                    _dispatcher.Dispatch(new ShowPartyMinimap() { Party = _party, PartyArrowOnly = true });
+                }
+            }
+            if (HasMagicBit(_party.MapX, _party.MapZ, MapMagic.NoMagic))
+            {
+                _party.Buffs.Clear();
+            }
+            if (HasMagicBit(_party.MapX, _party.MapZ, MapMagic.Drain))
+            {
+                CrawlerMapSettings mapSettings = _gameData.Get<CrawlerMapSettings>(_gs.ch);
+
+                foreach (PartyMember pm in _party.GetActiveParty())
+                {
+                    if (pm.StatusEffects.HasBit(StatusEffects.Dead))
+                    {
+                        continue;
+                    }
+
+                    int healthLost = Math.Max(1, (int)(pm.Stats.Max(StatTypes.Health) * mapSettings.DrainHealthPercent));
+                    healthLost = Math.Min(healthLost, pm.Stats.Curr(StatTypes.Health));
+                    _crawlerStatService.Add(_party, pm, StatTypes.Health, StatCategories.Curr, -healthLost, ElementTypes.Physical);
+                    if (pm.Stats.Curr(StatTypes.Health) < 1)
+                    {
+                        pm.StatusEffects.SetBit(StatusEffects.Dead);
+                        continue;
+                    }
+
+                    int manaLost = Math.Max(1, (int)(pm.Stats.Max(StatTypes.Mana) * mapSettings.DrainManaPercent));
+                    manaLost = Math.Min(manaLost, pm.Stats.Curr(StatTypes.Mana));
+                    _crawlerStatService.Add(_party, pm, StatTypes.Mana, StatCategories.Curr, -manaLost);
+                }
+            }
         }
 
         public int GetBlockingBits(int sx, int sz, int ex, int ez, bool allowBuildingEntry)
@@ -604,7 +651,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             _party.MapZ = ez;
         }
 
-        private async Task Rot(int delta, CancellationToken token)
+        private async Task Rot(int delta, bool fastRotate, CancellationToken token)
         {
 
             float startRot = _party.MapRot;
@@ -613,6 +660,11 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             float deltaRot = endRot - startRot;
 
             int frames = moveFrames * 1;
+
+            if (fastRotate)
+            {
+                frames = (int)(Math.Max(1, Math.Abs(delta)));
+            }
 
             for (int frame = 1; frame <= frames; frame++)
             {
@@ -650,7 +702,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 int cx = (int)(_party.MapX);
                 int cz = (int)(_party.MapZ);
 
-                int nonLoopExtraRadius = IsDungeon(_crawlerMapRoot.Map.CrawlerMapTypeId)  ? 1 : 0;
+                int nonLoopExtraRadius = InDungeonMap()  ? 1 : 0;
 
                 int bigViewRadius = ViewRadius + 2;
 
@@ -758,6 +810,22 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             MarkCellVisited(_party.MapId, _party.MapX, _party.MapZ);
         }
 
+        public void MarkCellCleansed(int x, int z)
+        {
+            if (_party == null || _world == null)
+            {
+                return;
+            }
+
+            CrawlerMap map = _world.GetMap(_party.MapId);
+
+            if(map == null)
+            {
+                return;
+            }
+
+            _party.CurrentMap.Cleansed.SetBit(map.GetIndex(x, z));
+        }
         public void MarkCellVisited(long mapId, int x, int z)
         {           
             if (_party == null || _world == null)
@@ -815,13 +883,15 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             if (status.CellsVisited >= status.TotalCells)
             {
                 _party.CompletedMaps.SetBit(mapId);
-                _party.Maps.Remove(status);
+                _party.Maps.Remove(status);                
+
+                CrawlerLootSettings lootSettings = _gameData.Get<CrawlerLootSettings>(_gs.ch);
                 _crawlerService.ChangeState(ECrawlerStates.GiveLoot, _token, new GiveLootParams()
                 {
                     Header = "You Explored " + map.Name + "!",
-                    LootScale = (1 + status.TotalCells/35),
-                    BonusLevels = status.TotalCells/50,
-                    MonsterExpCount = status.TotalCells/40,
+                    LootScale = (1 + status.TotalCells*lootSettings.ExploreLootScalePerCell),
+                    BonusLevels = (int)(status.TotalCells*lootSettings.ExploreBonusLevelsPerCell),
+                    MonsterExpCount = (int)(status.TotalCells*lootSettings.ExploreMonsterExpPerCell),
                 });
                 return;
             }
@@ -978,7 +1048,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                         sb.Append(_wallLetterList[vals[w]]);
                     }
 
-                    wti.Filename = sb.ToString() + SpriteNameSuffixes.Wall;
+                    wti.Filename = sb.ToString() + SpriteNameCategories.Wall;
                     TileImages[i] = new FullWallTileImage() { Index = i, WallIds = vals, RefImage = wti };
                 }
             }
@@ -996,9 +1066,43 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             }
         }
 
-        public bool IsDungeon(long crawlerMapTypeId)
+        public bool InDungeonMap()
         {
-            return (_gameData.Get<CrawlerMapSettings>(_gs.ch).Get(crawlerMapTypeId)?.DungeonGenChance ?? 0) > 0;
+            return _crawlerMapRoot != null && _crawlerMapRoot.Map != null && _crawlerMapRoot.Map.CrawlerMapTypeId == CrawlerMapTypes.Dungeon;
+        }
+
+        public bool IsIndoors()
+        {
+            return _crawlerMapRoot != null && _crawlerMapRoot.Map != null && _crawlerMapRoot.Map.IsIndoors;
+        }
+
+        public bool HasMagicBit(int x, int z, long bit)
+        {
+            return FlagUtils.IsSet(GetMagicBits(_party.MapId, x, z), bit);
+        }
+
+        public int GetMagicBits(long mapId, int x, int z)
+        {
+            if (_world == null)
+            {
+                return 0;
+            }
+
+            CrawlerMap map = _world.GetMap(mapId);
+
+            if (map == null)
+            {
+                return 0;
+            }
+
+            int bits = map.Get(x, z, CellIndex.Magic);
+
+            if (mapId == _party.MapId && _party.CurrentMap.Cleansed.HasBit(map.GetIndex(x,z)))
+            {
+                return 0;
+            }
+
+            return bits;
         }
     }
 }

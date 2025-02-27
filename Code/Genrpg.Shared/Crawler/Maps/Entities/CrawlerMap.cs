@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Genrpg.Shared.Dungeons.Constants;
 using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.Zones.Settings;
 
 namespace Genrpg.Shared.Crawler.Maps.Entities
 {
@@ -19,16 +21,7 @@ namespace Genrpg.Shared.Crawler.Maps.Entities
         public const int Tree = 5;
         public const int Magic = 6;
         public const int Encounter = 7;
-        public const int Disables = 8;
-        public const int Unused4 = 9;
-        public const int Unused5 = 10;
-        public const int Unused6 = 11;
-        public const int Unused7 = 12;
-        public const int Unused8 = 13;
-        public const int Unused9 = 14;
-        public const int Unused10 = 15;
-        public const int Unused11 = 16;
-        public const int Max = 16;
+        public const int Max = 8;
     }
 
     [MessagePackObject]
@@ -51,9 +44,13 @@ namespace Genrpg.Shared.Crawler.Maps.Entities
         [Key(14)] public string RiddleError { get; set; }
         [Key(15)] public byte[] Data { get; set; }
         [Key(16)] public long ArtSeed { get; set; }
-
-
-        [Key(17)] public List<MapCellDetail> Details { get; set; } = new List<MapCellDetail>();
+        [Key(17)] public long WeatherTypeId { get; set; }
+        [Key(18)] public long ZoneTypeId { get; set; }
+        [Key(19)] public long BuildingTypeId { get; set; }
+        [Key(20)] public bool IsIndoors { get; set; }
+        [Key(21)] public long BuildingArtId { get; set; }
+        [Key(22)] public List<MapCellDetail> Details { get; set; } = new List<MapCellDetail>();
+        [Key(23)] public List<ZoneUnitSpawn> ZoneUnits { get; set; } = new List<ZoneUnitSpawn>();
 
 
         public void SetupDataBlocks()

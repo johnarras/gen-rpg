@@ -56,7 +56,7 @@ namespace Assets.Scripts.TextureLists.Services
             _assetService.LoadAssetInto(GetTextureListParent(), AssetCategoryNames.TextureLists, textureName, OnDownloadTextureList, downloadData, token);
         }
 
-        public async Task OnCleanup(CancellationToken token)
+        public async Task OnClientResetCleanup(CancellationToken token)
         {
             _clientEntityService.DestroyAllChildren(GetTextureListParent());
             _textureListCache = new Dictionary<string, SpriteList>();

@@ -1,13 +1,14 @@
 ﻿
 using Assets.Scripts.Assets.Textures;
+using Assets.Scripts.Crawler.Combat;
 using Assets.Scripts.Crawler.UI.StatusUI;
 using Assets.Scripts.MVC;
 using Assets.Scripts.UI.CombatTexts;
+using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Roles.Constants;
 using Genrpg.Shared.Crawler.Roles.Settings;
-using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.Crawler.States.StateHelpers.Exploring;
 using Genrpg.Shared.MVC.Interfaces;
@@ -43,6 +44,8 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
 
         private StatusEffectsUI _statusEffectsUI;
 
+        private CombatEffectUI _combatEffectUI;
+
         private GText _nameText;
         private GText _classText;
         private GText _levelText;
@@ -70,10 +73,11 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
             _manaBar = _view.Get<ProgressBar>("ManaBar");
 
             _statusEffectsUI = _view.Get<StatusEffectsUI>("Status");
+            _combatEffectUI = _view.Get<CombatEffectUI>("CombatEffects");
 
             _uiService.SetButton(Button, GetType().Name, ClickPartyMember);
 
-            _updateService.AddUpdate(this, OnLateUpdate, UpdateType.Late, GetToken());
+            _updateService.AddUpdate(this, OnLateUpdate, UpdateTypes.Late, GetToken());
             UpdateData();
         }
 
@@ -90,9 +94,14 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
         }
 
         private bool _needToUpdate = false;
-        public void UpdateData()
+        private long _nextElementTypeId = 0;
+        public void UpdateData(long elementTypeId = 0)
         {
             _needToUpdate = true;
+            if (_nextElementTypeId == 0)
+            {
+                _nextElementTypeId = elementTypeId;
+            }
         }
 
 
@@ -102,6 +111,13 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
             {
                 UpdateDataInternal();
                 _needToUpdate = false;
+
+                if (_nextElementTypeId > 0)
+                {
+                    _combatEffectUI.OnShowCombatText(new Genrpg.Shared.Crawler.GameEvents.ShowCombatText() { ElementTypeId = _nextElementTypeId, Text = "", TextType = ECombatTextTypes.Damage });
+                }
+                _nextElementTypeId = 0;
+              
             }
         }
 

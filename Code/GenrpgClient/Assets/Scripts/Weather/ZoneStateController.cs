@@ -21,6 +21,10 @@ using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.UI.Entities;
 using Assets.Scripts.Crawler.Maps.Services.Helpers;
 using Genrpg.Shared.Crawler.Maps.Settings;
+using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.States.Services;
+using Genrpg.Shared.Crawler.Maps.Entities;
 
 public struct UpdateColor
 {
@@ -67,8 +71,9 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
     private IPlayerManager _playerManager;
     private IMapProvider _mapProvider;
     protected IAudioService _audioService;
-    protected ICrawlerMapService _crawlerMapService;
     private IModTextureService _modTextureService;
+    private ICrawlerService _crawlerService;
+    private ICrawlerWorldService _worldService;
 
     public Camera MainCamera;
     public Light SunLight;
@@ -85,7 +90,7 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
     {
         base.Init();
         RenderSettings.sun = Sun;
-        AddUpdate(ZoneUpdate, UpdateType.Regular);
+        AddUpdate(ZoneUpdate, UpdateTypes.Regular);
         AddListener<OnFinishLoadPlayer>(OnFinishLoadingPlayer);
         ResetColors();
     }
@@ -206,8 +211,9 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
         return;
     }
 
-    private bool InCrawlerMode() { return _crawlerMapService.GetMapType() != CrawlerMapTypes.None; }
+    private bool InCrawlerMode() { return GameModeUtils.IsCrawlerMode(_gs.GameMode); }
 
+    private long _crawlerMapId = 0;
     private bool _didInitZoneState = false;
     private void ZoneUpdate()
     {
@@ -276,13 +282,26 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
             else if (InCrawlerMode())
             {
 
-                IReadOnlyList<WeatherType> weatherTypes = _gameData.Get<WeatherTypeSettings>(_gs.ch).GetData();
-                long mapTypeId = _crawlerMapService.GetMapType();
+                PartyData partyData = _crawlerService.GetParty();
+                if (partyData != null)
+                {
+                    long mapID = partyData.MapId;
+                    if (mapID != _crawlerMapId)
+                    {
+                        CrawlerMap map = _worldService.GetMap(mapID);
+                        if (map == null)
+                        {
+                            _crawlerMapId = 0;
+                            return;
+                        }
+                        _dataWeather = _gameData.Get<WeatherTypeSettings>(_gs.ch).Get(map.WeatherTypeId);
 
-                CrawlerMapType mapType = _gameData.Get<CrawlerMapSettings>(_gs.ch).Get(mapTypeId);
-
-
-                _dataWeather = _gameData.Get<WeatherTypeSettings>(_gs.ch).Get(mapType.WeatherTypeId);
+                        if (_dataWeather != null)
+                        {
+                            _crawlerMapId = mapID;
+                        }
+                    }
+                }
             }
 
             if (_dataWeather == null)

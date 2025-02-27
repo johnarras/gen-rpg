@@ -2,25 +2,14 @@
   "Id": "unittype20default",
   "ParentId": "default",
   "IdKey": 20,
-  "Name": "Goblin Shaman",
-  "PluralName": "Goblin Shamans",
-  "Icon": "GoblinShaman",
-  "Art": "GoblinShaman",
+  "Name": "Hobgoblin",
+  "PluralName": "Hobgoblins",
+  "Icon": "Hobgoblin",
+  "Art": "Hobgoblin",
   "TribeTypeId": 10,
-  "MinLevel": 5,
+  "MinLevel": 1,
   "SpawnQuantityScale": 1.0,
-  "Effects": [
-    {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
-      "EntityTypeId": 100,
-      "Quantity": 1,
-      "EntityId": 50001
-    }
-  ],
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -28,5 +17,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

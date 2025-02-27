@@ -2,30 +2,28 @@
   "Id": "unittype33default",
   "ParentId": "default",
   "IdKey": 33,
-  "Name": "Mage",
-  "PluralName": "Mages",
-  "Icon": "Mage",
-  "Art": "Mage",
+  "Name": "Magician",
+  "PluralName": "Magicians",
+  "Icon": "Magician",
+  "Art": "Magician",
   "TribeTypeId": 12,
-  "MinLevel": 5,
+  "MinLevel": 10,
   "SpawnQuantityScale": 1.0,
   "Effects": [
     {
-      "EntityTypeId": 31,
+      "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 35
+      "EntityId": 29
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 27
+      "Quantity": 1,
+      "EntityId": 30
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 28
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 50
+      "Quantity": 1,
+      "EntityId": 52
     },
     {
       "EntityTypeId": 100,
@@ -40,5 +38,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

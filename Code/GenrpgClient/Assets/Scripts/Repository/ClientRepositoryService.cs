@@ -15,12 +15,7 @@ using Genrpg.Shared.Setup.Constants;
 
 namespace Assets.Scripts.Model
 {
-    public interface IClientRepositoryService : IRepositoryService
-    {
-        Task<bool> SavePrettyPrint<T>(T t) where T : class, IStringId;
-    }
-
-    public class ClientRepositoryService : IClientRepositoryService
+    public class ClientRepositoryService : IRepositoryService
     {
         private ILogService _logger;
         private IClientAppService _clientAppService;
@@ -69,12 +64,12 @@ namespace Assets.Scripts.Model
             Save(t).Wait();
         }
 
-        public async Task<bool> Save<T>(T t) where T : class, IStringId
+        public async Task<bool> Save<T>(T t, bool verbose = false) where T : class, IStringId
         {
             try
             {
                 IClientRepositoryCollection repo = GetRepositoryFromType(t.GetType());
-                return await repo.Save(t);
+                return await repo.Save(t, verbose);
             }
             catch (Exception e)
             {
@@ -199,13 +194,6 @@ namespace Assets.Scripts.Model
         public void QueueUpdateAction<T>(string docId, Action<T> action) where T : class, IStringId
         {
             UpdateAction<T>(docId, action).Wait();
-        }
-
-        
-        public async Task<bool> SavePrettyPrint<T>(T t) where T : class, IStringId
-        {
-            IClientRepositoryCollection repo = GetRepositoryFromType(t.GetType());
-            return await repo.SavePrettyPrint(t);
         }
     }
 }

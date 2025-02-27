@@ -16,9 +16,9 @@
       "EntityTypeId": 33,
       "EntityId": 3,
       "MinQuantity": 1,
-      "MaxQuantity": 4,
+      "MaxQuantity": 6,
       "ElementTypeId": 4
     }
   ],
-  "UpdateTime": "2025-01-26T21:39:02.417Z"
+  "UpdateTime": "2025-02-25T19:39:14.046Z"
 }

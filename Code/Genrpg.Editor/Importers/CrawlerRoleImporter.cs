@@ -96,10 +96,6 @@ namespace Genrpg.Editor.Importers
                     continue;
                 }
 
-                if (TryAddBinaryBonus<PartyBuffSettings>(gs.data, EntityTypes.PartyBuff, words, topRow))
-                {
-                    continue;
-                }
                 if (TryAddBinaryBonus<StatSettings>(gs.data, EntityTypes.Stat, words, topRow))
                 {
                     continue;

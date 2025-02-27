@@ -82,12 +82,7 @@ public class LoadSaveScreen : BaseScreen
     }
     private void OnClickSave()
     {
-        PartyData partyData = _crawlerService.GetParty();
-
-        if (partyData != null)
-        {
-            _loadSaveService.Save(partyData, _currSlot);
-        }
+        _crawlerService.SaveGame();
     }
 
     private void OnClickDelete()

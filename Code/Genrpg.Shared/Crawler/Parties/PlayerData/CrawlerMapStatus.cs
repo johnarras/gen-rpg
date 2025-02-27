@@ -13,5 +13,6 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
         [Key(1)] public int CellsVisited { get; set; }
         [Key(2)] public int TotalCells { get; set; }
         [Key(3)] public SmallIndexBitList Visited { get; set; } = new SmallIndexBitList();
+        [Key(4)] public List<PointXZ> TreasuresFound { get; set; } = new List<PointXZ>();
     }
 }

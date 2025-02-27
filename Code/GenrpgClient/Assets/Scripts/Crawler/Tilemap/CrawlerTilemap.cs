@@ -15,6 +15,10 @@ using Genrpg.Shared.Crawler.GameEvents;
 using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.Client.Assets.Constants;
+using System;
+using System.Text;
+using Genrpg.Shared.Utils;
+using Genrpg.Shared.Crawler.Buffs.Constants;
 
 namespace Assets.Scripts.Crawler.Tilemaps
 {
@@ -36,7 +40,7 @@ namespace Assets.Scripts.Crawler.Tilemaps
         public const int Max = 3;
     }
 
-    public class SpriteNameSuffixes
+    public class SpriteNameCategories
     {
         public const string Terrain = "Terrain";
         public const string Object = "Object";
@@ -46,12 +50,29 @@ namespace Assets.Scripts.Crawler.Tilemaps
 
     public class CrawlerTilemap : BaseBehaviour
     {
+
+        public GImage PartyImage;
+        public GameObject ImageParent;
+        public GText MagicText;
+        public int _tileSize = 32;
+        public int Width = 9;
+        public int Height = 9;
+        public bool InitFromExplicitData = false;
+
+        public GameObject ContentRoot;
+
         const int DefaultTileISize = 32;
 
         Sprite _blankSprite = null;
         Sprite _graySprite = null;
         Sprite _stairSprite = null;
+        Sprite _darkGraySprite = null;
+        Sprite _trapSprite = null;
+        Sprite _monsterSprite = null;
         private Image[,,] _tiles;
+        private GText[,] _text;
+
+
 
         private ICrawlerWorldService _worldService;
         private ICrawlerMapService _crawlerMapService;
@@ -65,14 +86,8 @@ namespace Assets.Scripts.Crawler.Tilemaps
         private int _xCenter = 0;
         private int _zCenter = 0;
 
-
-        public GImage PartyImage;
-        public GameObject ImageParent;
-        public int _tileSize = 32;
-        public int Width = 9;
-        public int Height = 9;
-       
-        public bool InitFromExplicitData = false;
+        private Color _whiteColor = Color.white;
+        private Color _ghostColor = Color.gray;
 
         private SpriteAtlas _atlas;
         private Sprite[] _sprites;
@@ -120,6 +135,7 @@ namespace Assets.Scripts.Crawler.Tilemaps
             _mapDepth = (_isBigMap ? TilemapIndexes.SimpleMax : TilemapIndexes.Max);
 
             _tiles = new Image[Width, Height, _mapDepth];
+            _text = new GText[Width, Height];
 
             for (int x = 0; x < width; x++)
             {
@@ -141,6 +157,23 @@ namespace Assets.Scripts.Crawler.Tilemaps
                         image.sprite = _blankSprite;
                     }
                 }
+            }
+        }
+
+        private void ShowText(int x, int z, string text)
+        {
+            if (_text[x,z] != null)
+            {
+                _uiService.SetText(_text[x, z], text);
+            }
+            else if (!string.IsNullOrEmpty(text))
+            {
+                _text[x, z] = _clientEntityService.FullInstantiate<GText>(MagicText);
+                _text[x, z].transform.SetParent(ImageParent.transform);
+                _text[x,z].transform.localScale = Vector3.one;
+                _text[x,z].transform.localPosition = new Vector3(GetTileOffSetPos(x, Width, _tileSize), GetTileOffSetPos(z, Height, _tileSize), 10);
+
+                _uiService.SetText(_text[x,z], text);   
             }
         }
 
@@ -174,7 +207,7 @@ namespace Assets.Scripts.Crawler.Tilemaps
             await Task.CompletedTask;
         }
 
-        private string[] _allTerrainSuffixes = new string[] { SpriteNameSuffixes.Terrain, SpriteNameSuffixes.Object };
+        private string[] _allTerrainSuffixes = new string[] { SpriteNameCategories.Terrain, SpriteNameCategories.Object };
         private void OnLoadAtlas(object obj, object data, CancellationToken token)
         {
             GameObject go = obj as GameObject;
@@ -198,6 +231,7 @@ namespace Assets.Scripts.Crawler.Tilemaps
             _atlas.GetSprites(_sprites);
 
             IReadOnlyList<ZoneType> zones = _gameData.Get<ZoneTypeSettings>(_gs.ch).GetData();
+
             IReadOnlyList<BuildingType> buildings = _gameData.Get<BuildingSettings>(_gs.ch).GetData();
 
             for (int i = 0; i < _sprites.Length; i++)
@@ -205,14 +239,15 @@ namespace Assets.Scripts.Crawler.Tilemaps
                 _sprites[i].name = _sprites[i].name.Replace("(Clone)", "");
                 string spriteName = _sprites[i].name;
 
-                bool foundSuffix = false;
                 foreach (string suffix in _allTerrainSuffixes)
                 {
                     if (spriteName.IndexOf(suffix) >= 0)
                     {
-                        string zoneName = spriteName.Replace(suffix, "");
+                        string entityName = spriteName.Replace(suffix, "");
 
-                        ZoneType zone = zones.FirstOrDefault(x => x.Icon == zoneName);
+                        ZoneType zone = zones.FirstOrDefault(x => x.Icon == entityName);
+
+                        BuildingType btype = buildings.FirstOrDefault(x => x.Icon == entityName);
 
                         if (zone != null)
                         {
@@ -220,43 +255,36 @@ namespace Assets.Scripts.Crawler.Tilemaps
 
                             _spriteCache[suffix + zone.IdKey] = _atlas.GetSprite(spriteName);
                         }
-                        foundSuffix = true;
-                    }
-                }
 
-                if (!foundSuffix)
-                {
-                    if (spriteName.IndexOf(SpriteNameSuffixes.Building) >= 0)
-                    {
-                        string buildingName = spriteName.Replace(SpriteNameSuffixes.Building, "");
-
-                        BuildingType btype = buildings.FirstOrDefault(x=>x.Icon == buildingName);
                         if (btype != null)
                         {
-                            _spriteCache[buildingName] = _atlas.GetSprite(spriteName);
-                            _spriteCache[SpriteNameSuffixes.Building + btype.IdKey] = _atlas.GetSprite(spriteName);
+                            _spriteCache[btype.Icon] = _atlas.GetSprite(spriteName);
+                            _spriteCache[SpriteNameCategories.Building + btype.IdKey] = _atlas.GetSprite(spriteName);
                         }
                     }
-
-                    if (spriteName.IndexOf(SpriteNameSuffixes.Wall) >= 0)
-                    {
-                        for (int r = 0; r < 4; r++)
-                        {
-                            string wallName = spriteName + (r * 90);
-
-                            _spriteCache[wallName] = _atlas.GetSprite(spriteName);
-                        }
-                        continue;
-                    }
-
-                    _spriteCache[spriteName] = _atlas.GetSprite(spriteName);
-
                 }
+
+
+                if (spriteName.IndexOf(SpriteNameCategories.Wall) >= 0)
+                {
+                    for (int r = 0; r < 4; r++)
+                    {
+                        string wallName = spriteName + (r * 90);
+
+                        _spriteCache[wallName] = _atlas.GetSprite(spriteName);
+                    }
+                    continue;
+                }
+
+                _spriteCache[spriteName] = _atlas.GetSprite(spriteName);
             }
 
             _blankSprite = _atlas.GetSprite("Blank");
             _graySprite = _atlas.GetSprite("Gray");
             _stairSprite = _atlas.GetSprite("Stairs");
+            _trapSprite = _atlas.GetSprite("Trap");
+            _monsterSprite = _atlas.GetSprite("Monster");
+            _darkGraySprite = _atlas.GetSprite("DarkGray");
 
             InitImages(Width, Height, _tileSize);
             ShowMapWithCenter(_xCenter, _zCenter, false);
@@ -274,7 +302,18 @@ namespace Assets.Scripts.Crawler.Tilemaps
             for (int l = 0; l < _mapDepth; l++)
             {
                 _tiles[x, z, l].sprite = (l == 0 ? _graySprite : _blankSprite);
+                _tiles[x, z, l].color = Color.white;
             }
+        }
+
+        private void ShowOutOfBounds(int x, int z)
+        {
+            for (int l = 0; l < _mapDepth; l++)
+            {
+                _tiles[x, z, l].sprite = (l == 0 ? _darkGraySprite : _blankSprite);
+                _tiles[x, z, l].color = Color.white;
+            }
+            ShowText(x, z, null);
         }
 
         private void OnShowPartyMinimap(ShowPartyMinimap partyMap)
@@ -283,7 +322,7 @@ namespace Assets.Scripts.Crawler.Tilemaps
             if (_party == null)
             {
                 return;
-            }            
+            }             
 
             if (_map == null || _map.IdKey != _party.MapId)
             {
@@ -318,10 +357,27 @@ namespace Assets.Scripts.Crawler.Tilemaps
             _mapStatus = null;
         }
 
+        private const int GhostImageWidth = 1;
+
         private void ShowMapWithCenter(int xpos, int zpos, bool showPartyOnly)
         {
+           
+            StringBuilder sb = new StringBuilder();
+            if (_party == null)
+            {
+                return;
+            }
 
-            if (_party == null || _map == null || _tiles == null)
+            if (_party.Buffs.Get(PartyBuffs.Mapping) == 0)
+            {
+                _clientEntityService.SetActive(ContentRoot, false);
+            }
+            else
+            {
+                _clientEntityService.SetActive(ContentRoot, true);
+            }
+
+            if (_map == null || _tiles == null)
             {
                 return;
             }
@@ -393,36 +449,51 @@ namespace Assets.Scripts.Crawler.Tilemaps
 
                     if (x < 0 || x >= _map.Width || z < 0 || z >= _map.Height)
                     {
-                        ShowBlank(ix, iz);
+                        ShowOutOfBounds(ix, iz);
                         continue;
                     }
 
-                    if (_mapDepth < TilemapIndexes.Max && x == Width/2 && z == Height/2)
+                    if (_mapDepth < TilemapIndexes.Max && x == Width / 2 && z == Height / 2)
                     {
                         continue;
                     }
+
+                    bool showGhostImage = false;
 
                     if (_map.CrawlerMapTypeId != CrawlerMapTypes.City)
                     {
                         int index = _map.GetIndex(x, z);
+
+                        bool didVisit = _mapStatus.Visited.HasBit(index);
+
                         if (
-                           // false && 
+                            // false && 
                             _mapStatus != null && _mapStatus.MapId == _map.IdKey &&
-                            !_party.CompletedMaps.HasBit(_map.IdKey) && !_mapStatus.Visited.HasBit(index))
+                            !_party.CompletedMaps.HasBit(_map.IdKey) && !didVisit)
                         {
-                            ShowGray(ix, iz); 
-                            continue;
+                            if (_map.Get(x, z, CellIndex.Terrain) > 0 && !InitFromExplicitData &&
+                                    Mathf.Abs(ix - Width / 2) <= GhostImageWidth && Mathf.Abs(iz - Height / 2) <= GhostImageWidth)
+                            {
+                                showGhostImage = true;
+                            }
+                            else
+                            {
+
+                                ShowGray(ix, iz);
+                                ShowText(ix, iz, null);
+                                continue;
+                            }
                         }
                     }
 
                     Vector3Int pos = new Vector3Int(ix, iz, 0);
 
-                    string terrainName = SpriteNameSuffixes.Terrain + _map.Get(x, z, CellIndex.Terrain);
+                    string terrainName = SpriteNameCategories.Terrain + _map.Get(x, z, CellIndex.Terrain);
                     if (_spriteCache.TryGetValue(terrainName, out Sprite terrainSprite))
                     {
                         if (terrainSprite != null)
                         {
-                            _tiles[ix, iz, TilemapIndexes.Terrain].sprite = terrainSprite;                            
+                            _tiles[ix, iz, TilemapIndexes.Terrain].sprite = terrainSprite;
                         }
                         else
                         {
@@ -445,7 +516,7 @@ namespace Assets.Scripts.Crawler.Tilemaps
                     long treeIndex = _map.Get(x, z, CellIndex.Tree);
                     if (treeIndex > 0)
                     {
-                        if (_spriteCache.TryGetValue(SpriteNameSuffixes.Object + treeIndex, out Sprite objSprite))
+                        if (_spriteCache.TryGetValue(SpriteNameCategories.Object + treeIndex, out Sprite objSprite))
                         {
                             _tiles[ix, iz, TilemapIndexes.Object].sprite = objSprite;
                             didSetObject = true;
@@ -453,18 +524,31 @@ namespace Assets.Scripts.Crawler.Tilemaps
                     }
 
 
-                    if (_spriteCache.TryGetValue(SpriteNameSuffixes.Building + _map.Get(x, z, CellIndex.Building), out Sprite buildingSprite))
+                    if (_spriteCache.TryGetValue(SpriteNameCategories.Building + _map.Get(x, z, CellIndex.Building), out Sprite buildingSprite))
                     {
                         _tiles[ix, iz, TilemapIndexes.Object].sprite = buildingSprite;
                         didSetObject = true;
                     }
-                    if (_crawlerMapService.IsDungeon(_map.CrawlerMapTypeId))
+                    if (_map.CrawlerMapTypeId == CrawlerMapTypes.Dungeon && !showGhostImage)
                     {
                         MapCellDetail detail = _map.Details.FirstOrDefault(d => d.X == x && d.Z == z);
 
                         if (detail != null && detail.EntityTypeId == EntityTypes.Map)
                         {
                             _tiles[ix, iz, TilemapIndexes.Object].sprite = _stairSprite;
+                            didSetObject = true;
+                        }
+
+                        int encounterBits = _map.Get(x,z,CellIndex.Encounter);  
+
+                        if (FlagUtils.IsSet(encounterBits, MapEncounters.Monsters))
+                        {
+                            _tiles[ix, iz, TilemapIndexes.Object].sprite = _monsterSprite;
+                            didSetObject = true;
+                        }
+                        else if (FlagUtils.IsSet(encounterBits, MapEncounters.Trap))
+                        {
+                            _tiles[ix, iz, TilemapIndexes.Object].sprite = _trapSprite;
                             didSetObject = true;
                         }
                     }
@@ -478,7 +562,7 @@ namespace Assets.Scripts.Crawler.Tilemaps
                     if (_mapDepth > TilemapIndexes.Walls)
                     {
                         FullWallTileImage image = _crawlerMapService.GetMinimapWallFilename(_map, x, z);
-                        if (image != null && image.RefImage.Filename == "OOOO" + SpriteNameSuffixes.Wall)
+                        if (image != null && image.RefImage.Filename == "OOOO" + SpriteNameCategories.Wall)
                         {
                             _tiles[ix, iz, TilemapIndexes.Walls].sprite = _blankSprite;
                         }
@@ -502,6 +586,32 @@ namespace Assets.Scripts.Crawler.Tilemaps
                             }
                         }
                     }
+
+                    for (int i = 0; i < _tiles.GetLength(2); i++)
+                    {
+                        _tiles[ix, iz, i].color = (showGhostImage ? _ghostColor : _whiteColor);
+                    }
+
+                    int magicBits = _crawlerMapService.GetMagicBits(_map.IdKey, x, z);
+
+
+                    if (showGhostImage || magicBits == 0)
+                    {
+                        ShowText(ix, iz, null);
+                    }
+                    else
+                    {
+                        sb.Clear();
+                        for (int i = 0; i < MapMagic.Letters.Length; i++)
+                        {
+                            if (FlagUtils.IsSet(magicBits, (1 << i)))
+                            {
+                                sb.Append(MapMagic.Letters[i]);
+                            }
+                        }
+                        ShowText(ix, iz, sb.ToString());
+                    }
+                
                 }
             }
         }

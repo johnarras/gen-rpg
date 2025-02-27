@@ -3,17 +3,10 @@
   "ParentId": "default",
   "IdKey": 21,
   "Name": "Fire",
+  "PluralName": "Fires",
   "Icon": "Fire",
   "Art": "Fire",
   "Effects": [
-    {
-      "EntityTypeId": 100,
-      "EntityId": 27
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 50
-    },
     {
       "EntityTypeId": 24,
       "Quantity": 1,
@@ -23,7 +16,17 @@
       "EntityTypeId": 25,
       "Quantity": 1,
       "EntityId": 2
+    },
+    {
+      "EntityTypeId": 100,
+      "Quantity": 1,
+      "EntityId": 27
+    },
+    {
+      "EntityTypeId": 100,
+      "Quantity": 1,
+      "EntityId": 50
     }
   ],
-  "UpdateTime": "2025-01-11T16:06:35.196Z"
+  "UpdateTime": "2025-02-17T09:10:53.635Z"
 }

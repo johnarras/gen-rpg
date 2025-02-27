@@ -47,11 +47,11 @@ SpriteAtlas:
     - d90ef7f0338ce5b4194c68e88bcad15f: 21300000
     - 9088e9111fd3c954aa7f9d349dcc3f72: 21300000
     - 3d696f2117b8b49408676eeb8883f125: 21300000
-    - 4a3fb8f1860aa294d8d32d23f0998c7a: 21300000
+    - 2875acd117a27bb4d96fc59eda804a74: 21300000
+    - 05d09112f8587a04e937c8b2a0079f53: 21300000
     - 3207d5322d4f7a748a52a638d15ce791: 21300000
     - 32a13f3242bfac64eae5a3a5f11346ae: 21300000
     - d946bcc285593264281d551f3a9e33b9: 21300000
-    - 062844d2aa7d46241956a6c42c3d5144: 21300000
     - a5f722f28491778459ef23b9b1fa51af: 21300000
     - 0f058123d9deb974186cdc29a9eef02f: 21300000
     - 4fcea52318122e4419f6b509ca5d0f00: 21300000
@@ -72,17 +72,21 @@ SpriteAtlas:
     - 8a84a8670258abc4f8b58890aca7f13b: 21300000
     - f9582f6723077da4a8dc003e4eedf293: 21300000
     - 5553bde7f23f349428c625a94fdb9e71: 21300000
-    - 45e281f708b25e247a570aa1fb69a7f5: 21300000
     - c1957208b7711b340b090229994d3433: 21300000
     - 6bf2b128df6f16641870839d5511ba16: 21300000
     - 8444fc280c80d194e901d30fe2d55bdf: 21300000
     - 46ffb1381288b464aae563ebe3af6df3: 21300000
+    - 49b525786d84bd643bb3eaccbe705707: 21300000
     - 72a8bda896b7f414fb9ade04ca15644f: 21300000
     - 17fd32b80a175424fb83fedaf612ebb0: 21300000
     - 681412f8c5c718a41976306af102639b: 21300000
     - e0113df8643351847bc10d877ace857a: 21300000
     - 8b9da249d291e4d49bbe845c07addee7: 21300000
+    - aa7efb594aff61946af2860c9425a705: 21300000
     - e841ca69e3d1b75408e20b8e9fa54c49: 21300000
+    - 3468df79bc6fe0c4e9ecf82131935311: 21300000
+    - 64727589a483613499397102190f6056: 21300000
+    - acc6006a093b7b741b4227d84c79542c: 21300000
     - d9cf8cbabb099c64083084d0cc5180ce: 21300000
     - 07c2eeba9f9e8cc40b04981792516837: 21300000
     - 54edf2dabe70db3458e805c5fcb22807: 21300000
@@ -90,6 +94,7 @@ SpriteAtlas:
     - 60f8124b7a587af43be184953f936780: 21300000
     - 0d02678ba08af664aac0c7b058648c8f: 21300000
     - d4343bbb952ae8d488989175b50be0b4: 21300000
+    - 9927c8fb251199d4fa32f6bc04807773: 21300000
     - 7259802c9d24d0143a65abed60e48cd3: 21300000
     - 72f1094c5c1b66640bf0fb18131ef600: 21300000
     - 86d5dcecabd08254493b489e84546ac4: 21300000
@@ -100,16 +105,15 @@ SpriteAtlas:
     - 977d485df76db684280df52220306b49: 21300000
     - 6219938d8d309fc498dd47ea7a18582f: 21300000
     - 22ce68cd15b35ea489916d7d37464bab: 21300000
-    - c06291dddbc54714dbc6e2ed9e1767c5: 21300000
     - 28e309dd4cb5bfa4f99235ae986c6eb9: 21300000
     - d7f5beed552bb9c4faf1d34e7198bf66: 21300000
     - 4c03c22e651f04348816445470a985ec: 21300000
     - cd2ac53e6cea4f94dbe4eb9fa7d4b98a: 21300000
     - 5de4ed3eb063cf243ae0b14269c21338: 21300000
     - 9291887e1606c5a41a348693064032ec: 21300000
-    - fb4f58ae896ad804d9c25f6f98351b1e: 21300000
     - ad98f3bed278767488d1cd462e64dcf0: 21300000
     - b9f409be1b2a3d64e8db2a94afedaa5b: 21300000
+    - 5b244b4f17f976e409043432e3a3a3c5: 21300000
     - 8f7ed3bff4dc40c4bacb3f0ce5b6bbfa: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -123,11 +127,11 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d90ef7f0338ce5b4194c68e88bcad15f, type: 3}
   - {fileID: 21300000, guid: 9088e9111fd3c954aa7f9d349dcc3f72, type: 3}
   - {fileID: 21300000, guid: 3d696f2117b8b49408676eeb8883f125, type: 3}
-  - {fileID: 21300000, guid: 4a3fb8f1860aa294d8d32d23f0998c7a, type: 3}
+  - {fileID: 21300000, guid: 2875acd117a27bb4d96fc59eda804a74, type: 3}
+  - {fileID: 21300000, guid: 05d09112f8587a04e937c8b2a0079f53, type: 3}
   - {fileID: 21300000, guid: 3207d5322d4f7a748a52a638d15ce791, type: 3}
   - {fileID: 21300000, guid: 32a13f3242bfac64eae5a3a5f11346ae, type: 3}
   - {fileID: 21300000, guid: d946bcc285593264281d551f3a9e33b9, type: 3}
-  - {fileID: 21300000, guid: 062844d2aa7d46241956a6c42c3d5144, type: 3}
   - {fileID: 21300000, guid: a5f722f28491778459ef23b9b1fa51af, type: 3}
   - {fileID: 21300000, guid: 0f058123d9deb974186cdc29a9eef02f, type: 3}
   - {fileID: 21300000, guid: 4fcea52318122e4419f6b509ca5d0f00, type: 3}
@@ -148,17 +152,21 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 8a84a8670258abc4f8b58890aca7f13b, type: 3}
   - {fileID: 21300000, guid: f9582f6723077da4a8dc003e4eedf293, type: 3}
   - {fileID: 21300000, guid: 5553bde7f23f349428c625a94fdb9e71, type: 3}
-  - {fileID: 21300000, guid: 45e281f708b25e247a570aa1fb69a7f5, type: 3}
   - {fileID: 21300000, guid: c1957208b7711b340b090229994d3433, type: 3}
   - {fileID: 21300000, guid: 6bf2b128df6f16641870839d5511ba16, type: 3}
   - {fileID: 21300000, guid: 8444fc280c80d194e901d30fe2d55bdf, type: 3}
   - {fileID: 21300000, guid: 46ffb1381288b464aae563ebe3af6df3, type: 3}
+  - {fileID: 21300000, guid: 49b525786d84bd643bb3eaccbe705707, type: 3}
   - {fileID: 21300000, guid: 72a8bda896b7f414fb9ade04ca15644f, type: 3}
   - {fileID: 21300000, guid: 17fd32b80a175424fb83fedaf612ebb0, type: 3}
   - {fileID: 21300000, guid: 681412f8c5c718a41976306af102639b, type: 3}
   - {fileID: 21300000, guid: e0113df8643351847bc10d877ace857a, type: 3}
   - {fileID: 21300000, guid: 8b9da249d291e4d49bbe845c07addee7, type: 3}
+  - {fileID: 21300000, guid: aa7efb594aff61946af2860c9425a705, type: 3}
   - {fileID: 21300000, guid: e841ca69e3d1b75408e20b8e9fa54c49, type: 3}
+  - {fileID: 21300000, guid: 3468df79bc6fe0c4e9ecf82131935311, type: 3}
+  - {fileID: 21300000, guid: 64727589a483613499397102190f6056, type: 3}
+  - {fileID: 21300000, guid: acc6006a093b7b741b4227d84c79542c, type: 3}
   - {fileID: 21300000, guid: d9cf8cbabb099c64083084d0cc5180ce, type: 3}
   - {fileID: 21300000, guid: 07c2eeba9f9e8cc40b04981792516837, type: 3}
   - {fileID: 21300000, guid: 54edf2dabe70db3458e805c5fcb22807, type: 3}
@@ -166,6 +174,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 60f8124b7a587af43be184953f936780, type: 3}
   - {fileID: 21300000, guid: 0d02678ba08af664aac0c7b058648c8f, type: 3}
   - {fileID: 21300000, guid: d4343bbb952ae8d488989175b50be0b4, type: 3}
+  - {fileID: 21300000, guid: 9927c8fb251199d4fa32f6bc04807773, type: 3}
   - {fileID: 21300000, guid: 7259802c9d24d0143a65abed60e48cd3, type: 3}
   - {fileID: 21300000, guid: 72f1094c5c1b66640bf0fb18131ef600, type: 3}
   - {fileID: 21300000, guid: 86d5dcecabd08254493b489e84546ac4, type: 3}
@@ -176,16 +185,15 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 977d485df76db684280df52220306b49, type: 3}
   - {fileID: 21300000, guid: 6219938d8d309fc498dd47ea7a18582f, type: 3}
   - {fileID: 21300000, guid: 22ce68cd15b35ea489916d7d37464bab, type: 3}
-  - {fileID: 21300000, guid: c06291dddbc54714dbc6e2ed9e1767c5, type: 3}
   - {fileID: 21300000, guid: 28e309dd4cb5bfa4f99235ae986c6eb9, type: 3}
   - {fileID: 21300000, guid: d7f5beed552bb9c4faf1d34e7198bf66, type: 3}
   - {fileID: 21300000, guid: 4c03c22e651f04348816445470a985ec, type: 3}
   - {fileID: 21300000, guid: cd2ac53e6cea4f94dbe4eb9fa7d4b98a, type: 3}
   - {fileID: 21300000, guid: 5de4ed3eb063cf243ae0b14269c21338, type: 3}
   - {fileID: 21300000, guid: 9291887e1606c5a41a348693064032ec, type: 3}
-  - {fileID: 21300000, guid: fb4f58ae896ad804d9c25f6f98351b1e, type: 3}
   - {fileID: 21300000, guid: ad98f3bed278767488d1cd462e64dcf0, type: 3}
   - {fileID: 21300000, guid: b9f409be1b2a3d64e8db2a94afedaa5b, type: 3}
+  - {fileID: 21300000, guid: 5b244b4f17f976e409043432e3a3a3c5, type: 3}
   - {fileID: 21300000, guid: 8f7ed3bff4dc40c4bacb3f0ce5b6bbfa, type: 3}
   m_PackedSpriteNamesToIndex:
   - SandObject
@@ -198,11 +206,11 @@ SpriteAtlas:
   - ForestObject
   - DDWOWall
   - CaveObject
-  - CityBuilding
+  - Monster
+  - UnholyObject
   - DDWWWall
   - TowerTerrain
-  - GuildBuilding
-  - NaturalBuilding
+  - GuildObject
   - DDOOWall
   - CityTerrain
   - PointOfInterestObject
@@ -220,47 +228,51 @@ SpriteAtlas:
   - CaveTerrain
   - CityObject
   - WaterTerrain
-  - TrainerBuilding
+  - TrainerObject
   - DDDWWall
   - PlayerArrow
-  - TowerBuilding
   - WDDOWall
   - DungeonObject
   - DWOOWall
   - DODOWall
+  - DarkGray
   - HillsObject
   - DOWOWall
   - DDDOWall
   - ForestTerrain
   - DWWOWall
+  - UnholyTerrain
   - WWOOWall
-  - RegenBuilding
+  - NaturalTerrain
+  - ArcaneTerrain
+  - NaturalObject
+  - RegenObject
   - LavaObject
-  - TavernBuilding
+  - TavernObject
   - SandTerrain
   - WDWOWall
   - DWDWWall
   - HillsTerrain
+  - Trap
   - DDDDWall
   - LavaTerrain
   - PointOfInterestTerrain
   - FieldTerrain
   - SwampObject
   - Blank
-  - HouseBuilding
+  - HouseObject
   - DWWWWall
   - TowerObject
   - WWWWWall
-  - DungeonBuilding
   - RoadTerrain
   - MountainsObject
   - WOOOWall
   - WWDOWall
   - DarkForestObject
-  - EquipmentBuilding
-  - CaveBuilding
-  - TempleBuilding
+  - EquipmentObject
+  - TempleObject
   - WDOOWall
+  - ArcaneObject
   - BadlandsTerrain
   m_RenderDataMap: {}
   m_Tag: CrawlerMinimapAtlas

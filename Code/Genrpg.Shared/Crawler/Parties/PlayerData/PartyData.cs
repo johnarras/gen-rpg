@@ -9,7 +9,6 @@ using Genrpg.Shared.Units.Loaders;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Newtonsoft.Json;
-using Genrpg.Shared.Crawler.UI.Interfaces;
 using Genrpg.Shared.Units.Mappers;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Crawler.Items.Entities;
@@ -65,11 +64,11 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
         [Key(19)] public List<CrawlerMapStatus> Maps { get; set; } = new List<CrawlerMapStatus>();
 
-        [Key(20)] public CrawlerMapStatus CurrentMap { get; set; } = new CrawlerMapStatus();
+        [Key(20)] public CurrentMapStatus CurrentMap { get; set; } = new CurrentMapStatus();
 
         [Key(21)] public SmallIndexBitList CompletedMaps { get; set; } = new SmallIndexBitList();
 
-        [Key(22)] public double HourOfDay { get; set; } = 0;
+        [Key(22)] public float HourOfDay { get; set; } = 0;
 
         [Key(23)] public long DaysPlayed { get; set; } = 0;
 
@@ -86,18 +85,9 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
         [Key(30)] public float CombatTextScrollDelay { get; set; } = CrawlerCombatConstants.MaxCombatTextScrollDelay;
 
-        [JsonIgnore] public IWorldPanel WorldPanel = null;
-        [JsonIgnore] public IActionPanel ActionPanel = null;
-        [JsonIgnore] public IStatusPanel StatusPanel = null;
-        [JsonIgnore] public ISpeedupListener SpeedupListener = null;
+        [Key(31)] public SmallIdFloatCollection Buffs { get; set; } = new SmallIdFloatCollection();
+
         [JsonIgnore] public CrawlerCombatState Combat = null;
-
-
-        public void EndCombat()
-        {
-            Combat = null;
-            WorldPanel?.UpdateCombatGroups();
-        }
 
         public string GetNextGroupId()
         {

@@ -220,13 +220,13 @@
       "FenceTypes": [
         {
           "FenceTypeId": 1,
-          "Chance": 100.0
+          "Weight": 1.0
         }
       ],
       "RockTypes": [
         {
           "RockTypeId": 1,
-          "ChanceScale": 1.0,
+          "Weight": 1.0,
           "BaseColor": {
             "R": 1.0,
             "G": 1.0,
@@ -442,275 +442,331 @@
       "ZoneUnitSpawns": [
         {
           "UnitTypeId": 1,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 2,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 3,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 4,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 5,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 6,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 7,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 8,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 9,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 10,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 11,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 12,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 13,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 14,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 15,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 16,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 17,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 18,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 19,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 20,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 21,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 22,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 23,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 24,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 25,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 26,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 27,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 28,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 29,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 30,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 31,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 32,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 33,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 34,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 35,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 36,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 37,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 38,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 39,
-          "Chance": 1.0
+          "UnitTypeId": 40,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 41,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 42,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 43,
-          "Chance": 10.0
-        },
-        {
-          "UnitTypeId": 44,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 45,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 46,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 47,
-          "Chance": 2.0
+          "UnitTypeId": 60,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 48,
-          "Chance": 5.0
+          "UnitTypeId": 61,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 73,
-          "Chance": 10.0
+          "UnitTypeId": 62,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 63,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 64,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 65,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 68,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 69,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 70,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 71,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 72,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 74,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 75,
-          "Chance": 10.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 76,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 77,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 78,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 79,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 80,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 81,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 82,
-          "Chance": 5.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 83,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 84,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 85,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 86,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 87,
-          "Chance": 3.0
+          "UnitTypeId": 89,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 90,
-          "Chance": 3.0
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 91,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 92,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 93,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 94,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 95,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 96,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 97,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 98,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 103,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 104,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 105,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 106,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 107,
-          "Chance": 10.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 108,
-          "Chance": 10.0
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 109,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 111,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 112,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 113,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 114,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 115,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 116,
-          "Chance": 5.0
+          "Weight": 100.0
         }
       ],
       "PlantChoices": "2 5 8 10 20 21 23 24 27 29 30 7 15 25 3 16 18 26 9",
@@ -722,7 +778,8 @@
       "MusicTypeId": 3,
       "AmbientMusicTypeId": 8,
       "TraveralTimeScale": 2.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "ZoneCategoryId": 1,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype2default",
@@ -1026,13 +1083,13 @@
       "FenceTypes": [
         {
           "FenceTypeId": 1,
-          "Chance": 100.0
+          "Weight": 1.0
         }
       ],
       "RockTypes": [
         {
           "RockTypeId": 1,
-          "ChanceScale": 1.0,
+          "Weight": 1.0,
           "BaseColor": {
             "R": 1.0,
             "G": 1.0,
@@ -1296,311 +1353,331 @@
       "ZoneUnitSpawns": [
         {
           "UnitTypeId": 1,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 2,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 3,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 4,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 5,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 6,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 7,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 8,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 9,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 10,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 11,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 12,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 13,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 14,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 15,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 16,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 17,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 18,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 19,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 20,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 21,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 22,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 23,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 24,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 25,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 26,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 27,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 28,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 29,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 30,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 31,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 32,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 33,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 34,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 35,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 36,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 37,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 38,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 39,
-          "Chance": 1.0
+          "UnitTypeId": 40,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 41,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 42,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 43,
-          "Chance": 10.0
-        },
-        {
-          "UnitTypeId": 44,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 45,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 46,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 47,
-          "Chance": 2.0
+          "UnitTypeId": 60,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 48,
-          "Chance": 5.0
+          "UnitTypeId": 61,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 73,
-          "Chance": 10.0
+          "UnitTypeId": 62,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 63,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 64,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 65,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 68,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 69,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 70,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 71,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 72,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 74,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 75,
-          "Chance": 10.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 76,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 77,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 78,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 79,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 80,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 81,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 82,
-          "Chance": 5.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 83,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 84,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 85,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 86,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 87,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 89,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 90,
-          "Chance": 3.0
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 91,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 92,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 93,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 94,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 95,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 96,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 97,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 98,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 99,
-          "Chance": 3.0
+          "UnitTypeId": 103,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 104,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 105,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 106,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 107,
-          "Chance": 10.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 108,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 110,
-          "Chance": 2.0
+          "UnitTypeId": 109,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 111,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 112,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 113,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 114,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 115,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 116,
-          "Chance": 5.0
+          "Weight": 100.0
         }
       ],
       "PlantChoices": "2 5 8 10 20 21 23 24 27 29 30 7 15 25 3 16 18 26 9",
@@ -1609,7 +1686,8 @@
       "MusicTypeId": 4,
       "AmbientMusicTypeId": 8,
       "TraveralTimeScale": 5.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "ZoneCategoryId": 1,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype3default",
@@ -1835,13 +1913,13 @@
       "FenceTypes": [
         {
           "FenceTypeId": 1,
-          "Chance": 100.0
+          "Weight": 1.0
         }
       ],
       "RockTypes": [
         {
           "RockTypeId": 1,
-          "ChanceScale": 1.0,
+          "Weight": 1.0,
           "BaseColor": {
             "R": 1.0,
             "G": 1.0,
@@ -2092,303 +2170,339 @@
       "ZoneUnitSpawns": [
         {
           "UnitTypeId": 1,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 2,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 3,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 4,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 5,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 6,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 7,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 8,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 9,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 10,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 11,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 12,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 13,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 14,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 15,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 16,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 17,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 18,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 19,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 20,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 21,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 22,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 23,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 24,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 25,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 26,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 27,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 28,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 29,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 30,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 31,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 32,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 33,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 34,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 35,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 36,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 37,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 39,
-          "Chance": 1.0
+          "UnitTypeId": 38,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 40,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 41,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 42,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 43,
-          "Chance": 10.0
-        },
-        {
-          "UnitTypeId": 44,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 45,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 46,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 47,
-          "Chance": 2.0
+          "UnitTypeId": 60,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 48,
-          "Chance": 5.0
+          "UnitTypeId": 61,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 73,
-          "Chance": 10.0
+          "UnitTypeId": 62,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 63,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 64,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 65,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 68,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 69,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 70,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 71,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 72,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 74,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 75,
-          "Chance": 10.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 76,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 77,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 78,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 79,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 80,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 81,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 82,
-          "Chance": 5.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 83,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 84,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 85,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 86,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 87,
-          "Chance": 3.0
+          "UnitTypeId": 89,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 90,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 91,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 92,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 93,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 94,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 95,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 96,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 97,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 98,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 99,
-          "Chance": 3.0
+          "UnitTypeId": 103,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 104,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 105,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 106,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 107,
-          "Chance": 10.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 108,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 110,
-          "Chance": 2.0
+          "UnitTypeId": 109,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 111,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 112,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 113,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 114,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 115,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 116,
-          "Chance": 5.0
+          "Weight": 100.0
         }
       ],
       "PlantChoices": "33 10 15 16 26 28 30 31 32 9",
@@ -2397,7 +2511,8 @@
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 9,
       "TraveralTimeScale": 5.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "ZoneCategoryId": 1,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype4default",
@@ -2660,13 +2775,13 @@
       "FenceTypes": [
         {
           "FenceTypeId": 1,
-          "Chance": 100.0
+          "Weight": 1.0
         }
       ],
       "RockTypes": [
         {
           "RockTypeId": 1,
-          "ChanceScale": 0.1,
+          "Weight": 1.0,
           "BaseColor": {
             "R": 1.0,
             "G": 1.0,
@@ -2676,7 +2791,7 @@
         },
         {
           "RockTypeId": 4,
-          "ChanceScale": 1.0,
+          "Weight": 1.0,
           "BaseColor": {}
         }
       ],
@@ -2896,327 +3011,331 @@
       "ZoneUnitSpawns": [
         {
           "UnitTypeId": 1,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 2,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 3,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 4,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 5,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 6,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 7,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 8,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 9,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 10,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 11,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 12,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 13,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 14,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 15,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 16,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 17,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 18,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 19,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 20,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 21,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 22,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 23,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 24,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 25,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 26,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 27,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 28,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 29,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 30,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 31,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 32,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 33,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 34,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 35,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 36,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 37,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 38,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 39,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 40,
-          "Chance": 3.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 41,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 42,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 43,
-          "Chance": 10.0
-        },
-        {
-          "UnitTypeId": 44,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 45,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 46,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 47,
-          "Chance": 2.0
+          "UnitTypeId": 60,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 48,
-          "Chance": 5.0
+          "UnitTypeId": 61,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 73,
-          "Chance": 10.0
+          "UnitTypeId": 62,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 63,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 64,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 65,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 68,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 69,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 70,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 71,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 72,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 74,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 75,
-          "Chance": 10.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 76,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 77,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 78,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 79,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 80,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 81,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 82,
-          "Chance": 5.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 83,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 84,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 85,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 86,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 87,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 88,
-          "Chance": 10.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 89,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 90,
-          "Chance": 3.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 91,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 92,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 93,
-          "Chance": 10.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 94,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 95,
-          "Chance": 3.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 96,
-          "Chance": 3.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 97,
-          "Chance": 3.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 98,
-          "Chance": 3.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 99,
-          "Chance": 3.0
+          "UnitTypeId": 103,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 104,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 105,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 106,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 107,
-          "Chance": 10.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 110,
-          "Chance": 2.0
+          "UnitTypeId": 108,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 109,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 111,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 112,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 113,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 114,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 115,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 116,
-          "Chance": 5.0
+          "Weight": 100.0
         }
       ],
       "PlantChoices": "34 35 2 4 8 10",
@@ -3225,7 +3344,8 @@
       "MusicTypeId": 6,
       "AmbientMusicTypeId": 11,
       "TraveralTimeScale": 10.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "ZoneCategoryId": 1,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype5default",
@@ -3427,13 +3547,13 @@
       "FenceTypes": [
         {
           "FenceTypeId": 1,
-          "Chance": 100.0
+          "Weight": 1.0
         }
       ],
       "RockTypes": [
         {
           "RockTypeId": 1,
-          "ChanceScale": 0.1,
+          "Weight": 1.0,
           "BaseColor": {
             "R": 1.0,
             "G": 1.0,
@@ -3443,7 +3563,7 @@
         },
         {
           "RockTypeId": 3,
-          "ChanceScale": 1.0,
+          "Weight": 1.0,
           "BaseColor": {}
         }
       ],
@@ -3642,299 +3762,331 @@
       "ZoneUnitSpawns": [
         {
           "UnitTypeId": 1,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 2,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 3,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 4,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 5,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 6,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 7,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 8,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 9,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 10,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 11,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 12,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 13,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 14,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 15,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 16,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 17,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 18,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 19,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 20,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 21,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 22,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 23,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 24,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 25,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 26,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 27,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 28,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 29,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 30,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 31,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 32,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 33,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 34,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 35,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 36,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 37,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 38,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 39,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 40,
-          "Chance": 3.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 41,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 42,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 43,
-          "Chance": 10.0
-        },
-        {
-          "UnitTypeId": 44,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 45,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 46,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 47,
-          "Chance": 2.0
+          "UnitTypeId": 60,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 48,
-          "Chance": 5.0
+          "UnitTypeId": 61,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 73,
-          "Chance": 10.0
+          "UnitTypeId": 62,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 63,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 64,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 65,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 68,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 69,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 70,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 71,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 72,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 74,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 75,
-          "Chance": 10.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 76,
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 77,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 78,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 79,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 80,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 81,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 82,
-          "Chance": 5.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 83,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 84,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 85,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 86,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 87,
-          "Chance": 3.0
+          "UnitTypeId": 89,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 90,
-          "Chance": 3.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 91,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 92,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 93,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 94,
-          "Chance": 2.0
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 95,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 96,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 97,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 98,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 103,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 104,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 105,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 106,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 107,
-          "Chance": 10.0
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 108,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 109,
-          "Chance": 2.0
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 111,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 112,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 113,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 114,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 115,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 116,
-          "Chance": 5.0
+          "Weight": 100.0
         }
       ],
       "PlantChoices": "34 35 36 37 38",
@@ -3946,7 +4098,8 @@
       "MusicTypeId": 6,
       "AmbientMusicTypeId": 9,
       "TraveralTimeScale": 5.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "ZoneCategoryId": 1,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype6default",
@@ -4163,13 +4316,13 @@
       "FenceTypes": [
         {
           "FenceTypeId": 1,
-          "Chance": 100.0
+          "Weight": 1.0
         }
       ],
       "RockTypes": [
         {
           "RockTypeId": 1,
-          "ChanceScale": 0.1,
+          "Weight": 1.0,
           "BaseColor": {
             "R": 1.0,
             "G": 1.0,
@@ -4179,7 +4332,7 @@
         },
         {
           "RockTypeId": 2,
-          "ChanceScale": 1.0,
+          "Weight": 1.0,
           "BaseColor": {}
         }
       ],
@@ -4397,323 +4550,331 @@
       "ZoneUnitSpawns": [
         {
           "UnitTypeId": 1,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 2,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 3,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 4,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 5,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 6,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 7,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 8,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 9,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 10,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 11,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 12,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 13,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 14,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 15,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 16,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 17,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 18,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 19,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 20,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 21,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 22,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 23,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 24,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 25,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 26,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 27,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 28,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 29,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 30,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 31,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 32,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 33,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 34,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 35,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 36,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 37,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 38,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 39,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 40,
-          "Chance": 3.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 41,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 42,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 43,
-          "Chance": 10.0
-        },
-        {
-          "UnitTypeId": 44,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 45,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 46,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 47,
-          "Chance": 2.0
+          "UnitTypeId": 60,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 48,
-          "Chance": 5.0
+          "UnitTypeId": 61,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 73,
-          "Chance": 10.0
+          "UnitTypeId": 62,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 63,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 64,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 65,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 68,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 69,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 70,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 71,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 72,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 74,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 75,
-          "Chance": 10.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 76,
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 77,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 78,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 79,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 80,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 81,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 82,
-          "Chance": 5.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 83,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 84,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 85,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 86,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 87,
-          "Chance": 3.0
+          "UnitTypeId": 89,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 90,
-          "Chance": 3.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 91,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 92,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 93,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 94,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 95,
-          "Chance": 3.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 96,
-          "Chance": 3.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 97,
-          "Chance": 3.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 98,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 99,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 102,
-          "Chance": 3.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 103,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 104,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 105,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 106,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 107,
-          "Chance": 10.0
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 108,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 109,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 110,
-          "Chance": 2.0
+          "UnitTypeId": 111,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 112,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 113,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 114,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 115,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 116,
-          "Chance": 5.0
+          "Weight": 100.0
         }
       ],
       "PlantChoices": "34 35 36 37 38",
@@ -4725,7 +4886,8 @@
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 9,
       "TraveralTimeScale": 15.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "ZoneCategoryId": 1,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype7default",
@@ -4932,13 +5094,13 @@
       "FenceTypes": [
         {
           "FenceTypeId": 1,
-          "Chance": 100.0
+          "Weight": 1.0
         }
       ],
       "RockTypes": [
         {
           "RockTypeId": 1,
-          "ChanceScale": 1.0,
+          "Weight": 1.0,
           "BaseColor": {
             "R": 1.0,
             "G": 1.0,
@@ -5156,311 +5318,331 @@
       "ZoneUnitSpawns": [
         {
           "UnitTypeId": 1,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 2,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 3,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 4,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 5,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 6,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 7,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 8,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 9,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 10,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 11,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 12,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 13,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 14,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 15,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 16,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 17,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 18,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 19,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 20,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 21,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 22,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 23,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 24,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 25,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 26,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 27,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 28,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 29,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 30,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 31,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 32,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 33,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 34,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 35,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 36,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 37,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 38,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 39,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 40,
-          "Chance": 3.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 41,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 42,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 43,
-          "Chance": 10.0
-        },
-        {
-          "UnitTypeId": 44,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 45,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 46,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 47,
-          "Chance": 2.0
+          "UnitTypeId": 60,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 48,
-          "Chance": 5.0
+          "UnitTypeId": 61,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 73,
-          "Chance": 10.0
+          "UnitTypeId": 62,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 63,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 64,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 65,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 68,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 69,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 70,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 71,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 72,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 74,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 75,
-          "Chance": 10.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 76,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 77,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 78,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 79,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 80,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 81,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 82,
-          "Chance": 5.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 83,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 84,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 85,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 86,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 87,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 88,
-          "Chance": 10.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 89,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 90,
-          "Chance": 3.0
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 91,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 92,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 93,
-          "Chance": 10.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 94,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 95,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 96,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 97,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 98,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 99,
-          "Chance": 3.0
+          "UnitTypeId": 103,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 104,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 105,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 106,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 107,
-          "Chance": 10.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 108,
-          "Chance": 5.0
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 109,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 111,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 112,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 113,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 114,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 115,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 116,
-          "Chance": 5.0
+          "Weight": 100.0
         }
       ],
       "PlantChoices": "2 5 8 10 20 21 23 24 27 29 30 7 15 25 3 16 18 26 9",
@@ -5469,7 +5651,8 @@
       "MusicTypeId": 2,
       "AmbientMusicTypeId": 7,
       "TraveralTimeScale": 10.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "ZoneCategoryId": 1,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype8default",
@@ -5670,13 +5853,13 @@
       "FenceTypes": [
         {
           "FenceTypeId": 1,
-          "Chance": 100.0
+          "Weight": 1.0
         }
       ],
       "RockTypes": [
         {
           "RockTypeId": 1,
-          "ChanceScale": 0.2,
+          "Weight": 1.0,
           "BaseColor": {
             "R": 1.0,
             "G": 1.0,
@@ -5686,12 +5869,12 @@
         },
         {
           "RockTypeId": 2,
-          "ChanceScale": 0.8,
+          "Weight": 1.0,
           "BaseColor": {}
         },
         {
           "RockTypeId": 3,
-          "ChanceScale": 0.2,
+          "Weight": 1.0,
           "BaseColor": {}
         }
       ],
@@ -5866,279 +6049,331 @@
       "ZoneUnitSpawns": [
         {
           "UnitTypeId": 1,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 2,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 3,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 4,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 5,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 6,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 7,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 8,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 9,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 10,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 11,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 12,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 13,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 14,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 15,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 16,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 17,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 18,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 19,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 20,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 21,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 22,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 23,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 24,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 25,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 26,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 27,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 28,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 29,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 30,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 31,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 32,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 33,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 34,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 35,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 36,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 37,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 38,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 39,
-          "Chance": 1.0
+          "UnitTypeId": 40,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 41,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 42,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 43,
-          "Chance": 10.0
-        },
-        {
-          "UnitTypeId": 44,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 45,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 46,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 47,
-          "Chance": 2.0
+          "UnitTypeId": 60,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 48,
-          "Chance": 5.0
+          "UnitTypeId": 61,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 73,
-          "Chance": 10.0
+          "UnitTypeId": 62,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 63,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 64,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 65,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 68,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 69,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 70,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 71,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 72,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 74,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 75,
-          "Chance": 10.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 76,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 77,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 78,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 79,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 80,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 81,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 82,
-          "Chance": 5.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 83,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 84,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 85,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 86,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 87,
-          "Chance": 3.0
+          "UnitTypeId": 89,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 90,
-          "Chance": 3.0
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 91,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 92,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 93,
-          "Chance": 5.0
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 94,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 95,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 96,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 97,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 98,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 103,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 104,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 105,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 106,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 107,
-          "Chance": 10.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 108,
-          "Chance": 5.0
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 109,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 111,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 112,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 113,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 114,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 115,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 116,
-          "Chance": 5.0
+          "Weight": 100.0
         }
       ],
       "PlantChoices": "34 35 36 37 38",
@@ -6147,7 +6382,8 @@
       "MusicTypeId": 3,
       "AmbientMusicTypeId": 8,
       "TraveralTimeScale": 5.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "ZoneCategoryId": 1,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype9default",
@@ -6333,13 +6569,13 @@
       "FenceTypes": [
         {
           "FenceTypeId": 1,
-          "Chance": 100.0
+          "Weight": 1.0
         }
       ],
       "RockTypes": [
         {
           "RockTypeId": 1,
-          "ChanceScale": 0.2,
+          "Weight": 1.0,
           "BaseColor": {
             "R": 1.0,
             "G": 1.0,
@@ -6349,12 +6585,12 @@
         },
         {
           "RockTypeId": 2,
-          "ChanceScale": 0.8,
+          "Weight": 1.0,
           "BaseColor": {}
         },
         {
           "RockTypeId": 3,
-          "ChanceScale": 0.2,
+          "Weight": 1.0,
           "BaseColor": {}
         }
       ],
@@ -6526,14 +6762,344 @@
         }
       ],
       "Overrides": [],
-      "ZoneUnitSpawns": [],
+      "ZoneUnitSpawns": [
+        {
+          "UnitTypeId": 1,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 2,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 3,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 6,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 7,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 8,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 15,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 16,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 17,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 18,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 19,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 20,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 21,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 22,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 23,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 24,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 25,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 26,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 27,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 28,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 29,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 30,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 31,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 32,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 33,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 34,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 35,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 36,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 37,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 38,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 40,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 41,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 42,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 43,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 45,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 46,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 60,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 61,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 62,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 63,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 64,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 65,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 68,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 69,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 70,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 71,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 72,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 74,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 75,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 76,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 77,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 78,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 79,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 80,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 81,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 82,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 83,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 84,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 85,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 86,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 89,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 90,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 91,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 92,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 93,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 94,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 95,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 96,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 97,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 98,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 103,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 104,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 105,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 106,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 107,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 108,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 109,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 111,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 112,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 113,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 114,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 115,
+          "Weight": 100.0
+        }
+      ],
       "PlantChoices": "0",
       "FenceChance": 0.1,
       "WeatherTypeId": 8,
       "MusicTypeId": 3,
       "AmbientMusicTypeId": 8,
       "TraveralTimeScale": 20.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "ZoneCategoryId": 1,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype10default",
@@ -6759,13 +7325,13 @@
       "FenceTypes": [
         {
           "FenceTypeId": 1,
-          "Chance": 100.0
+          "Weight": 1.0
         }
       ],
       "RockTypes": [
         {
           "RockTypeId": 1,
-          "ChanceScale": 1.0,
+          "Weight": 1.0,
           "BaseColor": {
             "R": 1.0,
             "G": 1.0,
@@ -7016,303 +7582,339 @@
       "ZoneUnitSpawns": [
         {
           "UnitTypeId": 1,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 2,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 3,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 4,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 5,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 6,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 7,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 8,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 9,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 10,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 11,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 12,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 13,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 14,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 15,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 16,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 17,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 18,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 19,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 20,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 21,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 22,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 23,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 24,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 25,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 26,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 27,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 28,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 29,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 30,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 31,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 32,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 33,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 34,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 35,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 36,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 37,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 38,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 39,
-          "Chance": 1.0
+          "UnitTypeId": 40,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 41,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 42,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 43,
-          "Chance": 10.0
-        },
-        {
-          "UnitTypeId": 44,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 45,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 46,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 47,
-          "Chance": 2.0
+          "UnitTypeId": 60,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 48,
-          "Chance": 5.0
+          "UnitTypeId": 61,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 73,
-          "Chance": 10.0
+          "UnitTypeId": 62,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 63,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 64,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 65,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 68,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 69,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 70,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 71,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 72,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 74,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 75,
-          "Chance": 10.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 76,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 77,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 78,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 79,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 80,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 81,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 82,
-          "Chance": 5.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 83,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 84,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 85,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 86,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 87,
-          "Chance": 3.0
+          "UnitTypeId": 89,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 90,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 91,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 92,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 93,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 94,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 95,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 96,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 97,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 98,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 99,
-          "Chance": 3.0
+          "UnitTypeId": 103,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 104,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 105,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 106,
-          "Chance": 1.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 107,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 108,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 109,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 110,
-          "Chance": 2.0
+          "UnitTypeId": 111,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 112,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 113,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 114,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 115,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 116,
-          "Chance": 5.0
+          "Weight": 100.0
         }
       ],
       "PlantChoices": "33 10 15 16 26 28 30 31 32 9",
@@ -7321,7 +7923,8 @@
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 8,
       "TraveralTimeScale": 30.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "ZoneCategoryId": 1,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype11default",
@@ -7558,13 +8161,13 @@
       "FenceTypes": [
         {
           "FenceTypeId": 1,
-          "Chance": 100.0
+          "Weight": 1.0
         }
       ],
       "RockTypes": [
         {
           "RockTypeId": 1,
-          "ChanceScale": 1.0,
+          "Weight": 1.0,
           "BaseColor": {
             "R": 1.0,
             "G": 1.0,
@@ -7720,275 +8323,331 @@
       "ZoneUnitSpawns": [
         {
           "UnitTypeId": 1,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 2,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 3,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 4,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 5,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 6,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 7,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 8,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 9,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 10,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 11,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 12,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 13,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 14,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 15,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 16,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 17,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 18,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 19,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 20,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 21,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 22,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 23,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 24,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 25,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 26,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 27,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 28,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 29,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 30,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 31,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 32,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 33,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 34,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 35,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 36,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 37,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 38,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 39,
-          "Chance": 1.0
+          "UnitTypeId": 40,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 41,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 42,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 43,
-          "Chance": 10.0
-        },
-        {
-          "UnitTypeId": 44,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 45,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 46,
-          "Chance": 2.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 47,
-          "Chance": 2.0
+          "UnitTypeId": 60,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 48,
-          "Chance": 5.0
+          "UnitTypeId": 61,
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 73,
-          "Chance": 10.0
+          "UnitTypeId": 62,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 63,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 64,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 65,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 68,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 69,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 70,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 71,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 72,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 74,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 75,
-          "Chance": 10.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 76,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 77,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 78,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 79,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 80,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 81,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 82,
-          "Chance": 5.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 83,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 84,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 85,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 86,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 87,
-          "Chance": 3.0
+          "UnitTypeId": 89,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 90,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 91,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 92,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 93,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 94,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 95,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 96,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 97,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 98,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 103,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 104,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 105,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 106,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 110,
-          "Chance": 2.0
+          "UnitTypeId": 107,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 108,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 109,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 111,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 112,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 113,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 114,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 115,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 116,
-          "Chance": 5.0
+          "Weight": 100.0
         }
       ],
       "PlantChoices": "33 10 15 16 26 28 30 31 32 9",
@@ -7997,7 +8656,8 @@
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 8,
       "TraveralTimeScale": 20.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "ZoneCategoryId": 1,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype12default",
@@ -8022,12 +8682,342 @@
       "CreatureNamePrefixes": [],
       "CreatureDoubleNamePrefixes": [],
       "Overrides": [],
-      "ZoneUnitSpawns": [],
+      "ZoneUnitSpawns": [
+        {
+          "UnitTypeId": 1,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 2,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 3,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 6,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 7,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 8,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 15,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 16,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 17,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 18,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 19,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 20,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 21,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 22,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 23,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 24,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 25,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 26,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 27,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 28,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 29,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 30,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 31,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 32,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 33,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 34,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 35,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 36,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 37,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 38,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 40,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 41,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 42,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 43,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 45,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 46,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 60,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 61,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 62,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 63,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 64,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 65,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 68,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 69,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 70,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 71,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 72,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 74,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 75,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 76,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 77,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 78,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 79,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 80,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 81,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 82,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 83,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 84,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 85,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 86,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 89,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 90,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 91,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 92,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 93,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 94,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 95,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 96,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 97,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 98,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 103,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 104,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 105,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 106,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 107,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 108,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 109,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 111,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 112,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 113,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 114,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 115,
+          "Weight": 100.0
+        }
+      ],
       "PlantChoices": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
       "TraveralTimeScale": 1.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "ZoneCategoryId": 1,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype13default",
@@ -8057,7 +9047,7 @@
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
       "TraveralTimeScale": 1.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype14default",
@@ -8106,198 +9096,128 @@
       "ZoneUnitSpawns": [
         {
           "UnitTypeId": 1,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 2,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 3,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 4,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 5,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 6,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 7,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 8,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 9,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 10,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 11,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 12,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 13,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 14,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 15,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 16,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 17,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 18,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 19,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 20,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 21,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 22,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 23,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 24,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 25,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 26,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 27,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 28,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 29,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 30,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 31,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 32,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 33,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 34,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 35,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 36,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 37,
-          "Chance": 1.0
+          "UnitTypeId": 38,
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 39,
-          "Chance": 1.0
+          "UnitTypeId": 40,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 41,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 45,
-          "Chance": 1.0
+          "UnitTypeId": 44,
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 48,
-          "Chance": 5.0
+          "UnitTypeId": 55,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 56,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 57,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 58,
-          "Chance": 5.0
+          "UnitTypeId": 87,
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 94,
-          "Chance": 2.0
+          "UnitTypeId": 107,
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 108,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 111,
-          "Chance": 20.0
+          "UnitTypeId": 110,
+          "Weight": 100.0
         }
       ],
       "PlantChoices": "",
+      "WeatherTypeId": 10,
+      "BuildingTypeId": 21,
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
       "TraveralTimeScale": 1.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype15default",
@@ -8416,362 +9336,361 @@
       "ZoneUnitSpawns": [
         {
           "UnitTypeId": 1,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 2,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 3,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 4,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 5,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 6,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 7,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 8,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 9,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 10,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 11,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 12,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 13,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 14,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 15,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 16,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 17,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 18,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 19,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 20,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 21,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 22,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 23,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 24,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 25,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 26,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 27,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 28,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 29,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 30,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 31,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 32,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 33,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 34,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 35,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 36,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 37,
-          "Chance": 1.0
+          "UnitTypeId": 38,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 39,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 40,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 41,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 45,
-          "Chance": 1.0
+          "UnitTypeId": 47,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 48,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 49,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 50,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 51,
-          "Chance": 3.0
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 52,
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 53,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 54,
-          "Chance": 2.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 55,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 56,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 57,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 58,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 59,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 60,
-          "Chance": 3.0
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 61,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 62,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 63,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 64,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 65,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 66,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 67,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 68,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 69,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 70,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 71,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 73,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 74,
-          "Chance": 9.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 75,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 77,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 78,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 79,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 80,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 81,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 82,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 83,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 84,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 85,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 86,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 87,
-          "Chance": 3.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 88,
-          "Chance": 10.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 89,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 91,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 93,
-          "Chance": 5.0
+          "UnitTypeId": 92,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 94,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 95,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 96,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 97,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 98,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 99,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 100,
-          "Chance": 2.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 101,
-          "Chance": 2.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 102,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 103,
-          "Chance": 3.0
+          "UnitTypeId": 106,
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 104,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 107,
-          "Chance": 10.0
+          "UnitTypeId": 108,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 109,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 110,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 111,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 112,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 113,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 114,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 115,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 116,
-          "Chance": 5.0
+          "Weight": 10.0
         }
       ],
       "PlantChoices": "",
+      "WeatherTypeId": 11,
+      "BuildingTypeId": 19,
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
       "TraveralTimeScale": 1.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "ZoneCategoryId": 2,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype16default",
@@ -8926,378 +9845,361 @@
       "ZoneUnitSpawns": [
         {
           "UnitTypeId": 1,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 2,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 3,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 4,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 5,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 6,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 7,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 8,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 9,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 10,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 11,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 12,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 13,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 14,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 15,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 16,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 17,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 18,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 19,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 20,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 21,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 22,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 23,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 24,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 25,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 26,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 27,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 28,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 29,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 30,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 31,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 32,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 33,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 34,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 35,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 36,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 37,
-          "Chance": 1.0
+          "UnitTypeId": 38,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 39,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 40,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 41,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 45,
-          "Chance": 1.0
+          "UnitTypeId": 47,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 48,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 49,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 50,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 51,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 52,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 53,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 54,
-          "Chance": 2.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 55,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 56,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 57,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 58,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 59,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 60,
-          "Chance": 3.0
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 61,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 62,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 63,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 64,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 65,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 66,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 67,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 68,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 69,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 70,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 71,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 73,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 74,
-          "Chance": 9.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 75,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 77,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 78,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 79,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 80,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 81,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 82,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 83,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 84,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 85,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 86,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 87,
-          "Chance": 3.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 88,
-          "Chance": 10.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 89,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 91,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 93,
-          "Chance": 5.0
+          "UnitTypeId": 92,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 94,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 95,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 96,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 97,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 98,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 99,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 100,
-          "Chance": 2.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 101,
-          "Chance": 2.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 102,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 103,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 104,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 105,
-          "Chance": 1.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 106,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 107,
-          "Chance": 10.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 108,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 109,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 110,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 111,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 112,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 113,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 114,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 115,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 116,
-          "Chance": 5.0
+          "Weight": 10.0
         }
       ],
       "PlantChoices": "",
+      "WeatherTypeId": 11,
+      "BuildingTypeId": 18,
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
       "TraveralTimeScale": 1.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "ZoneCategoryId": 2,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype17default",
@@ -9386,358 +10288,361 @@
       "ZoneUnitSpawns": [
         {
           "UnitTypeId": 1,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 2,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 3,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 4,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 5,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 6,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 7,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 8,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 9,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 10,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 11,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 12,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 13,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 14,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 15,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 16,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 17,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 18,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 19,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 20,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 21,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 22,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 23,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 24,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 25,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 26,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 27,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 28,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 29,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 30,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 31,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 32,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 33,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 34,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 35,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 36,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 37,
-          "Chance": 1.0
+          "UnitTypeId": 38,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 39,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 40,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 41,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 45,
-          "Chance": 1.0
+          "UnitTypeId": 47,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 48,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 49,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 50,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 51,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 52,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 53,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 54,
-          "Chance": 2.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 55,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 56,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 57,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 58,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 59,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 60,
-          "Chance": 3.0
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 61,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 62,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 63,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 64,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 65,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 66,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 67,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 68,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 69,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 70,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 71,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 73,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 74,
-          "Chance": 9.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 75,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 77,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 78,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 79,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 80,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 81,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 82,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 83,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 84,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 85,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 86,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 87,
-          "Chance": 3.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 88,
-          "Chance": 10.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 89,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 91,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 93,
-          "Chance": 5.0
+          "UnitTypeId": 92,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 94,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 95,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 96,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 97,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 98,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 99,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 100,
-          "Chance": 2.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 101,
-          "Chance": 2.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 102,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 103,
-          "Chance": 3.0
+          "UnitTypeId": 106,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 108,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 109,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 110,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 111,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 112,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 113,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 114,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 115,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 116,
-          "Chance": 5.0
+          "Weight": 10.0
         }
       ],
       "PlantChoices": "",
+      "WeatherTypeId": 11,
+      "BuildingTypeId": 20,
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
       "TraveralTimeScale": 1.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "ZoneCategoryId": 2,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype18default",
@@ -9934,13 +10839,13 @@
       "FenceTypes": [
         {
           "FenceTypeId": 1,
-          "Chance": 100.0
+          "Weight": 1.0
         }
       ],
       "RockTypes": [
         {
           "RockTypeId": 1,
-          "ChanceScale": 0.1,
+          "Weight": 1.0,
           "BaseColor": {
             "R": 1.0,
             "G": 1.0,
@@ -9950,7 +10855,7 @@
         },
         {
           "RockTypeId": 2,
-          "ChanceScale": 1.0,
+          "Weight": 1.0,
           "BaseColor": {}
         }
       ],
@@ -10167,96 +11072,346 @@
       "Overrides": [],
       "ZoneUnitSpawns": [
         {
+          "UnitTypeId": 1,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 2,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 3,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 6,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 7,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 8,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 15,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 16,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 17,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 18,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 19,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 20,
+          "Weight": 10.0
+        },
+        {
           "UnitTypeId": 21,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 22,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 23,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 24,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 25,
-          "Chance": 5.0
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 26,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 27,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 28,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 29,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 30,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 31,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 32,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 33,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 34,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 35,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 36,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 37,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 38,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 40,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 41,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 42,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 43,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 45,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 46,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 60,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 61,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 62,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 63,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 64,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 65,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 68,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 69,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 70,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 71,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 72,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 74,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 75,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 76,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 77,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 78,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 79,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 80,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 81,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 82,
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 83,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 84,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 85,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 86,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
-          "UnitTypeId": 87,
-          "Chance": 3.0
+          "UnitTypeId": 89,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 90,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 91,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 92,
-          "Chance": 5.0
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 93,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 94,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 95,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 96,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 97,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 98,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 103,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 104,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 105,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 106,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 107,
-          "Chance": 10.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 110,
-          "Chance": 2.0
+          "UnitTypeId": 108,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 109,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 111,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 112,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 113,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 114,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 115,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 116,
-          "Chance": 5.0
+          "Weight": 100.0
         }
       ],
       "PlantChoices": "34 35 36 37 38",
       "FenceChance": 0.1,
-      "WeatherTypeId": 6,
+      "WeatherTypeId": 9,
+      "BuildingTypeId": 23,
       "CreviceCountScale": 4.0,
       "CreviceDepthScale": 0.5,
       "CreviceWidthScale": 2.0,
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 9,
       "TraveralTimeScale": 20.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "ZoneCategoryId": 1,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype19default",
@@ -10374,363 +11529,86 @@
       "Overrides": [],
       "ZoneUnitSpawns": [
         {
-          "UnitTypeId": 1,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 2,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 3,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 4,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 5,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 6,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 7,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 8,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 9,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 10,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 11,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 12,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 13,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 14,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 15,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 16,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 17,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 18,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 19,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 20,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 21,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 22,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 23,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 24,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 25,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 26,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 27,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 28,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 29,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 30,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 31,
-          "Chance": 1.0
-        },
-        {
           "UnitTypeId": 32,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 33,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 34,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 35,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 36,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 37,
-          "Chance": 1.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 38,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 39,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 40,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 41,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 45,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 48,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 49,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 50,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 51,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 53,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 54,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 55,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 56,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 57,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 58,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 59,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 60,
-          "Chance": 3.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 74,
-          "Chance": 9.0
+          "UnitTypeId": 61,
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 78,
-          "Chance": 5.0
+          "UnitTypeId": 62,
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 79,
-          "Chance": 5.0
+          "UnitTypeId": 63,
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 80,
-          "Chance": 5.0
+          "UnitTypeId": 64,
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 81,
-          "Chance": 5.0
+          "UnitTypeId": 68,
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 82,
-          "Chance": 5.0
+          "UnitTypeId": 69,
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 83,
-          "Chance": 3.0
+          "UnitTypeId": 70,
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 84,
-          "Chance": 3.0
+          "UnitTypeId": 71,
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 85,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 86,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 87,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 88,
-          "Chance": 10.0
-        },
-        {
-          "UnitTypeId": 89,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 91,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 93,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 94,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 95,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 96,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 97,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 98,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 99,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 100,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 101,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 102,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 103,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 104,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 107,
-          "Chance": 10.0
-        },
-        {
-          "UnitTypeId": 109,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 110,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 111,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 112,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 113,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 114,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 115,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 116,
-          "Chance": 5.0
+          "UnitTypeId": 108,
+          "Weight": 10.0
         }
       ],
       "PlantChoices": "",
+      "WeatherTypeId": 9,
+      "BuildingTypeId": 25,
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
       "TraveralTimeScale": 1.0,
-      "UpdateTime": "2025-01-27T23:56:18.6Z"
+      "ZoneCategoryId": 3,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype20default",
@@ -10848,363 +11726,122 @@
       "Overrides": [],
       "ZoneUnitSpawns": [
         {
-          "UnitTypeId": 1,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 2,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 3,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 4,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 5,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 6,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 7,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 8,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 9,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 10,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 11,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 12,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 13,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 14,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 15,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 16,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 17,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 18,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 19,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 20,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 21,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 22,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 23,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 24,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 25,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 26,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 27,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 28,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 29,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 30,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 31,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 32,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 33,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 34,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 35,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 36,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 37,
-          "Chance": 1.0
+          "UnitTypeId": 38,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 39,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 40,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 41,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 45,
-          "Chance": 1.0
+          "UnitTypeId": 47,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 48,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 49,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 50,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 51,
-          "Chance": 3.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 52,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 53,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 54,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 55,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 56,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 57,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 58,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 59,
-          "Chance": 3.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 60,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 74,
-          "Chance": 9.0
+          "UnitTypeId": 61,
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 78,
-          "Chance": 5.0
+          "UnitTypeId": 62,
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 79,
-          "Chance": 5.0
+          "UnitTypeId": 63,
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 80,
-          "Chance": 5.0
+          "UnitTypeId": 64,
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 81,
-          "Chance": 5.0
+          "UnitTypeId": 67,
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 82,
-          "Chance": 5.0
+          "UnitTypeId": 68,
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 83,
-          "Chance": 3.0
+          "UnitTypeId": 69,
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 84,
-          "Chance": 3.0
+          "UnitTypeId": 70,
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 85,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 86,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 87,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 88,
-          "Chance": 10.0
-        },
-        {
-          "UnitTypeId": 89,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 91,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 93,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 94,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 95,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 96,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 97,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 98,
-          "Chance": 3.0
+          "UnitTypeId": 71,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 99,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 100,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 101,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 102,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
-          "UnitTypeId": 103,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 104,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 107,
-          "Chance": 10.0
-        },
-        {
-          "UnitTypeId": 109,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 110,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 111,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 112,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 113,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 114,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 115,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 116,
-          "Chance": 5.0
+          "UnitTypeId": 108,
+          "Weight": 10.0
         }
       ],
       "PlantChoices": "",
+      "WeatherTypeId": 11,
+      "BuildingTypeId": 24,
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
       "TraveralTimeScale": 1.0,
-      "UpdateTime": "2025-02-09T14:46:58.379Z"
+      "ZoneCategoryId": 3,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     },
     {
       "Id": "zonetype21default",
@@ -11323,368 +11960,804 @@
       "ZoneUnitSpawns": [
         {
           "UnitTypeId": 1,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 2,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 3,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 4,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 5,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 6,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 7,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 8,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 9,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 10,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 11,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 12,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 13,
-          "Chance": 1.0
-        },
-        {
-          "UnitTypeId": 14,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 15,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 16,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 17,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 18,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 19,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 20,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 21,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 22,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 23,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 24,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 25,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 26,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 27,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 28,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 29,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 30,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 31,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 32,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 33,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 34,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 35,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 36,
-          "Chance": 1.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 37,
-          "Chance": 1.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 38,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 39,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 40,
-          "Chance": 3.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 41,
-          "Chance": 5.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 42,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 43,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 45,
-          "Chance": 1.0
+          "Weight": 100.0
         },
         {
-          "UnitTypeId": 48,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 49,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 50,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 51,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 53,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 54,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 55,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 56,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 57,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 58,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 59,
-          "Chance": 3.0
+          "UnitTypeId": 46,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 60,
-          "Chance": 3.0
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 61,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 62,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 63,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 64,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 65,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 68,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 69,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 70,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 71,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 72,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 74,
-          "Chance": 9.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 75,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 76,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 77,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 78,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 79,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 80,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 81,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 82,
-          "Chance": 5.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 83,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 84,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 85,
-          "Chance": 3.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 86,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 87,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 88,
-          "Chance": 10.0
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 89,
-          "Chance": 5.0
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 90,
+          "Weight": 1.0
         },
         {
           "UnitTypeId": 91,
-          "Chance": 2.0
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 92,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 93,
-          "Chance": 5.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 94,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 95,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 96,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 97,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 98,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 99,
-          "Chance": 3.0
-        },
-        {
-          "UnitTypeId": 100,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 101,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 102,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 103,
-          "Chance": 3.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 104,
-          "Chance": 2.0
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 105,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 106,
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 107,
-          "Chance": 10.0
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 108,
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 109,
-          "Chance": 2.0
-        },
-        {
-          "UnitTypeId": 110,
-          "Chance": 2.0
+          "Weight": 10.0
         },
         {
           "UnitTypeId": 111,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 112,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 113,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 114,
-          "Chance": 5.0
+          "Weight": 100.0
         },
         {
           "UnitTypeId": 115,
-          "Chance": 5.0
-        },
-        {
-          "UnitTypeId": 116,
-          "Chance": 5.0
+          "Weight": 100.0
         }
       ],
       "PlantChoices": "",
+      "WeatherTypeId": 9,
+      "BuildingTypeId": 22,
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
       "TraveralTimeScale": 1.0,
-      "UpdateTime": "2025-02-09T14:46:58.379Z"
+      "ZoneCategoryId": 1,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
+    },
+    {
+      "Id": "zonetype22default",
+      "ParentId": "default",
+      "IdKey": 22,
+      "Name": "Outdoors",
+      "Desc": "",
+      "Icon": "Outdoors",
+      "Art": "Outdoors",
+      "Textures": [
+        {
+          "TextureTypeId": 99,
+          "Name": "Road/Base"
+        }
+      ],
+      "ZoneNames": [
+        {
+          "Weight": 1000.0,
+          "Name": "Tunnels",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Pit",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Caves",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Halls",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Vault",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Tomb",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Catacombs",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Quarters",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Labyrinth",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Pits",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Lair",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Cavern",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Caverns",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Burrows",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Burrow",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Maze",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Dungeon",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Tombs",
+          "Desc": ""
+        }
+      ],
+      "ZoneAdjectives": [],
+      "BridgeTypes": [],
+      "FenceTypes": [],
+      "RockTypes": [],
+      "TreeTypes": [],
+      "CreatureNamePrefixes": [],
+      "CreatureDoubleNamePrefixes": [],
+      "Overrides": [],
+      "ZoneUnitSpawns": [
+        {
+          "UnitTypeId": 1,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 2,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 3,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 6,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 7,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 8,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 15,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 16,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 17,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 18,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 19,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 20,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 21,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 22,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 23,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 24,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 25,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 26,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 27,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 28,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 29,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 30,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 31,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 32,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 33,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 34,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 35,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 36,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 37,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 38,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 40,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 41,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 42,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 43,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 45,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 46,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 60,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 61,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 62,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 63,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 64,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 65,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 68,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 69,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 70,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 71,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 72,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 74,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 75,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 76,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 77,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 78,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 79,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 80,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 81,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 82,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 83,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 84,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 85,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 86,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 89,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 90,
+          "Weight": 1.0
+        },
+        {
+          "UnitTypeId": 91,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 92,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 93,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 94,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 95,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 96,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 97,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 98,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 103,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 104,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 105,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 106,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 107,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 108,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 109,
+          "Weight": 10.0
+        },
+        {
+          "UnitTypeId": 111,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 112,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 113,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 114,
+          "Weight": 100.0
+        },
+        {
+          "UnitTypeId": 115,
+          "Weight": 100.0
+        }
+      ],
+      "PlantChoices": "",
+      "WeatherTypeId": 9,
+      "BuildingTypeId": 21,
+      "MusicTypeId": 1,
+      "AmbientMusicTypeId": 1,
+      "TraveralTimeScale": 1.0,
+      "ZoneCategoryId": 1,
+      "UpdateTime": "2025-02-22T18:54:19.734Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "ZoneTypeSettings",
-    "UpdateTime": "2025-02-09T14:46:58.379Z"
+    "UpdateTime": "2025-02-20T07:02:53.997Z"
   },
   "Id": "default"
 }

@@ -2,18 +2,23 @@
   "Id": "unittype47default",
   "ParentId": "default",
   "IdKey": 47,
-  "Name": "Lion",
-  "PluralName": "Lions",
-  "Icon": "Lion",
-  "Art": "Lion",
-  "TribeTypeId": 2,
-  "MinLevel": 20,
+  "Name": "Skeleton",
+  "PluralName": "Skeletons",
+  "Icon": "Skeleton",
+  "Art": "Skeleton",
+  "TribeTypeId": 3,
+  "MinLevel": 1,
   "SpawnQuantityScale": 1.0,
   "Effects": [
     {
-      "EntityTypeId": 31,
+      "EntityTypeId": 24,
       "Quantity": 1,
-      "EntityId": 35
+      "EntityId": 7
+    },
+    {
+      "EntityTypeId": 25,
+      "Quantity": 1,
+      "EntityId": 6
     }
   ],
   "PrefixNames": [],
@@ -23,5 +28,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

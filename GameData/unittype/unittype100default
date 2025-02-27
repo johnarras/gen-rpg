@@ -2,10 +2,10 @@
   "Id": "unittype100default",
   "ParentId": "default",
   "IdKey": 100,
-  "Name": "Vampire",
-  "PluralName": "Vampires",
-  "Icon": "Vampire",
-  "Art": "Vampire",
+  "Name": "Vampire Lord",
+  "PluralName": "Vampire Lords",
+  "Icon": "VampireLord",
+  "Art": "VampireLord",
   "TribeTypeId": 3,
   "MinLevel": 20,
   "SpawnQuantityScale": 0.1,
@@ -21,11 +21,6 @@
       "EntityId": 20
     },
     {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
       "EntityTypeId": 24,
       "Quantity": 1,
       "EntityId": 7
@@ -38,7 +33,7 @@
     {
       "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 20102
+      "EntityId": 20101
     }
   ],
   "PrefixNames": [],
@@ -48,5 +43,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

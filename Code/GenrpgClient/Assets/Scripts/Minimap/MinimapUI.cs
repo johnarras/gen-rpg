@@ -25,7 +25,7 @@ public class MinimapUI : BaseBehaviour
         AddListener<EnableMinimapEvent>(OnEnableMinimap);
         AddListener<DisableMinimapEvent>(OnDisableMinimap);
         OnDisableMinimap(null);
-        AddUpdate(MinimapUpdate, UpdateType.Regular);
+        AddUpdate(MinimapUpdate, UpdateTypes.Regular);
         if (ArrowParent != null)
         {
             _assetService.LoadAssetInto(ArrowParent, AssetCategoryNames.UI, "PlayerArrow", OnLoadArrow, null, token, "Maps");

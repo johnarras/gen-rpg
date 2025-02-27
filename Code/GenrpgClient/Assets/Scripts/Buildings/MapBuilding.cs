@@ -15,11 +15,11 @@ namespace Assets.Scripts.Buildings
 
         private BuildingType _btype;
         private OnSpawn _spawn;
-        public void Init(BuildingType btype, OnSpawn spawn)
+        public void Init(BuildingType btype, OnSpawn spawn, string overrideName = null)
         {
             _btype = btype;
             _spawn = spawn;
-            Sign?.Init(_btype, _spawn);
+            Sign?.Init(_btype, _spawn, overrideName);
         }
     }
 }

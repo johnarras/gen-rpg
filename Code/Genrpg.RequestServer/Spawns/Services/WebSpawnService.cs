@@ -138,30 +138,14 @@ namespace Genrpg.RequestServer.Spawns.Services
 
             foreach (int key in groupDict.Keys)
             {
-                double totalRollWeight = 0;
-                List<SI> groupList = groupDict[key];
-                foreach (SI si in groupList)
-                {
-                    totalRollWeight += si.Weight;
-                }
 
-                if (totalRollWeight <= 0)
-                {
-                    continue;
-                }
+                SI si = RandomUtils.GetRandomElement(groupDict[key], context.rand);
 
-                double weightChosen = context.rand.NextDouble() * totalRollWeight;
-
-                foreach (SI si in groupList)
+                if (si != null)
                 {
-                    weightChosen -= si.Weight;
-                    if (weightChosen <= 0)
-                    {
-                        rollData.Depth++;
-                        retval = retval.Concat(await RollOneItem(context, si, rollData)).ToList();
-                        rollData.Depth--;
-                        break;
-                    }
+                    rollData.Depth++;
+                    retval = retval.Concat(await RollOneItem(context, si, rollData)).ToList();
+                    rollData.Depth--;
                 }
             }
             return retval;

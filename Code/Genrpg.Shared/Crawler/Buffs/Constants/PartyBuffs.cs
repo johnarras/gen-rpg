@@ -11,5 +11,6 @@ namespace Genrpg.Shared.Crawler.Buffs.Constants
         public const long MagicCompass = 3;
         public const long Levitate = 4;
         public const long Mapping = 5;
+
     }
 }

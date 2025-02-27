@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.Crawler.Parties.PlayerData;
+﻿using Assets.Scripts.Crawler.ClientEvents.WorldPanelEvents;
+using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Entities;
 using Genrpg.Shared.Units.Settings;
@@ -36,7 +37,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds.CreateMember
                    {
                        member.PortraitName = unitType.Icon;
                    }, member, unitType.Icon,
-                   () => { partyData.WorldPanel.SetPicture(unitType.Icon, false); }
+                   () => { _dispatcher.Dispatch(new SetWorldPicture(unitType.Icon, false)); }
                    )
                    );
             }

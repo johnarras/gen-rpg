@@ -23,6 +23,9 @@ namespace Genrpg.Shared.Crawler.Loot.Settings
         [Key(7)] public double ItemChancePerMonster { get; set; } = 0.2f;
         [Key(8)] public double MinGoldPerKillLevelMult { get; set; } = 5.0f;
         [Key(9)] public double MaxGoldPerKillLevelMult { get; set; } = 15.0f;
+        [Key(10)] public double ExploreLootScalePerCell { get; set; }
+        [Key(11)] public double ExploreBonusLevelsPerCell { get; set; }
+        [Key(12)] public double ExploreMonsterExpPerCell { get; set; }
     }
 
     [MessagePackObject]

@@ -42,7 +42,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     public override void Init()
     {
         base.Init();
-        AddUpdate(AudioUpdate, UpdateType.Regular);
+        AddUpdate(AudioUpdate, UpdateTypes.Regular);
         if (MusicChannels == null)
         {
             MusicChannels = new List<MusicChannel>();

@@ -5,35 +5,49 @@
       "ParentId": "default",
       "IdKey": 1,
       "Name": "Attack",
-      "UpdateTime": "2024-08-01T00:27:58.831Z"
+      "WeaponDamageScale": 1.0,
+      "StatBonusDamageScale": 1.0,
+      "UpdateTime": "2025-02-22T22:28:46.973Z"
     },
     {
       "Id": "combataction2default",
       "ParentId": "default",
       "IdKey": 2,
       "Name": "Defend",
-      "UpdateTime": "2024-08-01T00:27:58.834Z"
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "WeaponDamageScale": 1.0,
+      "StatBonusDamageScale": 1.0,
+      "UpdateTime": "2025-02-22T22:28:46.973Z"
     },
     {
       "Id": "combataction3default",
       "ParentId": "default",
       "IdKey": 3,
       "Name": "Shoot",
-      "UpdateTime": "2024-08-01T00:27:58.836Z"
+      "WeaponDamageScale": 1.0,
+      "StatBonusDamageScale": 1.0,
+      "UpdateTime": "2025-02-22T22:28:46.973Z"
     },
     {
       "Id": "combataction4default",
       "ParentId": "default",
       "IdKey": 4,
       "Name": "Cast",
-      "UpdateTime": "2025-01-11T15:37:36.985Z"
+      "WeaponDamageScale": 0.5,
+      "StatBonusDamageScale": 2.0,
+      "QuantityIsBaseAmount": true,
+      "UpdateTime": "2025-02-22T22:34:44.653Z"
     },
     {
       "Id": "combataction5default",
       "ParentId": "default",
       "IdKey": 5,
       "Name": "Hide",
-      "UpdateTime": "2024-08-01T00:27:58.84Z"
+      "WeaponDamageScale": 1.0,
+      "StatBonusDamageScale": 1.0,
+      "UpdateTime": "2025-02-22T22:28:46.973Z"
     },
     {
       "Id": "combataction6default",
@@ -41,7 +55,9 @@
       "IdKey": 6,
       "Name": "Recast",
       "Desc": "",
-      "UpdateTime": "2025-01-11T15:37:36.985Z"
+      "WeaponDamageScale": 1.0,
+      "StatBonusDamageScale": 1.0,
+      "UpdateTime": "2025-02-22T22:28:46.973Z"
     },
     {
       "Id": "combataction7default",
@@ -49,13 +65,15 @@
       "IdKey": 7,
       "Name": "Disabled",
       "Desc": "",
-      "UpdateTime": "2025-01-11T15:37:36.985Z"
+      "WeaponDamageScale": 1.0,
+      "StatBonusDamageScale": 1.0,
+      "UpdateTime": "2025-02-22T22:28:46.973Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "CombatActionSettings",
-    "UpdateTime": "2025-01-11T15:37:36.985Z"
+    "UpdateTime": "2025-02-22T22:34:44.653Z"
   },
   "Id": "default"
 }

@@ -39,6 +39,8 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds
                 member.StatusEffects.Clear();
             }
 
+            party.Buffs.Clear();
+
             string txt = action.ExtraData as string;
 
             if (txt != null && txt == "GenerateWorld")

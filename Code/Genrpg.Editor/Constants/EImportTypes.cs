@@ -10,7 +10,6 @@ namespace Genrpg.Editor.Constants
     {
         CrawlerRoles = 0,
         UnitTypes = 1,
-        UnitSpawns = 2,
         UnitKeywords=3,
         CrawlerSpells = 4,
         Riddles =5,

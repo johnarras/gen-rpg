@@ -22,28 +22,6 @@ namespace Genrpg.Shared.Crawler.Maps.Entities
 
         [Key(6)] public long Seed { get; set; }
 
-        public CrawlerMap CreateMap(CrawlerMapGenData genData, int width, int height)
-        {
-            long mapId = ++MaxMapId;
-            CrawlerMap map = new CrawlerMap()
-            {
-                Id = "Map" + mapId,
-                CrawlerMapTypeId = genData.MapType,
-                Looping = genData.Looping,
-                Width = width,
-                Height = height,
-                Level = genData.Level,
-                IdKey = mapId,
-                MapFloor = genData.CurrFloor,
-                ArtSeed = genData.ArtSeed,
-            };
-
-            map.SetupDataBlocks();
-            Maps.Add(map);
-
-            return map;
-        }
-
         public CrawlerMap GetMap(long mapId)
         {
             return Maps.FirstOrDefault(x => x.IdKey == mapId);

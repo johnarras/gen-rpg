@@ -37,7 +37,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Selection
 
             long currMana = data.Member.Stats.Curr(StatTypes.Mana);
 
-            List<CrawlerSpell> spells = _spellService.GetSpellsForMember(party, data.Member);
+            List<CrawlerSpell> spells = _crawlerSpellService.GetSpellsForMember(party, data.Member);
 
             for (int s = 0; s < spells.Count; s++)
             {
@@ -47,7 +47,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Selection
                 {
                     Action = data,
                     Spell = spell,
-                    PowerCost = _spellService.GetPowerCost(party, data.Member, spell),
+                    PowerCost = _crawlerSpellService.GetPowerCost(party, data.Member, spell),
                 };
 
                 string spellText = spell.Name + " (" + selectSpell.PowerCost + ")";

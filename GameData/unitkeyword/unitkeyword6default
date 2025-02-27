@@ -3,6 +3,7 @@
   "ParentId": "default",
   "IdKey": 6,
   "Name": "Lord",
+  "PluralName": "Lords",
   "Icon": "Lord",
   "Art": "Lord",
   "Effects": [
@@ -18,17 +19,19 @@
     },
     {
       "EntityTypeId": 36,
+      "Quantity": 1,
       "EntityId": 11
     },
     {
       "EntityTypeId": 36,
+      "Quantity": 1,
       "EntityId": 8
     },
     {
       "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 30002
+      "EntityId": 20006
     }
   ],
-  "UpdateTime": "2025-01-11T16:06:35.196Z"
+  "UpdateTime": "2025-02-17T09:10:53.635Z"
 }

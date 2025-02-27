@@ -6,45 +6,45 @@
       "IdKey": 1,
       "Name": "Light",
       "Desc": "Allows you to see in dark places.",
-      "UpdateTime": "2025-01-13T20:22:09.683Z"
+      "UpdateTime": "2025-02-25T14:30:57.257Z"
     },
     {
       "Id": "partybuff2default",
       "ParentId": "default",
       "IdKey": 2,
       "Name": "Second Sight",
-      "Desc": "Allows you to see hidden things.",
-      "UpdateTime": "2025-01-13T20:22:09.683Z"
+      "Desc": "Alerts you when bad things are ahead of you.",
+      "UpdateTime": "2025-02-25T14:30:57.257Z"
     },
     {
       "Id": "partybuff3default",
       "ParentId": "default",
       "IdKey": 3,
       "Name": "Magic Compass",
-      "Desc": "Allows you to see what direction you are facing.",
-      "UpdateTime": "2025-01-13T20:22:09.683Z"
+      "Desc": "Allows you to see your direction and map position.",
+      "UpdateTime": "2025-02-25T14:30:57.257Z"
     },
     {
       "Id": "partybuff4default",
       "ParentId": "default",
       "IdKey": 4,
       "Name": "Levitate",
-      "Desc": "Allows you to float over traps.",
-      "UpdateTime": "2025-01-13T20:22:09.683Z"
+      "Desc": "Allows you to float over traps and move a bit faster.",
+      "UpdateTime": "2025-02-25T14:30:57.257Z"
     },
     {
       "Id": "partybuff5default",
       "ParentId": "default",
       "IdKey": 5,
       "Name": "Mapping",
-      "Desc": "Allows you to map where you've been.",
-      "UpdateTime": "2025-01-13T20:22:09.683Z"
+      "Desc": "Shows you the minimap and lets you see the level map.",
+      "UpdateTime": "2025-02-25T14:18:02.532Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "PartyBuffSettings",
-    "UpdateTime": "2025-01-13T20:22:09.683Z"
+    "UpdateTime": "2025-02-25T14:30:57.257Z"
   },
   "Id": "default"
 }

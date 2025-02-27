@@ -27,7 +27,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Errors
 
             PartyData party = _crawlerService.GetParty();
 
-            party.EndCombat();
+            _combatService.EndCombat(party);
 
             stateData.Actions.Add(new CrawlerStateAction("An error occurred.\nReturning you to the main map."));
 

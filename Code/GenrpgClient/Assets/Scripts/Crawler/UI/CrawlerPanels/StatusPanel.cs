@@ -1,19 +1,17 @@
-﻿using Assets.Scripts.UI.Crawler.StatusUI;
+﻿using Assets.Scripts.Crawler.ClientEvents.StatusPanelEvents;
+using Assets.Scripts.UI.Crawler.StatusUI;
 using Genrpg.Shared.Client.Assets.Constants;
-using Genrpg.Shared.Crawler.Combat.Settings;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Settings;
-using Genrpg.Shared.Crawler.UI.Interfaces;
 using Genrpg.Shared.MVC.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 {
-    public class StatusPanel : BaseCrawlerPanel, IStatusPanel
+    public class StatusPanel : BaseCrawlerPanel
     {
 
         private List<PartyMemberStatusRow> _rows = new List<PartyMemberStatusRow>();
@@ -28,6 +26,8 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
             Content = view.Get<object>("Content");
 
+            _dispatcher.AddListener<RefreshPartyStatus>(OnRefreshPartyStatus, GetToken());
+            _dispatcher.AddListener<RefreshUnitStatus>(OnRefreshUnitStatus, GetToken());
             CrawlerSettings crawlerSettings = _gameData.Get<CrawlerSettings>(_gs.ch);
 
             for (int i = 0; i < crawlerSettings.CrawlerPartySize; i++)
@@ -39,7 +39,16 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
         }
 
-        private void UpdatePartyData(int partyIndexToUpdate = 0)
+        private void OnRefreshPartyStatus(RefreshPartyStatus status)
+        {
+            UpdatePartyData();
+        }
+        private void OnRefreshUnitStatus(RefreshUnitStatus status)
+        {
+            RefreshUnit(status.Unit, status.ElementTypeId);
+        }
+
+        private void UpdatePartyData(int partyIndexToUpdate = 0, long elementTypeId = 0)
         { 
             PartyData partyData = _crawlerService.GetParty();
 
@@ -49,7 +58,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
                 {
                     continue;
                 }
-                _rows[r].UpdateData();
+                _rows[r].UpdateData(elementTypeId);
             }
         }
 
@@ -59,16 +68,11 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             UpdatePartyData();
         }
 
-        public void RefreshAll()
-        {
-            UpdatePartyData();
-        }
-
-        public void RefreshUnit(CrawlerUnit unit, string effect = null)
+        public void RefreshUnit(CrawlerUnit unit, long elementTypeId = 0)
         {
             if (unit is PartyMember member)
             {
-                UpdatePartyData(member.PartySlot);
+                UpdatePartyData(member.PartySlot, elementTypeId);
             }
         }
     }

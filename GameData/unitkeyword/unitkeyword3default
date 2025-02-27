@@ -3,22 +3,20 @@
   "ParentId": "default",
   "IdKey": 3,
   "Name": "Warrior",
+  "PluralName": "Warriors",
   "Icon": "Warrior",
   "Art": "Warrior",
   "Effects": [
     {
       "EntityTypeId": 100,
+      "Quantity": 1,
       "EntityId": 37
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 2
-    },
-    {
-      "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 30001
+      "EntityId": 20003
     }
   ],
-  "UpdateTime": "2025-01-11T16:06:35.196Z"
+  "UpdateTime": "2025-02-17T09:10:53.635Z"
 }

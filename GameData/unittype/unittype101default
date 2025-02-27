@@ -2,29 +2,14 @@
   "Id": "unittype101default",
   "ParentId": "default",
   "IdKey": 101,
-  "Name": "Vampire Lord",
-  "PluralName": "Vampire Lords",
-  "Icon": "VampireLord",
-  "Art": "VampireLord",
+  "Name": "Mummy",
+  "PluralName": "Mummies",
+  "Icon": "Mummy",
+  "Art": "Mummy",
   "TribeTypeId": 3,
-  "MinLevel": 20,
-  "SpawnQuantityScale": 0.1,
+  "MinLevel": 10,
+  "SpawnQuantityScale": 1.0,
   "Effects": [
-    {
-      "EntityTypeId": 32,
-      "Quantity": 100,
-      "EntityId": 1
-    },
-    {
-      "EntityTypeId": 32,
-      "Quantity": 50,
-      "EntityId": 20
-    },
-    {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
     {
       "EntityTypeId": 24,
       "Quantity": 1,
@@ -38,7 +23,7 @@
     {
       "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 20102
+      "EntityId": 20047
     }
   ],
   "PrefixNames": [],
@@ -48,5 +33,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

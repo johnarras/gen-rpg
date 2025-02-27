@@ -2,7 +2,7 @@
   "Id": "crawlerspell20060default",
   "ParentId": "default",
   "IdKey": 20060,
-  "Name": "Summon Demon Lord",
+  "Name": "Monster Call Blue Dragon",
   "PowerCost": 100.0,
   "PowerPerLevel": 1.0,
   "MaxRange": 100,
@@ -16,8 +16,8 @@
       "EntityId": 60,
       "MinQuantity": 1,
       "MaxQuantity": 1,
-      "ElementTypeId": 6
+      "ElementTypeId": 4
     }
   ],
-  "UpdateTime": "2025-01-26T21:39:02.417Z"
+  "UpdateTime": "2025-02-25T19:39:14.046Z"
 }

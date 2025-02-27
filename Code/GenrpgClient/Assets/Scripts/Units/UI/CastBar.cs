@@ -18,7 +18,7 @@ public class CastBar : BaseBehaviour
     public override void Init()
     {
         base.Init();
-        AddUpdate(CastUpdate, UpdateType.Regular);
+        AddUpdate(CastUpdate, UpdateTypes.Regular);
         AddListener<OnStartCast>(OnStartCastHandler);
         AddListener<OnStopCast>(OnStopCastHandler);
     }

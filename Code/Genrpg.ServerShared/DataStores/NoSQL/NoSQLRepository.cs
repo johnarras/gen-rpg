@@ -170,11 +170,11 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
             return (T)await collection.Load(id);
         }
 
-        public async Task<bool> Save<T>(T obj) where T : class, IStringId
+        public async Task<bool> Save<T>(T obj, bool verbose = false) where T : class, IStringId
         {
 
             INoSQLCollection collection = GetCollection(obj.GetType());
-            return await collection.Save(obj);
+            return await collection.Save(obj, verbose);
         }
 
         public async Task<bool> Delete<T>(T obj) where T : class, IStringId

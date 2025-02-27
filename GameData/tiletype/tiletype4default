@@ -6,7 +6,6 @@
   "Desc": "Some trees",
   "Icon": "WoodsTile",
   "Art": "WoodsTile",
-  "SpawnChance": 1.0,
   "PassRewards": [],
   "LandRewards": [],
   "UpdateTime": "2025-02-02T19:57:40.985Z"

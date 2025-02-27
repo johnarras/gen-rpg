@@ -818,6 +818,20 @@
       "IdKey": 117,
       "Name": "CrawlerSettings",
       "UpdateTime": "2025-01-26T00:07:47.409Z"
+    },
+    {
+      "Id": "settingsname118default",
+      "ParentId": "default",
+      "IdKey": 118,
+      "Name": "BuildingArtSettings",
+      "UpdateTime": "2025-02-19T22:15:49.128Z"
+    },
+    {
+      "Id": "settingsname119default",
+      "ParentId": "default",
+      "IdKey": 119,
+      "Name": "ZoneCategorySettings",
+      "UpdateTime": "2025-02-20T06:58:00.121Z"
     }
   ],
   "ParentObj": {

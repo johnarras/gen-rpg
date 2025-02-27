@@ -10,19 +10,21 @@
   "MaxLuckCritRatio": 2.0,
   "VulnerabilityDamageMult": 3.0,
   "HiddenSingleTargetCritPercent": 100.0,
-  "ResistAddCritChance": -200.0,
+  "ResistAddCritChance": -50.0,
   "VulnAddCritChance": 10.0,
   "GuaranteedHitDefenseRatio": 1.25,
   "RandomEncounterChance": 0.05,
   "MovesBetweenEncounters": 6,
   "GroupAdvanceChance": 0.1,
   "CastSpellChance": 0.25,
+  "SummonChance": 0.02,
   "DebuffTiersPerUnitLevel": 0.33,
   "MinDebuffChance": 0.01,
   "DebuffChancePerLevel": 0.001,
   "MaxDebuffChance": 0.05,
   "BaseMonsterAttacks": 1.0,
   "BasePlayerAttacks": 1.5,
+  "SummonQuantityScale": 1.0,
   "Name": "CrawlerCombatSettings",
-  "UpdateTime": "2025-01-27T23:56:18.6Z"
+  "UpdateTime": "2025-02-23T00:53:13.733Z"
 }

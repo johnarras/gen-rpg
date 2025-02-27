@@ -15,5 +15,6 @@ namespace Genrpg.Shared.Crawler.Roguelikes.Constants
         public const long LootQuality = 7;
         public const long SummonQuality = 8;
         public const long PartySize = 9;
+        public const long ExpPercent = 10;
     }
 }

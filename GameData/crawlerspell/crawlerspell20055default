@@ -2,7 +2,7 @@
   "Id": "crawlerspell20055default",
   "ParentId": "default",
   "IdKey": 20055,
-  "Name": "Summon Lich",
+  "Name": "Monster Call Thief",
   "PowerCost": 100.0,
   "PowerPerLevel": 1.0,
   "MaxRange": 100,
@@ -19,5 +19,5 @@
       "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2025-01-26T21:39:02.417Z"
+  "UpdateTime": "2025-02-25T19:39:14.046Z"
 }

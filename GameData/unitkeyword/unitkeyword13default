@@ -3,13 +3,10 @@
   "ParentId": "default",
   "IdKey": 13,
   "Name": "Giant",
+  "PluralName": "Giants",
   "Icon": "Giant",
   "Art": "Giant",
   "Effects": [
-    {
-      "EntityTypeId": 100,
-      "EntityId": 2
-    },
     {
       "EntityTypeId": 25,
       "Quantity": 1,
@@ -18,8 +15,13 @@
     {
       "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 30001
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 100,
+      "Quantity": 1,
+      "EntityId": 20013
     }
   ],
-  "UpdateTime": "2025-01-11T16:06:35.196Z"
+  "UpdateTime": "2025-02-17T09:10:53.635Z"
 }

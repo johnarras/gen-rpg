@@ -6,18 +6,24 @@
   "Desc": "",
   "Icon": "",
   "Art": "",
-  "MinWidth": 70,
-  "MaxWidth": 90,
-  "MinHeight": 50,
-  "MaxHeight": 70,
-  "MinFloors": 1,
-  "MaxFloors": 1,
-  "SpecialTileChance": 0.02,
-  "DungeonArtId": 1,
-  "MinCorridorDensity": 0.1,
-  "MaxCorridorDensity": 0.3,
-  "MinBuildingDensity": 0.01,
-  "MaxBuildingDensity": 0.02,
-  "WeatherTypeId": 9,
-  "UpdateTime": "2025-02-09T16:27:09.206Z"
+  "GenTypes": [
+    {
+      "Name": "None",
+      "MinWidth": 70,
+      "MaxWidth": 90,
+      "MinHeight": 50,
+      "MaxHeight": 70,
+      "MinFloors": 1,
+      "MaxFloors": 1,
+      "Weight": 1.0,
+      "WeightedZones": [
+        {
+          "Name": "Outdoors",
+          "Weight": 1.0,
+          "ZoneTypeId": 22
+        }
+      ]
+    }
+  ],
+  "UpdateTime": "2025-02-19T20:47:12.3Z"
 }

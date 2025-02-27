@@ -16,6 +16,8 @@ using System.Threading;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.Roguelikes.Services;
+using TMPro;
+using Assets.Scripts.Crawler.ClientEvents.ActionPanelEvents;
 
 namespace Genrpg.Shared.Crawler.Training.Services
 {
@@ -44,6 +46,7 @@ namespace Genrpg.Shared.Crawler.Training.Services
         protected IClientRandom _rand = null;
         protected IClientGameState _gs = null;
         private IRoguelikeUpgradeService _roguelikeUpgradeService;
+        private IDispatcher _dispatcher;
 
         public async Task Initialize(CancellationToken token)
         {
@@ -134,7 +137,7 @@ namespace Genrpg.Shared.Crawler.Training.Services
                 party.Gold -= info.Cost;
                 member.Exp -= info.TotalExp;
                 member.Level++;
-                party.ActionPanel.AddText($"{member.Name} reaches level {member.Level}!");
+                _dispatcher.Dispatch(new AddActionPanelText($"{member.Name} reaches level {member.Level}!"));
                 List<StatType> primaryStats = _gameData.Get<StatSettings>(null).GetData().Where(
                     x => x.IdKey >= StatConstants.PrimaryStatStart &&
                     x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
@@ -173,7 +176,7 @@ namespace Genrpg.Shared.Crawler.Training.Services
 
                     if (increment > 0)
                     {
-                        party.ActionPanel.AddText($"+{increment} {stype.Name}");
+                        _dispatcher.Dispatch(new AddActionPanelText($"+{increment} {stype.Name}"));
                     }
                 }
 
@@ -182,7 +185,7 @@ namespace Genrpg.Shared.Crawler.Training.Services
                     StatType stype = primaryStats[_rand.Next() % primaryStats.Count];
                     int increment = 1;
                     member.AddPermStat(stype.IdKey, increment);
-                    party.ActionPanel.AddText($"+{increment} {stype.Name}");
+                    _dispatcher.Dispatch(new AddActionPanelText($"+{increment} {stype.Name}"));
                 }
 
                 _statService.CalcUnitStats(party, member, true);
@@ -191,7 +194,7 @@ namespace Genrpg.Shared.Crawler.Training.Services
 
                 if (newPoints > 0)
                 {
-                    party.ActionPanel.AddText($"You get {newPoints} upgrade points for a total of {party.UpgradePoints}.");
+                    _dispatcher.Dispatch(new AddActionPanelText($"You get {newPoints} upgrade points for a total of {party.UpgradePoints}."));
                 }
             }
         }

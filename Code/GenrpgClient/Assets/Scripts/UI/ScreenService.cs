@@ -48,7 +48,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
 
     public void StartUpdates()
     {
-        AddUpdate(LateScreenUpdate, UpdateType.Late);
+        AddUpdate(LateScreenUpdate, UpdateTypes.Late);
     }
 
     private bool _haveSetupLayers = false;

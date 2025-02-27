@@ -2,35 +2,33 @@
   "Id": "unittype34default",
   "ParentId": "default",
   "IdKey": 34,
-  "Name": "Magician",
-  "PluralName": "Magicians",
-  "Icon": "Magician",
-  "Art": "Magician",
+  "Name": "Conjurer",
+  "PluralName": "Conjurers",
+  "Icon": "Conjurer",
+  "Art": "Conjurer",
   "TribeTypeId": 12,
   "MinLevel": 10,
   "SpawnQuantityScale": 1.0,
   "Effects": [
     {
-      "EntityTypeId": 31,
+      "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 35
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 29
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 30
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 52
+      "EntityId": 31
     },
     {
       "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 20072
+      "EntityId": 32
+    },
+    {
+      "EntityTypeId": 100,
+      "Quantity": 1,
+      "EntityId": 51
+    },
+    {
+      "EntityTypeId": 100,
+      "Quantity": 1,
+      "EntityId": 20068
     }
   ],
   "PrefixNames": [],
@@ -40,5 +38,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

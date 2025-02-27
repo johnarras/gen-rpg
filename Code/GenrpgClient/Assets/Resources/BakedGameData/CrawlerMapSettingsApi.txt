@@ -8,33 +8,110 @@
       "Desc": "",
       "Icon": "",
       "Art": "",
-      "MinWidth": 15,
-      "MaxWidth": 20,
-      "MinHeight": 10,
-      "MaxHeight": 20,
-      "MinFloors": 1,
-      "MaxFloors": 3,
-      "QuestItemEntranceUnlockChance": 0.2,
-      "RiddleUnlockChance": 0.4,
-      "SpecialTileChance": 0.05,
-      "DungeonGenChance": 1.0,
-      "BuildingTypeId": 19,
-      "ZoneTypeId": 15,
-      "DungeonArtId": 1,
-      "RandomWallsChance": 0.5,
-      "LoopingChance": 0.5,
-      "MinWallChance": 0.4,
-      "MaxWallChance": 0.8,
-      "MinDoorChance": 0.20000000298023224,
-      "MaxDoorChance": 0.6,
-      "TrapTileChance": 0.019999999552965164,
-      "EffectTileChance": 0.019999999552965164,
-      "MinCorridorDensity": 1.1,
-      "MaxCorridorDensity": 2.0,
-      "MinBuildingDensity": 0.3,
-      "MaxBuildingDensity": 0.6,
-      "WeatherTypeId": 11,
-      "UpdateTime": "2025-02-09T16:27:09.206Z"
+      "GenTypes": [
+        {
+          "Name": "Dungeon",
+          "MinWidth": 15,
+          "MaxWidth": 20,
+          "MinHeight": 15,
+          "MaxHeight": 20,
+          "MinFloors": 1,
+          "MaxFloors": 3,
+          "SpecialTileChance": 0.05,
+          "Weight": 1.0,
+          "RandomWallsChance": 0.5,
+          "LoopingChance": 0.5,
+          "MinWallChance": 0.4,
+          "MaxWallChance": 0.6,
+          "MinDoorChance": 0.2,
+          "MaxDoorChance": 0.4,
+          "TrapTileChance": 0.02,
+          "EffectTileChance": 0.02,
+          "MinCorridorDensity": 1.1,
+          "MaxCorridorDensity": 2.0,
+          "MinBuildingDensity": 0.3,
+          "MaxBuildingDensity": 0.6,
+          "IsIndoors": true,
+          "WeightedZones": [
+            {
+              "Name": "None",
+              "Weight": 1.0,
+              "ZoneTypeId": 16
+            },
+            {
+              "Weight": 1.0,
+              "ZoneTypeId": 15
+            },
+            {
+              "Weight": 1.0,
+              "ZoneTypeId": 20
+            }
+          ]
+        },
+        {
+          "Name": "Tower",
+          "MinWidth": 6,
+          "MaxWidth": 10,
+          "MinHeight": 6,
+          "MaxHeight": 10,
+          "MinFloors": 1,
+          "MaxFloors": 3,
+          "SpecialTileChance": 0.05,
+          "Weight": 1.0,
+          "RandomWallsChance": 1.0,
+          "MinWallChance": 0.4,
+          "MaxWallChance": 0.7,
+          "MinDoorChance": 0.2,
+          "MaxDoorChance": 0.4,
+          "TrapTileChance": 0.02,
+          "EffectTileChance": 0.02,
+          "MinCorridorDensity": 1.2,
+          "MaxCorridorDensity": 2.0,
+          "MinBuildingDensity": 0.1,
+          "MaxBuildingDensity": 0.3,
+          "IsIndoors": true,
+          "WeightedZones": [
+            {
+              "Name": "None",
+              "Weight": 1.0,
+              "ZoneTypeId": 17
+            }
+          ]
+        },
+        {
+          "Name": "Outdoors",
+          "MinWidth": 25,
+          "MaxWidth": 35,
+          "MinHeight": 25,
+          "MaxHeight": 35,
+          "MinFloors": 1,
+          "MaxFloors": 1,
+          "SpecialTileChance": 0.05,
+          "Weight": 1.0,
+          "MinWallChance": 0.4,
+          "MaxWallChance": 0.6,
+          "TrapTileChance": 0.04,
+          "EffectTileChance": 0.02,
+          "MinCorridorDensity": 2.0,
+          "MaxCorridorDensity": 4.0,
+          "WeightedZones": [
+            {
+              "Name": "None",
+              "Weight": 1.0,
+              "ZoneTypeId": 18
+            },
+            {
+              "Weight": 1.0,
+              "ZoneTypeId": 19
+            },
+            {
+              "Weight": 1.0,
+              "ZoneTypeId": 21
+            }
+          ]
+        }
+      ],
+      "UpdateTime": "2025-02-23T21:16:55.239Z"
     },
     {
       "Id": "crawlermaptype2default",
@@ -44,22 +121,50 @@
       "Desc": "",
       "Icon": "",
       "Art": "",
-      "MinWidth": 20,
-      "MaxWidth": 25,
-      "MinHeight": 20,
-      "MaxHeight": 25,
-      "MinFloors": 1,
-      "MaxFloors": 1,
-      "SpecialTileChance": 0.5,
-      "BuildingTypeId": 21,
-      "ZoneTypeId": 14,
-      "DungeonArtId": 2,
-      "MinCorridorDensity": 1.0,
-      "MaxCorridorDensity": 1.3,
-      "MinBuildingDensity": 0.6,
-      "MaxBuildingDensity": 1.3,
-      "WeatherTypeId": 10,
-      "UpdateTime": "2025-02-09T16:27:09.206Z"
+      "GenTypes": [
+        {
+          "Name": "Town",
+          "MinWidth": 10,
+          "MaxWidth": 10,
+          "MinHeight": 10,
+          "MaxHeight": 10,
+          "MinFloors": 1,
+          "MaxFloors": 1,
+          "Weight": 1.0,
+          "MinCorridorDensity": 1.2,
+          "MaxCorridorDensity": 1.5,
+          "MinBuildingDensity": 1.0,
+          "MaxBuildingDensity": 2.0,
+          "WeightedZones": [
+            {
+              "Weight": 1.0,
+              "ZoneTypeId": 14
+            }
+          ]
+        },
+        {
+          "Name": "City",
+          "MinWidth": 12,
+          "MaxWidth": 16,
+          "MinHeight": 12,
+          "MaxHeight": 16,
+          "MinFloors": 1,
+          "MaxFloors": 1,
+          "Weight": 1.0,
+          "MinCorridorDensity": 1.2,
+          "MaxCorridorDensity": 1.5,
+          "MinBuildingDensity": 1.0,
+          "MaxBuildingDensity": 2.0,
+          "WeightedZones": [
+            {
+              "Name": "",
+              "Weight": 1.0,
+              "ZoneTypeId": 14
+            }
+          ]
+        }
+      ],
+      "UpdateTime": "2025-02-19T22:39:37.878Z"
     },
     {
       "Id": "crawlermaptype3default",
@@ -69,123 +174,48 @@
       "Desc": "",
       "Icon": "",
       "Art": "",
-      "MinWidth": 70,
-      "MaxWidth": 90,
-      "MinHeight": 50,
-      "MaxHeight": 70,
-      "MinFloors": 1,
-      "MaxFloors": 1,
-      "SpecialTileChance": 0.02,
-      "DungeonArtId": 1,
-      "MinCorridorDensity": 0.1,
-      "MaxCorridorDensity": 0.3,
-      "MinBuildingDensity": 0.01,
-      "MaxBuildingDensity": 0.02,
-      "WeatherTypeId": 9,
-      "UpdateTime": "2025-02-09T16:27:09.206Z"
-    },
-    {
-      "Id": "crawlermaptype4default",
-      "ParentId": "default",
-      "IdKey": 4,
-      "Name": "Cave",
-      "Desc": "",
-      "Icon": "",
-      "Art": "",
-      "MinWidth": 15,
-      "MaxWidth": 20,
-      "MinHeight": 10,
-      "MaxHeight": 20,
-      "MinFloors": 1,
-      "MaxFloors": 3,
-      "QuestItemEntranceUnlockChance": 0.2,
-      "RiddleUnlockChance": 0.4,
-      "SpecialTileChance": 0.05,
-      "DungeonGenChance": 1.0,
-      "BuildingTypeId": 18,
-      "ZoneTypeId": 16,
-      "DungeonArtId": 1,
-      "MinWallChance": 0.4,
-      "MaxWallChance": 0.8,
-      "TrapTileChance": 0.02,
-      "EffectTileChance": 0.02,
-      "MinCorridorDensity": 1.2,
-      "MaxCorridorDensity": 2.0,
-      "MinBuildingDensity": 0.1,
-      "MaxBuildingDensity": 0.4,
-      "WeatherTypeId": 11,
-      "UpdateTime": "2025-02-09T16:27:09.206Z"
-    },
-    {
-      "Id": "crawlermaptype5default",
-      "ParentId": "default",
-      "IdKey": 5,
-      "Name": "Tower",
-      "Desc": "",
-      "Icon": "",
-      "Art": "",
-      "MinWidth": 6,
-      "MaxWidth": 10,
-      "MinHeight": 6,
-      "MaxHeight": 10,
-      "MinFloors": 1,
-      "MaxFloors": 3,
-      "QuestItemEntranceUnlockChance": 0.2,
-      "RiddleUnlockChance": 0.4,
-      "SpecialTileChance": 0.05,
-      "DungeonGenChance": 1.0,
-      "BuildingTypeId": 20,
-      "ZoneTypeId": 17,
-      "DungeonArtId": 1,
-      "RandomWallsChance": 1.0,
-      "MinWallChance": 0.4,
-      "MaxWallChance": 0.8,
-      "MinDoorChance": 0.2,
-      "MaxDoorChance": 0.6,
-      "TrapTileChance": 0.02,
-      "EffectTileChance": 0.019999999552965164,
-      "MinCorridorDensity": 1.2,
-      "MaxCorridorDensity": 2.0,
-      "MinBuildingDensity": 0.1,
-      "MaxBuildingDensity": 0.3,
-      "WeatherTypeId": 11,
-      "UpdateTime": "2025-02-09T16:27:09.206Z"
-    },
-    {
-      "Id": "crawlermaptype6default",
-      "ParentId": "default",
-      "IdKey": 6,
-      "Name": "Natural",
-      "Desc": "Natural outdoor map",
-      "Icon": "Natural",
-      "Art": "Natural",
-      "MinWidth": 25,
-      "MaxWidth": 35,
-      "MinHeight": 25,
-      "MaxHeight": 35,
-      "MinFloors": 1,
-      "MaxFloors": 1,
-      "QuestItemEntranceUnlockChance": 0.2,
-      "RiddleUnlockChance": 0.2,
-      "SpecialTileChance": 0.05,
-      "DungeonGenChance": 1.0,
-      "BuildingTypeId": 22,
-      "ZoneTypeId": 21,
-      "DungeonArtId": 3,
-      "MinWallChance": 0.4,
-      "MaxWallChance": 0.6,
-      "TrapTileChance": 0.04,
-      "MinCorridorDensity": 2.0,
-      "MaxCorridorDensity": 4.0,
-      "WeatherTypeId": 9,
-      "UpdateTime": "2025-02-09T16:27:09.206Z"
+      "GenTypes": [
+        {
+          "Name": "None",
+          "MinWidth": 70,
+          "MaxWidth": 90,
+          "MinHeight": 50,
+          "MaxHeight": 70,
+          "MinFloors": 1,
+          "MaxFloors": 1,
+          "Weight": 1.0,
+          "WeightedZones": [
+            {
+              "Name": "Outdoors",
+              "Weight": 1.0,
+              "ZoneTypeId": 22
+            }
+          ]
+        }
+      ],
+      "UpdateTime": "2025-02-19T20:47:12.3Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "CorridorDungeonSizeScale": 1.5,
+    "MinZoneUnitSpawns": 8,
+    "MaxZoneUnitSpawns": 12,
+    "RareSpawnCount": 2,
+    "QuestItemEntranceUnlockChance": 1.0,
+    "RiddleUnlockChance": 0.3,
+    "TreasureChance": 0.1,
+    "EncounterChance": 0.06,
+    "TrapChance": 0.3,
+    "DrainHealthPercent": 0.02,
+    "DrainManaPercent": 0.02,
+    "TrapHitChance": 0.5,
+    "TrapDebuffChance": 0.05,
+    "TrapDebuffLevelScaling": 0.2,
+    "TrapMinDamPerLevel": 1,
+    "TrapMaxDamagePerLevel": 5,
     "Name": "CrawlerMapSettings",
-    "UpdateTime": "2025-02-09T16:27:09.206Z"
+    "UpdateTime": "2025-02-25T14:30:57.257Z"
   },
   "Id": "default"
 }

@@ -38,11 +38,11 @@ namespace Genrpg.Shared.Users.PlayerData
         [Key(5)] public long NextActivityReward { get; set; }
 
 
-        public SmallIdLongCollection Coins { get; set; } = new SmallIdLongCollection();
+        [Key(6)] public SmallIdLongCollection Coins { get; set; } = new SmallIdLongCollection();
 
-        public SmallIdShortCollection Abilities { get; set; } = new SmallIdShortCollection();
+        [Key(7)] public SmallIdShortCollection Abilities { get; set; } = new SmallIdShortCollection();
 
-        public SmallIdShortCollection Stats { get; set; } = new SmallIdShortCollection();
+        [Key(8)] public SmallIdShortCollection Stats { get; set; } = new SmallIdShortCollection();
 
         [Key(9)] public DateTime CreationDate { get; set; }
 

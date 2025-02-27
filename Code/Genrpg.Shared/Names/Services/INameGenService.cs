@@ -22,6 +22,9 @@ namespace Genrpg.Shared.Names.Services
         // then allow suffixes of the form "the suffix",
         // otherwise don't allow suffixes of the form "the suffix"
         string GenOfTheName(IRandom rand, List<WeightedName> prefixes, List<WeightedName> suffixes, int avoidMatchingPrefixLength = 0);
+
+
+        string GenerateUnitName(IRandom rand, bool forrceSuffix);
     }
 
 }

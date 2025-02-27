@@ -22,7 +22,7 @@ public class MapProjectile : BaseBehaviour
         _token = token;
         _full = full;
 
-        AddUpdate(ProjUpdate, UpdateType.Regular);
+        AddUpdate(ProjUpdate, UpdateTypes.Regular);
 
         
 

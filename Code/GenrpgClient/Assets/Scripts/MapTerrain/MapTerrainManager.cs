@@ -142,7 +142,7 @@ public class MapTerrainManager : IMapTerrainManager
 
     public async Task Initialize(CancellationToken token)
     {
-        _updateService.AddTokenUpdate(this, TerrainUpdate, UpdateType.Regular, token);
+        _updateService.AddTokenUpdate(this, TerrainUpdate, UpdateTypes.Regular, token);
         _prototypeParent = _singletonContainer.GetSingleton(PrototypeParent);
         _terrainTextureParent = _singletonContainer.GetSingleton(MapConstants.TerrainTextureRoot);
         SetupLoaders();

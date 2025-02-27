@@ -92,12 +92,12 @@ public class AddRocks : BaseZoneGenerator
                 continue;
             }
 
-            if (rt.ChanceScale <= 0.0f || ztrt.ChanceScale <= 0.0f)
+            if (rt.ChanceScale <= 0.0f || ztrt.Weight <= 0.0f)
             {
                 continue;
             }
 
-            float weight = rt.ChanceScale * ztrt.ChanceScale * zrt.ChanceScale;
+            float weight = (float)(rt.ChanceScale * ztrt.Weight * zrt.Weight);
 
             if (weight <= 0)
             {

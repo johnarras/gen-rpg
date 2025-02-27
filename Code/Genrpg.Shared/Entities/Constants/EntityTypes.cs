@@ -33,6 +33,7 @@ namespace Genrpg.Shared.Entities.Constants
         public const long Resist = 25;
         public const long Crafter = 26;
         public const long Element = 27;
+        public const long ZoneCategory = 28;
 
 
         public const long Stat = 31;

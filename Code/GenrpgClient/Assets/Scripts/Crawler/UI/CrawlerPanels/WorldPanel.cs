@@ -6,8 +6,6 @@ using Genrpg.Shared.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Tilemaps;
 using Assets.Scripts.Crawler.UI.WorldUI;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
-using Genrpg.Shared.Crawler.UI.Interfaces;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Utils;
 using System;
 using System.Threading;
@@ -21,6 +19,7 @@ using Assets.Scripts.Assets.Textures;
 using Genrpg.Shared.Crawler.Constants;
 using Assets.Scripts.Crawler.Combat;
 using Assets.Scripts.Info.UI;
+using Assets.Scripts.Crawler.ClientEvents.WorldPanelEvents;
 
 namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 {
@@ -30,7 +29,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         public string SpriteName;
     }
 
-    public class WorldPanel : BaseCrawlerPanel, IWorldPanel
+    public class WorldPanel : BaseCrawlerPanel
     {
         const string PanelTextPrefab = "WorldPanelText";
         const string DefaultWorldBG = "DefaultWorldBG";
@@ -42,12 +41,11 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         private AnimatedSprite _worldImage;
         private AnimatedSprite _combatBgImage;
 
-        private IText _worldPosText;
         private IText _mapNameText;
+        private IText _mapPositionText;
         private IText _timeOfDayText;
 
-        private IImage _noMeleeImage;
-        private IImage _noRangedImage;
+        private IImage _peacefulImage;
         private IImage _noMagicImage;
 
         private object _infoParent;
@@ -63,6 +61,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         private IView _textRow;
 
         private WorldPanelButtons _panelButtons;
+        private WorldPanelCompass _panelCompass;
 
         private CrawlerCombatUI _combatUI;
 
@@ -74,13 +73,14 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             AddListener<CrawlerUIUpdate>(OnUpdateWorldUI);
             AddListener<ShowInfoPanelEvent>(OnShowTooltip);
             AddListener<HideInfoPanelEvent>(OnHideTooltip);
+            AddListener<UpdateCombatGroups>(OnUpdateCombatGroups);
 
-            _worldPosText = _view.Get<IText>("WorldPosText");
+            _panelCompass = _view.Get<WorldPanelCompass>("Compass");
             _timeOfDayText = _view.Get<IText>("TimeOfDayText");
             _mapNameText = _view.Get<IText>("MapNameText");
+            _mapPositionText = _view.Get<IText>("MapPositionText");
             _panelButtonsParent = _view.Get<object>("PanelButtonsParent");
-            _noMeleeImage = _view.Get<IImage>("NoMeleeImage");
-            _noRangedImage = _view.Get<IImage>("NoRangedImage");
+            _peacefulImage = _view.Get<IImage>("Peaceful");
             _noMagicImage = _view.Get<IImage>("NoMagicImage");
             _minimap = _view.Get<CrawlerTilemap>("Minimap");
             _gs.loc.Resolve(_minimap);
@@ -100,7 +100,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
             _panelButtons = await _assetService.CreateAsync<WorldPanelButtons, WorldPanel>(this, AssetCategoryNames.UI, "WorldPanelButtons", _panelButtonsParent, token, screen.Subdirectory);
 
-            AddUpdate(OnLateUpdate, UpdateType.Late);
+            AddUpdate(OnLateUpdate, UpdateTypes.Late);
 
             SetPicture(CrawlerClientConstants.DefaultWorldBG, true);
 
@@ -145,16 +145,14 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
                 return;
             }
 
+            _uiService.SetText(_mapPositionText, "(" + partyData.MapX + "," + partyData.MapZ + ")");    
+
             _uiService.SetText(_mapNameText, map.GetName(partyData.MapX, partyData.MapZ));
-            string txt = MapUtils.DirFromAngle(partyData.MapRot) + "(" + partyData.MapX + "," + partyData.MapZ + ")";
 
-            _uiService.SetText(_worldPosText, txt);
+            int magicBits = _crawlerMapService.GetMagicBits(partyData.MapId, partyData.MapX, partyData.MapZ);
 
-            byte disables = map.Get(partyData.MapX, partyData.MapZ, CellIndex.Disables);
-
-            _clientEntityService.SetActive(_noMeleeImage, FlagUtils.IsSet(disables, MapDisables.NoMelee));
-            _clientEntityService.SetActive(_noRangedImage, FlagUtils.IsSet(disables, MapDisables.NoRanged));
-            _clientEntityService.SetActive(_noMagicImage, FlagUtils.IsSet(disables, MapDisables.NoMagic));
+            _clientEntityService.SetActive(_peacefulImage, FlagUtils.IsSet(magicBits, MapMagic.Peaceful));
+            _clientEntityService.SetActive(_noMagicImage, FlagUtils.IsSet(magicBits, MapMagic.NoMagic));
 
         }
 
@@ -180,6 +178,10 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             _clientEntityService.SetActive(_infoParent, false);
         }
 
+        private void OnUpdateCombatGroups(UpdateCombatGroups update)
+        {
+            UpdateCOmbatGroupsInternal();
+        }
 
         public void SetPicture(string spriteName, bool useBgOnly)
         {
@@ -222,7 +224,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             LateUpdateWorldUI();
         }
 
-        public void UpdateCombatGroups()
+        private void UpdateCOmbatGroupsInternal()
         {
             _combatUI?.UpdateData();
         }

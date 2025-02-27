@@ -3,14 +3,15 @@
   "ParentId": "default",
   "IdKey": 1,
   "Name": "Humanoid",
+  "PluralName": "Humanoids",
   "Icon": "Humanoid",
   "Art": "Humanoid",
   "Effects": [
     {
       "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 30001
+      "EntityId": 20001
     }
   ],
-  "UpdateTime": "2025-01-11T16:06:35.196Z"
+  "UpdateTime": "2025-02-17T09:10:53.635Z"
 }

@@ -2,41 +2,23 @@
   "Id": "unittype64default",
   "ParentId": "default",
   "IdKey": 64,
-  "Name": "Black Dragon",
-  "PluralName": "Black Dragons",
-  "Icon": "BlackDragon",
-  "Art": "BlackDragon",
+  "Name": "Green Dragon",
+  "PluralName": "Green Dragons",
+  "Icon": "GreenDragon",
+  "Art": "GreenDragon",
   "TribeTypeId": 16,
   "MinLevel": 20,
   "SpawnQuantityScale": 0.1,
   "Effects": [
     {
-      "EntityTypeId": 32,
-      "Quantity": 100,
-      "EntityId": 1
-    },
-    {
-      "EntityTypeId": 32,
-      "Quantity": 50,
-      "EntityId": 20
-    },
-    {
-      "EntityTypeId": 31,
+      "EntityTypeId": 25,
       "Quantity": 1,
-      "EntityId": 35
-    },
-    {
-      "EntityTypeId": 36,
-      "EntityId": 2
-    },
-    {
-      "EntityTypeId": 36,
       "EntityId": 5
     },
     {
-      "EntityTypeId": 25,
+      "EntityTypeId": 36,
       "Quantity": 1,
-      "EntityId": 4
+      "EntityId": 1
     }
   ],
   "PrefixNames": [],
@@ -46,5 +28,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

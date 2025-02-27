@@ -25,7 +25,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers
         protected ICrawlerService _crawlerService;
         protected ICrawlerStatService _statService;
         protected ICrawlerCombatService _combatService;
-        protected ICrawlerSpellService _spellService;
+        protected ICrawlerSpellService _crawlerSpellService;
         protected ILogService _logService;
         protected IRepositoryService _repoService;
         protected IGameData _gameData;

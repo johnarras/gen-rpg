@@ -2,7 +2,7 @@
   "Id": "crawlerspell20046default",
   "ParentId": "default",
   "IdKey": 20046,
-  "Name": "Summon Tiger",
+  "Name": "Monster Call Lion",
   "PowerCost": 100.0,
   "PowerPerLevel": 1.0,
   "MaxRange": 100,
@@ -19,5 +19,5 @@
       "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2025-01-26T21:39:02.417Z"
+  "UpdateTime": "2025-02-25T19:39:14.046Z"
 }

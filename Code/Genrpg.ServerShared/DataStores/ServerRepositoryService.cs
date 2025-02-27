@@ -155,10 +155,10 @@ namespace Genrpg.ServerShared.DataStores
             return await repo.DeleteAll(func);
         }
 
-        public async Task<bool> Save<T>(T obj) where T : class, IStringId
+        public async Task<bool> Save<T>(T obj, bool verbose = false) where T : class, IStringId
         {
             IRepository repo = FindRepo(obj.GetType());
-            return await repo.Save(obj);
+            return await repo.Save(obj, verbose);
         }
 
         public async Task<T> Load<T>(string id) where T : class, IStringId

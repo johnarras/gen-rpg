@@ -2,30 +2,14 @@
   "Id": "unittype6default",
   "ParentId": "default",
   "IdKey": 6,
-  "Name": "Dwarf Priest",
-  "PluralName": "Dwarf Priests",
-  "Icon": "DwarfPriest",
-  "Art": "DwarfPriest",
-  "TribeTypeId": 1,
-  "MinLevel": 1,
+  "Name": "Mongrel",
+  "PluralName": "Mongrels",
+  "Icon": "Mongrel",
+  "Art": "Mongrel",
+  "TribeTypeId": 10,
+  "MinLevel": 5,
   "SpawnQuantityScale": 1.0,
-  "Effects": [
-    {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
-      "EntityTypeId": 25,
-      "Quantity": 1,
-      "EntityId": 3
-    },
-    {
-      "EntityTypeId": 100,
-      "Quantity": 1,
-      "EntityId": 50001
-    }
-  ],
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -33,5 +17,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

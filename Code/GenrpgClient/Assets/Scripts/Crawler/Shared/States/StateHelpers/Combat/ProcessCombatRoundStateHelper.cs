@@ -1,4 +1,6 @@
-﻿using Genrpg.Shared.Core.Constants;
+﻿using Assets.Scripts.Crawler.ClientEvents.ActionPanelEvents;
+using Assets.Scripts.Crawler.ClientEvents.StatusPanelEvents;
+using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.Combat.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Party.Services;
@@ -47,19 +49,19 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
                 await Task.Delay(100, token);
                 bool success = await _processCombatService.ProcessCombatRound(party, token);
 
-                party.ActionPanel.AddText($"\n\nPress {_textService.HighlightText("Space")} to continue...\n\n",
+                _dispatcher.Dispatch(new AddActionPanelText($"\n\nPress {_textService.HighlightText("Space")} to continue...\n\n",
                     () =>
                     {
                         _canContinueCombat = true;
-                    });
+                    }));
 
                 for (int i = 0; i < 1; i++)
                 {
                     await Task.Delay(10, token);
-                    party.ActionPanel.AddText("\n");
+                    _dispatcher.Dispatch(new AddActionPanelText("\n"));
                 }
 
-                while (!party.SpeedupListener.TriggerSpeedupNow() && !_canContinueCombat)
+                while (!_crawlerService.TriggerSpeedupNow() && !_canContinueCombat)
                 {
                     await Task.Delay(10, token);
                 }
@@ -79,7 +81,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
 
                         _partyService.Reset(party);
                         _crawlerService.ChangeState(ECrawlerStates.GuildMain, token);
-                        party.StatusPanel.RefreshAll();
+                        _dispatcher.Dispatch(new RefreshPartyStatus());
                     }
                     else
                     {

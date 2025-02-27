@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Crawler.Constants;
+﻿using Assets.Scripts.Crawler.ClientEvents.ActionPanelEvents;
+using Assets.Scripts.Crawler.ClientEvents.WorldPanelEvents;
+using Assets.Scripts.Crawler.Constants;
 using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
@@ -13,6 +15,7 @@ using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.Spells.Constants;
 using Genrpg.Shared.Crawler.Spells.Entities;
 using Genrpg.Shared.Crawler.Spells.Settings;
+using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.Crawler.States.StateHelpers.Casting.SpecialMagicHelpers;
 using Genrpg.Shared.Crawler.Stats.Services;
 using Genrpg.Shared.Entities.Constants;
@@ -44,6 +47,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Genrpg.Shared.Crawler.Spells.Services
 {
@@ -59,7 +63,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
         long GetPowerCost(PartyData party, CrawlerUnit unit, CrawlerSpell spell);
         bool IsEnemyTarget(long targetTypeId);
         bool IsNonCombatTarget(long targetTypeId);
-        long GetSummonPower(PartyData party, PartyMember member);
+        long GetSummonQuantity(PartyData party, PartyMember member, UnitType unitType);
     }
 
 
@@ -75,7 +79,6 @@ namespace Genrpg.Shared.Crawler.Spells.Services
         }
 
 
-        private IStatService _statService = null;
         private ILogService _logService = null;
         private ICrawlerCombatService _combatService = null;
         protected IGameData _gameData = null;
@@ -85,6 +88,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
         private ITextService _textService = null;
         private IRoleService _roleService;
         private IDispatcher _dispatcher;
+        private ICrawlerService _crawlerService;
 
         private SetupDictionaryContainer<long, ISpecialMagicHelper> _effectHelpers = new SetupDictionaryContainer<long, ISpecialMagicHelper>();
 
@@ -217,7 +221,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
             if (!chooseSpells)
             {
-                okSpells = okSpells.OrderBy(x => x.CombatActionId).ToList();
+                okSpells = okSpells.OrderBy(x => x.CombatActionId).ThenBy(x=>x.TargetTypeId).ToList();
             }
             return okSpells;
         }
@@ -256,6 +260,8 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                     member.LastCombatCrawlerSpellId = spell.IdKey;
                 }
             }
+
+            CombatAction action = _gameData.Get<CombatActionSettings>(_gs.ch).Get(spell.CombatActionId);
 
 
             long abilityLevel = (overrideLevel < 1 ? casterLevel : overrideLevel);
@@ -332,7 +338,6 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 oneEffect.MaxQuantity = CrawlerCombatConstants.BaseMaxDamage;
 
                 long equipSlotToCheck = scalingType.ScalingEquipSlotId;
-                bool quantityIsBaseDamage = false;
 
                 bool finalQuantityIsNegativeAttackCount = false;
 
@@ -347,7 +352,6 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 }
                 else
                 {
-                    quantityIsBaseDamage = true;
                     oneEffect.HitType = EHitTypes.Spell;
                     if (effect.EntityTypeId == EntityTypes.StatusEffect && effect.MaxQuantity < 0)
                     {
@@ -369,7 +373,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                     oneEffect.CritChance = (long)critChance;
                 }
 
-                if (quantityIsBaseDamage)
+                if (action.QuantityIsBaseAmount)
                 {
                     oneEffect.MinQuantity = effect.MinQuantity;
                     oneEffect.MaxQuantity = effect.MaxQuantity;
@@ -384,23 +388,23 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 if (weapon != null)
                 {
                     ItemType itype = _gameData.Get<ItemTypeSettings>(null).Get(weapon.ItemTypeId);
-
-                    // Weapon affects physical attacks, not magical.
-                    if (!quantityIsBaseDamage)
-                    {
-                        oneEffect.MinQuantity += itype.MinVal;
-                        oneEffect.MaxQuantity += itype.MaxVal;
-                    }
-
-                    // Loot rank affects both.
                     LootRank lootRank = _gameData.Get<LootRankSettings>(null).Get(weapon.LootRankId);
+
+                    double minVal = itype.MinVal;
+                    double maxVal = itype.MaxVal;
 
                     if (lootRank != null)
                     {
-                        // If the base damage is for the spell, this gets double value.
-                        oneEffect.MinQuantity += lootRank.Damage * (quantityIsBaseDamage ? 2 : 1);
-                        oneEffect.MaxQuantity += lootRank.Damage * (quantityIsBaseDamage ? 2 : 1);
+                        minVal += lootRank.Damage;
+                        maxVal += lootRank.Damage;
                     }
+
+                    minVal *= action.WeaponDamageScale;
+                    maxVal *= action.WeaponDamageScale;
+
+                    oneEffect.MinQuantity += (long)(minVal);
+                    oneEffect.MaxQuantity += (long)(maxVal);
+
                 }
                 else if (effect.EntityTypeId == EntityTypes.Attack && monster != null)
                 {
@@ -409,8 +413,8 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 }
 
                 double statBonus = _crawlerStatService.GetStatBonus(party, caster, statUsedForScaling) * targetType.StatBonusScale;
-                oneEffect.MinQuantity += (long)(Math.Floor(statBonus));
-                oneEffect.MaxQuantity += (long)Math.Ceiling(statBonus);
+                oneEffect.MinQuantity += (long)(Math.Floor(action.StatBonusDamageScale*statBonus));
+                oneEffect.MaxQuantity += (long)Math.Ceiling(action.StatBonusDamageScale*statBonus);
 
                 long baseDamageBonus = _crawlerStatService.GetStatBonus(party, caster, StatTypes.DamagePower);
 
@@ -420,9 +424,9 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 oneEffect.MinQuantity = Math.Max(oneEffect.MinQuantity, CrawlerCombatConstants.BaseMinDamage);
                 oneEffect.MaxQuantity = Math.Max(oneEffect.MaxQuantity, CrawlerCombatConstants.BaseMaxDamage);
 
-                if (fullEffect.InitialEffect && caster is PartyMember partyMember)
+                if (fullEffect.InitialEffect)
                 {
-                    if (effect.MinQuantity > 0 && effect.MaxQuantity > 0 && !quantityIsBaseDamage)
+                    if (effect.MinQuantity > 0 && effect.MaxQuantity > 0 && !action.QuantityIsBaseAmount)
                     {
                         attackQuantity = MathUtils.LongRange(effect.MinQuantity, effect.MaxQuantity, _rand);
                     }
@@ -511,8 +515,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
             if (powerCost > 0)
             {
                 long currMana = member.Stats.Curr(StatTypes.Mana);
-                _statService.Add(member, StatTypes.Mana, StatCategories.Curr, -Math.Min(powerCost, currMana));
-                party.StatusPanel.RefreshUnit(member);
+                _crawlerStatService.Add(party, member, StatTypes.Mana, StatCategories.Curr, -Math.Min(powerCost, currMana));
             }
         }
 
@@ -594,7 +597,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 {
                     if (!string.IsNullOrEmpty(action.Caster.PortraitName))
                     {
-                        party.WorldPanel.SetPicture(action.Caster.PortraitName, false);
+                        _dispatcher.Dispatch(new SetWorldPicture(action.Caster.PortraitName, false));
                     }
 
                     if (action.FinalTargets.Count == 0 || action.FinalTargets[0].DefendRank < EDefendRanks.Guardian)
@@ -655,17 +658,17 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
         private async Task ShowText(PartyData party, string text, float delay = 0.0f, bool updateGroups = false)
         {
-            party.ActionPanel.AddText(text);
+            _dispatcher.Dispatch(new AddActionPanelText(text));
 
             DateTime startTime = DateTime.UtcNow;
 
-            if (delay > 0 && !party.SpeedupListener.TriggerSpeedupNow())
+            if (delay > 0 && !_crawlerService.TriggerSpeedupNow())
             {
                 while ((DateTime.UtcNow - startTime).TotalSeconds < delay)
                 {
                     await Task.Delay(1);
 
-                    if (party.SpeedupListener.TriggerSpeedupNow())
+                    if (_crawlerService.TriggerSpeedupNow())
                     {
                         break;
                     }
@@ -762,7 +765,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
             Dictionary<string, ActionListItem> actionList = new Dictionary<string, ActionListItem>();
 
             long extraMessageBits = 0;
-
+            
             while (spell.HitsLeft > 0)
             {
                 bool didKill = false;
@@ -829,8 +832,8 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                         }
 
 
-                        if (target.DefendRank == 0 && hit.CritChance > 0 &&
-                            _rand.NextDouble() * 100 < hit.CritChance && !casterIsWeakened)
+                        if (!target.IsPlayer() && target.DefendRank == 0 && finalCritChance > 0 &&
+                            _rand.NextDouble() * 100 < finalCritChance && !casterIsWeakened)
                         {
                             newQuantity = target.Stats.Curr(StatTypes.Health);
                             AddToActionDict(actionList, "CRITS!", newQuantity, extraMessageBits, false, ECombatTextTypes.Damage, spell.Effects[0].ElementType.IdKey);
@@ -871,12 +874,15 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
                             double hitChance = defenseStatRatio / combatSettings.GuaranteedHitDefenseRatio;
 
+                            bool didMiss = false;
                             if (_rand.NextDouble() > hitChance)
                             {
                                 AddToActionDict(actionList, "Misses", 0, ExtraMessageBits.Misses, false, ECombatTextTypes.None, 0);
+                                didMiss = true;
+                                newQuantity = 0;
                             }
-
-                            if (casterHit < defenseStat)
+                            
+                            if (casterHit < defenseStat && !didMiss)
                             {
                                 double ratio = MathUtils.Clamp(combatSettings.MinHitToDefenseRatio
                                     , 1.0 * casterHit / defenseStat,
@@ -898,11 +904,11 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
                             string actionWord = (effect.EntityTypeId == EntityTypes.Attack ? "Attacks" :
                                 effect.EntityTypeId == EntityTypes.Shoot ? "Shoots" :
-                                 fullEffect.ElementType.ObserverActionName);
+                                    fullEffect.ElementType.ObserverActionName);
                             AddToActionDict(actionList, actionWord, newQuantity, extraMessageBits, true, ECombatTextTypes.Damage, spell.Effects[0].ElementType.IdKey);
                         }
                         totalDamage += newQuantity;
-                        _statService.Add(target, StatTypes.Health, StatCategories.Curr, -newQuantity);
+                        _crawlerStatService.Add(party, target, StatTypes.Health, StatCategories.Curr, -totalDamage, effect.ElementTypeId);
                     }
                     else if (effect.EntityTypeId == EntityTypes.Unit)
                     {
@@ -929,9 +935,19 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
                             if (caster is PartyMember member)
                             {
-                                quantity = GetSummonPower(party, member);
+                                quantity = GetSummonQuantity(party, member, unitType);
                             }
-                            _combatService.AddCombatUnits(party, unitType, Math.Max(1, (long)(quantity * unitType.SpawnQuantityScale)), caster.FactionTypeId);
+
+                            InitialCombatGroup icg = new InitialCombatGroup()
+                            {
+                                Quantity = quantity,
+                                UnitTypeId = unitTypeId,
+                                FactionTypeId = caster.FactionTypeId,
+                                Level = caster.Level,
+                                Range = CrawlerCombatConstants.MinRange,
+                            };
+
+                            _combatService.AddCombatUnits(party, icg);
                         }
                         else if (partyMember != null)
                         {
@@ -979,8 +995,16 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                         {
                             healTarget = caster;
                         }
-                        _statService.Add(healTarget, StatTypes.Health, StatCategories.Curr, newQuantity);
+                        _crawlerStatService.Add(party, target, StatTypes.Health, StatCategories.Curr, totalHealing);
                         AddToActionDict(actionList, "Heals", newQuantity, 0, false, ECombatTextTypes.Healing, 0);
+                    }
+                    else if (effect.EntityTypeId == EntityTypes.PartyBuff)
+                    {
+                        double tier = _roleService.GetScalingTier(party, caster, RoleScalingTypes.Utility);
+
+                        party.Buffs.Set(effect.EntityId, (float)Math.Sqrt(tier));
+                        _dispatcher.Dispatch(new CrawlerUIUpdate());
+                        _dispatcher.Dispatch(new ShowPartyMinimap() { Party = party });
                     }
                     else if (currHitTimes == 0)
                     {
@@ -1084,8 +1108,6 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 bool isDead = target.Stats.Get(StatTypes.Health, StatCategories.Curr) <= 0;
                 if (spell.HitsLeft < 1 || isDead)
                 {
-                    party.StatusPanel.RefreshUnit(target);
-
                     bool didShowMisses = false;
                     foreach (string actionName in actionList.Keys)
                     {
@@ -1141,7 +1163,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                     if (isDead)
                     {
                         target.StatusEffects.SetBit(StatusEffects.Dead);
-                        party.WorldPanel.UpdateCombatGroups();
+                        _dispatcher.Dispatch(new UpdateCombatGroups());
                         await ShowText(party, $"{target.Name} is DEAD!\n", 0, true);
                         ShowFloatingCombatText(target, "DEAD!", ECombatTextTypes.Info, 0);
                     }
@@ -1178,11 +1200,21 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 targetTypeId == TargetTypes.Location;
         }
 
-        public long GetSummonPower(PartyData party, PartyMember member)
+        public long GetSummonQuantity(PartyData party, PartyMember member, UnitType unitType)
         {
             double roleSum = _roleService.GetScalingBonusPerLevel(party, member, RoleScalingTypes.Summon);
             long abilityLevel = member.GetAbilityLevel();
             double quantity = (1.0 + roleSum * (abilityLevel-1));
+
+            CrawlerSpell summonSpell = _gameData.Get<CrawlerSpellSettings>(_gs.ch).GetData().FirstOrDefault(x => x.Effects.Any(e => e.EntityTypeId == EntityTypes.Unit && e.EntityId == unitType.IdKey));
+
+            if (summonSpell != null)
+            {
+                quantity -= summonSpell.Level - 1;
+            }
+
+            quantity *= _gameData.Get<CrawlerCombatSettings>(_gs.ch).SummonQuantityScale;
+
             // 1.5 here for rounding and not random scaling value combat to combat
 
             if (_rand.NextDouble() < (quantity - (int)quantity))
@@ -1202,7 +1234,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
             }
             quantity += luckySummonCount;
 
-            return (int)Math.Max(1, quantity);
+            return (int)Math.Max(1, Math.Sqrt(quantity));
         }
     }
 }

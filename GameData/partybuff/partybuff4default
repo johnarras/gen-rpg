@@ -3,6 +3,6 @@
   "ParentId": "default",
   "IdKey": 4,
   "Name": "Levitate",
-  "Desc": "Allows you to float over traps.",
-  "UpdateTime": "2025-01-13T20:22:09.683Z"
+  "Desc": "Allows you to float over traps and move a bit faster.",
+  "UpdateTime": "2025-02-25T14:30:57.257Z"
 }

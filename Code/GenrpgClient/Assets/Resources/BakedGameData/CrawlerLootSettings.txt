@@ -9,6 +9,9 @@
   "ItemChancePerMonster": 0.04,
   "MinGoldPerKillLevelMult": 2.5,
   "MaxGoldPerKillLevelMult": 5.0,
+  "ExploreLootScalePerCell": 0.035,
+  "ExploreBonusLevelsPerCell": 0.02,
+  "ExploreMonsterExpPerCell": 0.05,
   "Name": "CrawlerLootSettings",
-  "UpdateTime": "2024-08-31T23:36:02.498Z"
+  "UpdateTime": "2025-02-23T00:14:47.276Z"
 }

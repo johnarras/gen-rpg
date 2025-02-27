@@ -304,27 +304,8 @@ namespace Genrpg.Shared.Units.Services
                 return null;
             }
 
-            long weightSum = 0;
-            foreach (ZoneUnitStatus mon in zone.Units)
-            {
-                weightSum += mon.Pop;
-            }
+            return _gameData.Get<UnitSettings>(null).Get(RandomUtils.GetRandomElement(zone.Units, rand).UnitTypeId);
 
-            if (weightSum > 0)
-            {
-                long weightChosen = rand.NextLong() % weightSum;
-                foreach (ZoneUnitStatus mon in zone.Units)
-                {
-                    weightChosen -= mon.Pop;
-                    if (weightChosen <= 0)
-                    {
-                        return _gameData.Get<UnitSettings>(null).Get(mon.UnitTypeId);
-                    }
-                }
-            }
-
-
-            return _gameData.Get<UnitSettings>(null).Get(zone.Units[rand.Next() % zone.Units.Count].UnitTypeId);
         }
     }
 }

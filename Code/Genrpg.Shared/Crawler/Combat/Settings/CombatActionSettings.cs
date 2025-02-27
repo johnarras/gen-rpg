@@ -1,3 +1,4 @@
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Crawler.Buffs.Settings;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
@@ -17,6 +18,9 @@ namespace Genrpg.Shared.Crawler.Combat.Settings
         [Key(4)] public string Desc { get; set; }
         [Key(5)] public string Icon { get; set; }
         [Key(6)] public string Art { get; set; }
+        [Key(7)] public double WeaponDamageScale { get; set; }
+        [Key(8)] public double StatBonusDamageScale { get; set; }
+        [Key(9)] public bool QuantityIsBaseAmount { get; set; }
     }
 
 

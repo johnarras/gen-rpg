@@ -2,23 +2,14 @@
   "Id": "unittype53default",
   "ParentId": "default",
   "IdKey": 53,
-  "Name": "Ghost",
-  "PluralName": "Ghosts",
-  "Icon": "Ghost",
-  "Art": "Ghost",
+  "Name": "Spectre",
+  "PluralName": "Spectres",
+  "Icon": "Spectre",
+  "Art": "Spectre",
   "TribeTypeId": 3,
-  "MinLevel": 10,
+  "MinLevel": 15,
   "SpawnQuantityScale": 1.0,
   "Effects": [
-    {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
-      "EntityTypeId": 36,
-      "EntityId": 11
-    },
     {
       "EntityTypeId": 24,
       "Quantity": 1,
@@ -30,9 +21,14 @@
       "EntityId": 6
     },
     {
+      "EntityTypeId": 36,
+      "Quantity": 1,
+      "EntityId": 11
+    },
+    {
       "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 20052
+      "EntityId": 20049
     }
   ],
   "PrefixNames": [],
@@ -42,5 +38,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

@@ -50,7 +50,7 @@ public class ProgressBar : BaseBehaviour
     public override void Init()
     {
         base.Init();
-        AddUpdate(ProgressUpdate, UpdateType.Regular);
+        AddUpdate(ProgressUpdate, UpdateTypes.Regular);
     }
 
     /// <summary>

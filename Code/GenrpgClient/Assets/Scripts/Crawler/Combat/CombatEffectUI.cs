@@ -28,6 +28,8 @@ namespace Assets.Scripts.Crawler.Combat
         public GImage MainImage;
         public GImage HitImage;
 
+        public bool IsMainImage = true;
+
         public int ScaleAmount = 30;
 
         public int MaxHitAnchorOffset = 300;
@@ -64,18 +66,19 @@ namespace Assets.Scripts.Crawler.Combat
             _startSize = _imageTransform.sizeDelta;
             _sizeDelta = new Vector2(ScaleAmount, ScaleAmount);
 
-            _logService.Info("Width: " + _imageTransform.sizeDelta);
 
-            _dispatcher.AddListener<ShowCombatText>(OnShowCombatText, GetToken());
+            if (IsMainImage)
+            {
+                _dispatcher.AddListener<ShowCombatText>(OnShowCombatText, GetToken());
+            }
 
-
-            _updateService.AddUpdate(this, OnUpdate, UpdateType.Regular, GetToken());
+            _updateService.AddUpdate(this, OnUpdate, UpdateTypes.Regular, GetToken());
 
             _clientEntityService.SetActive(HitImage, false);
 
         }
 
-        private void OnShowCombatText(ShowCombatText text)
+        public void OnShowCombatText(ShowCombatText text)
         {
             if (text.TextType == ECombatTextTypes.Damage)
             {
@@ -91,30 +94,32 @@ namespace Assets.Scripts.Crawler.Combat
                 {
                     _currText = _nextText;
                     _nextText = null;
-                    _audioService.PlaySound(CrawlerAudio.MonsterHit);
-                    ElementType elementType = _gameData.Get<ElementTypeSettings>(_gs.ch).Get(_currText.ElementTypeId);
-                    if (elementType != null)
-                    {
-                        _audioService.PlaySound(elementType.Art + "Hit");
-                    }
+
                     _animationFrames = (int)(_appService.TargetFrameRate * _crawlerService.GetParty().CombatTextScrollDelay);
 
-                    if (_combatHits.ContainsKey(elementType.Art))
+                    if (IsMainImage)
                     {
-                        ShowCombatHitArt(_combatHits[elementType.Art]);
-                    }
-                    else
-                    {
-                        _assetService.LoadAssetInto(gameObject, AssetCategoryNames.Combat, elementType.Art + CombatHitPrefabSuffix, OnLoadCombatHit, elementType, GetToken());
-                    }
 
+                        ElementType elementType = _gameData.Get<ElementTypeSettings>(_gs.ch).Get(_currText.ElementTypeId);
+                        if (elementType != null)
+                        {
+                            _audioService.PlaySound(elementType.Art + "Hit");
+                        }
+                        if (_combatHits.ContainsKey(elementType.Art))
+                        {
+                            ShowCombatHitArt(_combatHits[elementType.Art]);
+                        }
+                        else
+                        {
+                            _assetService.LoadAssetInto(gameObject, AssetCategoryNames.Combat, elementType.Art + CombatHitPrefabSuffix, OnLoadCombatHit, elementType, GetToken());
+                        }
+                    }
                 }
             }
             if (_currText == null)
             {
                 return;
             }
-
 
             int midFrame = _animationFrames / 2;
 
@@ -139,7 +144,7 @@ namespace Assets.Scripts.Crawler.Combat
 
             float hitAlpha = Math.Max(0, midPercent * 2 - 1);
 
-            if (_hitImageFrame >= 0)
+            if (IsMainImage && _hitImageFrame >= 0)
             {
                 _hitImageFrame++;
                 if (_currHit == null || _currHit.Images.Count <= _hitImageFrame/2)

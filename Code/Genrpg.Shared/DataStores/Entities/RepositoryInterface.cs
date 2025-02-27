@@ -22,7 +22,7 @@ namespace Genrpg.Shared.DataStores.Entities
     {
         Task<T> Load<T>(string id) where T : class, IStringId;
         
-        Task<bool> Save<T>(T t) where T : class, IStringId;
+        Task<bool> Save<T>(T t, bool verbose = false) where T : class, IStringId;
         Task<bool> SaveAll<T>(List<T> list) where T : class, IStringId;
         void QueueSave<T>(T t) where T : class, IStringId;
         
@@ -45,7 +45,7 @@ namespace Genrpg.Shared.DataStores.Entities
     public interface IRepository
     {
         Task<T> Load<T>(string id) where T : class, IStringId;
-        Task<bool> Save<T>(T obj) where T : class, IStringId;
+        Task<bool> Save<T>(T obj, bool verbose = false) where T : class, IStringId;
         Task<bool> Delete<T>(T obj) where T : class, IStringId;
         Task<bool> DeleteAll<T>(Expression<Func<T,bool>> func) where T : class, IStringId;
         Task<bool> UpdateDict<T>(string docId, Dictionary<string, object> fieldNameUpdates) where T : class, IStringId;

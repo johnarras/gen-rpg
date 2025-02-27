@@ -1,9 +1,12 @@
 ﻿using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor.Services.Reflection;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Spells.Interfaces;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
+using Microsoft.Azure.Amqp.Framing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,8 +17,13 @@ namespace Genrpg.Editor.Services.Importing
 {
     public interface IImportService : IInjectable
     {
-        T ImportLine<T>(EditorGameState gs, int row, string[] data, string[] headers, T curr = null) where T : class, new();
+        T ImportLine<T>(EditorGameState gs, int row, string[] data, string[] headers, T curr = null, bool firstColumnHasData = false) where T : class, new();
         void ConvertImportWordsToContainer(object import, List<IIdName> children, SmallIdLongCollection cont);
+        void AddEffectList<TImport, TParent, TChild, TEffect>(EditorGameState gs, int row, string headerWord, long entityTypeId, List<TEffect> effects, string data) where TEffect : IEffect, new()
+            where TParent : ParentSettings<TChild> where TChild : ChildSettings, IIdName, new();
+
+
+
     }
 
     public class ImportService : IImportService
@@ -23,7 +31,7 @@ namespace Genrpg.Editor.Services.Importing
 
         private IEditorReflectionService _reflectionService;
 
-        public T ImportLine<T>(EditorGameState gs, int row, string[] data, string[] headers, T curr = null) where T : class, new()
+        public T ImportLine<T>(EditorGameState gs, int row, string[] data, string[] headers, T curr = null, bool firstColumnHasData = false) where T : class, new()
         {
             if (curr == null)
             {
@@ -32,7 +40,7 @@ namespace Genrpg.Editor.Services.Importing
 
             PropertyInfo[] allProperties = typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public);
 
-            for (int i = 1; i < headers.Length && i < data.Length; i++)
+            for (int i = (firstColumnHasData ? 0 : 1); i < headers.Length && i < data.Length; i++)
             {
                 string header = StrUtils.NormalizeWord(headers[i]);
 
@@ -129,6 +137,87 @@ namespace Genrpg.Editor.Services.Importing
                         cont.Add(matchingStat.IdKey, value);
                     }
                 }
+            }
+        }
+
+        public void AddEffectList<TImport, TParent, TChild, TEffect>(EditorGameState gs, int mainRow, string headerWord, long entityTypeId, List<TEffect> effects, string data)
+            where TParent : ParentSettings<TChild>
+            where TChild : ChildSettings, IIdName, new()
+            where TEffect : IEffect, new()
+        {
+
+            if (string.IsNullOrEmpty(data))
+            {
+                return;
+            }
+
+            string[] rows = data.Split(',');
+
+            if (rows.Length < 1)
+            {
+                return;
+            }
+
+
+            IReadOnlyList<TChild> children = gs.data.Get<TParent>(null).GetData();
+
+            foreach (string row in rows)
+            {
+                string trimmedRow = row.Trim();
+                string mergedLowerRow = StrUtils.NormalizeWord(trimmedRow);
+                if (string.IsNullOrEmpty(trimmedRow))
+                {
+                    continue;
+                }
+                
+                string[] words = trimmedRow.Split(' ');
+
+                if (words.Length < 1)
+                {
+                    continue;
+                }
+
+                for (int  w = 0; w < words.Length; w++)
+                {
+                    words[w] = StrUtils.NormalizeWord(words[w]);
+                }
+
+                if (words.Length < 1)
+                {
+                    continue;
+                }
+
+                TChild child = children.FirstOrDefault(x => StrUtils.NormalizeWord(x.Name) == words[0]);
+
+                if (child == null)
+                {
+                    child = children.FirstOrDefault(x=>StrUtils.NormalizeWord(x.Name) == mergedLowerRow);
+                }
+
+                if (child == null)
+                {
+                    throw new Exception($"Bad Import for {typeof(TImport).Name} Row: {mainRow} Header: {headerWord} Data: {data} Subitem: {row} Word: {words[0]} No {typeof(TChild).Name}  matches");
+                }
+
+                long quantity = 1;
+
+                if (words.Length > 1)
+                {
+                    if (Int64.TryParse(words[1], out long qty))
+                    {
+                        quantity = qty;
+                    }
+                }
+
+                quantity = Math.Max(1, quantity);
+
+                effects.Add(new TEffect()
+                {
+                    EntityTypeId = entityTypeId,
+                    EntityId = child.IdKey,
+                    Quantity = quantity,
+                });
+
             }
         }
     }

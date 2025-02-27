@@ -126,7 +126,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
                     {
                         Action = selectAction,
                         Spell = unitCombatAction.Spell,
-                        PowerCost = _spellService.GetPowerCost(party, notReadyMember, unitCombatAction.Spell),
+                        PowerCost = _crawlerSpellService.GetPowerCost(party, notReadyMember, unitCombatAction.Spell),
                     };
 
                     stateData.Actions.Add(new CrawlerStateAction("Recast " + unitCombatAction.Spell.Name, 'R', ECrawlerStates.OnSelectSpell,

@@ -2,29 +2,14 @@
   "Id": "unittype40default",
   "ParentId": "default",
   "IdKey": 40,
-  "Name": "Medusa",
-  "PluralName": "Medusae",
-  "Icon": "Medusa",
-  "Art": "Medusa",
-  "TribeTypeId": 8,
+  "Name": "Dog",
+  "PluralName": "Dogs",
+  "Icon": "Dog",
+  "Art": "Dog",
+  "TribeTypeId": 2,
   "MinLevel": 1,
   "SpawnQuantityScale": 1.0,
-  "Effects": [
-    {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
-      "EntityTypeId": 36,
-      "EntityId": 13
-    },
-    {
-      "EntityTypeId": 25,
-      "Quantity": 1,
-      "EntityId": 5
-    }
-  ],
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -32,5 +17,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

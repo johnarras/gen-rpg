@@ -326,38 +326,13 @@ public class AddFences : BaseZoneGenerator
 			return null;
 		}
 
-		FenceType fenceType = null;
-		ZoneFenceType zoneFenceType = null;
-		float totalChance = 0;
-
-		foreach (ZoneFenceType zft in ztype.FenceTypes)
-		{
-			totalChance += zft.Chance;
-		}
-		
-		if (totalChance < 1)
-		{
-			return null;
-		}
-		
-		float placeChosen = MathUtils.FloatRange(0,totalChance,choiceRand);
-		
-		foreach (ZoneFenceType zft in ztype.FenceTypes)
-		{
-			placeChosen -= zft.Chance;
-			if (placeChosen <= 0)
-			{
-				zoneFenceType = zft;
-				break;
-			}
-		}
-		
+        ZoneFenceType zoneFenceType = RandomUtils.GetRandomElement(ztype.FenceTypes, choiceRand);
 		if (zoneFenceType == null)
 		{
 			return null;
 		}
 		
-		fenceType = _gameData.Get<FenceTypeSettings>(_gs.ch).Get(zoneFenceType.FenceTypeId);
+		FenceType fenceType = _gameData.Get<FenceTypeSettings>(_gs.ch).Get(zoneFenceType.FenceTypeId);
 		
 		if (fenceType == null || string.IsNullOrEmpty(fenceType.Art))
 		{

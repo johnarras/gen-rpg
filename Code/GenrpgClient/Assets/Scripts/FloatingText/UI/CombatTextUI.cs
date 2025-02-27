@@ -22,7 +22,7 @@ public class CombatTextUI : BaseBehaviour
     public override void Init()
     {
         base.Init();
-        AddUpdate(CombatTextUpdate, UpdateType.Regular);
+        AddUpdate(CombatTextUpdate, UpdateTypes.Regular);
     }
 
     public void Init(CombatText text)

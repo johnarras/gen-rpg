@@ -78,7 +78,6 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 
         public Item GenerateItem(ItemGenData lootGenData)
         {
-
             return GenerateEquipment(lootGenData);
         }
 
@@ -179,7 +178,6 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 
             if (isArmor)
             {
-
                 EquipSlot equipSlot = _gameData.Get<EquipSlotSettings>(null).Get(itemType.EquipSlotId);
 
                 if (equipSlot == null || equipSlot.BaseBonusStatTypeId < 1)
@@ -201,24 +199,13 @@ namespace Genrpg.Shared.Crawler.Loot.Services
                 }
             }
 
-
             string baseItemName = itemType.Name;
             if (itemType.Names.Count > 0)
             {
-                float weightSum = itemType.Names.Sum(x => x.Weight);
-                double valChosen = _rand.NextDouble() * weightSum;
-                foreach (WeightedName wn in itemType.Names)
-                {
-                    valChosen -= wn.Weight;
-                    if (valChosen <= 0)
-                    {
-                        baseItemName = wn.Name;
-                        break;
-                    }
-                }
+                baseItemName = RandomUtils.GetRandomElement(itemType.Names, _rand).Name;
             }
-            // Weapon damage is calculated dynamically as needed.
 
+            // Weapon damage is calculated dynamically as needed.
 
             if (itemType.EquipSlotId == EquipSlots.Quiver || itemType.EquipSlotId == EquipSlots.PoisonVial)
             {
@@ -251,22 +238,32 @@ namespace Genrpg.Shared.Crawler.Loot.Services
                     .Where(x => x.IdKey >= StatConstants.PrimaryStatStart &&
                 x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
 
-                StatType okStat = okStats[_rand.Next() % okStats.Count];
-
-                long statTypeId = okStat.IdKey;
-
-                ItemEffect itemEffect = new ItemEffect()
+                int statQuantity = 1 + (int)chosenRank.IdKey / 8;
+                if (_rand.NextDouble() < chosenRank.IdKey*0.1f)
                 {
-                    EntityTypeId = EntityTypes.Stat,
-                    EntityId = statTypeId,
-                    Quantity = 1 + level / 10,
-                };
+                    statQuantity++;
+                }
 
-                item.Effects.Add(itemEffect);
+                for (int i = 0; i < statQuantity && okStats.Count > 0; i++)
+                {
 
-                item.Name = chosenRank.Name + " " + baseItemName + " of " + okStat.Name;
+                    StatType okStat = okStats[_rand.Next() % okStats.Count];
+                    okStats.Remove(okStat);
+                    long statTypeId = okStat.IdKey;
+
+                    ItemEffect itemEffect = new ItemEffect()
+                    {
+                        EntityTypeId = EntityTypes.Stat,
+                        EntityId = statTypeId,
+                        Quantity = 1 + level / 10,
+                    };
+
+                    item.Effects.Add(itemEffect);
+                }
+
+
+                item.Name = chosenRank.Name + " " + _itemGenService.GenerateName(_rand, itemType.IdKey, level, QualityTypes.Uncommon, null);
                 item.Level = level;
-
             }
 
             double cost = lootSettings.BaseLootCost;
@@ -377,9 +374,6 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 
             double lootQualityBonus = _roguelikeUpgradeService.GetBonus(party, RoguelikeUpgrades.LootQuality);
 
-
-
-
             for (int i = 0; i < genData.ItemCount; i++)
             {
                 ItemGenData itemGenData = new ItemGenData()
@@ -436,6 +430,10 @@ namespace Genrpg.Shared.Crawler.Loot.Services
                 {
                     return new PartyLoot();
                 }
+
+                double expBonusPercent = _roguelikeUpgradeService.GetBonus(party, RoguelikeUpgrades.ExpPercent);
+                genData.Exp = (long)(genData.Exp * (1 + expBonusPercent / 100.0f));
+
                 loot.Exp = genData.Exp / aliveCount;
 
                 foreach (PartyMember member in activeMembers)

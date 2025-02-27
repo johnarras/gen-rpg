@@ -40,7 +40,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Selection
             selectSpellAction.Action.Action = newAction;
             selectSpellAction.Action.Member.Action = newAction;
 
-            if (selectSpellAction.Spell.TargetTypeId == TargetTypes.Special)
+            if (newAction.Spell.TargetTypeId == TargetTypes.Special)
             {
                 return new CrawlerStateData(ECrawlerStates.SpecialSpellCast, true) { ExtraData = selectSpellAction };
             }

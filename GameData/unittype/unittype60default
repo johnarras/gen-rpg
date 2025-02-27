@@ -2,11 +2,11 @@
   "Id": "unittype60default",
   "ParentId": "default",
   "IdKey": 60,
-  "Name": "Demon Lord",
-  "PluralName": "Demon Lords",
-  "Icon": "DemonLord",
-  "Art": "DemonLord",
-  "TribeTypeId": 15,
+  "Name": "Blue Dragon",
+  "PluralName": "Blue Dragons",
+  "Icon": "BlueDragon",
+  "Art": "BlueDragon",
+  "TribeTypeId": 16,
   "MinLevel": 20,
   "SpawnQuantityScale": 0.1,
   "Effects": [
@@ -21,28 +21,14 @@
       "EntityId": 20
     },
     {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 2
-    },
-    {
-      "EntityTypeId": 24,
-      "Quantity": 1,
-      "EntityId": 7
-    },
-    {
       "EntityTypeId": 25,
       "Quantity": 1,
-      "EntityId": 6
+      "EntityId": 4
     },
     {
       "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 20059
+      "EntityId": 51
     }
   ],
   "PrefixNames": [],
@@ -52,5 +38,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

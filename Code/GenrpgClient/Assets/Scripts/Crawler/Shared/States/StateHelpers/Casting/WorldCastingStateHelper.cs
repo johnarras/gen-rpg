@@ -10,8 +10,6 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Casting
 {
     public class WorldCastingStateHelper : BaseStateHelper
     {
-        ICrawlerSpellService _crawlerSpellService = null;
-
         public override ECrawlerStates GetKey() { return ECrawlerStates.WorldCast; }
 
         public override async Task<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)

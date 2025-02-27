@@ -22,7 +22,7 @@ public class CollapsableScrollView : BaseBehaviour
     public override void Init()
     {
         base.Init();
-        AddUpdate(ScrollUpdate, UpdateType.Regular);
+        AddUpdate(ScrollUpdate, UpdateTypes.Regular);
     }
 
     public void Init(CollapsingScrollViewGroup parentGroup)

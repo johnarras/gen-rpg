@@ -74,7 +74,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
                         Name = currMap.Name,
                         World = world,
                         PrevMap = currMap,
-                        MapType = CrawlerMapTypes.RandomDungeon,
+                        MapTypeId = CrawlerMapTypes.Dungeon,
                     };
 
                     nextMap = await _crawlerMapGenService.Generate(partyData, world, mapGenData);
@@ -128,13 +128,22 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
                 {
                     string[] descLines = nextMap.RiddleText.Split("\n");
 
+                    bool isSequenceRiddle = nextMap.RiddleText.Contains("Your choices are");
+
                     stateData.Actions.Add(new CrawlerStateAction("Answer this to pass:\n"));
                     stateData.Actions.Add(new CrawlerStateAction(" "));
                     for (int d = 0; d < descLines.Length; d++)
                     {
                         if (!string.IsNullOrEmpty(descLines[d]))
                         {
-                            stateData.Actions.Add(new CrawlerStateAction(descLines[d].Substring(0, (int)MathUtils.Min(descLines[d].Length, 6)) + "..."));
+                            if (!isSequenceRiddle)
+                            {
+                                stateData.Actions.Add(new CrawlerStateAction(descLines[d].Substring(0, (int)MathUtils.Min(descLines[d].Length, 6)) + "..."));
+                            }
+                            else
+                            {
+                                stateData.Actions.Add(new CrawlerStateAction(descLines[d]));
+                            }
                         }
                     }
 

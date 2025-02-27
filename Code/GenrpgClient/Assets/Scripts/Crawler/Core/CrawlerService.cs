@@ -41,13 +41,22 @@ using UnityEngine;
 using Assets.Scripts.Awaitables;
 using Assets.Scripts.Crawler.ClientEvents;
 using Assets.Scripts.ClientEvents;
+using Genrpg.Shared.Crawler.Maps.Settings;
+using Genrpg.Shared.Utils.Data;
+using Genrpg.Shared.Crawler.Buffs.Constants;
+using Genrpg.Shared.Stats.Constants;
+using Genrpg.Shared.UnitEffects.Constants;
+using Genrpg.Shared.UnitEffects.Settings;
+using Genrpg.Shared.Client.GameEvents;
+using Genrpg.Shared.Spells.Constants;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Assets.Scripts.Crawler.Services
 {
     public class CrawlerService : ICrawlerService
     {
         private IClientUpdateService _updateService;
-        private ICrawlerStatService _statService;
+        private ICrawlerStatService _crawlerStatService;
         private IScreenService _screenService;
         private ICrawlerMapService _crawlerMapService;
         protected ILogService _logService;
@@ -60,17 +69,18 @@ namespace Assets.Scripts.Crawler.Services
         private IInputService _inputService;
         protected ITaskService _taskService;
         private IGameData _gameData;
+        private IClientGameState _gs;
+        private CancellationToken _token;
+        private ICrawlerSpellService _spellService;
+        private ILoadSaveService _loadSaveService;
+        private IAwaitableService _awaitableService;
+        private IStatService _statService;
 
         public const string SaveFileSuffix = ".sav";
         public const string StartSaveFileName = "Start" + SaveFileSuffix;
 
         private SetupDictionaryContainer<ECrawlerStates, IStateHelper> _stateHelpers = new SetupDictionaryContainer<ECrawlerStates, IStateHelper>();
 
-        private IClientGameState _gs;
-        private CancellationToken _token;
-        private ICrawlerSpellService _spellService;
-        private ILoadSaveService _loadSaveService;
-        private IAwaitableService _awaitableService;
         private PartyData _party { get; set; }
 
         public PartyData GetParty()
@@ -86,8 +96,8 @@ namespace Assets.Scripts.Crawler.Services
         public async Task Initialize(CancellationToken token)
         {
             _token = token;
-            _updateService.AddTokenUpdate(this, UpdateGame, UpdateType.Regular, token);
-            _updateService.AddTokenUpdate(this,OnLateUpdate, UpdateType.Late, token);
+            _updateService.AddTokenUpdate(this, UpdateGame, UpdateTypes.Regular, token);
+            _updateService.AddTokenUpdate(this,OnLateUpdate, UpdateTypes.Late, token);
             await Task.CompletedTask;
         }
 
@@ -137,8 +147,6 @@ namespace Assets.Scripts.Crawler.Services
                     return;
                 }
 
-                _crawlerMapService.ClearMovement();
-
                 _dispatcher.Dispatch(new HideInfoPanelEvent());
                 _taskService.ForgetTask(ChangeStateAsync(fullCrawlerState, token));
             }
@@ -169,6 +177,10 @@ namespace Assets.Scripts.Crawler.Services
             while (_stateStack.Count > 1)
             {
                 _stateStack.Pop();
+            }
+            if (_stateStack.Count < 1)
+            {
+                return null;
             }
             return _stateStack.Peek();
         }
@@ -359,8 +371,6 @@ namespace Assets.Scripts.Crawler.Services
                 return;
             }
 
-            _dispatcher.Dispatch(new LinkPartyDataToUI() { Party = party });         
-
             _party = party;
             _party.Inventory = ConvertItemsFromSaveToGame(_party, _party.SaveInventory);
 
@@ -370,15 +380,12 @@ namespace Assets.Scripts.Crawler.Services
                 member.ConvertDataAfterLoad();
             }
 
-            party.SpeedupListener = this;
-
-
             foreach (PartyMember member in party.GetActiveParty())
             {
                 _spellService.SetupCombatData(party, member);
             }
 
-            _statService.CalcPartyStats(_party, true);
+            _crawlerStatService.CalcPartyStats(_party, true);
             _inputService.SetDisabled(true);
 
             if (party.WorldId < 1)
@@ -388,7 +395,14 @@ namespace Assets.Scripts.Crawler.Services
 
             CrawlerWorld world = await _worldService.GetWorld(_party.WorldId);
 
-            ChangeState(ECrawlerStates.GuildMain, GetToken());
+            if (party.InGuildHall || party.GetActiveParty().Count < 1)
+            {
+                ChangeState(ECrawlerStates.GuildMain, GetToken());
+            }
+            else
+            {
+                ChangeState(ECrawlerStates.ExploreWorld, GetToken());
+            }
             await UpdateCrawlerUI();
 
             _screenService.Open(ScreenId.Crawler);
@@ -405,7 +419,6 @@ namespace Assets.Scripts.Crawler.Services
         private PartyData CreatePartyDataForSlot(long slot, ECrawlerGameModes gameMode)
         {
             PartyData partyData = new PartyData() { Id = typeof(PartyData).Name + slot, SaveSlotId = slot, Seed = _rand.Next(), GameMode = gameMode };
-            _dispatcher.Dispatch(new LinkPartyDataToUI() { Party = partyData });
             return partyData;
         }
 
@@ -433,6 +446,12 @@ namespace Assets.Scripts.Crawler.Services
         {
             if (_party != null)
             {
+
+                if (_party.Combat != null)
+                {
+                    return;
+                }
+
                 _party.SaveInventory = ConvertItemsFromGameToSave(_party, _party.Inventory);
 
                 foreach (PartyMember member in _party.Members)
@@ -441,7 +460,7 @@ namespace Assets.Scripts.Crawler.Services
                     member.ConvertDataBeforeSave();
                 }
 
-                _loadSaveService.Save(_party, _party.SaveSlotId);
+                _loadSaveService.Save(_party, _party.SaveSlotId, true);
             }
             await Task.CompletedTask;
         }
@@ -582,11 +601,18 @@ namespace Assets.Scripts.Crawler.Services
                         PartyQuestItem pqi = _party.QuestItems.FirstOrDefault(x => x.CrawlerQuestItemId == detail.EntityId);
                         if (pqi == null || pqi.Quantity < 1)
                         {
-                            InitialCombatState initialCombatState = new InitialCombatState()
+                            WorldQuestItem wqi = world.QuestItems.FirstOrDefault(x => x.IdKey == detail.EntityId);
+
+                            if (wqi != null)
                             {
-                                Difficulty = 3,
-                            };
-                            ChangeState(ECrawlerStates.StartCombat, token, initialCombatState);
+
+                                InitialCombatState initialCombatState = new InitialCombatState()
+                                {
+                                    Difficulty = 1.5f,
+                                    QuestItem = wqi,
+                                };
+                                ChangeState(ECrawlerStates.StartCombat, token, initialCombatState);
+                            }
                             return;
                         }
                     }
@@ -606,18 +632,27 @@ namespace Assets.Scripts.Crawler.Services
                     : encounterBits == MapEncounters.Trap ? nameof(MapEncounters.Trap) :
                     encounterBits == MapEncounters.Monsters ? nameof(MapEncounters.Monsters) : "Unknown";
 
-                bool didVisitEver = _crawlerMapService.PartyHasVisited(_party.MapId, _party.MapX, _party.MapZ, false);
                 bool didVisitThisRun = _crawlerMapService.PartyHasVisited(_party.MapId, _party.MapX, _party.MapZ, true);
-                if (!didVisitEver)
-                {
-                    if (FlagUtils.IsSet(encounterBits, MapEncounters.Treasure))
-                    {
-                        ChangeState(ECrawlerStates.GiveLoot, token);
-                    }
-                }
-
+              
                 if (!didVisitThisRun)
                 {
+                    if (FlagUtils.IsSet(encounterBits, MapEncounters.Treasure) && !_party.CompletedMaps.HasBit(map.IdKey))
+                    {
+                        CrawlerMapSettings mapSettings = _gameData.Get<CrawlerMapSettings>(_gs.ch);
+
+                        CrawlerMapStatus mapStatus = _party.Maps.FirstOrDefault(x=>x.MapId == map.IdKey);
+
+                        if (mapStatus != null)
+                        {
+                            PointXZ pt = mapStatus.TreasuresFound.FirstOrDefault(x=>x.X == _party.MapX && x.Z == _party.MapZ);  
+                            if (pt == null)
+                            {
+                                mapStatus.TreasuresFound.Add(new PointXZ() { X = _party.MapX, Z = _party.MapZ });
+                                ChangeState(ECrawlerStates.GiveLoot, token);
+                            }
+                        }
+                    }
+
                     if (FlagUtils.IsSet(encounterBits, MapEncounters.Monsters))
                     {
                         InitialCombatState initialCombatState = new InitialCombatState()
@@ -626,6 +661,54 @@ namespace Assets.Scripts.Crawler.Services
                         };
                         ChangeState(ECrawlerStates.StartCombat, token, initialCombatState);
                         return;
+                    }
+                    else if (FlagUtils.IsSet(encounterBits, MapEncounters.Trap))
+                    {
+                        if (_party.Buffs.Get(PartyBuffs.Levitate) == 0 && !_party.CurrentMap.Cleansed.HasBit(map.GetIndex(_party.MapX, _party.MapZ)))
+                        {
+                            _dispatcher.Dispatch(new ShowFloatingText("It's a Trap!", EFloatingTextArt.Error));
+                            CrawlerMapSettings mapSettings = _gameData.Get<CrawlerMapSettings>(_gs.ch);
+
+                            IReadOnlyList<StatusEffect> effects = _gameData.Get<StatusEffectSettings>(_gs.ch).GetData();
+
+                            int maxStatusEffectTier = Math.Min(StatusEffects.Dead - 1, (int)(map.Level * mapSettings.TrapDebuffLevelScaling));
+
+                            int minDam = map.Level * mapSettings.TrapMinDamPerLevel;
+                            int maxDam = map.Level * mapSettings.TrapMaxDamagePerLevel;
+
+                            foreach (PartyMember pm in _party.GetActiveParty())
+                            {
+                                double luckBonus = _crawlerStatService.GetStatBonus(_party, pm, StatTypes.Luck)/100.0f;
+
+                                if (_rand.NextDouble() < mapSettings.TrapHitChance - luckBonus)
+                                {
+                                    continue;
+                                }
+
+                                int damage = MathUtils.IntRange(minDam, maxDam, _rand);
+
+                                _crawlerStatService.Add(_party, pm, StatTypes.Health, StatCategories.Curr, -damage, ElementTypes.Physical);
+
+                                if (pm.Stats.Curr(StatTypes.Health) < 1)
+                                {
+                                    pm.StatusEffects.SetBit(StatusEffects.Dead);
+                                    continue;
+                                }
+
+                                if (_rand.NextDouble() < mapSettings.TrapDebuffChance && maxStatusEffectTier > 0)
+                                {
+                                    int tier = Math.Min(MathUtils.IntRange(1, maxStatusEffectTier, _rand), MathUtils.IntRange(1, maxStatusEffectTier, _rand));
+
+
+                                    StatusEffect effect = effects.FirstOrDefault(x => x.IdKey == tier);
+
+                                    if (effect != null)
+                                    {
+                                        pm.StatusEffects.SetBit(tier);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -670,7 +753,8 @@ namespace Assets.Scripts.Crawler.Services
         public void NewGame(ECrawlerGameModes gameMode)
         {
             PartyData party = CreatePartyDataForSlot(LoadSaveConstants.MinSlot, gameMode);
-            _loadSaveService.Save(party, party.SaveSlotId);
+            _party = party;
+            SaveGame().Wait();
             InitPartyAfterLoad(party);
         }
     }

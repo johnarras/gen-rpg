@@ -1,15 +1,16 @@
+using Genrpg.Shared.Utils;
 using MessagePack;
 namespace Genrpg.Shared.Zones.WorldData
 {
     [MessagePackObject]
-    public class ZoneUnitStatus
+    public class ZoneUnitStatus : IWeightedItem
     {
         [Key(0)] public long UnitTypeId { get; set; }
 
         /// <summary>
         /// Current population
         /// </summary>
-        [Key(1)] public int Pop { get; set; }
+        [Key(1)] public double Weight { get; set; }
 
 
         /// <summary>

@@ -2,30 +2,14 @@
   "Id": "unittype91default",
   "ParentId": "default",
   "IdKey": 91,
-  "Name": "Wyvern",
-  "PluralName": "Wyverns",
-  "Icon": "Wyvern",
-  "Art": "Wyvern",
-  "TribeTypeId": 8,
-  "MinLevel": 20,
-  "SpawnQuantityScale": 0.1,
-  "Effects": [
-    {
-      "EntityTypeId": 32,
-      "Quantity": 100,
-      "EntityId": 1
-    },
-    {
-      "EntityTypeId": 32,
-      "Quantity": 50,
-      "EntityId": 20
-    },
-    {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    }
-  ],
+  "Name": "Frog",
+  "PluralName": "Frogs",
+  "Icon": "Frog",
+  "Art": "Frog",
+  "TribeTypeId": 2,
+  "MinLevel": 1,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -33,5 +17,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

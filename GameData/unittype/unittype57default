@@ -2,29 +2,14 @@
   "Id": "unittype57default",
   "ParentId": "default",
   "IdKey": 57,
-  "Name": "Rogue",
-  "PluralName": "Rogues",
-  "Icon": "Rogue",
-  "Art": "Rogue",
+  "Name": "Assassin",
+  "PluralName": "Assassins",
+  "Icon": "Assassin",
+  "Art": "Assassin",
   "TribeTypeId": 14,
-  "MinLevel": 1,
+  "MinLevel": 15,
   "SpawnQuantityScale": 1.0,
-  "Effects": [
-    {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
-      "EntityTypeId": 36,
-      "EntityId": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "Quantity": 1,
-      "EntityId": 50001
-    }
-  ],
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -32,5 +17,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

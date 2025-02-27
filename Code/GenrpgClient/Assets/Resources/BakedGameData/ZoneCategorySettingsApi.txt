@@ -1,0 +1,31 @@
+{
+  "Data": [
+    {
+      "Id": "zonecategory1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Overland",
+      "UpdateTime": "2025-02-20T06:58:00.121Z"
+    },
+    {
+      "Id": "zonecategory2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Underground",
+      "UpdateTime": "2025-02-20T06:58:00.121Z"
+    },
+    {
+      "Id": "zonecategory3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Mythical",
+      "UpdateTime": "2025-02-20T07:00:43.918Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "ZoneCategorySettings",
+    "UpdateTime": "2025-02-20T07:00:43.918Z"
+  },
+  "Id": "default"
+}

@@ -3,6 +3,7 @@
   "ParentId": "default",
   "IdKey": 2,
   "Name": "Barbaric",
+  "PluralName": "Barbarics",
   "Icon": "Barbaric",
   "Art": "Barbaric",
   "Effects": [
@@ -18,17 +19,19 @@
     },
     {
       "EntityTypeId": 36,
+      "Quantity": 1,
       "EntityId": 5
     },
     {
       "EntityTypeId": 100,
+      "Quantity": 1,
       "EntityId": 2
     },
     {
       "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 30001
+      "EntityId": 20002
     }
   ],
-  "UpdateTime": "2025-01-11T16:06:35.196Z"
+  "UpdateTime": "2025-02-17T09:10:53.635Z"
 }

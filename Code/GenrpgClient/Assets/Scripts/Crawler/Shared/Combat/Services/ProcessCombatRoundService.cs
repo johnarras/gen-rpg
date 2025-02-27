@@ -21,6 +21,7 @@ using Genrpg.Shared.Crawler.TimeOfDay.Services;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.Crawler.States.Constants;
+using Assets.Scripts.Crawler.ClientEvents.ActionPanelEvents;
 
 namespace Genrpg.Shared.Crawler.Combat.Services
 {
@@ -36,6 +37,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
         protected IClientGameState _gs = null;
         protected IClientRandom _rand = null;
         private IGameData _gameData = null;
+        private IDispatcher _dispatcher = null;
 
         public async Task<bool> ProcessCombatRound(PartyData party, CancellationToken token)
         {
@@ -53,7 +55,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
                     if (_rand.NextDouble() * party.Combat.Level < averageLuck)
                     {
-                        party.EndCombat();
+                        _combatService.EndCombat(party);
                         _crawlerService.ChangeState(ECrawlerStates.ExploreWorld, token);
                         return true;
                     }
@@ -101,7 +103,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                         group.Range = Math.Max(CrawlerCombatConstants.MinRange, group.Range - advanceRange);
                     }
                 }
-                party.ActionPanel.AddText($"You Advance. {advanceRange}'.");
+                _dispatcher.Dispatch(new AddActionPanelText($"You Advance. {advanceRange}'."));
             }
             foreach (CombatGroup group in party.Combat.Enemies)
             {
@@ -111,8 +113,8 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                     {
                         group.Range -= CrawlerCombatConstants.RangeDelta;
                     }
-                    party.ActionPanel.AddText($"Group of {group.PluralName} Advances {CrawlerCombatConstants.MinRange}");
-                    party.ActionPanel.AddText(group.ShowStatus());
+                    _dispatcher.Dispatch(new AddActionPanelText($"Group of {group.PluralName} Advances {CrawlerCombatConstants.MinRange}"));
+                    _dispatcher.Dispatch(new AddActionPanelText(group.ShowStatus()));
                 }
             }
 

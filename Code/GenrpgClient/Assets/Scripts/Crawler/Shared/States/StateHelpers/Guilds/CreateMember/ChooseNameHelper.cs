@@ -11,6 +11,7 @@ using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using Genrpg.Shared.Utils;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -34,6 +35,22 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds.CreateMember
 
             stateData.AddInputField("Name: ", delegate (string text)
             {
+            if (string.IsNullOrEmpty(text))
+            {
+                return;
+            }
+
+                StringBuilder sb = new StringBuilder();
+
+                for (int t = 0; t < text.Length; t++)
+                {
+                    if ((char)text[t] >= 32 && (char)text[t] <= 127)
+                    {
+                        sb.Append(text[t]);
+                    }
+                }
+                text = sb.ToString();
+
                 if (!string.IsNullOrEmpty(text))
                 {
                     member.Name = text;
@@ -100,7 +117,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds.CreateMember
                         }
                     }
 
-                    _spellService.SetupCombatData(_crawlerService.GetParty(), member);
+                    _crawlerSpellService.SetupCombatData(_crawlerService.GetParty(), member);
                     _statService.CalcUnitStats(_crawlerService.GetParty(), member, true);
 
                     _crawlerService.SaveGame();

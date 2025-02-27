@@ -1,6 +1,8 @@
-﻿using Assets.Scripts.TextureLists.Services;
+﻿using Assets.Scripts.Crawler.Combat;
+using Assets.Scripts.TextureLists.Services;
 using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Crawler.TextureLists.Services;
+using Genrpg.Shared.Utils;
 
 namespace Assets.Scripts.Assets.Textures
 {
@@ -14,20 +16,25 @@ namespace Assets.Scripts.Assets.Textures
 
         public GImage AnimatedImage;
 
+        public bool OnlyShowFirstFrame = false;
 
-        const int FramesBetweenIncrement = 20;
+
+        public bool ShowSequence = false;
+        public int FramesBetweenSequenceStep = 2;
+
+        const float ChangeToBaseFrameChance = 0.2f;
+        const float ChangeToOtherFrameChance = 0.05f;
 
         private string _currentSpriteName = null;
         private string _newSpriteName = null;
 
-        private int currIncrementFrame = 0;
-
-        private int _currentTextureFrame = 0;
+        private int _currentImageFrame = 0;
+        private int _ticksBetweenFrameUpdate = 0;
 
         public override void Init()
         {
             _clientEntityService.SetActive(AnimatedImage, false);
-            _updateService.AddUpdate(this, LateUpdatePicture, UpdateType.Late, GetToken());
+            _updateService.AddUpdate(this, LateUpdatePicture, UpdateTypes.Late, GetToken());
         }
 
         public void SetImage(string spriteName)
@@ -53,49 +60,94 @@ namespace Assets.Scripts.Assets.Textures
                 }
                 _currentSpriteName = downloadData.TextureName;
                 _textureList = downloadData.TextureList;
-                ShowTexture(0);
+                ShowTextureFrame(0);
             }
         }
 
 
         private void LateUpdatePicture()
         {
-            currIncrementFrame++;
-            if (currIncrementFrame % FramesBetweenIncrement == 0)
-            {
-                _currentTextureFrame++;
-                ShowTexture(_currentTextureFrame);
-            }
 
             string spriteName = _newSpriteName;
-            if (_newSpriteName == _currentSpriteName)
+            if (_newSpriteName != _currentSpriteName)
             {
+                if (!string.IsNullOrEmpty(spriteName) && spriteName.IndexOf("Building") >= 0)
+                {
+                    spriteName = _crawlerMapService.GetBuildingArtPrefix() + spriteName;
+                }
+
+                if (string.IsNullOrEmpty(spriteName))
+                {
+                    _textureList = null;
+                    _currentSpriteName = spriteName;
+                    ShowTextureFrame(0);
+                    return;
+                }
+                if (_currentSpriteName == spriteName)
+                {
+                    return;
+                }
+                _textureListCache.LoadTextureList(spriteName, OnLoadTextureList, spriteName, GetToken());
                 return;
-            }
-            if (!string.IsNullOrEmpty(spriteName) && spriteName.IndexOf("Building") >= 0)
-            {
-                spriteName = _crawlerMapService.GetBuildingArtPrefix() + spriteName;
             }
 
-            if (string.IsNullOrEmpty(spriteName))
+            if (_textureList == null || _textureList.Sprites.Count < 1)
             {
-                _textureList = null;
-                _currentSpriteName = spriteName;
-                ShowTexture(0);
+                _clientEntityService.SetActive(AnimatedImage, false);
                 return;
             }
-            if (_currentSpriteName == spriteName)
+
+            if (_textureList.Sprites.Count == 1)
             {
                 return;
             }
-            _textureListCache.LoadTextureList(spriteName, OnLoadTextureList, spriteName, GetToken());
+
+            if (!ShowSequence)
+            {
+                if (!OnlyShowFirstFrame)
+                {
+                    if (_currentImageFrame > 0 && _rand.NextDouble() < ChangeToBaseFrameChance)
+                    {
+                        ShowTextureFrame(0);
+                        return;
+                    }
+
+                    if (_currentImageFrame == 0 && _rand.NextDouble() < ChangeToBaseFrameChance)
+                    {
+                        ShowTextureFrame(MathUtils.IntRange(1, _textureList.Sprites.Count - 1, _rand));
+                        return;
+                    }
+                }
+            }
+           else
+            {
+                if (OnlyShowFirstFrame)
+                {
+                    if (_currentImageFrame > 0)
+                    {  
+                        ShowTextureFrame(0);
+                    }
+                    return;
+                }
+
+                _ticksBetweenFrameUpdate++;
+                if (_ticksBetweenFrameUpdate >= FramesBetweenSequenceStep)
+                {
+                    _currentImageFrame++;
+                    if (_currentImageFrame >= _textureList.Sprites.Count)
+                    {
+                        _currentImageFrame = 0;
+                    }
+                    ShowTextureFrame(_currentImageFrame);
+                    _ticksBetweenFrameUpdate = 0;
+                }
+            }
+
         }
 
 
-        private void ShowTexture(int frame)
+        private void ShowTextureFrame(int frame)
         {
-            _currentTextureFrame = frame;
-
             if (_textureList == null || _textureList.Sprites.Count < 1)
             {
                 _clientEntityService.SetActive(AnimatedImage, false);
@@ -104,10 +156,11 @@ namespace Assets.Scripts.Assets.Textures
 
             _clientEntityService.SetActive(AnimatedImage, true);
 
-            int currentFrame = _currentTextureFrame % _textureList.Sprites.Count;
-
-
-            _uiService.SetImageSprite(AnimatedImage, _textureList.Sprites[currentFrame]);
+            if (_textureList.Sprites.Count > frame)
+            {
+                _uiService.SetImageSprite(AnimatedImage, _textureList.Sprites[frame]);
+            }
+            _currentImageFrame = frame;
         }
     }
 }

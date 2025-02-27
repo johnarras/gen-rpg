@@ -2,25 +2,14 @@
   "Id": "unittype87default",
   "ParentId": "default",
   "IdKey": 87,
-  "Name": "Ogre Shaman",
-  "PluralName": "Ogre Shamans",
-  "Icon": "OgreShaman",
-  "Art": "OgreShaman",
-  "TribeTypeId": 7,
-  "MinLevel": 10,
+  "Name": "Rat",
+  "PluralName": "Rats",
+  "Icon": "Rat",
+  "Art": "Rat",
+  "TribeTypeId": 6,
+  "MinLevel": 1,
   "SpawnQuantityScale": 1.0,
-  "Effects": [
-    {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
-      "EntityTypeId": 100,
-      "Quantity": 1,
-      "EntityId": 50001
-    }
-  ],
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -28,5 +17,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

@@ -2,37 +2,28 @@
   "Id": "unittype54default",
   "ParentId": "default",
   "IdKey": 54,
-  "Name": "Spectre",
-  "PluralName": "Spectres",
-  "Icon": "Spectre",
-  "Art": "Spectre",
+  "Name": "Lich",
+  "PluralName": "Liches",
+  "Icon": "Lich",
+  "Art": "Lich",
   "TribeTypeId": 3,
-  "MinLevel": 15,
+  "MinLevel": 20,
   "SpawnQuantityScale": 1.0,
   "Effects": [
     {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
       "EntityTypeId": 36,
+      "Quantity": 1,
       "EntityId": 11
     },
     {
-      "EntityTypeId": 24,
+      "EntityTypeId": 36,
       "Quantity": 1,
-      "EntityId": 7
-    },
-    {
-      "EntityTypeId": 25,
-      "Quantity": 1,
-      "EntityId": 6
+      "EntityId": 8
     },
     {
       "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 20050
+      "EntityId": 20053
     }
   ],
   "PrefixNames": [],
@@ -42,5 +33,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

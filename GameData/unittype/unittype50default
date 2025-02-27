@@ -2,27 +2,14 @@
   "Id": "unittype50default",
   "ParentId": "default",
   "IdKey": 50,
-  "Name": "Ghoul",
-  "PluralName": "Ghouls",
-  "Icon": "Ghoul",
-  "Art": "Ghoul",
+  "Name": "Wight",
+  "PluralName": "Wights",
+  "Icon": "Wight",
+  "Art": "Wight",
   "TribeTypeId": 3,
   "MinLevel": 5,
   "SpawnQuantityScale": 1.0,
   "Effects": [
-    {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
-      "EntityTypeId": 36,
-      "EntityId": 5
-    },
-    {
-      "EntityTypeId": 36,
-      "EntityId": 3
-    },
     {
       "EntityTypeId": 24,
       "Quantity": 1,
@@ -32,6 +19,16 @@
       "EntityTypeId": 25,
       "Quantity": 1,
       "EntityId": 6
+    },
+    {
+      "EntityTypeId": 36,
+      "Quantity": 1,
+      "EntityId": 5
+    },
+    {
+      "EntityTypeId": 36,
+      "Quantity": 1,
+      "EntityId": 3
     },
     {
       "EntityTypeId": 100,
@@ -46,5 +43,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

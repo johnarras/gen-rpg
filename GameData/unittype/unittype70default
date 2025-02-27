@@ -2,28 +2,23 @@
   "Id": "unittype70default",
   "ParentId": "default",
   "IdKey": 70,
-  "Name": "Earth Elemental",
-  "PluralName": "Earth Elementals",
-  "Icon": "EarthElemental",
-  "Art": "EarthElemental",
+  "Name": "Fire Elemental",
+  "PluralName": "Fire Elementals",
+  "Icon": "FireElemental",
+  "Art": "FireElemental",
   "TribeTypeId": 4,
   "MinLevel": 15,
   "SpawnQuantityScale": 1.0,
   "Effects": [
     {
-      "EntityTypeId": 31,
-      "Quantity": 1,
-      "EntityId": 35
-    },
-    {
       "EntityTypeId": 24,
       "Quantity": 1,
-      "EntityId": 4
+      "EntityId": 3
     },
     {
       "EntityTypeId": 25,
       "Quantity": 1,
-      "EntityId": 5
+      "EntityId": 2
     }
   ],
   "PrefixNames": [],
@@ -33,5 +28,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

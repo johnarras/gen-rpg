@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &214490968233204535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6955369627717100474}
+  - component: {fileID: 1658895150554955245}
+  m_Layer: 0
+  m_Name: Dungeon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6955369627717100474
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214490968233204535}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1658895150554955245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214490968233204535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60d64699a20d0e146a320c2f1d07b95f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Walls:
+  - Weight: 1000
+    Asset: {fileID: 2883750128014381245, guid: 17d0dfbdb68d21641a7ff72f83f8feca, type: 3}
+  Doors:
+  - Weight: 1000
+    Asset: {fileID: 3319383854277241407, guid: fa58adc3639714b4fb28334a51031edf, type: 3}
+  Floors:
+  - Weight: 1000
+    Asset: {fileID: 2845164781777661836, guid: 089cdfcc98d856c47af4b2ed553cb236, type: 3}
+  Ceilings:
+  - Weight: 1000
+    Asset: {fileID: 8452400089187220458, guid: 2c7e2d2f006d72c40b88a2c4dc478db7, type: 3}
+  Pillars:
+  - Weight: 1000
+    Asset: {fileID: 2801542127813480670, guid: dd1e5e77c2b66164198721f7e06e0076, type: 3}
+  Fences:
+  - Weight: 1000
+    Asset: {fileID: 6124447883365292776, guid: ffac88f409febab49a7423ba9e59ca04, type: 3}
+  Materials:
+  - Weight: 1000
+    Materials: {fileID: 498994976476964596, guid: 25748523792193840920f0def651efae,
+      type: 3}
+  - Weight: 1000
+    Materials: {fileID: 378727158912712656, guid: 086c02dc3d3299c4a94f8f2394c8469b,
+      type: 3}
+  - Weight: 1000
+    Materials: {fileID: 8081806579827750272, guid: b6be6af41bfc1f948bef53ff8ae55344,
+      type: 3}
+  BGImageName: DungeonBG

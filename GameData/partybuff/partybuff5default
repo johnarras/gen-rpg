@@ -3,6 +3,6 @@
   "ParentId": "default",
   "IdKey": 5,
   "Name": "Mapping",
-  "Desc": "Allows you to map where you've been.",
-  "UpdateTime": "2025-01-13T20:22:09.683Z"
+  "Desc": "Shows you the minimap and lets you see the level map.",
+  "UpdateTime": "2025-02-25T14:18:02.532Z"
 }

@@ -62,7 +62,7 @@ public class InputService : IInputService
 
     public async Task Initialize(CancellationToken token)
     {
-        _updateService.AddUpdate(this, InputUpdate, UpdateType.Regular, token);
+        _updateService.AddUpdate(this, InputUpdate, UpdateTypes.Regular, token);
         _dispatcher.AddListener<MapIsLoadedEvent>(UpdateInputs, token);
 
         await Task.CompletedTask;

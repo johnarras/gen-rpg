@@ -227,7 +227,7 @@ public class UnityAssetService : IAssetService
 
     }
 
-    public async Task OnCleanup(CancellationToken token)
+    public async Task OnClientResetCleanup(CancellationToken token)
     {
         await ClearBundleCache(token);
     }

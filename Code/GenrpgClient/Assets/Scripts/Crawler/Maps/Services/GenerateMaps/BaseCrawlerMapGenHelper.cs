@@ -25,9 +25,6 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
     public abstract class BaseCrawlerMapGenHelper : ICrawlerMapGenHelper
     {
 
-        public const float EncounterChance = 0.05f;
-        public const float EncounterTreasureChance = 0.2f;
-
         protected IAssetService _assetService;
         protected IUIService _uiService;
         protected ILogService _logService;
@@ -42,15 +39,6 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
         public abstract long GetKey();
 
         public abstract Task<NewCrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData crawlerMapGenData);
-
-        protected readonly long[] _newMapZoneIds = new long[] { ZoneTypes.Cave, ZoneTypes.Dungeon, ZoneTypes.Tower };
-
-
-        protected long GetBuildingTypeFromMapType(long mapTypeId)
-        {
-            return _gameData.Get<CrawlerMapSettings>(_gs.ch).Get(mapTypeId).BuildingTypeId;
-
-        }
 
         /// <summary>
         /// Add a bunch of random lines within a given 

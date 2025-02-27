@@ -3,6 +3,7 @@
   "ParentId": "default",
   "IdKey": 16,
   "Name": "Chieftain",
+  "PluralName": "Chieftains",
   "Icon": "Chieftain",
   "Art": "Chieftain",
   "Effects": [
@@ -18,13 +19,14 @@
     },
     {
       "EntityTypeId": 100,
+      "Quantity": 1,
       "EntityId": 37
     },
     {
       "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 30002
+      "EntityId": 20016
     }
   ],
-  "UpdateTime": "2025-01-11T16:06:35.196Z"
+  "UpdateTime": "2025-02-17T09:10:53.635Z"
 }

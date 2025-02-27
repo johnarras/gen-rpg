@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Logging.Interfaces;
 
-public class UpdateType
+public class UpdateTypes
 {
     public const int Regular = 0;
     public const int Late = 1;
@@ -107,7 +107,7 @@ public class ClientUpdateService : IClientUpdateService
         }
         for (int c = 0; c < _currentUpdates.Count; c++)
         {
-            if (_currentUpdates[c].UpdateType == UpdateType.Regular)
+            if (_currentUpdates[c].UpdateType == UpdateTypes.Regular)
             {
                 _currentUpdates[c].Call(_mapToken);
             }
@@ -125,7 +125,7 @@ public class ClientUpdateService : IClientUpdateService
         }
         for (int c = 0; c < _currentUpdates.Count; c++)
         {
-            if (_currentUpdates[c].UpdateType == UpdateType.Late)
+            if (_currentUpdates[c].UpdateType == UpdateTypes.Late)
             {
                 _currentUpdates[c].Call(_mapToken);
             }
@@ -135,7 +135,7 @@ public class ClientUpdateService : IClientUpdateService
 
     public void AddUpdate(object obj, Action funcIn, int updateType, CancellationToken token)
     {
-        if (obj == null || token.IsCancellationRequested || funcIn == null || updateType < UpdateType.Regular || updateType >= UpdateType.Max)
+        if (obj == null || token.IsCancellationRequested || funcIn == null || updateType < UpdateTypes.Regular || updateType >= UpdateTypes.Max)
         {
             return;
         }
@@ -151,7 +151,7 @@ public class ClientUpdateService : IClientUpdateService
 
     public void AddTokenUpdate(object obj, Action<CancellationToken> funcIn, int updateType, CancellationToken token)
     {
-        if (obj == null || token.IsCancellationRequested || funcIn == null || updateType < UpdateType.Regular || updateType >= UpdateType.Max)
+        if (obj == null || token.IsCancellationRequested || funcIn == null || updateType < UpdateTypes.Regular || updateType >= UpdateTypes.Max)
         {
             return;
         }
@@ -221,7 +221,7 @@ public class ClientUpdateService : IClientUpdateService
             _newUpdate = _toAddList[a];
             if (!_newUpdate.HasAction() ||
                 _newUpdate.Token.IsCancellationRequested ||
-                 _newUpdate.UpdateType < UpdateType.Regular || _newUpdate.UpdateType >= UpdateType.Max)
+                 _newUpdate.UpdateType < UpdateTypes.Regular || _newUpdate.UpdateType >= UpdateTypes.Max)
             {
                 continue;
             }

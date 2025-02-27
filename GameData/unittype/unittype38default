@@ -2,27 +2,33 @@
   "Id": "unittype38default",
   "ParentId": "default",
   "IdKey": 38,
-  "Name": "Faerie",
-  "PluralName": "Faeries",
-  "Icon": "Faerie",
-  "Art": "Faerie",
-  "TribeTypeId": 8,
-  "MinLevel": 20,
+  "Name": "Cleric",
+  "PluralName": "Clerics",
+  "Icon": "Cleric",
+  "Art": "Cleric",
+  "TribeTypeId": 13,
+  "MinLevel": 1,
   "SpawnQuantityScale": 1.0,
   "Effects": [
     {
-      "EntityTypeId": 31,
+      "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 35
+      "EntityId": 15
     },
     {
-      "EntityTypeId": 36,
-      "EntityId": 5
+      "EntityTypeId": 100,
+      "Quantity": 1,
+      "EntityId": 16
     },
     {
-      "EntityTypeId": 25,
+      "EntityTypeId": 100,
       "Quantity": 1,
-      "EntityId": 9
+      "EntityId": 49
+    },
+    {
+      "EntityTypeId": 100,
+      "Quantity": 1,
+      "EntityId": 20030
     }
   ],
   "PrefixNames": [],
@@ -32,5 +38,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2025-01-19T14:56:01.421Z"
+  "UpdateTime": "2025-02-22T18:54:19.734Z"
 }

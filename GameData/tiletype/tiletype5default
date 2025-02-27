@@ -6,7 +6,6 @@
   "Desc": "Lots of trees",
   "Icon": "ForestTile",
   "Art": "ForestTile",
-  "SpawnChance": 1.0,
   "PassRewards": [],
   "LandRewards": [],
   "UpdateTime": "2025-02-02T19:57:40.985Z"

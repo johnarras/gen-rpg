@@ -56,8 +56,8 @@ namespace Genrpg.Shared.BoardGame.PlayerData
 
         [Key(13)] public SmallIdShortCollection Tiles { get; set; } = new SmallIdShortCollection();
 
-        [Key(12)] public SmallIndexBitList Events { get; set; } = new SmallIndexBitList();
-        [Key(12)] public SmallIndexBitList Bonuses { get; set; } = new SmallIndexBitList();
+        [Key(14)] public SmallIndexBitList Events { get; set; } = new SmallIndexBitList();
+        [Key(15)] public SmallIndexBitList Bonuses { get; set; } = new SmallIndexBitList();
 
 
         private long[] _allPathIndexes = null;

@@ -212,29 +212,17 @@ namespace Genrpg.RequestServer.BoardGame.BoardGen
 
         public async Task UpdateTiles(WebContext context, BoardData boardData, int startIndex, int length)
         {
-            IReadOnlyList<TileType> tileTypes = _gameData.Get<TileTypeSettings>(context.user).GetData().Where(x => x.SpawnChance > 0).ToList();
+            IReadOnlyList<TileType> tileTypes = _gameData.Get<TileTypeSettings>(context.user).GetData().Where(x => x.Weight > 0).ToList();
 
             IBoardModeHelper helper = _boardModeService.GetBoardModeHelper(boardData.BoardModeId);
 
             int index = startIndex;
 
-            double chanceSum = tileTypes.Sum(x => x.SpawnChance);
             for (int i = 0; i < length; i++)
             { 
                 if (true || boardData.Tiles.Get(index) == 0)
                 {
-                    double chanceChosen = context.rand.NextDouble()* chanceSum; 
-
-                    foreach (TileType tileType in tileTypes)
-                    {
-                        chanceChosen -= tileType.SpawnChance;
-                        if (chanceChosen <= 0)
-                        {
-                            boardData.Tiles.Set(index, (short)tileType.IdKey);
-                            _logService.Info("SetTileIndex: " + index);
-                            break;
-                        }
-                    }
+                    boardData.Tiles.Set(index, (short)(RandomUtils.GetRandomElement(tileTypes, context.rand).IdKey));
                 }
 
                 index = helper.GetNextTileIndex(context, boardData, index);

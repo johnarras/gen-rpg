@@ -229,7 +229,7 @@ namespace Genrpg.Editor.Importers
                 CrawlerSpell spell = new CrawlerSpell()
                 {
                     IdKey = utype.IdKey + CrawlerSpellConstants.MonsterSummonSpellIdOffset,
-                    Name = "Summon " + utype.Name,
+                    Name = "Monster Call " + utype.Name,
                     PowerCost = 100,
                     PowerPerLevel = 1,
                     MinRange = 0,

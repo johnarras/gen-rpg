@@ -5,22 +5,24 @@
       "ParentId": "default",
       "IdKey": 1,
       "Name": "Humanoid",
+      "PluralName": "Humanoids",
       "Icon": "Humanoid",
       "Art": "Humanoid",
       "Effects": [
         {
           "EntityTypeId": 100,
           "Quantity": 1,
-          "EntityId": 30001
+          "EntityId": 20001
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword2default",
       "ParentId": "default",
       "IdKey": 2,
       "Name": "Barbaric",
+      "PluralName": "Barbarics",
       "Icon": "Barbaric",
       "Art": "Barbaric",
       "Effects": [
@@ -36,91 +38,99 @@
         },
         {
           "EntityTypeId": 36,
+          "Quantity": 1,
           "EntityId": 5
         },
         {
           "EntityTypeId": 100,
+          "Quantity": 1,
           "EntityId": 2
         },
         {
           "EntityTypeId": 100,
           "Quantity": 1,
-          "EntityId": 30001
+          "EntityId": 20002
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword3default",
       "ParentId": "default",
       "IdKey": 3,
       "Name": "Warrior",
+      "PluralName": "Warriors",
       "Icon": "Warrior",
       "Art": "Warrior",
       "Effects": [
         {
           "EntityTypeId": 100,
+          "Quantity": 1,
           "EntityId": 37
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 2
-        },
-        {
-          "EntityTypeId": 100,
           "Quantity": 1,
-          "EntityId": 30001
+          "EntityId": 20003
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword4default",
       "ParentId": "default",
       "IdKey": 4,
       "Name": "Mage",
+      "PluralName": "Mages",
       "Icon": "Mage",
       "Art": "Mage",
       "Effects": [
         {
           "EntityTypeId": 100,
+          "Quantity": 1,
           "EntityId": 27
         },
         {
           "EntityTypeId": 100,
+          "Quantity": 1,
           "EntityId": 28
         },
         {
           "EntityTypeId": 100,
+          "Quantity": 1,
           "EntityId": 30
         },
         {
           "EntityTypeId": 100,
+          "Quantity": 1,
           "EntityId": 29
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword5default",
       "ParentId": "default",
       "IdKey": 5,
       "Name": "Mythological",
+      "PluralName": "Mythologicals",
       "Icon": "Mythological",
       "Art": "Mythological",
       "Effects": [
         {
           "EntityTypeId": 36,
+          "Quantity": 1,
           "EntityId": 13
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword6default",
       "ParentId": "default",
       "IdKey": 6,
       "Name": "Lord",
+      "PluralName": "Lords",
       "Icon": "Lord",
       "Art": "Lord",
       "Effects": [
@@ -136,46 +146,42 @@
         },
         {
           "EntityTypeId": 36,
+          "Quantity": 1,
           "EntityId": 11
         },
         {
           "EntityTypeId": 36,
+          "Quantity": 1,
           "EntityId": 8
         },
         {
           "EntityTypeId": 100,
           "Quantity": 1,
-          "EntityId": 30002
+          "EntityId": 20006
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword7default",
       "ParentId": "default",
       "IdKey": 7,
       "Name": "Beast",
+      "PluralName": "Beasts",
       "Icon": "Beast",
       "Art": "Beast",
       "Effects": [],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword8default",
       "ParentId": "default",
       "IdKey": 8,
       "Name": "Undead",
+      "PluralName": "Undead",
       "Icon": "Undead",
       "Art": "Undead",
       "Effects": [
-        {
-          "EntityTypeId": 36,
-          "EntityId": 2
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 3
-        },
         {
           "EntityTypeId": 24,
           "Quantity": 1,
@@ -185,110 +191,128 @@
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 6
+        },
+        {
+          "EntityTypeId": 36,
+          "Quantity": 1,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 36,
+          "Quantity": 1,
+          "EntityId": 3
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword9default",
       "ParentId": "default",
       "IdKey": 9,
       "Name": "Thief",
+      "PluralName": "Thieves",
       "Icon": "Thief",
       "Art": "Thief",
       "Effects": [
         {
           "EntityTypeId": 36,
+          "Quantity": 1,
           "EntityId": 1
         },
         {
           "EntityTypeId": 100,
           "Quantity": 1,
-          "EntityId": 30001
+          "EntityId": 20009
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword10default",
       "ParentId": "default",
       "IdKey": 10,
       "Name": "Dragon",
+      "PluralName": "Dragons",
       "Icon": "Dragon",
       "Art": "Dragon",
       "MinRange": 30,
       "Effects": [
         {
+          "EntityTypeId": 25,
+          "Quantity": 1,
+          "EntityId": 1
+        },
+        {
           "EntityTypeId": 36,
+          "Quantity": 1,
           "EntityId": 11
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 2
-        },
-        {
-          "EntityTypeId": 25,
           "Quantity": 1,
-          "EntityId": 1
+          "EntityId": 2
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword11default",
       "ParentId": "default",
       "IdKey": 11,
       "Name": "Golem",
+      "PluralName": "Golems",
       "Icon": "Golem",
       "Art": "Golem",
       "Effects": [
         {
+          "EntityTypeId": 25,
+          "Quantity": 1,
+          "EntityId": 1
+        },
+        {
           "EntityTypeId": 36,
+          "Quantity": 1,
           "EntityId": 12
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 2
-        },
-        {
-          "EntityTypeId": 25,
           "Quantity": 1,
-          "EntityId": 1
+          "EntityId": 2
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword12default",
       "ParentId": "default",
       "IdKey": 12,
       "Name": "Vermin",
+      "PluralName": "Vermins",
       "Icon": "Vermin",
       "Art": "Vermin",
       "Effects": [
         {
           "EntityTypeId": 36,
+          "Quantity": 1,
           "EntityId": 1
         },
         {
           "EntityTypeId": 36,
+          "Quantity": 1,
           "EntityId": 2
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword13default",
       "ParentId": "default",
       "IdKey": 13,
       "Name": "Giant",
+      "PluralName": "Giants",
       "Icon": "Giant",
       "Art": "Giant",
       "Effects": [
-        {
-          "EntityTypeId": 100,
-          "EntityId": 2
-        },
         {
           "EntityTypeId": 25,
           "Quantity": 1,
@@ -297,32 +321,40 @@
         {
           "EntityTypeId": 100,
           "Quantity": 1,
-          "EntityId": 30001
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20013
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword14default",
       "ParentId": "default",
       "IdKey": 14,
       "Name": "Archer",
+      "PluralName": "Archers",
       "Icon": "Archer",
       "Art": "Archer",
       "MinRange": 40,
       "Effects": [
         {
           "EntityTypeId": 100,
+          "Quantity": 1,
           "EntityId": 3
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword15default",
       "ParentId": "default",
       "IdKey": 15,
       "Name": "Lieutenant",
+      "PluralName": "Lieutenants",
       "Icon": "Lieutenant",
       "Art": "Lieutenant",
       "Effects": [
@@ -339,16 +371,17 @@
         {
           "EntityTypeId": 100,
           "Quantity": 1,
-          "EntityId": 30002
+          "EntityId": 20015
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword16default",
       "ParentId": "default",
       "IdKey": 16,
       "Name": "Chieftain",
+      "PluralName": "Chieftains",
       "Icon": "Chieftain",
       "Art": "Chieftain",
       "Effects": [
@@ -364,79 +397,75 @@
         },
         {
           "EntityTypeId": 100,
+          "Quantity": 1,
           "EntityId": 37
         },
         {
           "EntityTypeId": 100,
           "Quantity": 1,
-          "EntityId": 30002
+          "EntityId": 20016
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword17default",
       "ParentId": "default",
       "IdKey": 17,
       "Name": "Shaman",
+      "PluralName": "Shamans",
       "Icon": "Shaman",
       "Art": "Shaman",
       "Effects": [
         {
           "EntityTypeId": 100,
+          "Quantity": 1,
           "EntityId": 31
         },
         {
           "EntityTypeId": 100,
+          "Quantity": 1,
           "EntityId": 32
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword18default",
       "ParentId": "default",
       "IdKey": 18,
       "Name": "Priest",
+      "PluralName": "Priests",
       "Icon": "Priest",
       "Art": "Priest",
       "Effects": [
         {
           "EntityTypeId": 36,
+          "Quantity": 1,
           "EntityId": 5
         },
         {
           "EntityTypeId": 36,
+          "Quantity": 1,
           "EntityId": 7
         },
         {
           "EntityTypeId": 100,
           "Quantity": 1,
-          "EntityId": 20031
+          "EntityId": 20030
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword19default",
       "ParentId": "default",
       "IdKey": 19,
       "Name": "Demon",
+      "PluralName": "Demons",
       "Icon": "Demon",
       "Art": "Demon",
       "Effects": [
-        {
-          "EntityTypeId": 36,
-          "EntityId": 6
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 11
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 2
-        },
         {
           "EntityTypeId": 24,
           "Quantity": 1,
@@ -448,53 +477,69 @@
           "EntityId": 6
         },
         {
+          "EntityTypeId": 36,
+          "Quantity": 1,
+          "EntityId": 6
+        },
+        {
+          "EntityTypeId": 36,
+          "Quantity": 1,
+          "EntityId": 11
+        },
+        {
           "EntityTypeId": 100,
           "Quantity": 1,
-          "EntityId": 20059
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 20058
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword20default",
       "ParentId": "default",
       "IdKey": 20,
       "Name": "Air",
+      "PluralName": "Airs",
       "Icon": "Air",
       "Art": "Air",
       "Effects": [
         {
+          "EntityTypeId": 24,
+          "Quantity": 1,
+          "EntityId": 5
+        },
+        {
+          "EntityTypeId": 25,
+          "Quantity": 1,
+          "EntityId": 4
+        },
+        {
           "EntityTypeId": 100,
+          "Quantity": 1,
           "EntityId": 31
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 32
-        },
-        {
-          "EntityTypeId": 24,
           "Quantity": 1,
-          "EntityId": 5
+          "EntityId": 32
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword21default",
       "ParentId": "default",
       "IdKey": 21,
       "Name": "Fire",
+      "PluralName": "Fires",
       "Icon": "Fire",
       "Art": "Fire",
       "Effects": [
-        {
-          "EntityTypeId": 100,
-          "EntityId": 27
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 50
-        },
         {
           "EntityTypeId": 24,
           "Quantity": 1,
@@ -504,26 +549,29 @@
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 27
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 50
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     },
     {
       "Id": "unitkeyword22default",
       "ParentId": "default",
       "IdKey": 22,
       "Name": "Water",
+      "PluralName": "Waters",
       "Icon": "Water",
       "Art": "Water",
       "Effects": [
-        {
-          "EntityTypeId": 100,
-          "EntityId": 29
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 30
-        },
         {
           "EntityTypeId": 24,
           "Quantity": 1,
@@ -533,15 +581,25 @@
           "EntityTypeId": 25,
           "Quantity": 1,
           "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 29
+        },
+        {
+          "EntityTypeId": 100,
+          "Quantity": 1,
+          "EntityId": 30
         }
       ],
-      "UpdateTime": "2025-01-11T16:06:35.196Z"
+      "UpdateTime": "2025-02-17T09:10:53.635Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "UnitKeywordSettings",
-    "UpdateTime": "2025-01-11T16:06:35.196Z"
+    "UpdateTime": "2025-02-17T09:10:53.635Z"
   },
   "Id": "default"
 }

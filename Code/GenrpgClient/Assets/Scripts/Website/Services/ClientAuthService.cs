@@ -24,7 +24,7 @@ using Genrpg.Shared.Accounts.WebApi.Login;
 using Genrpg.Shared.Accounts.WebApi.Signup;
 
 
-public interface IClientAuthService : IInitializable, IGameCleanup
+public interface IClientAuthService : IInitializable, IClientResetCleanup
 {
     void StartAuth(CancellationToken token);
     void Logout();
@@ -212,7 +212,7 @@ public class ClientAuthService : IClientAuthService
         await Task.CompletedTask;
     }
 
-    public async Task OnCleanup(CancellationToken token)
+    public async Task OnClientResetCleanup(CancellationToken token)
     {
         ExitMMOMap();
         await Task.CompletedTask;

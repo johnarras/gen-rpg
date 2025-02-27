@@ -2,7 +2,7 @@
   "Id": "crawlerspell20072default",
   "ParentId": "default",
   "IdKey": 20072,
-  "Name": "Summon Water Elemental",
+  "Name": "Monster Call Bear",
   "PowerCost": 100.0,
   "PowerPerLevel": 1.0,
   "MaxRange": 100,
@@ -16,8 +16,8 @@
       "EntityId": 72,
       "MinQuantity": 1,
       "MaxQuantity": 1,
-      "ElementTypeId": 3
+      "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2025-01-26T21:39:02.417Z"
+  "UpdateTime": "2025-02-25T19:39:14.046Z"
 }

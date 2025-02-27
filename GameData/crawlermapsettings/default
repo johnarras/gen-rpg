@@ -1,6 +1,21 @@
 {
   "Id": "default",
   "CorridorDungeonSizeScale": 1.5,
+  "MinZoneUnitSpawns": 8,
+  "MaxZoneUnitSpawns": 12,
+  "RareSpawnCount": 2,
+  "QuestItemEntranceUnlockChance": 1.0,
+  "RiddleUnlockChance": 0.3,
+  "TreasureChance": 0.1,
+  "EncounterChance": 0.06,
+  "TrapChance": 0.3,
+  "DrainHealthPercent": 0.02,
+  "DrainManaPercent": 0.02,
+  "TrapHitChance": 0.5,
+  "TrapDebuffChance": 0.05,
+  "TrapDebuffLevelScaling": 0.2,
+  "TrapMinDamPerLevel": 1,
+  "TrapMaxDamagePerLevel": 5,
   "Name": "CrawlerMapSettings",
-  "UpdateTime": "2025-02-09T16:27:09.206Z"
+  "UpdateTime": "2025-02-25T14:30:57.257Z"
 }

@@ -3,5 +3,7 @@
   "ParentId": "default",
   "IdKey": 5,
   "Name": "Hide",
-  "UpdateTime": "2024-08-01T00:27:58.84Z"
+  "WeaponDamageScale": 1.0,
+  "StatBonusDamageScale": 1.0,
+  "UpdateTime": "2025-02-22T22:28:46.973Z"
 }

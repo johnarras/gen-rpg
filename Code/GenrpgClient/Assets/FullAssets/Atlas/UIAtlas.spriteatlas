@@ -74,8 +74,6 @@ SpriteAtlas:
     - 788452b61293831408e4ee38f0cb3df3: 21300000
     - abbe8e2751e2779499587437d27d462f: 21300000
     - f7fe0067a0a783a4ebabb0ccbc08d818: 21300000
-    - 015c36b764e80014886f29b67342b438: 21300000
-    - 325773c7aa3214d4695bee98cd338b1d: 21300000
     - 589cd1d7280d00746965b6859c3c0f02: 21300000
     - 8ab8b288fb666ef42bad8ee4a3c4daf1: 21300000
     - feb8f3b8261152b4f96a0ed1ac12b032: 21300000
@@ -85,6 +83,7 @@ SpriteAtlas:
     - 9be221998bc4e9b42a92f8a355d8e6b8: 21300000
     - 8c38f4d9ee8b63e42b9767d25e8dbf30: 21300000
     - 098ff2e989588f64e89bf458922f7f98: 21300000
+    - 83c5051a44bdbc14e9aa11e5afc6a496: 21300000
     - eed8725a14fa6564e86bca71b590ef61: 21300000
     - e914527a73a43eb4582f1b5d47242a64: 21300000
     - 5614073b2faf9ab4eaa1d993cb415920: 21300000
@@ -98,6 +97,7 @@ SpriteAtlas:
     - 64efbb6d6af2932428b1a8811f17b904: 21300000
     - c0a644ed990f9fb4d9346cc58b828b47: 21300000
     - b36d2ffdd05702742a76479b1687828c: 21300000
+    - 463792be2da182b4989a404c9defdff9: 21300000
     - 7d2876be6d9c08b409274b86baad3554: 21300000
     - cdcab9ceeacc32e47baae13128dae9db: 21300000
     - 70af501f3b623fd4da7706c68ce0ab35: 21300000
@@ -129,8 +129,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 788452b61293831408e4ee38f0cb3df3, type: 3}
   - {fileID: 21300000, guid: abbe8e2751e2779499587437d27d462f, type: 3}
   - {fileID: 21300000, guid: f7fe0067a0a783a4ebabb0ccbc08d818, type: 3}
-  - {fileID: 21300000, guid: 015c36b764e80014886f29b67342b438, type: 3}
-  - {fileID: 21300000, guid: 325773c7aa3214d4695bee98cd338b1d, type: 3}
   - {fileID: 21300000, guid: 589cd1d7280d00746965b6859c3c0f02, type: 3}
   - {fileID: 21300000, guid: 8ab8b288fb666ef42bad8ee4a3c4daf1, type: 3}
   - {fileID: 21300000, guid: feb8f3b8261152b4f96a0ed1ac12b032, type: 3}
@@ -140,6 +138,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 9be221998bc4e9b42a92f8a355d8e6b8, type: 3}
   - {fileID: 21300000, guid: 8c38f4d9ee8b63e42b9767d25e8dbf30, type: 3}
   - {fileID: 21300000, guid: 098ff2e989588f64e89bf458922f7f98, type: 3}
+  - {fileID: 21300000, guid: 83c5051a44bdbc14e9aa11e5afc6a496, type: 3}
   - {fileID: 21300000, guid: eed8725a14fa6564e86bca71b590ef61, type: 3}
   - {fileID: 21300000, guid: e914527a73a43eb4582f1b5d47242a64, type: 3}
   - {fileID: 21300000, guid: 5614073b2faf9ab4eaa1d993cb415920, type: 3}
@@ -153,6 +152,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 64efbb6d6af2932428b1a8811f17b904, type: 3}
   - {fileID: 21300000, guid: c0a644ed990f9fb4d9346cc58b828b47, type: 3}
   - {fileID: 21300000, guid: b36d2ffdd05702742a76479b1687828c, type: 3}
+  - {fileID: 21300000, guid: 463792be2da182b4989a404c9defdff9, type: 3}
   - {fileID: 21300000, guid: 7d2876be6d9c08b409274b86baad3554, type: 3}
   - {fileID: 21300000, guid: cdcab9ceeacc32e47baae13128dae9db, type: 3}
   - {fileID: 21300000, guid: 70af501f3b623fd4da7706c68ce0ab35, type: 3}
@@ -183,8 +183,6 @@ SpriteAtlas:
   - WorldPanelBG
   - BGDark
   - PurpleBar
-  - NoMagic
-  - NoMelee
   - BarBGBrown2
   - ButtonInfo
   - IconGems
@@ -194,6 +192,7 @@ SpriteAtlas:
   - BlueBar
   - RoundRocks2
   - GreenBar
+  - Peaceful
   - BGCirclePurple
   - RedBar
   - IconSilver
@@ -207,6 +206,7 @@ SpriteAtlas:
   - StatusPanelBG
   - NoRanged
   - BGPurple
+  - CompassBG
   - WorldPanelBGStart
   - WhiteCircle256
   - BGPlayerStatusRow

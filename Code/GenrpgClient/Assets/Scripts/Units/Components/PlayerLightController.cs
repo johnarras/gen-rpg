@@ -1,7 +1,11 @@
 ﻿
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
+using Genrpg.Shared.Crawler.Buffs.Constants;
 using Genrpg.Shared.Crawler.Maps.Constants;
+using Genrpg.Shared.Crawler.Maps.Entities;
 using Genrpg.Shared.Crawler.Maps.Services;
+using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.Utils;
 using UnityEngine;
 
@@ -11,6 +15,8 @@ namespace Assets.Scripts.Controllers
     {
         private IModTextureService _modTextureService;
         private ICrawlerMapService _crawlerMapService;
+        private ICrawlerService _crawlerService;
+        private ICrawlerWorldService _crawlerWorldService;
 
         public float Range = 75;
 
@@ -33,7 +39,7 @@ namespace Assets.Scripts.Controllers
         public override void Init()
         {
             base.Init();
-            AddUpdate(LightUpdate, UpdateType.Late);
+            AddUpdate(LightUpdate, UpdateTypes.Late);
             _startMaxIntensity = MaxIntensity;
             _targetIntensity = MaxIntensity;
             _currIntensity = MaxIntensity;
@@ -42,10 +48,21 @@ namespace Assets.Scripts.Controllers
         bool haveSetPosition = false;
         private void LightUpdate()
         {
-            if (!_crawlerMapService.IsDungeon(_crawlerMapService.GetMapType()))
+            if (!_crawlerMapService.IsIndoors())
             {
                 return;
             }
+
+            PartyData partyData = _crawlerService.GetParty();
+            CrawlerMap map = _crawlerWorldService.GetMap(partyData.MapId);
+
+
+            if (_crawlerMapService.HasMagicBit(partyData.MapX, partyData.MapZ, MapMagic.Darkness))
+            {
+                Headlight.intensity = 0;
+                return;
+            }
+
             if (!haveSetPosition)
             {
                entity.transform.localPosition = Offset;
@@ -70,11 +87,9 @@ namespace Assets.Scripts.Controllers
 
             if (Headlight != null)
             {
-                Headlight.intensity = _currIntensity;
+                Headlight.intensity = _currIntensity * partyData.Buffs.Get(PartyBuffs.Light);
                 Headlight.range = Range;
             }
-
         }
-
     }
 }

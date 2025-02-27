@@ -79,7 +79,7 @@ namespace Assets.Scripts.BoardGame.Controllers
             _token = token;
             RefreshBoardToken();
 
-            _updateService.AddUpdate(this, OnUpdate, UpdateType.Regular, token);
+            _updateService.AddUpdate(this, OnUpdate, UpdateTypes.Regular, token);
 
             await Task.CompletedTask;
         }

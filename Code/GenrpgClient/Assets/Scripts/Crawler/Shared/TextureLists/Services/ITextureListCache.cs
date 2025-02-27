@@ -10,7 +10,7 @@ namespace Genrpg.Shared.Crawler.TextureLists.Services
 
     public delegate void DownloadTextureListHandler(object textureList, object data);
 
-    public interface ITextureListCache : IInitializable, IGameCleanup
+    public interface ITextureListCache : IInitializable, IClientResetCleanup
     {
         void LoadTextureList(string textureName, DownloadTextureListHandler handler, object data, CancellationToken token);
     }

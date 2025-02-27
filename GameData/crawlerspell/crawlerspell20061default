@@ -2,7 +2,7 @@
   "Id": "crawlerspell20061default",
   "ParentId": "default",
   "IdKey": 20061,
-  "Name": "Summon Blue Dragon",
+  "Name": "Monster Call Red Dragon",
   "PowerCost": 100.0,
   "PowerPerLevel": 1.0,
   "MaxRange": 100,
@@ -16,8 +16,8 @@
       "EntityId": 61,
       "MinQuantity": 1,
       "MaxQuantity": 1,
-      "ElementTypeId": 4
+      "ElementTypeId": 2
     }
   ],
-  "UpdateTime": "2025-01-26T21:39:02.417Z"
+  "UpdateTime": "2025-02-25T19:39:14.046Z"
 }

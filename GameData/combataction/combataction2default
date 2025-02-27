@@ -3,5 +3,10 @@
   "ParentId": "default",
   "IdKey": 2,
   "Name": "Defend",
-  "UpdateTime": "2024-08-01T00:27:58.834Z"
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "WeaponDamageScale": 1.0,
+  "StatBonusDamageScale": 1.0,
+  "UpdateTime": "2025-02-22T22:28:46.973Z"
 }

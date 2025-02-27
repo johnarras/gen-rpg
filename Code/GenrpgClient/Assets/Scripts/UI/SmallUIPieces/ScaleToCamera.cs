@@ -18,7 +18,7 @@ public class ScaleToCamera : BaseBehaviour
     {
         base.Init();
         LateScaleUpdate();
-        AddUpdate(LateScaleUpdate, UpdateType.Late);
+        AddUpdate(LateScaleUpdate, UpdateTypes.Late);
     }
 
 

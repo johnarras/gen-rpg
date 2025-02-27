@@ -34,19 +34,18 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             long cityZoneTypeId = allZoneTypes.FirstOrDefault(x => x.Name == "City")?.IdKey ?? 1;
             long roadZoneTypeId = allZoneTypes.FirstOrDefault(x => x.Name == "Road")?.IdKey ?? 1;
             long fillerZoneTypeId = ZoneTypes.Field;
-            CrawlerMapType mapType = _gameData.Get<CrawlerMapSettings>(_gs.ch).Get(CrawlerMapTypes.City);
+            CrawlerMapGenType genType = genData.GenType;
 
             bool isRoguelike = party.GameMode == ECrawlerGameModes.Roguelite;
 
             int mapEdgeDistance = 1;
 
-            int width = (int)MathUtils.LongRange(mapType.MinWidth, mapType.MaxWidth, rand);
-            int height = (int)MathUtils.LongRange(mapType.MinHeight, mapType.MaxHeight, rand);
-            genData.ZoneTypeId = cityZoneTypeId;
-            CrawlerMap map = genData.World.CreateMap(genData, width, height);
+            int width = (int)MathUtils.LongRange(genType.MinWidth, genType.MaxWidth, rand);
+            int height = (int)MathUtils.LongRange(genType.MinHeight, genType.MaxHeight, rand);
+            CrawlerMap map = _worldService.CreateMap(genData, width, height);
 
-            map.Name = _zoneGenService.GenerateZoneName(genData.ZoneTypeId, rand.Next(), true);
-            bool[,] clearCells = AddCorridors(map, genData, rand, MathUtils.FloatRange(mapType.MinCorridorDensity, mapType.MaxCorridorDensity, rand));
+            map.Name = _zoneGenService.GenerateZoneName(genData.ZoneType.IdKey, rand.Next(), true);
+            bool[,] clearCells = AddCorridors(map, genData, rand, MathUtils.FloatRange(genType.MinCorridorDensity, genType.MaxCorridorDensity, rand));
 
             int gateX = -1;
             int gateZ = -1;
@@ -200,7 +199,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
             List<MyPoint> points = new List<MyPoint>();
 
-            float buildingChance = MathUtils.FloatRange(mapType.MinBuildingDensity, mapType.MaxBuildingDensity, rand);
+            float buildingChance = MathUtils.FloatRange(genType.MinBuildingDensity, genType.MaxBuildingDensity, rand);
 
             if (fillerBuildings.Count > 0)
             {
@@ -300,7 +299,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             }
 
 
-            points = points.Where(x => x.X > 0 && x.Y > 0 && x.X < map.Width - 1 && x.Y < map.Height - 1).ToList();
+            points = points.Where(x => x.X > mapEdgeDistance && x.Y > mapEdgeDistance && x.X < map.Width - 1 - mapEdgeDistance && x.Y < map.Height - 1 - mapEdgeDistance).ToList();
             foreach (BuildingType btype in requiredBuildings)
             {
                 if (points.Count < 1)
@@ -314,19 +313,26 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 map.Set((int)currPoint.X, (int)currPoint.Y, CellIndex.Building, btype.IdKey);
             }
 
-            List<long> randomMapZoneIds = new List<long>(_newMapZoneIds);
+
+            int dungeonCount = 1;
+            if (rand.NextDouble() < 0.5f)
+            {
+                dungeonCount++;
+            }
+            if (rand.NextDouble() < 0.25f)
+            {
+                dungeonCount++;
+            }
 
             int dungeonLevel = map.Level + 1;
-            while (randomMapZoneIds.Count > 0)
+            while (dungeonCount > 0)
             {
                 if (points.Count < 1)
                 {
-                    continue;
+                    break;
                 }
 
-                long newZoneTypeId = randomMapZoneIds[rand.Next() % randomMapZoneIds.Count];
-
-                randomMapZoneIds.Remove(newZoneTypeId);
+                dungeonCount--;
 
                 MyPoint currPoint = points[rand.Next() % points.Count];
                 points.Remove(currPoint);
@@ -334,8 +340,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 CrawlerMapGenData dungeonGenData = new CrawlerMapGenData()
                 {
                     World = genData.World,
-                    MapType = CrawlerMapTypes.RandomDungeon,
-                    ZoneTypeId = newZoneTypeId,
+                    MapTypeId = CrawlerMapTypes.Dungeon,
                     Level = dungeonLevel++,
                     FromMapId = map.IdKey,
                     FromMapX = (int)(currPoint.X),
@@ -344,7 +349,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
                 CrawlerMap dungeonMap = await _mapGenService.Generate(party, world, dungeonGenData);
 
-                map.Set((int)currPoint.X, (int)currPoint.Y, CellIndex.Building, GetBuildingTypeFromMapType(dungeonMap.CrawlerMapTypeId));
+                map.Set((int)currPoint.X, (int)currPoint.Y, CellIndex.Building, dungeonMap.BuildingTypeId);
 
                 if (rand.NextDouble() < 0.9)
                 {

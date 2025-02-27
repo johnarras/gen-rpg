@@ -1,4 +1,4 @@
-header tiletype,Idkey,Name,Icon,Art,Desc,SpawnChance
+header tiletype,Idkey,Name,Icon,Art,Desc,Weight
 tiletype,1,Barren,BarrenTile,BarrenTile,Not much here.,1
 tiletype,2,Meadow,MeadowTile,MeadowTile,Some flowers.,1
 tiletype,3,Field,FieldTile,FieldTile,Some crops,1

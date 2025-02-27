@@ -53,19 +53,9 @@ namespace Assets.Scripts.UI.Crawler
             _statusPanel = await _assetService.CreateAsync<StatusPanel, CrawlerScreen>(this,
                 AssetCategoryNames.UI, StatusPanelName, _statusParent, _token, Subdirectory);
 
-            OnLinkPartyDataToUI(new LinkPartyDataToUI() { Party = partyData }); 
-
             _screenService.CloseAll(new List<ScreenId>() { ScreenId.Crawler });
 
             _dispatcher.AddListener<CrawlerCharacterScreenData>(OnCrawlerCharacterData, GetToken());
-            _dispatcher.AddListener<LinkPartyDataToUI>(OnLinkPartyDataToUI, GetToken());
-        }
-
-        private void OnLinkPartyDataToUI(LinkPartyDataToUI link)
-        {
-            link.Party.WorldPanel = _worldPanel;
-            link.Party.StatusPanel = _statusPanel;
-            link.Party.ActionPanel = _actionPanel;
         }
 
         private void OnNewStateData(CrawlerStateData data)

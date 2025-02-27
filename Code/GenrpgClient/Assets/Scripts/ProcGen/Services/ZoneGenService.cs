@@ -511,7 +511,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
             ZoneRockType rt2 = new ZoneRockType();
             rt2.RockTypeId = rt.RockTypeId;
 
-            rt2.ChanceScale = MathUtils.FloatRange(0.3f, 2f, rand);
+            rt2.Weight = MathUtils.FloatRange(0.3f, 2f, rand);
 
             genZone.RockTypes.Add(rt2);
         }
@@ -628,7 +628,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
         foreach (ZoneUnitSpawn spawnItem in zoneType.ZoneUnitSpawns)
         {
 
-            if (spawnItem.Chance <= 0)
+            if (spawnItem.Weight <= 0)
             {
                 continue;
             }
@@ -639,7 +639,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
                 continue;
             }
 
-            double chance = spawnItem.Chance;
+            double chance = spawnItem.Weight;
 
             chance = MathUtils.FloatRange(chance / 2, chance * 2, rand);
 
@@ -657,7 +657,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
             ZoneUnitStatus existingMonster = zone.Units.FirstOrDefault(x => x.UnitTypeId == utype.IdKey);
             if (existingMonster != null)
             {
-                existingMonster.Pop += newPop;
+                existingMonster.Weight += newPop;
             }
             else
             {
@@ -665,7 +665,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
                 {
                     UnitTypeId = utype.IdKey,
                     Killed = 0,
-                    Pop = (int)(basePopMult * chance),
+                    Weight = (int)(basePopMult * chance),
                 };
 
                 zone.Units.Add(unitStatus);

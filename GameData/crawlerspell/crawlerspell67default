@@ -1,0 +1,23 @@
+{
+  "Id": "crawlerspell67default",
+  "ParentId": "default",
+  "IdKey": 67,
+  "Name": "Second Sight",
+  "Desc": "Alerts you to traps nearby.",
+  "PowerCost": 2.0,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 9,
+  "RoleScalingTypeId": 6,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 101,
+      "EntityId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "ElementTypeId": 2
+    }
+  ],
+  "UpdateTime": "2025-02-25T19:39:14.046Z"
+}

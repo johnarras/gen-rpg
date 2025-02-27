@@ -35,7 +35,7 @@ namespace Assets.Scripts.Crawler.Combat
 
         public override void Init()
         {
-            _updateService.AddUpdate(this, OnLateUpdate, UpdateType.Late, GetToken());  
+            _updateService.AddUpdate(this, OnLateUpdate, UpdateTypes.Late, GetToken());  
         }
 
         public void InitData()

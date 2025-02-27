@@ -1,6 +1,9 @@
 ﻿using Assets.Scripts.MVC;
 using Assets.Scripts.UI.Crawler;
 using Assets.Scripts.UI.Crawler.CrawlerPanels;
+using Genrpg.Shared.Client.GameEvents;
+using Genrpg.Shared.Crawler.Buffs.Constants;
+using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.MVC.Interfaces;
@@ -37,6 +40,14 @@ namespace Assets.Scripts.Crawler.UI.WorldUI
 
         private void ClickMapScreen()
         {
+            PartyData partyData = _crawlerService.GetParty();
+
+            if (partyData.Buffs.Get(PartyBuffs.Mapping) == 0)
+            {
+                _dispatcher.Dispatch(new ShowFloatingText("You can only look at maps when mapping is active.", EFloatingTextArt.Error));
+                return;
+            }
+
             _screenService.Open(ScreenId.CrawlerMap);
         }
 

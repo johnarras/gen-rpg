@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.GameSettings;
+using System.Text;
 namespace Genrpg.Shared.Names.Services
 {
     public class NameGenService : INameGenService
@@ -22,8 +23,8 @@ namespace Genrpg.Shared.Names.Services
                 return "";
             }
 
-            float totalWeight = 0;
-            float chosenWeight = 0;
+            double totalWeight = 0;
+            double chosenWeight = 0;
 
             for (int times = 0; times < 2; times++)
             {
@@ -262,6 +263,56 @@ namespace Genrpg.Shared.Names.Services
 
         }
 
+        readonly string[] _consonants = { "b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "l", "n", "p", "q", "r", "s", "sh", "zh", "t", "v", "w", "x" };
+        readonly string[] _vowels = { "a", "e", "i", "o", "u", "ae", "y" };
 
+
+        public string GenerateUnitName(IRandom rand, bool forceSuffix)
+        {
+
+            int syllables = 2 + rand.Next() % 2;
+            if (rand.NextDouble() < 0.1f)
+            {
+                syllables++;
+            }
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < syllables; i++)
+            {
+                if (i == 0)
+                {
+                    sb.Append(_consonants[rand.Next() % _consonants.Length].ToUpper());
+                }
+                else
+                {
+                    sb.Append(_consonants[rand.Next() % _consonants.Length]);
+                }
+                sb.Append(_vowels[rand.Next()%_vowels.Length]);
+            }
+
+            if (rand.NextDouble() < 0.5f)
+            {
+                sb.Append(_consonants[rand.Next() % _consonants.Length]);
+            }
+
+            if (rand.NextDouble() < 0.5f || forceSuffix)
+            {
+                NameSettings nameSettings = _gameData.Get<NameSettings>(null);
+
+                NameList nl = nameSettings.GetNameList("UnitAdjectives");
+
+                if (nl != null)
+                {
+                    string suffix = PickWord(rand, nl.Names);
+
+                    if (!string.IsNullOrEmpty(suffix))
+                    {
+                        sb.Append(" the " + suffix);
+                    }
+                }
+            }
+
+            return sb.ToString();
+        }
     }
 }

@@ -13,12 +13,13 @@ using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Helpers;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.Shared.BoardGame.Settings
 {
 
     [MessagePackObject]
-    public class PrizeSpawn
+    public class PrizeSpawn : IWeightedItem
     {
         [Key(0)] public long BoardPrizeId { get; set; }
         [Key(1)] public double Weight { get; set; }

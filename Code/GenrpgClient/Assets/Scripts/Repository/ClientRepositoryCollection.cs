@@ -13,8 +13,7 @@ using UnityEngine;
 
 public interface IClientRepositoryCollection
 {
-    Awaitable<bool> Save(object t);
-    Awaitable<bool> SavePrettyPrint(object t);
+    Awaitable<bool> Save(object t, bool verbose = false);
     Awaitable<object> LoadWithType(Type t, string id);
 }
 
@@ -91,17 +90,12 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
         return true;
     }
 
-    public async Awaitable<bool> Save(object t)
+    public async Awaitable<bool> Save(object t, bool verbose = false)
     {
-        return await SaveInternal(t, false);
+        return await SaveInternal(t,verbose);
     }
 
-    public async Awaitable<bool> SavePrettyPrint(object t)
-    {
-        return await SaveInternal(t, true);
-    }
-
-    private async Awaitable<bool> SaveInternal(object t, bool savePrettyPrint)
+    private async Awaitable<bool> SaveInternal(object t, bool verbose)
     {
         if (t == null)
         {
@@ -120,7 +114,7 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
                 return false;
             }
             string key = GetKeyFromId(id);
-            string val = (savePrettyPrint ? SerializationUtils.PrettyPrint(t) : SerializationUtils.Serialize(t));
+            string val = (verbose ? SerializationUtils.PrettyPrint(t) : SerializationUtils.Serialize(t));
 
             SaveString(key, val);
         }

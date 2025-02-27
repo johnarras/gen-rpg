@@ -18,6 +18,11 @@ namespace Genrpg.Shared.Core.Constants
         {
             return mode == EGameModes.Crawler;
         }
+
+        public static bool IsCrawlerMode(EGameModes mode)
+        {
+            return mode == EGameModes.Crawler;
+        }
     }
 
 }

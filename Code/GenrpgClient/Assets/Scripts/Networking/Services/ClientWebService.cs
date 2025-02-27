@@ -112,7 +112,7 @@ public class ClientWebService : IClientWebService
         }
 
 
-        _updateService.AddUpdate(this, ProcessRequestQueues, UpdateType.Late, token);
+        _updateService.AddUpdate(this, ProcessRequestQueues, UpdateTypes.Late, token);
 
 
         await Task.CompletedTask;

@@ -10,12 +10,12 @@ namespace Assets.Scripts.Buildings
 
         private BuildingType _btype;
         private OnSpawn _spawn;
-        public void Init(BuildingType btype, OnSpawn spawn)
+        public void Init(BuildingType btype, OnSpawn spawn, string overrideName = null)
         {
             _btype = btype;
             _spawn = spawn;
 
-            _uiService.SetText(SignText, _btype.Name);
+            _uiService.SetText(SignText, !string.IsNullOrEmpty(overrideName) ? overrideName : _btype.Name);
         }
     }
 }

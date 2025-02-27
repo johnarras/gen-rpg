@@ -1,6 +1,10 @@
-﻿using Genrpg.Shared.Buildings.Settings;
+﻿using Assets.Scripts.Crawler.Maps.GameObjects;
+using Genrpg.Shared.Buildings.Settings;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Crawler.MapGen.Entities;
+using Genrpg.Shared.Crawler.Maps.Entities;
+using Genrpg.Shared.Crawler.Maps.Services;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.Utils;
@@ -16,16 +20,34 @@ namespace Assets.Scripts.Buildings
 { 
     public  class CrawlerBuilding : MapBuilding
     {
+        private ICrawlerWorldService _worldService;
+
         public List<MeshRenderer> Walls = new List<MeshRenderer>();
         public List<MeshRenderer> Doors = new List<MeshRenderer>();
         public List<MeshRenderer> Windows = new List<MeshRenderer>();
         public List<MeshRenderer> Shingles = new List<MeshRenderer>();
         public List<MeshRenderer> RoofPeaks = new List<MeshRenderer>();
 
-        public void InitData(BuildingType btype, long seed, BuildingMats mats)
+        public void InitData(BuildingType btype, long seed, CrawlerMapRoot mapRoot, ClientMapCell mapCell, BuildingMats mats)
         {
-            base.Init(btype, new OnSpawn());
+            string overrideName = null;
+
+            MapCellDetail detail = mapRoot.Map.Details.FirstOrDefault(x => x.X == mapCell.X && x.Z == mapCell.Z && x.EntityTypeId == EntityTypes.Map);
+
+            if (detail != null)
+            {
+                CrawlerMap otherMap = _worldService.GetMap(detail.EntityId);
+
+                if (otherMap != null)
+                {
+                    overrideName = otherMap.Name;
+                }
+            }
+
+
+            base.Init(btype, new OnSpawn(), overrideName);
             MyRandom rand = new MyRandom(seed);
+
 
 
             SetMaterialToSlot(Walls, mats.GetMatsFromSlot(EBuildingMatSlots.Walls), rand);

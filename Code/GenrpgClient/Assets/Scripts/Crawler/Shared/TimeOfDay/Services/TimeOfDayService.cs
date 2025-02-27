@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using Genrpg.Shared.Crawler.GameEvents;
 using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Crawler.Buffs.Constants;
+using Assets.Scripts.Crawler.ClientEvents.StatusPanelEvents;
 
 namespace Genrpg.Shared.Crawler.TimeOfDay.Services
 {
@@ -66,6 +68,11 @@ namespace Genrpg.Shared.Crawler.TimeOfDay.Services
                     traversalScale = zoneType.TraveralTimeScale;
                 }
 
+                if (timeSettings.LevitateSpeedup > 1 && partyData.Buffs.Get(PartyBuffs.Levitate) > 0)
+                {
+                    traversalScale /= (timeSettings.LevitateSpeedup * partyData.Buffs.Get(PartyBuffs.Levitate));
+                }
+
                 hoursSpent = timeSettings.BaseMoveMinutes * 1.0 / MinutesPerHour * traversalScale;
 
             }
@@ -100,7 +107,7 @@ namespace Genrpg.Shared.Crawler.TimeOfDay.Services
                 fullHeal = true;
             }
 
-            partyData.HourOfDay += hoursSpent;
+            partyData.HourOfDay += (float)hoursSpent;
 
             while (partyData.HourOfDay > HoursPerDay)
             {
@@ -136,7 +143,7 @@ namespace Genrpg.Shared.Crawler.TimeOfDay.Services
                         member.RegenFractions.Add(fraction);
                     }
 
-                    double regenPercent = hoursSpent / hours.RegenHours;
+                    float regenPercent = (float)(hoursSpent / hours.RegenHours);
 
                     if (fullHeal)
                     {
@@ -166,7 +173,7 @@ namespace Genrpg.Shared.Crawler.TimeOfDay.Services
 
                 if (didAdjustStat)
                 {
-                    partyData.StatusPanel.RefreshUnit(member);
+                    _dispatcher.Dispatch(new RefreshUnitStatus() { Unit = member });
                 }
             }
 
