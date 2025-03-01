@@ -43,17 +43,15 @@ namespace Genrpg.Editor.Importers
         protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, List<string[]> lines)
         {
             string[] firstLine = lines[0];
+            string[] secondLine = lines[1];
 
             string missingWords = "";
-            IReadOnlyList<Role> roles = gs.data.Get<RoleSettings>(null).GetData();
 
             Role[] topRow = new Role[MaxRoles];
 
+            List<Role> newRoles = new List<Role>();
+
             long maxRoleId = 0;
-            if (roles.Count > 0)
-            {
-                maxRoleId = roles.Max(x => x.IdKey);
-            }
             for (int s = 1; s < firstLine.Length; s++)
             {
 
@@ -67,22 +65,40 @@ namespace Genrpg.Editor.Importers
                     missingWords += "BadRoleName:(" + roleName + ")";
                     break;
                 }
-                topRow[s] = roles.FirstOrDefault(x => x.Name == roleName);
-                if (topRow[s] == null)
+
+                if (Int64.TryParse(secondLine[s], out long newRoleId))
                 {
-                    topRow[s] = new Role() { IdKey = ++maxRoleId, Name = roleName };
+                    if (newRoleId < 1)
+                    {
+                        missingWords += " No Role Id Row 2 for Column " + s + " ";
+                        break;
+                    }
+
+                    if (newRoles.Any(x=>x.IdKey == newRoleId))
+                    {
+                        missingWords += " Duplicate Role Idkey: " + newRoleId + " ";
+                        break;
+                    }
+
+
+                    Role role = new Role() { IdKey = newRoleId, Name = roleName };
+                    newRoles.Add(role);
+                    topRow[s] = role;
                 }
-                if (topRow[s] != null)
+                else
                 {
-                    gs.LookedAtObjects.Add(topRow[s]);
-                    topRow[s].BinaryBonuses = new List<RoleBonusBinary>();
-                    topRow[s].AmountBonuses = new List<RoleBonusAmount>();
+                    missingWords += " Role Idkey column " + s + " is not a number ";
+                    break;
                 }
+                gs.LookedAtObjects.Add(topRow[s]);
+                topRow[s].BinaryBonuses = new List<RoleBonusBinary>();
+                topRow[s].AmountBonuses = new List<RoleBonusAmount>();
+
             }
 
             PropertyInfo[] props = typeof(Role).GetProperties();
 
-            for (int line = 1; line < lines.Count; line++)
+            for (int line = 2; line < lines.Count; line++)
             {
                 string[] words = lines[line];
 
@@ -160,8 +176,6 @@ namespace Genrpg.Editor.Importers
                     topRow[c].BinaryBonuses = topRow[c].BinaryBonuses.OrderBy(x=>x.EntityTypeId).ThenBy(x=>x.EntityId).ToList();    
                 }
             }
-
-            List<Role> newRoles = topRow.Where(x=>x != null).ToList();
 
             gs.data.Get<RoleSettings>(null).SetData(newRoles);
 

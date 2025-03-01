@@ -2,19 +2,27 @@
   "Id": "role2default",
   "ParentId": "default",
   "IdKey": 2,
-  "Name": "Cleric",
-  "Desc": "Healing",
-  "Abbrev": "Cl",
+  "Name": "Thief",
+  "Desc": "Sneaky Fighter",
+  "Abbrev": "Th",
   "RoleCategoryId": 1,
-  "HealthPerLevel": 14,
-  "ManaPerLevel": 22,
-  "MaxArmorScalingTypeId": 1,
-  "CritPercent": 5,
-  "ManaStatTypeId": 13,
+  "HealthPerLevel": 16,
+  "ManaPerLevel": 10,
+  "MaxArmorScalingTypeId": 2,
+  "CritPercent": 20,
+  "ManaStatTypeId": 12,
   "TrainingXpScale": 1.0,
   "TrainingGoldScale": 1.0,
-  "StartStatBonuses": "0 3 6 0 1 2",
+  "StartStatBonuses": "4 0 0 2 2 4",
   "BinaryBonuses": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 21
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 22
+    },
     {
       "EntityTypeId": 2,
       "EntityId": 23
@@ -25,11 +33,7 @@
     },
     {
       "EntityTypeId": 2,
-      "EntityId": 28
-    },
-    {
-      "EntityTypeId": 2,
-      "EntityId": 32
+      "EntityId": 31
     },
     {
       "EntityTypeId": 31,
@@ -37,11 +41,11 @@
     },
     {
       "EntityTypeId": 31,
-      "EntityId": 31
+      "EntityId": 20
     },
     {
       "EntityTypeId": 31,
-      "EntityId": 33
+      "EntityId": 63
     },
     {
       "EntityTypeId": 100,
@@ -57,31 +61,19 @@
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 8
+      "EntityId": 4
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 9
+      "EntityId": 13
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 10
+      "EntityId": 14
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 15
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 16
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 17
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 20
+      "EntityId": 19
     },
     {
       "EntityTypeId": 100,
@@ -89,39 +81,35 @@
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 45
+      "EntityId": 34
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 53
+      "EntityId": 43
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 61
+      "EntityId": 46
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 64
+      "EntityId": 47
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 65
+      "EntityId": 48
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 66
+      "EntityId": 49
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 67
+      "EntityId": 50
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 68
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 69
+      "EntityId": 51
     },
     {
       "EntityTypeId": 100,
@@ -129,44 +117,44 @@
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 10031
+      "EntityId": 10020
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 10033
+      "EntityId": 10063
     }
   ],
   "AmountBonuses": [
     {
       "EntityTypeId": 41,
       "EntityId": 1,
-      "Amount": 0.144
+      "Amount": 0.2
     },
     {
       "EntityTypeId": 41,
       "EntityId": 2,
-      "Amount": 0.1
+      "Amount": 0.2
     },
     {
       "EntityTypeId": 41,
       "EntityId": 3,
-      "Amount": 0.34
+      "Amount": 0.17
     },
     {
       "EntityTypeId": 41,
       "EntityId": 4,
-      "Amount": 0.5
+      "Amount": 0.125
     },
     {
       "EntityTypeId": 41,
       "EntityId": 5,
-      "Amount": 0.144
+      "Amount": 0.125
     },
     {
       "EntityTypeId": 41,
       "EntityId": 6,
-      "Amount": 0.15
+      "Amount": 0.2
     }
   ],
-  "UpdateTime": "2025-02-25T14:19:41.267Z"
+  "UpdateTime": "2025-02-28T03:22:40.149Z"
 }

@@ -2,22 +2,23 @@
   "Id": "crawlerspell10default",
   "ParentId": "default",
   "IdKey": 10,
-  "Name": "Cure",
-  "Desc": "Cure a single ally",
-  "PowerCost": 5.0,
+  "Name": "Holy Beam",
+  "Desc": "Hit one or more enemies with holy damage.",
+  "PowerCost": 4.0,
   "PowerPerLevel": 0.5,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 2,
+  "TargetTypeId": 1,
   "RoleScalingTypeId": 4,
   "Level": 1,
   "Effects": [
     {
-      "EntityTypeId": 36,
-      "MinQuantity": -1,
-      "MaxQuantity": -1,
+      "EntityTypeId": 33,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 9,
       "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

@@ -2,22 +2,22 @@
   "Id": "crawlerspell7default",
   "ParentId": "default",
   "IdKey": 7,
-  "Name": "Mesmerize",
-  "Desc": "Make  group of enemies unable to act.",
-  "PowerCost": 10.0,
+  "Name": "Heal Wounds",
+  "Desc": "Heal the wounds of an ally.",
+  "PowerCost": 3.0,
+  "PowerPerLevel": 0.5,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 3,
-  "RoleScalingTypeId": 3,
-  "Level": 6,
+  "TargetTypeId": 2,
+  "RoleScalingTypeId": 4,
+  "Level": 1,
   "Effects": [
     {
-      "EntityTypeId": 36,
-      "EntityId": 4,
+      "EntityTypeId": 34,
       "MinQuantity": 1,
-      "MaxQuantity": 2,
-      "ElementTypeId": 4
+      "MaxQuantity": 9,
+      "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

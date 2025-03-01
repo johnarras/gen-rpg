@@ -37,6 +37,7 @@ namespace Genrpg.Shared.Crawler.States.Constants
         GiveLoot,
         Riddle,
         ReturnToSafety,
+        GainStats,
 
         WorldCast,
         SpecialSpellCast,

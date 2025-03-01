@@ -19,7 +19,7 @@
         }
       ],
       "Flags": 1,
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
       "Id": "crawlerspell2default",
@@ -34,7 +34,7 @@
       "Level": 1,
       "Effects": [],
       "Flags": 1,
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
       "Id": "crawlerspell3default",
@@ -56,7 +56,7 @@
         }
       ],
       "Flags": 1,
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
       "Id": "crawlerspell4default",
@@ -70,12 +70,12 @@
       "RoleScalingTypeId": 6,
       "Level": 1,
       "Effects": [],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell6default",
+      "Id": "crawlerspell5default",
       "ParentId": "default",
-      "IdKey": 6,
+      "IdKey": 5,
       "Name": "Identify Monster",
       "Desc": "Get some information about a monster.",
       "MaxRange": 100,
@@ -86,15 +86,16 @@
       "Effects": [
         {
           "EntityTypeId": 37,
-          "EntityId": 3
+          "EntityId": 3,
+          "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell7default",
+      "Id": "crawlerspell6default",
       "ParentId": "default",
-      "IdKey": 7,
+      "IdKey": 6,
       "Name": "Mesmerize",
       "Desc": "Make  group of enemies unable to act.",
       "PowerCost": 10.0,
@@ -112,12 +113,12 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell8default",
+      "Id": "crawlerspell7default",
       "ParentId": "default",
-      "IdKey": 8,
+      "IdKey": 7,
       "Name": "Heal Wounds",
       "Desc": "Heal the wounds of an ally.",
       "PowerCost": 3.0,
@@ -135,12 +136,12 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell9default",
+      "Id": "crawlerspell8default",
       "ParentId": "default",
-      "IdKey": 9,
+      "IdKey": 8,
       "Name": "Heal Party",
       "Desc": "Heal the wounds of all allies.",
       "PowerCost": 10.0,
@@ -158,12 +159,12 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell10default",
+      "Id": "crawlerspell9default",
       "ParentId": "default",
-      "IdKey": 10,
+      "IdKey": 9,
       "Name": "Cure",
       "Desc": "Cure a single ally",
       "PowerCost": 5.0,
@@ -181,12 +182,12 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell15default",
+      "Id": "crawlerspell10default",
       "ParentId": "default",
-      "IdKey": 15,
+      "IdKey": 10,
       "Name": "Holy Beam",
       "Desc": "Hit one or more enemies with holy damage.",
       "PowerCost": 4.0,
@@ -205,12 +206,12 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell16default",
+      "Id": "crawlerspell11default",
       "ParentId": "default",
-      "IdKey": 16,
+      "IdKey": 11,
       "Name": "Holy Nova",
       "Desc": "Hit all enemies in a group with holy damage.",
       "PowerCost": 8.0,
@@ -229,12 +230,12 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell17default",
+      "Id": "crawlerspell12default",
       "ParentId": "default",
-      "IdKey": 17,
+      "IdKey": 12,
       "Name": "Town Portal",
       "Desc": "Teleport to a town on the overworld map.",
       "PowerCost": 20.0,
@@ -250,12 +251,12 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell18default",
+      "Id": "crawlerspell13default",
       "ParentId": "default",
-      "IdKey": 18,
+      "IdKey": 13,
       "Name": "Phase Wall",
       "Desc": "Pass through a wall in front of you if the square behind it exists.",
       "PowerCost": 50.0,
@@ -271,12 +272,12 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell19default",
+      "Id": "crawlerspell14default",
       "ParentId": "default",
-      "IdKey": 19,
+      "IdKey": 14,
       "Name": "Identify Item",
       "Desc": "Find out the stats an item has.",
       "PowerCost": 10.0,
@@ -292,12 +293,12 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell20default",
+      "Id": "crawlerspell15default",
       "ParentId": "default",
-      "IdKey": 20,
+      "IdKey": 15,
       "Name": "Blink",
       "Desc": "Jump forward 1-9 squares if you are not impeded by anything.",
       "PowerCost": 10.0,
@@ -313,12 +314,12 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell21default",
+      "Id": "crawlerspell16default",
       "ParentId": "default",
-      "IdKey": 21,
+      "IdKey": 16,
       "Name": "Teleport",
       "Desc": "Move to a different location in the current map.",
       "PowerCost": 25.0,
@@ -334,12 +335,12 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell23default",
+      "Id": "crawlerspell17default",
       "ParentId": "default",
-      "IdKey": 23,
+      "IdKey": 17,
       "Name": "Silence",
       "Desc": "Prevent a group from casting spells.",
       "PowerCost": 15.0,
@@ -357,12 +358,12 @@
           "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell24default",
+      "Id": "crawlerspell18default",
       "ParentId": "default",
-      "IdKey": 24,
+      "IdKey": 18,
       "Name": "Entangle",
       "Desc": "Prevent a group from use melee attacks.",
       "PowerCost": 15.0,
@@ -380,12 +381,12 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell25default",
+      "Id": "crawlerspell19default",
       "ParentId": "default",
-      "IdKey": 25,
+      "IdKey": 19,
       "Name": "Poison Blade",
       "Desc": "Hit one or more enemies with a poisoned blade.",
       "PowerCost": 10.0,
@@ -404,12 +405,12 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell27default",
+      "Id": "crawlerspell20default",
       "ParentId": "default",
-      "IdKey": 27,
+      "IdKey": 20,
       "Name": "Fireball",
       "Desc": "Hit one or more enemies in a group with fire damage.",
       "PowerCost": 5.0,
@@ -428,12 +429,12 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell28default",
+      "Id": "crawlerspell21default",
       "ParentId": "default",
-      "IdKey": 28,
+      "IdKey": 21,
       "Name": "Flamestrike",
       "Desc": "Hit all enemies in a group with fire damage.",
       "PowerCost": 10.0,
@@ -452,12 +453,12 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell29default",
+      "Id": "crawlerspell22default",
       "ParentId": "default",
-      "IdKey": 29,
+      "IdKey": 22,
       "Name": "Frostbolt",
       "Desc": "Hit one or more enemies in a group with cold damage.",
       "PowerCost": 4.0,
@@ -476,12 +477,12 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell30default",
+      "Id": "crawlerspell23default",
       "ParentId": "default",
-      "IdKey": 30,
+      "IdKey": 23,
       "Name": "Cone of Cold",
       "Desc": "Hit all enemies in a group with cold damage.",
       "PowerCost": 8.0,
@@ -500,16 +501,14 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell31default",
+      "Id": "crawlerspell24default",
       "ParentId": "default",
-      "IdKey": 31,
+      "IdKey": 24,
       "Name": "Lightning Bolt",
       "Desc": "Hit one or more enemies with electric damage.",
-      "Icon": "",
-      "Art": "",
       "PowerCost": 6.0,
       "PowerPerLevel": 0.5,
       "MaxRange": 100,
@@ -526,12 +525,12 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell32default",
+      "Id": "crawlerspell25default",
       "ParentId": "default",
-      "IdKey": 32,
+      "IdKey": 25,
       "Name": "Chain Lightning",
       "Desc": "Hit all enemies in a group with electric damage.",
       "PowerCost": 12.0,
@@ -550,12 +549,12 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell33default",
+      "Id": "crawlerspell26default",
       "ParentId": "default",
-      "IdKey": 33,
+      "IdKey": 26,
       "Name": "Weaken",
       "Desc": "Reduce the melee damage of a group of foes.",
       "PowerCost": 5.0,
@@ -573,12 +572,12 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell37default",
+      "Id": "crawlerspell27default",
       "ParentId": "default",
-      "IdKey": 37,
+      "IdKey": 27,
       "Name": "Whirlwind",
       "Desc": "Hit one or more enemies in all groups within melee range.",
       "MaxRange": 10,
@@ -594,12 +593,12 @@
           "ElementTypeId": 1
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell39default",
+      "Id": "crawlerspell28default",
       "ParentId": "default",
-      "IdKey": 39,
+      "IdKey": 28,
       "Name": "Volley",
       "Desc": "Hit one or more enemies in all groups with ranged damage.",
       "MinRange": 20,
@@ -616,12 +615,12 @@
           "ElementTypeId": 1
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell41default",
+      "Id": "crawlerspell29default",
       "ParentId": "default",
-      "IdKey": 41,
+      "IdKey": 29,
       "Name": "Call Beast",
       "Desc": "Summon a beast.",
       "PowerCost": 9.0,
@@ -634,22 +633,20 @@
       "Effects": [
         {
           "EntityTypeId": 4,
-          "EntityId": 73,
+          "EntityId": 72,
           "MinQuantity": 1,
           "MaxQuantity": 1,
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell42default",
+      "Id": "crawlerspell30default",
       "ParentId": "default",
-      "IdKey": 42,
+      "IdKey": 30,
       "Name": "Conjure Golem",
       "Desc": "Summon a golem.",
-      "Icon": "",
-      "Art": "",
       "PowerCost": 9.0,
       "PowerPerLevel": 1.0,
       "MaxRange": 100,
@@ -666,12 +663,12 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell43default",
+      "Id": "crawlerspell31default",
       "ParentId": "default",
-      "IdKey": 43,
+      "IdKey": 31,
       "Name": "Summon Elemental",
       "Desc": "Summon an elemental.",
       "PowerCost": 9.0,
@@ -684,18 +681,18 @@
       "Effects": [
         {
           "EntityTypeId": 4,
-          "EntityId": 70,
+          "EntityId": 69,
           "MinQuantity": 1,
           "MaxQuantity": 1,
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell45default",
+      "Id": "crawlerspell32default",
       "ParentId": "default",
-      "IdKey": 45,
+      "IdKey": 32,
       "Name": "Charm",
       "Desc": "Convince a monster to join your side.",
       "PowerCost": 25.0,
@@ -710,15 +707,15 @@
           "EntityId": 4,
           "MinQuantity": 1,
           "MaxQuantity": 2,
-          "ElementTypeId": 4
+          "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell46default",
+      "Id": "crawlerspell33default",
       "ParentId": "default",
-      "IdKey": 46,
+      "IdKey": 33,
       "Name": "Pick Lock",
       "Desc": "Open a locked door or chest.",
       "MaxRange": 100,
@@ -732,15 +729,15 @@
           "EntityId": 4,
           "MinQuantity": 1,
           "MaxQuantity": 2,
-          "ElementTypeId": 4
+          "ElementTypeId": 1
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell47default",
+      "Id": "crawlerspell34default",
       "ParentId": "default",
-      "IdKey": 47,
+      "IdKey": 34,
       "Name": "Cleanse Area",
       "Desc": "Disarm any traps nearby.",
       "PowerCost": 50.0,
@@ -756,15 +753,15 @@
           "EntityId": 7,
           "MinQuantity": 1,
           "MaxQuantity": 2,
-          "ElementTypeId": 4
+          "ElementTypeId": 1
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell48default",
+      "Id": "crawlerspell35default",
       "ParentId": "default",
-      "IdKey": 48,
+      "IdKey": 35,
       "Name": "Charge",
       "Desc": "Passive buff to move the party forward more when advancing.",
       "MaxRange": 100,
@@ -781,12 +778,12 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell49default",
+      "Id": "crawlerspell36default",
       "ParentId": "default",
-      "IdKey": 49,
+      "IdKey": 36,
       "Name": "Holy Storm",
       "Desc": "Hit all enemies with holy damage.",
       "PowerCost": 12.0,
@@ -805,12 +802,12 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell50default",
+      "Id": "crawlerspell37default",
       "ParentId": "default",
-      "IdKey": 50,
+      "IdKey": 37,
       "Name": "Firestorm",
       "Desc": "Hit all enemies with fire damage.",
       "PowerCost": 15.0,
@@ -829,12 +826,12 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell51default",
+      "Id": "crawlerspell38default",
       "ParentId": "default",
-      "IdKey": 51,
+      "IdKey": 38,
       "Name": "Lightning Storm",
       "Desc": "Hit all enemies with electric damage.",
       "PowerCost": 18.0,
@@ -852,12 +849,12 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell52default",
+      "Id": "crawlerspell39default",
       "ParentId": "default",
-      "IdKey": 52,
+      "IdKey": 39,
       "Name": "Blizzard",
       "Desc": "Hit all enemies with cold damage.",
       "PowerCost": 12.0,
@@ -875,12 +872,12 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell53default",
+      "Id": "crawlerspell40default",
       "ParentId": "default",
-      "IdKey": 53,
+      "IdKey": 40,
       "Name": "Cure Party",
       "Desc": "Cure all party members",
       "PowerCost": 15.0,
@@ -897,12 +894,12 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell58default",
+      "Id": "crawlerspell41default",
       "ParentId": "default",
-      "IdKey": 58,
+      "IdKey": 41,
       "Name": "Set Beacon",
       "Desc": "Set a teleport location (per player)",
       "PowerCost": 1.0,
@@ -918,12 +915,12 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell59default",
+      "Id": "crawlerspell42default",
       "ParentId": "default",
-      "IdKey": 59,
+      "IdKey": 42,
       "Name": "Return to Beacon",
       "Desc": "Return to the player's teleport location.",
       "PowerCost": 20.0,
@@ -939,12 +936,12 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell60default",
+      "Id": "crawlerspell43default",
       "ParentId": "default",
-      "IdKey": 60,
+      "IdKey": 43,
       "Name": "Sense Area",
       "Desc": "Determine if any traps or interesting things are nearby.",
       "PowerCost": 2.0,
@@ -960,38 +957,14 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell61default",
+      "Id": "crawlerspell44default",
       "ParentId": "default",
-      "IdKey": 61,
+      "IdKey": 44,
       "Name": "Summon Monk",
       "Desc": "Summon a monk",
-      "PowerCost": 9.0,
-      "PowerPerLevel": 1.0,
-      "MaxRange": 100,
-      "CombatActionId": 4,
-      "TargetTypeId": 9,
-      "RoleScalingTypeId": 5,
-      "Level": 1,
-      "Effects": [
-        {
-          "EntityTypeId": 4,
-          "EntityId": 31,
-          "MinQuantity": 1,
-          "MaxQuantity": 1,
-          "ElementTypeId": 8
-        }
-      ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
-    },
-    {
-      "Id": "crawlerspell62default",
-      "ParentId": "default",
-      "IdKey": 62,
-      "Name": "Summon Scrapper",
-      "Desc": "Summon a scrapper",
       "PowerCost": 9.0,
       "PowerPerLevel": 1.0,
       "MaxRange": 100,
@@ -1008,12 +981,36 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell63default",
+      "Id": "crawlerspell45default",
       "ParentId": "default",
-      "IdKey": 63,
+      "IdKey": 45,
+      "Name": "Summon Scrapper",
+      "Desc": "Summon a scrapper",
+      "PowerCost": 9.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 29,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 8
+        }
+      ],
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
+    },
+    {
+      "Id": "crawlerspell46default",
+      "ParentId": "default",
+      "IdKey": 46,
       "Name": "Signal Thief",
       "Desc": "Signal a thief to follow you.",
       "PowerCost": 9.0,
@@ -1026,24 +1023,24 @@
       "Effects": [
         {
           "EntityTypeId": 4,
-          "EntityId": 56,
+          "EntityId": 55,
           "MinQuantity": 1,
           "MaxQuantity": 1,
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell64default",
+      "Id": "crawlerspell47default",
       "ParentId": "default",
-      "IdKey": 64,
+      "IdKey": 47,
       "Name": "Light",
       "Desc": "Create a light to let you see.",
       "PowerCost": 2.0,
       "MaxRange": 100,
       "CombatActionId": 4,
-      "TargetTypeId": 9,
+      "TargetTypeId": 6,
       "RoleScalingTypeId": 6,
       "Level": 1,
       "Effects": [
@@ -1055,18 +1052,18 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell65default",
+      "Id": "crawlerspell48default",
       "ParentId": "default",
-      "IdKey": 65,
+      "IdKey": 48,
       "Name": "Magic Compass",
       "Desc": "Gives you a compass.",
       "PowerCost": 2.0,
       "MaxRange": 100,
       "CombatActionId": 4,
-      "TargetTypeId": 9,
+      "TargetTypeId": 6,
       "RoleScalingTypeId": 6,
       "Level": 1,
       "Effects": [
@@ -1078,18 +1075,18 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell66default",
+      "Id": "crawlerspell49default",
       "ParentId": "default",
-      "IdKey": 66,
+      "IdKey": 49,
       "Name": "Levitate",
       "Desc": "Lets you float over many traps.",
       "PowerCost": 2.0,
       "MaxRange": 100,
       "CombatActionId": 4,
-      "TargetTypeId": 9,
+      "TargetTypeId": 6,
       "RoleScalingTypeId": 6,
       "Level": 1,
       "Effects": [
@@ -1101,18 +1098,18 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell67default",
+      "Id": "crawlerspell50default",
       "ParentId": "default",
-      "IdKey": 67,
+      "IdKey": 50,
       "Name": "Second Sight",
       "Desc": "Alerts you to traps nearby.",
       "PowerCost": 2.0,
       "MaxRange": 100,
       "CombatActionId": 4,
-      "TargetTypeId": 9,
+      "TargetTypeId": 6,
       "RoleScalingTypeId": 6,
       "Level": 1,
       "Effects": [
@@ -1124,18 +1121,18 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell68default",
+      "Id": "crawlerspell51default",
       "ParentId": "default",
-      "IdKey": 68,
+      "IdKey": 51,
       "Name": "Mapping",
       "Desc": "Lets you map the area you're in.",
       "PowerCost": 2.0,
       "MaxRange": 100,
       "CombatActionId": 4,
-      "TargetTypeId": 9,
+      "TargetTypeId": 6,
       "RoleScalingTypeId": 6,
       "Level": 1,
       "Effects": [
@@ -1147,20 +1144,20 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
-      "Id": "crawlerspell69default",
+      "Id": "crawlerspell52default",
       "ParentId": "default",
-      "IdKey": 69,
+      "IdKey": 52,
       "Name": "Batchspell",
       "Desc": "Casts all party buffs.",
       "PowerCost": 10.0,
       "MaxRange": 100,
       "CombatActionId": 4,
-      "TargetTypeId": 9,
+      "TargetTypeId": 6,
       "RoleScalingTypeId": 6,
-      "Level": 5,
+      "Level": 1,
       "Effects": [
         {
           "EntityTypeId": 101,
@@ -1198,7 +1195,55 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
+    },
+    {
+      "Id": "crawlerspell53default",
+      "ParentId": "default",
+      "IdKey": 53,
+      "Name": "Summon Skeleton",
+      "Desc": "Signal a thief to follow you.",
+      "PowerCost": 9.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 47,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 8
+        }
+      ],
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
+    },
+    {
+      "Id": "crawlerspell54default",
+      "ParentId": "default",
+      "IdKey": 54,
+      "Name": "Summon Vampire",
+      "Desc": "Signal a thief to follow you.",
+      "PowerCost": 9.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "RoleScalingTypeId": 5,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 99,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 8
+        }
+      ],
+      "UpdateTime": "2025-02-28T01:54:20.244Z"
     },
     {
       "Id": "crawlerspell10020default",
@@ -1220,7 +1265,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell10031default",
@@ -1242,7 +1287,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell10032default",
@@ -1264,7 +1309,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell10033default",
@@ -1286,7 +1331,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell10034default",
@@ -1308,7 +1353,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell10063default",
@@ -1330,7 +1375,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell10070default",
@@ -1352,7 +1397,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell10071default",
@@ -1374,7 +1419,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20000default",
@@ -1396,7 +1441,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20001default",
@@ -1419,7 +1464,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20002default",
@@ -1442,7 +1487,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20003default",
@@ -1465,7 +1510,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20004default",
@@ -1488,7 +1533,7 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20005default",
@@ -1511,7 +1556,7 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20006default",
@@ -1534,7 +1579,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20007default",
@@ -1557,7 +1602,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20008default",
@@ -1580,7 +1625,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20009default",
@@ -1603,7 +1648,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20010default",
@@ -1626,7 +1671,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20011default",
@@ -1649,7 +1694,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20012default",
@@ -1672,7 +1717,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20013default",
@@ -1695,7 +1740,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20014default",
@@ -1718,7 +1763,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20015default",
@@ -1741,7 +1786,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20016default",
@@ -1764,7 +1809,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20017default",
@@ -1787,7 +1832,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20018default",
@@ -1810,7 +1855,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20019default",
@@ -1833,7 +1878,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20020default",
@@ -1856,7 +1901,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20021default",
@@ -1879,7 +1924,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20022default",
@@ -1902,7 +1947,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20023default",
@@ -1925,7 +1970,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20024default",
@@ -1948,7 +1993,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20025default",
@@ -1971,7 +2016,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20026default",
@@ -1994,7 +2039,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20027default",
@@ -2017,7 +2062,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20028default",
@@ -2040,7 +2085,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20029default",
@@ -2063,7 +2108,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20030default",
@@ -2086,7 +2131,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20031default",
@@ -2109,7 +2154,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20032default",
@@ -2132,7 +2177,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20033default",
@@ -2155,7 +2200,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20034default",
@@ -2178,7 +2223,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20035default",
@@ -2201,7 +2246,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20036default",
@@ -2224,7 +2269,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20037default",
@@ -2247,7 +2292,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20038default",
@@ -2270,7 +2315,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20039default",
@@ -2293,7 +2338,7 @@
           "ElementTypeId": 5
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20040default",
@@ -2316,7 +2361,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20041default",
@@ -2339,7 +2384,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20042default",
@@ -2362,7 +2407,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20043default",
@@ -2385,7 +2430,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20044default",
@@ -2408,7 +2453,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20045default",
@@ -2431,7 +2476,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20046default",
@@ -2454,7 +2499,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20047default",
@@ -2477,7 +2522,7 @@
           "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20048default",
@@ -2500,7 +2545,7 @@
           "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20049default",
@@ -2523,7 +2568,7 @@
           "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20050default",
@@ -2546,7 +2591,7 @@
           "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20051default",
@@ -2569,7 +2614,7 @@
           "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20052default",
@@ -2592,7 +2637,7 @@
           "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20053default",
@@ -2615,7 +2660,7 @@
           "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20054default",
@@ -2638,7 +2683,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20055default",
@@ -2661,7 +2706,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20056default",
@@ -2684,7 +2729,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20057default",
@@ -2707,7 +2752,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20058default",
@@ -2730,7 +2775,7 @@
           "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20059default",
@@ -2753,7 +2798,7 @@
           "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20060default",
@@ -2776,7 +2821,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20061default",
@@ -2799,7 +2844,7 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20062default",
@@ -2822,7 +2867,7 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20063default",
@@ -2845,7 +2890,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20064default",
@@ -2868,7 +2913,7 @@
           "ElementTypeId": 5
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20065default",
@@ -2891,7 +2936,7 @@
           "ElementTypeId": 1
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20066default",
@@ -2914,7 +2959,7 @@
           "ElementTypeId": 1
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20067default",
@@ -2937,7 +2982,7 @@
           "ElementTypeId": 1
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20068default",
@@ -2960,7 +3005,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20069default",
@@ -2983,7 +3028,7 @@
           "ElementTypeId": 5
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20070default",
@@ -3006,7 +3051,7 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20071default",
@@ -3029,7 +3074,7 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20072default",
@@ -3052,7 +3097,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20073default",
@@ -3075,7 +3120,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20074default",
@@ -3098,7 +3143,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20075default",
@@ -3121,7 +3166,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20076default",
@@ -3144,7 +3189,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20077default",
@@ -3167,7 +3212,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20078default",
@@ -3190,7 +3235,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20079default",
@@ -3213,7 +3258,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20080default",
@@ -3236,7 +3281,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20081default",
@@ -3259,7 +3304,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20082default",
@@ -3282,7 +3327,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20083default",
@@ -3305,7 +3350,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20084default",
@@ -3328,7 +3373,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20085default",
@@ -3351,7 +3396,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20086default",
@@ -3374,7 +3419,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20087default",
@@ -3397,7 +3442,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20088default",
@@ -3420,7 +3465,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20089default",
@@ -3443,7 +3488,7 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20090default",
@@ -3466,7 +3511,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20091default",
@@ -3489,7 +3534,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20092default",
@@ -3512,7 +3557,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20093default",
@@ -3535,7 +3580,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20094default",
@@ -3558,7 +3603,7 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20095default",
@@ -3581,7 +3626,7 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20096default",
@@ -3604,7 +3649,7 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20097default",
@@ -3627,7 +3672,7 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20098default",
@@ -3650,7 +3695,7 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20099default",
@@ -3673,7 +3718,7 @@
           "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20100default",
@@ -3696,7 +3741,7 @@
           "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20101default",
@@ -3719,7 +3764,7 @@
           "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20102default",
@@ -3742,7 +3787,7 @@
           "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20103default",
@@ -3765,7 +3810,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20104default",
@@ -3788,7 +3833,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20105default",
@@ -3811,7 +3856,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20106default",
@@ -3834,7 +3879,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20107default",
@@ -3857,7 +3902,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20108default",
@@ -3880,7 +3925,7 @@
           "ElementTypeId": 5
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20109default",
@@ -3903,7 +3948,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20110default",
@@ -3926,7 +3971,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20111default",
@@ -3949,7 +3994,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20112default",
@@ -3972,7 +4017,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20113default",
@@ -3995,7 +4040,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20114default",
@@ -4018,7 +4063,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20115default",
@@ -4041,7 +4086,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "crawlerspell20116default",
@@ -4064,7 +4109,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2025-02-25T19:39:14.046Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     }
   ],
   "ParentObj": {

@@ -1,7 +1,9 @@
-﻿using Genrpg.Shared.DataStores.Entities;
+﻿using Assets.Scripts.Assets.Bundles;
+using Genrpg.Shared.DataStores.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using TMPro.EditorUtilities;
 using UnityEditor;
@@ -23,7 +25,7 @@ public class BundleSetupUtils
     /// Use this function to 
     /// </summary>
     /// <param name="path"></param>
-    public static void BundleFilesInDirectory(string assetPathSuffix, bool allowAllFiles)
+    public static void BundleFilesInDirectory(BundleList list, string assetPathSuffix, bool allowAllFiles)
     {
         if (_assetService == null)
         {
@@ -44,7 +46,7 @@ public class BundleSetupUtils
 
         foreach (string fileName in files)
         {
-            if (SetupFileAtPath(assetPathSuffix, fileName, false))
+            if (SetupFileAtPath(list, assetPathSuffix, fileName, false))
             {
                 numAdded++;
             }
@@ -69,19 +71,18 @@ public class BundleSetupUtils
             string subdirectory = directory.Replace(fullPath, "");
             if (string.IsNullOrEmpty(assetPathSuffix))
             {
-                BundleFilesInDirectory(assetPathSuffix + (!string.IsNullOrEmpty(assetPathSuffix) ? "/" : "") + subdirectory, false);
+                BundleFilesInDirectory(list, assetPathSuffix + (!string.IsNullOrEmpty(assetPathSuffix) ? "/" : "") + subdirectory, false);
             }
             else
             {
-                SetupFileAtPath(assetPathSuffix, directory, true);
+                SetupFileAtPath(list, assetPathSuffix, directory, true);
                 string bundleName = _assetService.GetBundleNameForCategoryAndAsset(assetPathSuffix, subdirectory);
-                SetupChildFileOfBundle(directory, bundleName);
-
+                SetupChildFileOfBundle(list, directory, bundleName);
             }
         }
     }
 
-    private static bool SetupFileAtPath(string assetPathSuffix, string item, bool allowDirectories, string assetBundleName = null)
+    private static bool SetupFileAtPath(BundleList list, string assetPathSuffix, string item, bool allowDirectories, string assetBundleName = null)
     {
         if (!allowDirectories && EditorAssetUtils.IsNotPrefabName(item))
         {
@@ -108,11 +109,22 @@ public class BundleSetupUtils
             {
                 bundleName = _assetService.GetBundleNameForCategoryAndAsset(assetPathSuffix, shortFilename);
             }
-            if (importer.assetBundleName != bundleName)
+
+            importer.assetBundleName = bundleName;
+
+            BundleListItem blitem = list.Items.FirstOrDefault(x=>x.BundleName == bundleName);
+
+            if (blitem == null)
             {
-                importer.assetBundleName = bundleName;
-                importer.SaveAndReimport();
+                blitem = new BundleListItem() { BundleName = bundleName };
+
+                if (shortFilename.IndexOf(AssetConstants.LocalBundlePrefix) == 0)
+                {
+                    blitem.IsLocal = true;
+                }
+                list.Items.Add(blitem);
             }
+            importer.SaveAndReimport();
         }
         return true;
     }
@@ -120,7 +132,7 @@ public class BundleSetupUtils
 
 
 
-    private static void SetupChildFileOfBundle(string pathSuffix, string bundleName)
+    private static void SetupChildFileOfBundle(BundleList list, string pathSuffix, string bundleName)
     {
         if (!Directory.Exists(pathSuffix))
         {
@@ -132,12 +144,12 @@ public class BundleSetupUtils
 
         foreach (string directory in directories)
         {
-            SetupChildFileOfBundle(directory, bundleName);
+            SetupChildFileOfBundle(list, directory, bundleName);
         }
 
         foreach (string file in files)
         {
-            SetupFileAtPath(pathSuffix, file, true, bundleName);
+            SetupFileAtPath(list, pathSuffix, file, true, bundleName);
         }
 
     }

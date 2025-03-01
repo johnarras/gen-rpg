@@ -69,12 +69,19 @@
       "IdKey": 10,
       "Name": "ReturnWarpTarget",
       "UpdateTime": "2024-08-01T00:28:12.88Z"
+    },
+    {
+      "Id": "specialmagic11default",
+      "ParentId": "default",
+      "IdKey": 11,
+      "Name": "PartyBuff",
+      "UpdateTime": "2025-02-27T21:06:25.882Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "SpecialMagicSettings",
-    "UpdateTime": "2025-02-24T14:47:35.645Z"
+    "UpdateTime": "2025-02-27T21:06:25.882Z"
   },
   "Id": "default"
 }

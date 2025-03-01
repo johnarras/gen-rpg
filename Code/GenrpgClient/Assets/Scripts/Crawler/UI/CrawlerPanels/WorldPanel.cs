@@ -92,6 +92,8 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             _worldImage = _view.Get<AnimatedSprite>("WorldImage");
             _infoPanel = _view.Get<InfoPanel>("InfoPanel");
 
+            _clientEntityService.SetActive(_infoPanel, false);
+
             _clientEntityService.SetActive(_infoParent, false);
 
             _uiService.SetButton(_closeTooltipButton, GetType().Name, () => { OnHideTooltip(new HideInfoPanelEvent()); });
@@ -151,8 +153,8 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
             int magicBits = _crawlerMapService.GetMagicBits(partyData.MapId, partyData.MapX, partyData.MapZ);
 
-            _clientEntityService.SetActive(_peacefulImage, FlagUtils.IsSet(magicBits, MapMagic.Peaceful));
-            _clientEntityService.SetActive(_noMagicImage, FlagUtils.IsSet(magicBits, MapMagic.NoMagic));
+            _clientEntityService.SetActive(_peacefulImage, FlagUtils.IsSet(magicBits, MapMagics.Peaceful));
+            _clientEntityService.SetActive(_noMagicImage, FlagUtils.IsSet(magicBits, MapMagics.NoMagic));
 
         }
 

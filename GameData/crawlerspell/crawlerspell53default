@@ -2,21 +2,23 @@
   "Id": "crawlerspell53default",
   "ParentId": "default",
   "IdKey": 53,
-  "Name": "Cure Party",
-  "Desc": "Cure all party members",
-  "PowerCost": 15.0,
+  "Name": "Summon Skeleton",
+  "Desc": "Signal a thief to follow you.",
+  "PowerCost": 9.0,
+  "PowerPerLevel": 1.0,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 5,
-  "RoleScalingTypeId": 4,
-  "Level": 4,
+  "TargetTypeId": 9,
+  "RoleScalingTypeId": 5,
+  "Level": 1,
   "Effects": [
     {
-      "EntityTypeId": 36,
-      "MinQuantity": -1,
-      "MaxQuantity": -1,
-      "ElementTypeId": 7
+      "EntityTypeId": 4,
+      "EntityId": 47,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "ElementTypeId": 8
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

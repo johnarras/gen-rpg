@@ -31,7 +31,6 @@ namespace GameAssets.Editor
         {
            IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
             
-            SetupBundles.SetupAll(gs);
 			CreateAssetBundle.BuildAssetBundles(gs);
 			UploadAssetBundle.UploadAssetBundles(env);
             

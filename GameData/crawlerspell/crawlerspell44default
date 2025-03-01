@@ -1,0 +1,24 @@
+{
+  "Id": "crawlerspell44default",
+  "ParentId": "default",
+  "IdKey": 44,
+  "Name": "Summon Monk",
+  "Desc": "Summon a monk",
+  "PowerCost": 9.0,
+  "PowerPerLevel": 1.0,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 9,
+  "RoleScalingTypeId": 5,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 4,
+      "EntityId": 30,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "ElementTypeId": 8
+    }
+  ],
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
+}

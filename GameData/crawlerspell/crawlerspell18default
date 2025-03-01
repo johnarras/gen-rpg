@@ -2,20 +2,22 @@
   "Id": "crawlerspell18default",
   "ParentId": "default",
   "IdKey": 18,
-  "Name": "Phase Wall",
-  "Desc": "Pass through a wall in front of you if the square behind it exists.",
-  "PowerCost": 50.0,
+  "Name": "Entangle",
+  "Desc": "Prevent a group from use melee attacks.",
+  "PowerCost": 15.0,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 8,
-  "RoleScalingTypeId": 6,
-  "Level": 1,
+  "TargetTypeId": 3,
+  "RoleScalingTypeId": 3,
+  "Level": 5,
   "Effects": [
     {
-      "EntityTypeId": 37,
-      "EntityId": 2,
-      "ElementTypeId": 9
+      "EntityTypeId": 36,
+      "EntityId": 11,
+      "MinQuantity": 2,
+      "MaxQuantity": 3,
+      "ElementTypeId": 8
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

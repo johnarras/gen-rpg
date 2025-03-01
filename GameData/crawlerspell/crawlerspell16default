@@ -2,23 +2,20 @@
   "Id": "crawlerspell16default",
   "ParentId": "default",
   "IdKey": 16,
-  "Name": "Holy Nova",
-  "Desc": "Hit all enemies in a group with holy damage.",
-  "PowerCost": 8.0,
-  "PowerPerLevel": 1.0,
+  "Name": "Teleport",
+  "Desc": "Move to a different location in the current map.",
+  "PowerCost": 25.0,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 3,
-  "RoleScalingTypeId": 4,
-  "Level": 4,
+  "TargetTypeId": 8,
+  "RoleScalingTypeId": 6,
+  "Level": 8,
   "Effects": [
     {
-      "EntityTypeId": 33,
-      "EntityId": 3,
-      "MinQuantity": 1,
-      "MaxQuantity": 2,
-      "ElementTypeId": 7
+      "EntityTypeId": 37,
+      "EntityId": 6,
+      "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

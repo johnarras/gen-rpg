@@ -21,16 +21,13 @@ namespace Genrpg.Shared.Crawler.Maps.Settings
         [Key(4)] public int RareSpawnCount { get; set; }
         [Key(5)] public double QuestItemEntranceUnlockChance { get; set; }
         [Key(6)] public double RiddleUnlockChance { get; set; }
-        [Key(7)] public double TreasureChance { get; set; }
-        [Key(8)] public double EncounterChance { get; set; }
-        [Key(9)] public double TrapChance { get; set; }
-        [Key(10)] public double DrainHealthPercent { get; set; }
-        [Key(11)] public double DrainManaPercent { get; set; }
-        [Key(12)] public double TrapHitChance { get; set; }
-        [Key(13)] public double TrapDebuffChance { get; set; }
-        [Key(14)] public double TrapDebuffLevelScaling { get; set; }
-        [Key(15)] public int TrapMinDamPerLevel { get; set; }
-        [Key(16)] public int TrapMaxDamagePerLevel { get; set; }
+        [Key(7)] public double DrainHealthPercent { get; set; }
+        [Key(8)] public double DrainManaPercent { get; set; }
+        [Key(9)] public double TrapHitChance { get; set; }
+        [Key(10)] public double TrapDebuffChance { get; set; }
+        [Key(11)] public double TrapDebuffLevelScaling { get; set; }
+        [Key(12)] public int TrapMinDamPerLevel { get; set; }
+        [Key(13)] public int TrapMaxDamagePerLevel { get; set; }
     }
 
     [MessagePackObject]

@@ -381,7 +381,7 @@ namespace Genrpg.Editor
 
             groups = groups.OrderBy(x => x.Key.Name).ToList();
 
-            SettingsNameSettings settingSettings = (SettingsNameSettings)allGameData.FirstOrDefault(x => x.Id == "default" && x.GetType().Name == nameof(SettingsNameSettings));
+            SettingsNameSettings settingSettings = (SettingsNameSettings)allGameData.FirstOrDefault(x => x.Id == GameDataConstants.DefaultFilename && x.GetType().Name == nameof(SettingsNameSettings));
 
             List<SettingsName> allSettingNames = settingSettings.GetData().ToList();
 
@@ -400,7 +400,7 @@ namespace Genrpg.Editor
 
                 if (currName == null)
                 {
-                    currName = new SettingsName() { Id = "default", Name = typeName, IdKey = ++maxIndex };
+                    currName = new SettingsName() { Id = GameDataConstants.DefaultFilename, Name = typeName, IdKey = ++maxIndex };
                     allSettingNames.Add(currName);
                     _gs.LookedAtObjects.Add(currName);
                 }

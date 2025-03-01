@@ -56,6 +56,13 @@ public class BinaryFileRepository : IBinaryFileRepository
             return id;
         }
 
+        int questionMark = id.IndexOf("?");
+
+        if (questionMark > 0)
+        {
+            id = id.Substring(0, questionMark);
+        }
+
         string basePath = GetPathPrefix();
 
 

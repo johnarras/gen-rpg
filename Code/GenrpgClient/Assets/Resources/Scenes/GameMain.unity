@@ -270,6 +270,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
+      propertyPath: TestLocalBundles
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
+        type: 3}
       propertyPath: _isSelfContainedBuild
       value: 1
       objectReference: {fileID: 0}

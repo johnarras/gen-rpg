@@ -2,12 +2,175 @@
   "Id": "role12default",
   "ParentId": "default",
   "IdKey": 12,
-  "Name": "Human",
-  "Desc": "Normal people",
-  "Abbrev": "Hu",
-  "RoleCategoryId": 2,
-  "StartStatBonuses": "1 1 1 1 1 1",
-  "BinaryBonuses": [],
-  "AmountBonuses": [],
-  "UpdateTime": "2025-02-25T14:19:41.267Z"
+  "Name": "Necromancer",
+  "Desc": "Undead Summons",
+  "Abbrev": "Nc",
+  "RoleCategoryId": 1,
+  "HealthPerLevel": 10,
+  "ManaPerLevel": 20,
+  "MaxArmorScalingTypeId": 1,
+  "CritPercent": 5,
+  "ManaStatTypeId": 12,
+  "TrainingXpScale": 1.0,
+  "TrainingGoldScale": 1.0,
+  "StartStatBonuses": "0 6 0 3 0 3",
+  "BinaryBonuses": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 23
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 24
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 28
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 32
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 33
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 34
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 3
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 13
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 14
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 17
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 20
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 21
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 22
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 23
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 30
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 37
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 41
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 42
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 43
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 47
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 48
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 49
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 50
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 51
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 52
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 53
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 54
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10033
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10034
+    }
+  ],
+  "AmountBonuses": [
+    {
+      "EntityTypeId": 41,
+      "EntityId": 1,
+      "Amount": 0.1
+    },
+    {
+      "EntityTypeId": 41,
+      "EntityId": 2,
+      "Amount": 0.1
+    },
+    {
+      "EntityTypeId": 41,
+      "EntityId": 3,
+      "Amount": 0.4
+    },
+    {
+      "EntityTypeId": 41,
+      "EntityId": 4,
+      "Amount": 0.2
+    },
+    {
+      "EntityTypeId": 41,
+      "EntityId": 5,
+      "Amount": 0.5
+    },
+    {
+      "EntityTypeId": 41,
+      "EntityId": 6,
+      "Amount": 0.25
+    }
+  ],
+  "UpdateTime": "2025-02-28T03:22:40.149Z"
 }

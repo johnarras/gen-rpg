@@ -2,22 +2,21 @@
   "Id": "crawlerspell33default",
   "ParentId": "default",
   "IdKey": 33,
-  "Name": "Weaken",
-  "Desc": "Reduce the melee damage of a group of foes.",
-  "PowerCost": 5.0,
+  "Name": "Pick Lock",
+  "Desc": "Open a locked door or chest.",
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 3,
-  "RoleScalingTypeId": 3,
-  "Level": 4,
+  "TargetTypeId": 8,
+  "RoleScalingTypeId": 6,
+  "Level": 1,
   "Effects": [
     {
       "EntityTypeId": 36,
-      "EntityId": 17,
-      "MinQuantity": 100,
-      "MaxQuantity": 100,
-      "ElementTypeId": 9
+      "EntityId": 4,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "ElementTypeId": 1
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

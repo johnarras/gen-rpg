@@ -1,0 +1,22 @@
+{
+  "Id": "crawlerspell40default",
+  "ParentId": "default",
+  "IdKey": 40,
+  "Name": "Cure Party",
+  "Desc": "Cure all party members",
+  "PowerCost": 15.0,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 5,
+  "RoleScalingTypeId": 4,
+  "Level": 4,
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    }
+  ],
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
+}

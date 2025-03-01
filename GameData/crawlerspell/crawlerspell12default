@@ -1,0 +1,21 @@
+{
+  "Id": "crawlerspell12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "Town Portal",
+  "Desc": "Teleport to a town on the overworld map.",
+  "PowerCost": 20.0,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 8,
+  "RoleScalingTypeId": 6,
+  "Level": 3,
+  "Effects": [
+    {
+      "EntityTypeId": 37,
+      "EntityId": 1,
+      "ElementTypeId": 9
+    }
+  ],
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
+}

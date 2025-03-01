@@ -1,0 +1,22 @@
+{
+  "Id": "crawlerspell35default",
+  "ParentId": "default",
+  "IdKey": 35,
+  "Name": "Charge",
+  "Desc": "Passive buff to move the party forward more when advancing.",
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 9,
+  "RoleScalingTypeId": 1,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 4,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "ElementTypeId": 4
+    }
+  ],
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
+}

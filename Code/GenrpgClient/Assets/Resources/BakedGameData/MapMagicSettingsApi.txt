@@ -1,0 +1,65 @@
+{
+  "Data": [
+    {
+      "Id": "mapmagictype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Darkness",
+      "Weight": 0.1,
+      "SpreadChance": 0.2,
+      "MapSymbol": "D",
+      "MinLevel": 3,
+      "UpdateTime": "2025-02-28T14:38:48.738Z"
+    },
+    {
+      "Id": "mapmagictype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Spinner",
+      "Weight": 0.2,
+      "SpreadChance": 0.1,
+      "MapSymbol": "S",
+      "MinLevel": 1,
+      "UpdateTime": "2025-02-28T14:38:48.738Z"
+    },
+    {
+      "Id": "mapmagictype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Drain",
+      "Weight": 0.3,
+      "SpreadChance": 0.15,
+      "MapSymbol": "H",
+      "MinLevel": 9,
+      "UpdateTime": "2025-02-28T14:38:48.738Z"
+    },
+    {
+      "Id": "mapmagictype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "NoMagic",
+      "Weight": 0.4,
+      "SpreadChance": 0.15,
+      "MapSymbol": "A",
+      "MinLevel": 7,
+      "UpdateTime": "2025-02-28T14:38:48.738Z"
+    },
+    {
+      "Id": "mapmagictype5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Peaceful",
+      "Weight": 0.1,
+      "SpreadChance": 0.1,
+      "MapSymbol": "P",
+      "MinLevel": 10,
+      "UpdateTime": "2025-02-28T14:38:48.738Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "MapMagicSettings",
+    "UpdateTime": "2025-02-28T14:38:48.738Z"
+  },
+  "Id": "default"
+}

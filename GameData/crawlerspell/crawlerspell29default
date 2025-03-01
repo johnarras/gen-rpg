@@ -2,23 +2,23 @@
   "Id": "crawlerspell29default",
   "ParentId": "default",
   "IdKey": 29,
-  "Name": "Frostbolt",
-  "Desc": "Hit one or more enemies in a group with cold damage.",
-  "PowerCost": 4.0,
-  "PowerPerLevel": 0.5,
+  "Name": "Call Beast",
+  "Desc": "Summon a beast.",
+  "PowerCost": 9.0,
+  "PowerPerLevel": 1.0,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 1,
-  "RoleScalingTypeId": 3,
+  "TargetTypeId": 9,
+  "RoleScalingTypeId": 5,
   "Level": 1,
   "Effects": [
     {
-      "EntityTypeId": 33,
-      "EntityId": 3,
+      "EntityTypeId": 4,
+      "EntityId": 72,
       "MinQuantity": 1,
-      "MaxQuantity": 12,
-      "ElementTypeId": 3
+      "MaxQuantity": 1,
+      "ElementTypeId": 8
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

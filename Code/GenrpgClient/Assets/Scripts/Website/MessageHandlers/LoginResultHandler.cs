@@ -19,6 +19,7 @@ using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.Accounts.WebApi.Login;
 using Genrpg.Shared.MapServer.WebApi.UploadMap;
+using Genrpg.Shared.Client.Assets.Constants;
 
 namespace Assets.Scripts.Login.MessageHandlers
 {

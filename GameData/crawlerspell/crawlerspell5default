@@ -1,0 +1,20 @@
+{
+  "Id": "crawlerspell5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Identify Monster",
+  "Desc": "Get some information about a monster.",
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 8,
+  "RoleScalingTypeId": 6,
+  "Level": 3,
+  "Effects": [
+    {
+      "EntityTypeId": 37,
+      "EntityId": 3,
+      "ElementTypeId": 9
+    }
+  ],
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
+}

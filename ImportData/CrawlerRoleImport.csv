@@ -1,92 +1,95 @@
-,,Warrior,Thief,Hunter,Mage,Cleric,Engineer,Bard,Druid,Barbarian,Paladin,Elementalist,Human,Elf,Dwarf,Half-Orc,Gnome,Halfling
-Abbrev,,Wa,Th,Hu,Ma,Cl,En,Bd,Dr,Bb,Pa,El,Hu,Elf,Dw,Hc,Gn,Hf
-Desc,,Tough Fighter,Sneaky Fighter,Ranged Combat,Spell Damage,Healing,Hybrid ,Hybrid Spell,Full Hybrid,Big Melee Dam,Tanky Heals,Spell Dam and Heals,Normal people,Slightly more Ranged,More health,More Melee,More Spell Dam,More Crit
-RoleCategoryId,,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2
-HealthPerLevel,,22,16,18,12,14,18,16,18,18,20,16,0,0,5,0,0,0
-ManaPerLevel,,10,10,14,22,22,14,16,18,10,18,20,0,0,0,0,0,0
-TrainingXpScale,,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0
-TrainingGoldScale,,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0
-StartStatBonuses,Str Int Dev Agi Sta Luc,4 0 0 4 4 0,4 0 0 2 2 4,2 2 0 4 2 2,0 6 0 3 0 3,0 3 6 0 1 2,2 2 2 2 2 2,2 3 3 2 1 1,2 2 2 2 2 2,6 0 0 0 6 0,4 0 4 0 4 0,0 6 6 0 0 0,1 1 1 1 1 1,0 2 2 2 0 0,2 0 2 0 2 0,3 0 0 0 3 0,0 3 3 0 0 0,0 0 0 3 0 3
-Guardian,,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
-MeleeScaling,,0.34,0.2,0.17,0.125,0.144,0.25,0.2,0.2,0.5,0.34,0.17,0,0,0,0.1,0,0
-RangedScaling,,0.17,0.2,0.5,0.1,0.1,0.34,0.2,0.17,0.25,0.17,0.125,0,0.1,0,0,0,0
-SpellDamScaling,,0.144,0.17,0.17,0.5,0.34,0.25,0.2,0.25,0.125,0.25,0.34,0,0,0,0,0.1,0
-HealingScaling,,0.125,0.125,0.125,0.2,0.5,0.2,0.25,0.34,0.1,0.34,0.25,0,0,0,0,0,0
-SummonScaling,,0.125,0.125,0.34,0.25,0.144,0.25,0.2,0.2,0.25,0.17,0.25,0,0,0,0,0,0
-UtilityScaling,,0.1,0.2,0.1,0.25,0.15,0.15,0.2,0.1,0.1,0.1,0.15,0,0,0,0,0,0
-CritPercent,,5,20,15,10,5,5,5,5,15,5,10,0,0,0,0,0,5
-ManaStatTypeId,,13,12,12,12,13,12,13,13,12,13,12,0,0,0,0,0,0
-MaxArmorScalingTypeId,,4,2,3,1,1,3,2,2,2,4,3,,,,,,
-Attack,,x,x,x,x,x,x,x,x,x,x,x,,,,,,
-Defend,,x,x,x,x,x,x,x,x,x,x,x,,,,,,
-Shoot,,x,x,x,x,x,x,x,x,x,x,x,,,,,,
-Whirlwind,3,x,,,,,,,x,x,,,,,,,,
-Volley,3,,,x,,,x,x,,,,,,,,,,
-Hide,3,,x,,,,,x,x,,,,,,,,,
-Cleanse Area,2,,x,,x,,,,,,,,,,,,,
-Pick Lock,2,,x,,,,,x,,,,,,,,,,
-Sense Area,5,,x,x,x,,,,x,,,x,,,,,,
-Charm,2,,,,,x,,x,,,,,,,,,,
-Weaken,4,,,,,x,x,,x,x,,,,,,,,
-Silence,4,,,,x,,,x,,x,x,,,,,,,
-Teleport,3,,,,x,,x,,x,,,,,,,,,
-Town Portal,6,,,x,,x,,x,x,,x,x,,,,,,
-Set Beacon,4,,,,x,,x,,x,,,x,,,,,,
-Return to Beacon,4,,,,x,,x,,x,,,x,,,,,,
-Blink,2,,,,,x,,,x,,,,,,,,,
-Phase Wall,4,,x,,x,,x,,x,,,,,,,,,
-Armor,4,x,,,,x,,x,,,x,,,,,,,
-Resist,3,,,,x,,,,x,,,x,,,,,,
-Hit,4,x,,x,,,x,,,x,,,,,,,,
-Speed,5,x,x,,,,,,x,x,,x,,,,,,
-Luck,4,,x,,,x,,x,,,x,,,,,,,
-HealthRegen,4,x,,,,x,x,,,,x,,,,,,,
-ManaRegen,3,,,,x,,,,x,,,x,,,,,,
-Leadership,3,x,,,,,,x,,,x,,,,,,,
-DamagePower,4,,x,x,,,x,,,x,,,,,,,,
-Light,11,x,x,x,x,x,x,x,x,x,x,x,,,,,,
-Magic Compass,11,x,x,x,x,x,x,x,x,x,x,x,,,,,,
-Levitate,11,x,x,x,x,x,x,x,x,x,x,x,,,,,,
-Second Sight,11,x,x,x,x,x,x,x,x,x,x,x,,,,,,
-Mapping,11,x,x,x,x,x,x,x,x,x,x,x,,,,,,
-Batchspell,,,,,x,x,,,x,,,x,,,,,,
-Charge,3,x,,,,,x,,,x,,,,,,,,
-Heal Wounds,6,,,,,x,x,x,x,,x,x,,,,,,
-Heal Party,1,,,,,x,,,,,,,,,,,,
-Fireball,3,,,,x,,,x,,,,x,,,,,,
-Flamestrike,2,,,,x,,,,,,,x,,,,,,
-Frostbolt,2,,,,x,,,,,,,x,,,,,,
-Cone of Cold,2,,,,x,,,,,,,x,,,,,,
-Lightning Bolt,2,,,,,,,,x,,,x,,,,,,
-Chain Lightning,2,,,,,,,,x,,,x,,,,,,
-Holy Beam,2,,,,,x,,,,,x,,,,,,,
-Holy Nova,2,,,,,x,,,,,x,,,,,,,
-Identify Monster,3,,,x,,,,,x,,,x,,,,,,
-Mesmerize,2,,,x,,,x,,,,,,,,,,,
-Entangle,2,,,x,,,,,x,,,,,,,,,
-Identify Item,3,,x,,x,,x,,,,,,,,,,,
-Call Beast,2,,,x,,,,,x,,,,,,,,,
-Conjure Golem,2,,,,x,,x,,,,,,,,,,,
-Summon Elemental,1,,,,,,,,,,,x,,,,,,
-Summon Monk,2,,,,,x,,,,,x,,,,,,,
-Summon Scrapper,2,x,,,,,,,,x,,,,,,,,
-Signal Thief,2,,x,,,,,x,,,,,,,,,,
-Holy Storm,0,,,,,,,,,,,,,,,,,
-Lightning Storm,1,,,,,,,,,,,x,,,,,,
-Firestorm,1,,,,x,,,,,,,,,,,,,
-Blizzard,1,,,,x,,,,,,,,,,,,,
-Cure,6,,,,,x,x,x,x,,x,x,,,,,,
-Cure Party,6,,,,,x,x,x,x,,x,x,,,,,,
-Sword,,x,x,x,x,,,x,,x,x,x,,,,,,
-Poison Blade,,,x,,,,,,,,,,,,,,,
-Axe,,x,x,x,,,,x,,x,x,,,,,,,
-Mace,,x,x,,,x,,x,x,x,x,x,,,,,,
-Dagger,,x,x,x,x,x,x,x,x,x,,x,,,,,,
-2HSword,,x,,x,,,x,,,x,x,,,,,,,
-2HAxe,,x,,x,,,x,,,x,x,,,,,,,
-2HMace,,x,,,,,x,,x,x,x,,,,,,,
-Staff,,x,,x,x,x,x,,x,x,,x,,,,,,
-Polearm,,x,,x,,,x,,x,x,,,,,,,,
-Ranged,,x,x,x,,,x,x,,x,,,,,,,,
-Thrown,,x,x,,,,x,x,x,x,x,,,,,,,
-Wand,,,,,x,x,,,,,,x,,,,,,
+,,Warrior,Thief,Hunter,Mage,Cleric,Engineer,Bard,Druid,Barbarian,Paladin,Elementalist,Necromancer,Human,Elf,Dwarf,Half-Orc,Gnome,Halfling
+Idkey,,1,2,3,4,5,6,7,8,9,10,11,12,100,101,102,103,104,105
+Abbrev,,Wa,Th,Hu,Ma,Cl,En,Bd,Dr,Bb,Pa,El,Nc,Hu,Elf,Dw,Hc,Gn,Hf
+Desc,,Tough Fighter,Sneaky Fighter,Ranged Combat,Spell Damage,Healing,Hybrid ,Hybrid Spell,Full Hybrid,Big Melee Dam,Tanky Heals,Spell Dam and Heals,Undead Summons,Normal people,Slightly more Ranged,More health,More Melee,More Spell Dam,More Crit
+RoleCategoryId,,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2
+HealthPerLevel,,22,16,18,12,14,18,16,18,18,20,16,10,0,0,5,0,0,0
+ManaPerLevel,,10,10,14,22,22,14,16,18,10,18,20,20,0,0,0,0,0,0
+TrainingXpScale,,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0
+TrainingGoldScale,,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0
+StartStatBonuses,Str Int Dev Agi Sta Luc,4 0 0 4 4 0,4 0 0 2 2 4,2 2 0 4 2 2,0 6 0 3 0 3,0 3 6 0 1 2,2 2 2 2 2 2,2 3 3 2 1 1,2 2 2 2 2 2,6 0 0 0 6 0,4 0 4 0 4 0,0 6 6 0 0 0,0 6 0 3 0 3,1 1 1 1 1 1,0 2 2 2 0 0,2 0 2 0 2 0,3 0 0 0 3 0,0 3 3 0 0 0,0 0 0 3 0 3
+Guardian,,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MeleeScaling,,0.34,0.2,0.17,0.125,0.144,0.25,0.2,0.2,0.5,0.34,0.17,0.1,0,0,0,0.1,0,0
+RangedScaling,,0.17,0.2,0.5,0.1,0.1,0.34,0.2,0.17,0.25,0.17,0.125,0.1,0,0.1,0,0,0,0
+SpellDamScaling,,0.144,0.17,0.17,0.5,0.34,0.25,0.2,0.25,0.125,0.25,0.34,0.4,0,0,0,0,0.1,0
+HealingScaling,,0.125,0.125,0.125,0.2,0.5,0.2,0.25,0.34,0.1,0.34,0.25,0.2,0,0,0,0,0,0
+SummonScaling,,0.125,0.125,0.34,0.25,0.144,0.25,0.2,0.2,0.25,0.17,0.25,0.5,0,0,0,0,0,0
+UtilityScaling,,0.1,0.2,0.1,0.25,0.15,0.15,0.2,0.1,0.1,0.1,0.15,0.25,0,0,0,0,0,0
+CritPercent,,5,20,15,10,5,5,5,5,15,5,10,5,0,0,0,0,0,5
+ManaStatTypeId,,13,12,12,12,13,12,13,13,12,13,12,12,0,0,0,0,0,0
+MaxArmorScalingTypeId,,4,2,3,1,1,3,2,2,2,4,3,1,,,,,,
+Attack,,x,x,x,x,x,x,x,x,x,x,x,x,,,,,,
+Defend,,x,x,x,x,x,x,x,x,x,x,x,x,,,,,,
+Shoot,,x,x,x,x,x,x,x,x,x,x,x,x,,,,,,
+Whirlwind,3,x,,,,,,,x,x,,,,,,,,,
+Volley,3,,,x,,,x,x,,,,,,,,,,,
+Hide,3,,x,,,,,x,x,,,,,,,,,,
+Cleanse Area,2,,x,,x,,,,,,,,,,,,,,
+Pick Lock,2,,x,,,,,x,,,,,,,,,,,
+Sense Area,6,,x,x,x,,,,x,,,x,x,,,,,,
+Charm,2,,,,,x,,x,,,,,,,,,,,
+Weaken,4,,,,,x,x,,x,x,,,,,,,,,
+Silence,5,,,,x,,,x,,x,x,,x,,,,,,
+Teleport,3,,,,x,,x,,x,,,,,,,,,,
+Town Portal,6,,,x,,x,,x,x,,x,x,,,,,,,
+Set Beacon,5,,,,x,,x,,x,,,x,x,,,,,,
+Return to Beacon,5,,,,x,,x,,x,,,x,x,,,,,,
+Blink,2,,,,,x,,,x,,,,,,,,,,
+Phase Wall,5,,x,,x,,x,,x,,,,x,,,,,,
+Armor,4,x,,,,x,,x,,,x,,,,,,,,
+Resist,3,,,,x,,,,x,,,x,,,,,,,
+Hit,4,x,,x,,,x,,,x,,,,,,,,,
+Speed,5,x,x,,,,,,x,x,,x,,,,,,,
+Luck,4,,x,,,x,,x,,,x,,,,,,,,
+HealthRegen,5,x,,,,x,x,,,,x,,x,,,,,,
+ManaRegen,4,,,,x,,,,x,,,x,x,,,,,,
+Leadership,3,x,,,,,,x,,,x,,,,,,,,
+DamagePower,4,,x,x,,,x,,,x,,,,,,,,,
+Light,12,x,x,x,x,x,x,x,x,x,x,x,x,,,,,,
+Magic Compass,12,x,x,x,x,x,x,x,x,x,x,x,x,,,,,,
+Levitate,12,x,x,x,x,x,x,x,x,x,x,x,x,,,,,,
+Second Sight,12,x,x,x,x,x,x,x,x,x,x,x,x,,,,,,
+Mapping,12,x,x,x,x,x,x,x,x,x,x,x,x,,,,,,
+Batchspell,,,,,x,x,,x,x,,,x,x,,,,,,
+Charge,3,x,,,,,x,,,x,,,,,,,,,
+Heal Wounds,6,,,,,x,x,x,x,,x,x,,,,,,,
+Heal Party,1,,,,,x,,,,,,,,,,,,,
+Fireball,4,,,,x,,,x,,,,x,x,,,,,,
+Flamestrike,3,,,,x,,,,,,,x,x,,,,,,
+Frostbolt,3,,,,x,,,,,,,x,x,,,,,,
+Cone of Cold,3,,,,x,,,,,,,x,x,,,,,,
+Lightning Bolt,2,,,,,,,,x,,,x,,,,,,,
+Chain Lightning,2,,,,,,,,x,,,x,,,,,,,
+Holy Beam,2,,,,,x,,,,,x,,,,,,,,
+Holy Nova,2,,,,,x,,,,,x,,,,,,,,
+Identify Monster,3,,,x,,,,,x,,,x,,,,,,,
+Mesmerize,2,,,x,,,x,,,,,,,,,,,,
+Entangle,2,,,x,,,,,x,,,,,,,,,,
+Identify Item,4,,x,,x,,x,,,,,,x,,,,,,
+Call Beast,2,,,x,,,,,x,,,,,,,,,,
+Conjure Golem,3,,,,x,,x,,,,,,x,,,,,,
+Summon Elemental,1,,,,,,,,,,,x,,,,,,,
+Summon Monk,2,,,,,x,,,,,x,,,,,,,,
+Summon Scrapper,2,x,,,,,,,,x,,,,,,,,,
+Signal Thief,2,,x,,,,,x,,,,,,,,,,,
+Summon Skeleton,1,,,,,,,,,,,,x,,,,,,
+Summon Vampire,1,,,,,,,,,,,,x,,,,,,
+Holy Storm,0,,,,,,,,,,,,,,,,,,
+Lightning Storm,1,,,,,,,,,,,x,,,,,,,
+Firestorm,2,,,,x,,,,,,,,x,,,,,,
+Blizzard,1,,,,x,,,,,,,,,,,,,,
+Cure,6,,,,,x,x,x,x,,x,x,,,,,,,
+Cure Party,6,,,,,x,x,x,x,,x,x,,,,,,,
+Sword,,x,x,x,x,,,x,,x,x,x,,,,,,,
+Poison Blade,,,x,,,,,,,,,,,,,,,,
+Axe,,x,x,x,,,,x,,x,x,,,,,,,,
+Mace,,x,x,,,x,,x,x,x,x,x,x,,,,,,
+Dagger,,x,x,x,x,x,x,x,x,x,,x,x,,,,,,
+2HSword,,x,,x,,,x,,,x,x,,,,,,,,
+2HAxe,,x,,x,,,x,,,x,x,,,,,,,,
+2HMace,,x,,,,,x,,x,x,x,,,,,,,,
+Staff,,x,,x,x,x,x,,x,x,,x,x,,,,,,
+Polearm,,x,,x,,,x,,x,x,,,,,,,,,
+Ranged,,x,x,x,,,x,x,,x,,,,,,,,,
+Thrown,,x,x,,,,x,x,x,x,x,,,,,,,,
+Wand,,,,,x,x,,,,,,x,x,,,,,,

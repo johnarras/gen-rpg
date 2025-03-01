@@ -57,8 +57,9 @@ namespace Assets.Scripts.Controllers
             CrawlerMap map = _crawlerWorldService.GetMap(partyData.MapId);
 
 
-            if (_crawlerMapService.HasMagicBit(partyData.MapX, partyData.MapZ, MapMagic.Darkness))
+            if (_crawlerMapService.HasMagicBit(partyData.MapX, partyData.MapZ, MapMagics.Darkness))
             {
+                partyData.Buffs.Set(PartyBuffs.Light, 0);
                 Headlight.intensity = 0;
                 return;
             }

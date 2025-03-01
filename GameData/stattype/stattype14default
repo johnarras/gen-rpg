@@ -4,6 +4,8 @@
   "IdKey": 14,
   "Name": "Agility",
   "Desc": "Increases ranged damage.",
+  "ColorName": "Yellow",
+  "ColorCode": "#FFFF00",
   "GenScalePct": 100,
-  "UpdateTime": "2025-01-13T19:22:08.794Z"
+  "UpdateTime": "2025-02-27T20:36:41.27Z"
 }

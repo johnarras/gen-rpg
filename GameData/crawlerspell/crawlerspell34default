@@ -1,0 +1,24 @@
+{
+  "Id": "crawlerspell34default",
+  "ParentId": "default",
+  "IdKey": 34,
+  "Name": "Cleanse Area",
+  "Desc": "Disarm any traps nearby.",
+  "PowerCost": 50.0,
+  "PowerPerLevel": 5.0,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 8,
+  "RoleScalingTypeId": 6,
+  "Level": 2,
+  "Effects": [
+    {
+      "EntityTypeId": 37,
+      "EntityId": 7,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "ElementTypeId": 1
+    }
+  ],
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
+}

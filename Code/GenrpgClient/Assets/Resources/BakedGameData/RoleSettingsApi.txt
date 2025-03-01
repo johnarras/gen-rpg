@@ -4,549 +4,6 @@
       "Id": "role1default",
       "ParentId": "default",
       "IdKey": 1,
-      "Name": "Engineer",
-      "Desc": "Hybrid ",
-      "Icon": "",
-      "Art": "",
-      "Abbrev": "En",
-      "RoleCategoryId": 1,
-      "HealthPerLevel": 18,
-      "ManaPerLevel": 14,
-      "MaxArmorScalingTypeId": 3,
-      "CritPercent": 5,
-      "ManaStatTypeId": 12,
-      "Guardian": true,
-      "TrainingXpScale": 1.0,
-      "TrainingGoldScale": 1.0,
-      "StartStatBonuses": "2 2 2 2 2 2",
-      "BinaryBonuses": [
-        {
-          "EntityTypeId": 2,
-          "EntityId": 24
-        },
-        {
-          "EntityTypeId": 2,
-          "EntityId": 25
-        },
-        {
-          "EntityTypeId": 2,
-          "EntityId": 26
-        },
-        {
-          "EntityTypeId": 2,
-          "EntityId": 27
-        },
-        {
-          "EntityTypeId": 2,
-          "EntityId": 28
-        },
-        {
-          "EntityTypeId": 2,
-          "EntityId": 29
-        },
-        {
-          "EntityTypeId": 2,
-          "EntityId": 31
-        },
-        {
-          "EntityTypeId": 31,
-          "EntityId": 20
-        },
-        {
-          "EntityTypeId": 31,
-          "EntityId": 33
-        },
-        {
-          "EntityTypeId": 31,
-          "EntityId": 70
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 1
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 2
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 3
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 7
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 8
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 18
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 19
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 21
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 33
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 39
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 42
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 48
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 53
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 58
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 59
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 64
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 65
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 66
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 67
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 68
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10020
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10033
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10070
-        }
-      ],
-      "AmountBonuses": [
-        {
-          "EntityTypeId": 41,
-          "EntityId": 1,
-          "Amount": 0.25
-        },
-        {
-          "EntityTypeId": 41,
-          "EntityId": 2,
-          "Amount": 0.34
-        },
-        {
-          "EntityTypeId": 41,
-          "EntityId": 3,
-          "Amount": 0.25
-        },
-        {
-          "EntityTypeId": 41,
-          "EntityId": 4,
-          "Amount": 0.2
-        },
-        {
-          "EntityTypeId": 41,
-          "EntityId": 5,
-          "Amount": 0.25
-        },
-        {
-          "EntityTypeId": 41,
-          "EntityId": 6,
-          "Amount": 0.15
-        }
-      ],
-      "UpdateTime": "2025-02-25T14:19:41.267Z"
-    },
-    {
-      "Id": "role2default",
-      "ParentId": "default",
-      "IdKey": 2,
-      "Name": "Cleric",
-      "Desc": "Healing",
-      "Abbrev": "Cl",
-      "RoleCategoryId": 1,
-      "HealthPerLevel": 14,
-      "ManaPerLevel": 22,
-      "MaxArmorScalingTypeId": 1,
-      "CritPercent": 5,
-      "ManaStatTypeId": 13,
-      "TrainingXpScale": 1.0,
-      "TrainingGoldScale": 1.0,
-      "StartStatBonuses": "0 3 6 0 1 2",
-      "BinaryBonuses": [
-        {
-          "EntityTypeId": 2,
-          "EntityId": 23
-        },
-        {
-          "EntityTypeId": 2,
-          "EntityId": 24
-        },
-        {
-          "EntityTypeId": 2,
-          "EntityId": 28
-        },
-        {
-          "EntityTypeId": 2,
-          "EntityId": 32
-        },
-        {
-          "EntityTypeId": 31,
-          "EntityId": 16
-        },
-        {
-          "EntityTypeId": 31,
-          "EntityId": 31
-        },
-        {
-          "EntityTypeId": 31,
-          "EntityId": 33
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 1
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 2
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 3
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 8
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 9
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 15
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 16
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 17
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 20
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 33
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 45
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 53
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 61
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 64
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 65
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 66
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 67
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 68
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 69
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10016
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10031
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10033
-        }
-      ],
-      "AmountBonuses": [
-        {
-          "EntityTypeId": 41,
-          "EntityId": 1,
-          "Amount": 0.144
-        },
-        {
-          "EntityTypeId": 41,
-          "EntityId": 2,
-          "Amount": 0.1
-        },
-        {
-          "EntityTypeId": 41,
-          "EntityId": 3,
-          "Amount": 0.34
-        },
-        {
-          "EntityTypeId": 41,
-          "EntityId": 4,
-          "Amount": 0.5
-        },
-        {
-          "EntityTypeId": 41,
-          "EntityId": 5,
-          "Amount": 0.144
-        },
-        {
-          "EntityTypeId": 41,
-          "EntityId": 6,
-          "Amount": 0.15
-        }
-      ],
-      "UpdateTime": "2025-02-25T14:19:41.267Z"
-    },
-    {
-      "Id": "role3default",
-      "ParentId": "default",
-      "IdKey": 3,
-      "Name": "Mage",
-      "Desc": "Spell Damage",
-      "Abbrev": "Ma",
-      "RoleCategoryId": 1,
-      "HealthPerLevel": 12,
-      "ManaPerLevel": 22,
-      "MaxArmorScalingTypeId": 1,
-      "CritPercent": 10,
-      "ManaStatTypeId": 12,
-      "TrainingXpScale": 1.0,
-      "TrainingGoldScale": 1.0,
-      "StartStatBonuses": "0 6 0 3 0 3",
-      "BinaryBonuses": [
-        {
-          "EntityTypeId": 2,
-          "EntityId": 21
-        },
-        {
-          "EntityTypeId": 2,
-          "EntityId": 24
-        },
-        {
-          "EntityTypeId": 2,
-          "EntityId": 28
-        },
-        {
-          "EntityTypeId": 2,
-          "EntityId": 32
-        },
-        {
-          "EntityTypeId": 31,
-          "EntityId": 32
-        },
-        {
-          "EntityTypeId": 31,
-          "EntityId": 34
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 1
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 2
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 3
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 18
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 19
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 21
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 23
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 27
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 28
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 29
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 30
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 42
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 47
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 50
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 52
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 58
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 59
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 60
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 64
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 65
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 66
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 67
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 68
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 69
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10032
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10034
-        }
-      ],
-      "AmountBonuses": [
-        {
-          "EntityTypeId": 41,
-          "EntityId": 1,
-          "Amount": 0.125
-        },
-        {
-          "EntityTypeId": 41,
-          "EntityId": 2,
-          "Amount": 0.1
-        },
-        {
-          "EntityTypeId": 41,
-          "EntityId": 3,
-          "Amount": 0.5
-        },
-        {
-          "EntityTypeId": 41,
-          "EntityId": 4,
-          "Amount": 0.2
-        },
-        {
-          "EntityTypeId": 41,
-          "EntityId": 5,
-          "Amount": 0.25
-        },
-        {
-          "EntityTypeId": 41,
-          "EntityId": 6,
-          "Amount": 0.25
-        }
-      ],
-      "UpdateTime": "2025-02-25T14:19:41.267Z"
-    },
-    {
-      "Id": "role4default",
-      "ParentId": "default",
-      "IdKey": 4,
       "Name": "Warrior",
       "Desc": "Tough Fighter",
       "Abbrev": "Wa",
@@ -635,7 +92,19 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 37
+          "EntityId": 27
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 45
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 47
         },
         {
           "EntityTypeId": 100,
@@ -643,27 +112,15 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 62
+          "EntityId": 49
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 64
+          "EntityId": 50
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 65
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 66
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 67
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 68
+          "EntityId": 51
         },
         {
           "EntityTypeId": 100,
@@ -718,16 +175,14 @@
           "Amount": 0.1
         }
       ],
-      "UpdateTime": "2025-02-25T14:19:41.267Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
-      "Id": "role5default",
+      "Id": "role2default",
       "ParentId": "default",
-      "IdKey": 5,
+      "IdKey": 2,
       "Name": "Thief",
       "Desc": "Sneaky Fighter",
-      "Icon": "",
-      "Art": "",
       "Abbrev": "Th",
       "RoleCategoryId": 1,
       "HealthPerLevel": 16,
@@ -789,7 +244,11 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 18
+          "EntityId": 13
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 14
         },
         {
           "EntityTypeId": 100,
@@ -797,7 +256,15 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 25
+          "EntityId": 33
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 34
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 43
         },
         {
           "EntityTypeId": 100,
@@ -809,31 +276,19 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 60
+          "EntityId": 48
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 63
+          "EntityId": 49
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 64
+          "EntityId": 50
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 65
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 66
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 67
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 68
+          "EntityId": 51
         },
         {
           "EntityTypeId": 100,
@@ -880,12 +335,12 @@
           "Amount": 0.2
         }
       ],
-      "UpdateTime": "2025-02-25T14:19:41.267Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
-      "Id": "role6default",
+      "Id": "role3default",
       "ParentId": "default",
-      "IdKey": 6,
+      "IdKey": 3,
       "Name": "Hunter",
       "Desc": "Ranged Combat",
       "Abbrev": "Hu",
@@ -949,51 +404,51 @@
         },
         {
           "EntityTypeId": 100,
+          "EntityId": 5
+        },
+        {
+          "EntityTypeId": 100,
           "EntityId": 6
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 7
+          "EntityId": 12
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 17
+          "EntityId": 18
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 24
+          "EntityId": 28
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 39
+          "EntityId": 29
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 41
+          "EntityId": 43
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 60
+          "EntityId": 47
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 64
+          "EntityId": 48
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 65
+          "EntityId": 49
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 66
+          "EntityId": 50
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 67
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 68
+          "EntityId": 51
         },
         {
           "EntityTypeId": 100,
@@ -1036,7 +491,548 @@
           "Amount": 0.1
         }
       ],
-      "UpdateTime": "2025-02-25T14:19:41.267Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
+    },
+    {
+      "Id": "role4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Mage",
+      "Desc": "Spell Damage",
+      "Abbrev": "Ma",
+      "RoleCategoryId": 1,
+      "HealthPerLevel": 12,
+      "ManaPerLevel": 22,
+      "MaxArmorScalingTypeId": 1,
+      "CritPercent": 10,
+      "ManaStatTypeId": 12,
+      "TrainingXpScale": 1.0,
+      "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "0 6 0 3 0 3",
+      "BinaryBonuses": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 21
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 24
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 28
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 34
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 13
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 14
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 16
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 17
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 20
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 21
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 22
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 23
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 30
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 34
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 37
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 39
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 41
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 42
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 43
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 47
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 48
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 49
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 50
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 51
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 52
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10032
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10034
+        }
+      ],
+      "AmountBonuses": [
+        {
+          "EntityTypeId": 41,
+          "EntityId": 1,
+          "Amount": 0.125
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 2,
+          "Amount": 0.1
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 3,
+          "Amount": 0.5
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 4,
+          "Amount": 0.2
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 5,
+          "Amount": 0.25
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 6,
+          "Amount": 0.25
+        }
+      ],
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
+    },
+    {
+      "Id": "role5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Cleric",
+      "Desc": "Healing",
+      "Abbrev": "Cl",
+      "RoleCategoryId": 1,
+      "HealthPerLevel": 14,
+      "ManaPerLevel": 22,
+      "MaxArmorScalingTypeId": 1,
+      "CritPercent": 5,
+      "ManaStatTypeId": 13,
+      "TrainingXpScale": 1.0,
+      "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "0 3 6 0 1 2",
+      "BinaryBonuses": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 23
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 24
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 28
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 16
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 33
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 7
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 8
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 9
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 11
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 12
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 15
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 26
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 40
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 44
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 47
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 48
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 49
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 50
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 51
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 52
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10016
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10031
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10033
+        }
+      ],
+      "AmountBonuses": [
+        {
+          "EntityTypeId": 41,
+          "EntityId": 1,
+          "Amount": 0.144
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 2,
+          "Amount": 0.1
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 3,
+          "Amount": 0.34
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 4,
+          "Amount": 0.5
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 5,
+          "Amount": 0.144
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 6,
+          "Amount": 0.15
+        }
+      ],
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
+    },
+    {
+      "Id": "role6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Engineer",
+      "Desc": "Hybrid ",
+      "Abbrev": "En",
+      "RoleCategoryId": 1,
+      "HealthPerLevel": 18,
+      "ManaPerLevel": 14,
+      "MaxArmorScalingTypeId": 3,
+      "CritPercent": 5,
+      "ManaStatTypeId": 12,
+      "Guardian": true,
+      "TrainingXpScale": 1.0,
+      "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "2 2 2 2 2 2",
+      "BinaryBonuses": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 24
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 25
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 26
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 27
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 28
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 29
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 20
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 33
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 70
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 6
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 7
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 9
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 13
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 14
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 16
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 26
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 28
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 30
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 40
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 41
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 42
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 47
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 48
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 49
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 50
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 51
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10020
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10033
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10070
+        }
+      ],
+      "AmountBonuses": [
+        {
+          "EntityTypeId": 41,
+          "EntityId": 1,
+          "Amount": 0.25
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 2,
+          "Amount": 0.34
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 3,
+          "Amount": 0.25
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 4,
+          "Amount": 0.2
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 5,
+          "Amount": 0.25
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 6,
+          "Amount": 0.15
+        }
+      ],
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "role7default",
@@ -1105,11 +1101,15 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 8
+          "EntityId": 7
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 10
+          "EntityId": 9
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 12
         },
         {
           "EntityTypeId": 100,
@@ -1117,19 +1117,23 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 23
+          "EntityId": 20
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 27
+          "EntityId": 28
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 39
+          "EntityId": 32
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 45
+          "EntityId": 33
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 40
         },
         {
           "EntityTypeId": 100,
@@ -1137,31 +1141,27 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 53
+          "EntityId": 47
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 63
+          "EntityId": 48
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 64
+          "EntityId": 49
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 65
+          "EntityId": 50
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 66
+          "EntityId": 51
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 67
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 68
+          "EntityId": 52
         },
         {
           "EntityTypeId": 100,
@@ -1208,7 +1208,7 @@
           "Amount": 0.2
         }
       ],
-      "UpdateTime": "2025-02-25T14:19:41.267Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "role8default",
@@ -1282,19 +1282,31 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 6
+          "EntityId": 5
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 8
+          "EntityId": 7
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 10
+          "EntityId": 9
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 17
+          "EntityId": 12
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 13
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 15
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 16
         },
         {
           "EntityTypeId": 100,
@@ -1302,31 +1314,27 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 20
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 21
-        },
-        {
-          "EntityTypeId": 100,
           "EntityId": 24
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 31
+          "EntityId": 25
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 32
+          "EntityId": 26
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 33
+          "EntityId": 27
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 37
+          "EntityId": 29
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 40
         },
         {
           "EntityTypeId": 100,
@@ -1334,43 +1342,35 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 53
+          "EntityId": 42
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 58
+          "EntityId": 43
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 59
+          "EntityId": 47
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 60
+          "EntityId": 48
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 64
+          "EntityId": 49
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 65
+          "EntityId": 50
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 66
+          "EntityId": 51
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 67
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 68
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 69
+          "EntityId": 52
         },
         {
           "EntityTypeId": 100,
@@ -1417,7 +1417,7 @@
           "Amount": 0.1
         }
       ],
-      "UpdateTime": "2025-02-25T14:19:41.267Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "role9default",
@@ -1503,15 +1503,27 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 23
+          "EntityId": 17
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 33
+          "EntityId": 26
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 37
+          "EntityId": 27
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 35
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 45
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 47
         },
         {
           "EntityTypeId": 100,
@@ -1519,27 +1531,15 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 62
+          "EntityId": 49
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 64
+          "EntityId": 50
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 65
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 66
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 67
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 68
+          "EntityId": 51
         },
         {
           "EntityTypeId": 100,
@@ -1586,7 +1586,7 @@
           "Amount": 0.1
         }
       ],
-      "UpdateTime": "2025-02-25T14:19:41.267Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "role10default",
@@ -1664,7 +1664,11 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 8
+          "EntityId": 7
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 9
         },
         {
           "EntityTypeId": 100,
@@ -1672,11 +1676,11 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 15
+          "EntityId": 11
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 16
+          "EntityId": 12
         },
         {
           "EntityTypeId": 100,
@@ -1684,35 +1688,31 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 23
+          "EntityId": 40
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 53
+          "EntityId": 44
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 61
+          "EntityId": 47
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 64
+          "EntityId": 48
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 65
+          "EntityId": 49
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 66
+          "EntityId": 50
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 67
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 68
+          "EntityId": 51
         },
         {
           "EntityTypeId": 100,
@@ -1763,7 +1763,7 @@
           "Amount": 0.1
         }
       ],
-      "UpdateTime": "2025-02-25T14:19:41.267Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "role11default",
@@ -1828,35 +1828,43 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 6
+          "EntityId": 5
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 8
+          "EntityId": 7
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 10
+          "EntityId": 9
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 17
+          "EntityId": 12
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 27
+          "EntityId": 20
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 28
+          "EntityId": 21
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 29
+          "EntityId": 22
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 30
+          "EntityId": 23
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 24
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 25
         },
         {
           "EntityTypeId": 100,
@@ -1864,7 +1872,19 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 32
+          "EntityId": 38
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 40
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 41
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 42
         },
         {
           "EntityTypeId": 100,
@@ -1872,47 +1892,27 @@
         },
         {
           "EntityTypeId": 100,
+          "EntityId": 47
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 48
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 49
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 50
+        },
+        {
+          "EntityTypeId": 100,
           "EntityId": 51
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 53
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 58
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 59
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 60
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 64
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 65
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 66
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 67
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 68
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 69
+          "EntityId": 52
         },
         {
           "EntityTypeId": 100,
@@ -1959,12 +1959,188 @@
           "Amount": 0.15
         }
       ],
-      "UpdateTime": "2025-02-25T14:19:41.267Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
       "Id": "role12default",
       "ParentId": "default",
       "IdKey": 12,
+      "Name": "Necromancer",
+      "Desc": "Undead Summons",
+      "Abbrev": "Nc",
+      "RoleCategoryId": 1,
+      "HealthPerLevel": 10,
+      "ManaPerLevel": 20,
+      "MaxArmorScalingTypeId": 1,
+      "CritPercent": 5,
+      "ManaStatTypeId": 12,
+      "TrainingXpScale": 1.0,
+      "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "0 6 0 3 0 3",
+      "BinaryBonuses": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 23
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 24
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 28
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 33
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 34
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 13
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 14
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 17
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 20
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 21
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 22
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 23
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 30
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 37
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 41
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 42
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 43
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 47
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 48
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 49
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 50
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 51
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 52
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 53
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 54
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10033
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10034
+        }
+      ],
+      "AmountBonuses": [
+        {
+          "EntityTypeId": 41,
+          "EntityId": 1,
+          "Amount": 0.1
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 2,
+          "Amount": 0.1
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 3,
+          "Amount": 0.4
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 4,
+          "Amount": 0.2
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 5,
+          "Amount": 0.5
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 6,
+          "Amount": 0.25
+        }
+      ],
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
+    },
+    {
+      "Id": "role100default",
+      "ParentId": "default",
+      "IdKey": 100,
       "Name": "Human",
       "Desc": "Normal people",
       "Abbrev": "Hu",
@@ -1972,12 +2148,12 @@
       "StartStatBonuses": "1 1 1 1 1 1",
       "BinaryBonuses": [],
       "AmountBonuses": [],
-      "UpdateTime": "2025-02-25T14:19:41.267Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
-      "Id": "role13default",
+      "Id": "role101default",
       "ParentId": "default",
-      "IdKey": 13,
+      "IdKey": 101,
       "Name": "Elf",
       "Desc": "Slightly more Ranged",
       "Abbrev": "Elf",
@@ -1991,12 +2167,12 @@
           "Amount": 0.1
         }
       ],
-      "UpdateTime": "2025-02-25T14:19:41.267Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
-      "Id": "role14default",
+      "Id": "role102default",
       "ParentId": "default",
-      "IdKey": 14,
+      "IdKey": 102,
       "Name": "Dwarf",
       "Desc": "More health",
       "Abbrev": "Dw",
@@ -2005,12 +2181,12 @@
       "StartStatBonuses": "2 0 2 0 2 0",
       "BinaryBonuses": [],
       "AmountBonuses": [],
-      "UpdateTime": "2025-02-25T14:19:41.267Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
-      "Id": "role15default",
+      "Id": "role103default",
       "ParentId": "default",
-      "IdKey": 15,
+      "IdKey": 103,
       "Name": "Half-Orc",
       "Desc": "More Melee",
       "Abbrev": "Hc",
@@ -2024,12 +2200,12 @@
           "Amount": 0.1
         }
       ],
-      "UpdateTime": "2025-02-25T14:19:41.267Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
-      "Id": "role16default",
+      "Id": "role104default",
       "ParentId": "default",
-      "IdKey": 16,
+      "IdKey": 104,
       "Name": "Gnome",
       "Desc": "More Spell Dam",
       "Abbrev": "Gn",
@@ -2043,12 +2219,12 @@
           "Amount": 0.1
         }
       ],
-      "UpdateTime": "2025-02-25T14:19:41.267Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     },
     {
-      "Id": "role17default",
+      "Id": "role105default",
       "ParentId": "default",
-      "IdKey": 17,
+      "IdKey": 105,
       "Name": "Halfling",
       "Desc": "More Crit",
       "Abbrev": "Hf",
@@ -2057,7 +2233,7 @@
       "StartStatBonuses": "0 0 0 3 0 3",
       "BinaryBonuses": [],
       "AmountBonuses": [],
-      "UpdateTime": "2025-02-25T14:19:41.267Z"
+      "UpdateTime": "2025-02-28T03:22:40.149Z"
     }
   ],
   "ParentObj": {

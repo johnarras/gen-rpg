@@ -2,8 +2,9 @@
   "Id": "targettype6default",
   "ParentId": "default",
   "IdKey": 6,
-  "Name": "Location",
-  "Desc": "Location",
+  "Name": "World",
+  "Desc": "World",
+  "Icon": "",
   "StatBonusScale": 1.0,
-  "UpdateTime": "2025-01-26T20:54:13.482Z"
+  "UpdateTime": "2025-02-27T21:21:10.277Z"
 }

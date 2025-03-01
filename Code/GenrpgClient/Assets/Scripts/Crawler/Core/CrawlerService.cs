@@ -50,6 +50,7 @@ using Genrpg.Shared.UnitEffects.Settings;
 using Genrpg.Shared.Client.GameEvents;
 using Genrpg.Shared.Spells.Constants;
 using System.Diagnostics.Eventing.Reader;
+using System.Net.NetworkInformation;
 
 namespace Assets.Scripts.Crawler.Services
 {
@@ -395,17 +396,15 @@ namespace Assets.Scripts.Crawler.Services
 
             CrawlerWorld world = await _worldService.GetWorld(_party.WorldId);
 
-            if (party.InGuildHall || party.GetActiveParty().Count < 1)
-            {
-                ChangeState(ECrawlerStates.GuildMain, GetToken());
-            }
-            else
-            {
-                ChangeState(ECrawlerStates.ExploreWorld, GetToken());
-            }
-            await UpdateCrawlerUI();
 
             _screenService.Open(ScreenId.Crawler);
+
+            while (_screenService.GetScreensNamed(ScreenId.Crawler) == null)
+            {
+                await Awaitable.NextFrameAsync(_token);
+            }
+
+            await UpdateCrawlerUI();
         }
 
         public bool ContinueGame()
@@ -573,9 +572,7 @@ namespace Assets.Scripts.Crawler.Services
 
         public async Task UpdateCrawlerUI()
         {
-            CrawlerWorld world = await _worldService.GetWorld(_party.WorldId);
-            CrawlerMap map = world.GetMap(_party.MapId);
-
+            await Task.CompletedTask;
             _dispatcher.Dispatch(new CrawlerUIUpdate());
 
         }
@@ -585,7 +582,7 @@ namespace Assets.Scripts.Crawler.Services
             CrawlerMap map = world.GetMap(_party.MapId);
 
             MapCellDetail detail = map.Details.FirstOrDefault(x => x.X == _party.MapX && x.Z == _party.MapZ);
-            
+
             await UpdateCrawlerUI();
 
             if (movedPosition)
@@ -623,37 +620,50 @@ namespace Assets.Scripts.Crawler.Services
                 }
             }
 
-            int encounterBits = map.Get(_party.MapX, _party.MapZ, CellIndex.Encounter);
+            ProcessEncounters(map, token);
 
-            if (encounterBits != 0 && encounterBits != MapEncounters.OtherFeature)
+
+            UpdateIfNotMoving(true, token);
+        }
+
+
+        private void ProcessEncounters(CrawlerMap map, CancellationToken token)
+        { 
+
+            int encounterTypeId = map.Get(_party.MapX, _party.MapZ, CellIndex.Encounter);
+
+            MapEncounterType etype = _gameData.Get<MapEncounterSettings>(_gs.ch).Get(encounterTypeId);
+
+            if (etype != null)
             {
-                bool thisRunOnly = encounterBits != MapEncounters.Treasure;
-                string encounterName = encounterBits == MapEncounters.Treasure ? nameof(MapEncounters.Treasure)
-                    : encounterBits == MapEncounters.Trap ? nameof(MapEncounters.Trap) :
-                    encounterBits == MapEncounters.Monsters ? nameof(MapEncounters.Monsters) : "Unknown";
-
                 bool didVisitThisRun = _crawlerMapService.PartyHasVisited(_party.MapId, _party.MapX, _party.MapZ, true);
               
                 if (!didVisitThisRun)
                 {
-                    if (FlagUtils.IsSet(encounterBits, MapEncounters.Treasure) && !_party.CompletedMaps.HasBit(map.IdKey))
+                    if (!etype.CanRepeat && !_party.CompletedMaps.HasBit(map.IdKey))
                     {
-                        CrawlerMapSettings mapSettings = _gameData.Get<CrawlerMapSettings>(_gs.ch);
-
-                        CrawlerMapStatus mapStatus = _party.Maps.FirstOrDefault(x=>x.MapId == map.IdKey);
+                        CrawlerMapStatus mapStatus = _party.Maps.FirstOrDefault(x => x.MapId == map.IdKey);
 
                         if (mapStatus != null)
                         {
-                            PointXZ pt = mapStatus.TreasuresFound.FirstOrDefault(x=>x.X == _party.MapX && x.Z == _party.MapZ);  
+                            PointXZ pt = mapStatus.OneTimeEncounters.FirstOrDefault(x => x.X == _party.MapX && x.Z == _party.MapZ);
                             if (pt == null)
                             {
-                                mapStatus.TreasuresFound.Add(new PointXZ() { X = _party.MapX, Z = _party.MapZ });
-                                ChangeState(ECrawlerStates.GiveLoot, token);
+                                if (encounterTypeId == MapEncounters.Treasure)
+                                {
+                                    mapStatus.OneTimeEncounters.Add(new PointXZ() { X = _party.MapX, Z = _party.MapZ });
+                                    ChangeState(ECrawlerStates.GiveLoot, token);
+                                }
+                                else if (encounterTypeId == MapEncounters.Stats)
+                                {
+
+                                    ChangeState(ECrawlerStates.GainStats, token);
+                                }
                             }
                         }
                     }
 
-                    if (FlagUtils.IsSet(encounterBits, MapEncounters.Monsters))
+                    if (encounterTypeId == MapEncounters.Monsters)
                     {
                         InitialCombatState initialCombatState = new InitialCombatState()
                         {
@@ -662,8 +672,9 @@ namespace Assets.Scripts.Crawler.Services
                         ChangeState(ECrawlerStates.StartCombat, token, initialCombatState);
                         return;
                     }
-                    else if (FlagUtils.IsSet(encounterBits, MapEncounters.Trap))
+                    else if (encounterTypeId == MapEncounters.Trap)
                     {
+
                         if (_party.Buffs.Get(PartyBuffs.Levitate) == 0 && !_party.CurrentMap.Cleansed.HasBit(map.GetIndex(_party.MapX, _party.MapZ)))
                         {
                             _dispatcher.Dispatch(new ShowFloatingText("It's a Trap!", EFloatingTextArt.Error));
@@ -678,7 +689,7 @@ namespace Assets.Scripts.Crawler.Services
 
                             foreach (PartyMember pm in _party.GetActiveParty())
                             {
-                                double luckBonus = _crawlerStatService.GetStatBonus(_party, pm, StatTypes.Luck)/100.0f;
+                                double luckBonus = _crawlerStatService.GetStatBonus(_party, pm, StatTypes.Luck) / 100.0f;
 
                                 if (_rand.NextDouble() < mapSettings.TrapHitChance - luckBonus)
                                 {
@@ -712,8 +723,6 @@ namespace Assets.Scripts.Crawler.Services
                     }
                 }
             }
-
-            UpdateIfNotMoving(true, token);
         }
 
         public ForcedNextState TryGetNextForcedState(CrawlerMap map, int ex, int ez)

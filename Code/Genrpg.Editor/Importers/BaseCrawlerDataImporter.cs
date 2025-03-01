@@ -5,13 +5,16 @@ using Genrpg.Shared.Crawler.Roles.Constants;
 using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.Spells.Constants;
 using Genrpg.Shared.Crawler.Spells.Settings;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Units.Settings;
+using Microsoft.Extensions.Azure;
 using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
@@ -28,11 +31,11 @@ namespace Genrpg.Editor.Importers
         {
             RoleSettings roleSettings = gs.data.Get<RoleSettings>(null);
 
-            IReadOnlyList<Role> roles = roleSettings.GetData();
+            List<Role> roles = roleSettings.GetData().ToList();
 
             CrawlerSpellSettings spellSettings = gs.data.Get<CrawlerSpellSettings>(null);
 
-            List<CrawlerSpell> spells = spellSettings.GetData().ToList();
+            List<CrawlerSpell> newSpells = spellSettings.GetData().ToList();
 
             List<long> buffStatIds =
                  roles.SelectMany(x => x.BinaryBonuses)
@@ -47,7 +50,7 @@ namespace Genrpg.Editor.Importers
             buffStatIds = buffStatIds.Where(x => stats.Select(x => x.IdKey).Contains(x)).ToList();
 
 
-            spells = spells
+            newSpells = newSpells
                 .Where(x => x.IdKey < CrawlerSpellConstants.StatBuffSpellIdOffset 
             || x.IdKey >= CrawlerSpellConstants.StatBuffSpellIdOffset + StatTypes.Max)
                 .ToList();
@@ -68,7 +71,7 @@ namespace Genrpg.Editor.Importers
                     RoleScalingTypeId = RoleScalingTypes.Healing,
                 };
 
-                spells.Add(spell);
+                newSpells.Add(spell);
 
                 spell.Effects.Add(new CrawlerSpellEffect()
                 {
@@ -204,19 +207,15 @@ namespace Genrpg.Editor.Importers
                 }
             }
 
-
-
-
-
             foreach (UnitType utype in unitTypes)
             {
                 long elementTypeId = ElementTypes.Arcane;
 
-                CrawlerSpell currSpell = spells.FirstOrDefault(x => x.IdKey == utype.IdKey + CrawlerSpellConstants.MonsterSummonSpellIdOffset);
+                CrawlerSpell currSpell = newSpells.FirstOrDefault(x => x.IdKey == utype.IdKey + CrawlerSpellConstants.MonsterSummonSpellIdOffset);
 
                 if (currSpell != null)
                 {
-                    spells.Remove(currSpell);
+                    newSpells.Remove(currSpell);
                 }
 
                 UnitEffect effect = utype.Effects.FirstOrDefault(x => x.EntityTypeId == EntityTypes.Resist);
@@ -226,7 +225,7 @@ namespace Genrpg.Editor.Importers
                     elementTypeId = effect.EntityId;
                 }
 
-                CrawlerSpell spell = new CrawlerSpell()
+                CrawlerSpell newSpell = new CrawlerSpell()
                 {
                     IdKey = utype.IdKey + CrawlerSpellConstants.MonsterSummonSpellIdOffset,
                     Name = "Monster Call " + utype.Name,
@@ -240,7 +239,7 @@ namespace Genrpg.Editor.Importers
                     RoleScalingTypeId = RoleScalingTypes.Summon,
                 };
 
-                spell.Effects.Add(new CrawlerSpellEffect()
+                newSpell.Effects.Add(new CrawlerSpellEffect()
                 {
                     EntityTypeId = EntityTypes.Unit,
                     EntityId = utype.IdKey,
@@ -249,14 +248,20 @@ namespace Genrpg.Editor.Importers
                     ElementTypeId = elementTypeId,               
                 });
 
-                gs.LookedAtObjects.Add(spell);
-                spells.Add(spell);
+                gs.LookedAtObjects.Add(newSpell);
+                newSpells.Add(newSpell);
             }
 
-            spellSettings.SetData(spells);
+            spellSettings.SetData(newSpells);
+
+            await _importService.CleanOldObjects(newSpells);
+            await _importService.CleanOldObjects(unitTypes);
+            await _importService.CleanOldObjects(roles);
 
             await Task.CompletedTask;
             return true;
         }
+
+       
     }
 }

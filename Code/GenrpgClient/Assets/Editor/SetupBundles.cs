@@ -10,6 +10,7 @@ using Genrpg.Shared.Core.Entities;
 
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Client.Core;
+using Assets.Scripts.Assets.Bundles;
 
 public class SetupBundles
 {
@@ -53,16 +54,14 @@ public class SetupBundles
     }
 
 
-    [MenuItem("Tools/Setup Bundles")]
-    static void SetupBundlesDirect()
-    {
-        SetupAll(null);
-    }
-
-    public static void SetupAll(IClientGameState gs)
+    public static BundleList SetupAll(IClientGameState gs)
     { 
         gs = SetupEditorUnityGameState.Setup(gs).GetAwaiter().GetResult();
 
-        BundleSetupUtils.BundleFilesInDirectory("", false);
+        BundleList blist = new BundleList();
+
+        BundleSetupUtils.BundleFilesInDirectory(blist, "", false);
+
+        return blist;
     }
 }

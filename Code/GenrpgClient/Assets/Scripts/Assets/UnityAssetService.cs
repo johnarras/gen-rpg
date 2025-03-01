@@ -20,6 +20,8 @@ using Genrpg.Shared.MVC.Interfaces;
 using Assets.Scripts.MVC;
 using Assets.Scripts.Awaitables;
 using Assets.Scripts.Assets;
+using Genrpg.Shared.GameSettings.Interfaces;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -62,6 +64,7 @@ public class BundleDownload
 	public OnDownloadHandler handler;
 	public System.Object data;
     public GameObject parent;
+    public bool isLocal;
 }
 
 public class BundleCacheData
@@ -192,7 +195,7 @@ public class UnityAssetService : IAssetService
 
         if (_initClient.PlayerContainsAllAssets())
         {
-            BypassInitForPlayerWithAllAssets();
+            LoadLocalBundleInit();
         }
         else
         {
@@ -201,11 +204,33 @@ public class UnityAssetService : IAssetService
         await Task.CompletedTask;
     }
 
-    private void BypassInitForPlayerWithAllAssets()
+    private void LoadLocalBundleInit()
     {
-
         _bundleUpdateInfo = new BundleUpdateInfo() { UpdateTime = DateTime.UtcNow.Date };
-        _bundleVersions = new BundleVersions() { UpdateInfo = _bundleUpdateInfo };
+        // Only bail out if we are in editor and not testing local loads.
+#if UNITY_EDITOR
+        if (!InitClient.EditorInstance.TestLocalBundles)
+        {
+            _bundleVersions = new BundleVersions() { UpdateInfo = _bundleUpdateInfo };
+            _isInitialized = true;
+            return;
+        }
+#endif
+
+        TextAsset textAsset = _localLoadService.LocalLoad<TextAsset>("Config/" + AssetConstants.BundleVersionsFile.Replace(".txt",""));
+
+
+        if (textAsset != null && !string.IsNullOrEmpty(textAsset.text))
+        {
+            _bundleVersions = SetupBundleVersions(SerializationUtils.TryDeserialize<BundleVersions>(textAsset.text));  
+        }
+
+        if (_bundleVersions == null)
+        {
+
+            _bundleVersions = new BundleVersions() { UpdateInfo = _bundleUpdateInfo };
+        }
+
         _isInitialized = true;
     }
 
@@ -417,42 +442,49 @@ _unloadingAssets = false;
             if (!String.IsNullOrEmpty(categoryPath) &&
             !_failedLocalLoads.Contains(fullAssetName))
             {
+#if UNITY_EDITOR
+
                 UnityEngine.Object asset = null;
                 string fullPath = "";
-#if UNITY_EDITOR
-                fullPath = AssetConstants.DownloadAssetRootPath + fullAssetName +
-                (assetName.IndexOf(AssetConstants.ArtFileSuffix) < 0 ? AssetConstants.ArtFileSuffix : "");
-                if (_localLoads.ContainsKey(fullPath))
+                if (!InitClient.EditorInstance.TestLocalBundles)
                 {
-                    asset = _localLoads[fullPath];
-                }
-                else
-                {
-                    asset = AssetDatabase.LoadAssetAtPath<GameObject>(fullPath);
-                }
-#else
-                fullPath = fullAssetName;
-                asset = _localLoadService.LocalLoad<GameObject>(fullPath);               
-#endif
-                
 
-                if (asset != null)
-                {
-                    asset = InstantiateIntoParent(asset, parent);
-
-                    _clientEntityService.InitializeHierarchy(asset as GameObject);
-
-                    if (handler != null)
+                    fullPath = AssetConstants.DownloadAssetRootPath + fullAssetName +
+                    (assetName.IndexOf(AssetConstants.ArtFileSuffix) < 0 ? AssetConstants.ArtFileSuffix : "");
+                    if (_localLoads.ContainsKey(fullPath))
                     {
-                        handler(asset, data, token);
+                        asset = _localLoads[fullPath];
                     }
+                    else
+                    {
+                        asset = AssetDatabase.LoadAssetAtPath<GameObject>(fullPath);
+                    }
+
+                    if (asset == null && assetName.IndexOf("_") != 0)
+                    {
+                        fullPath = fullPath.Replace(AssetConstants.DownloadAssetRootPath, AssetConstants.DownloadAssetRootPath + "_");
+                        asset = AssetDatabase.LoadAssetAtPath<GameObject>(fullPath);
+                    }
+
+                    if (asset != null)
+                    {
+                        asset = InstantiateIntoParent(asset, parent);
+
+                        _clientEntityService.InitializeHierarchy(asset as GameObject);
+
+                        if (handler != null)
+                        {
+                            handler(asset, data, token);
+                        }
+                    }
+                    else
+                    {
+                        _failedLocalLoads.Add(assetName);
+                    }
+                    return;
                 }
-                else
-                {
-                    _failedLocalLoads.Add(assetName);
-                }
+#endif
             }
-            return;
         }
 
         string bundleName = GetBundleNameForCategoryAndAsset(assetPathSuffix, assetName);
@@ -507,6 +539,11 @@ _unloadingAssets = false;
         currentBundleDownload.data = data;
         currentBundleDownload.parent = parent;
         currentBundleDownload.url = GetFullBundleURL(bundleName);
+
+        if (_bundleVersions.Versions.TryGetValue(bundleName, out BundleVersion version))
+        {
+            currentBundleDownload.isLocal = version.IsLocal;
+        }
 
         if (_bundleCache.ContainsKey(bundleName))
         {
@@ -563,11 +600,6 @@ _unloadingAssets = false;
     public bool IsInitialized()
     {
         return _isInitialized;
-    }
-
-    private async Awaitable PermanentLoadFromExistingBundles(CancellationToken token)
-    {
-        await LoadFromExistingBundles(true, token);
     }
 
     private async Awaitable LoadFromExistingBundles(bool isPermanentLoader, CancellationToken token)
@@ -1091,47 +1123,68 @@ _unloadingAssets = false;
         
         for (int i = 0; i < _retryTimes; i++)
         {
-            string bundleHash = GetBundleHash(bad.bundleName);
-            if (string.IsNullOrEmpty(bundleHash))
+       
+            if (!_initClient.PlayerContainsAllAssets() && !bad.isLocal)
             {
-                _logService.Debug("No bundle hash for: " + bad.url);
-                return;
-            }
+                string bundleHash = GetBundleHash(bad.bundleName);
+                if (string.IsNullOrEmpty(bundleHash))
+                {
+                    _logService.Debug("No bundle hash for: " + bad.url);
+                    return;
+                }
 
-            using (UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(bad.url,
-                GetBundleHash128(bad.bundleName)))
+                using (UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(bad.url,
+                    GetBundleHash128(bad.bundleName)))
+                {
+                    UnityWebRequestAsyncOperation asyncOp = request.SendWebRequest();
+                    while (!asyncOp.isDone)
+                    {
+                        await Awaitable.NextFrameAsync(cancellationToken: token);
+                    }
+
+                    AssetBundle downloadedBundle = null;
+
+                    if (request.result != UnityWebRequest.Result.ProtocolError)
+                    {
+                        try
+                        {
+                            downloadedBundle = DownloadHandlerAssetBundle.GetContent(request);
+                        }
+                        catch (Exception e)
+                        {
+                            _logService.Exception(e, "FailedbundleDownload: " + bad.url + " " + bad.assetName);
+                        }
+                    }
+
+                    if (downloadedBundle != null)
+                    {
+                        AddBundleToCache(bad, downloadedBundle, token);
+
+                        request.Dispose();
+                        return;
+                    }
+                    else
+                    {
+                        request.Dispose();
+                        await Awaitable.WaitForSecondsAsync(0.4f, cancellationToken: token);
+                    }
+                }
+            }
+            else
             {
-                UnityWebRequestAsyncOperation asyncOp = request.SendWebRequest();
-                while (!asyncOp.isDone)
+                AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(_clientAppService.StreamingAssetsPath + "/" + bad.bundleName);
+
+                while (!request.isDone)
                 {
                     await Awaitable.NextFrameAsync(cancellationToken: token);
                 }
 
-                AssetBundle downloadedBundle = null;
 
-                if (request.result != UnityWebRequest.Result.ProtocolError)
+                if (request.assetBundle != null)
                 {
-                    try
-                    {
-                        downloadedBundle = DownloadHandlerAssetBundle.GetContent(request);
-                    }
-                    catch (Exception e)
-                    {
-                        _logService.Exception(e, "FailedbundleDownload: " + bad.url + " " + bad.assetName);
-                    }
-                }
 
-                if (downloadedBundle != null)
-                {
-                    AddBundleToCache(bad, downloadedBundle, token);
-
-                    request.Dispose();
+                    AddBundleToCache(bad, request.assetBundle, token);
                     return;
-                }
-                else
-                {
-                    request.Dispose();
-                    await Awaitable.WaitForSecondsAsync(1.1f, cancellationToken: token);
                 }
             }
         }
@@ -1218,12 +1271,13 @@ _unloadingAssets = false;
         int firstSlashIndex = fullName.IndexOf('/');
         int lastSlashIndex = fullName.LastIndexOf('/');
 
+        string endFilename = fullName.Substring(lastSlashIndex + 1);
+
         // Two slashes, so the fullName becomes everything before the last slash
         if (firstSlashIndex > 0 && lastSlashIndex > firstSlashIndex && lastSlashIndex < fullName.Length-1)
         {
             fullName = fullName.Substring(0, lastSlashIndex);
         }
-
 
         string lettername = new String(fullName.Where(x => char.IsLetter(x)).ToArray()).ToLowerInvariant();
         assetDictionary[assetPath] = lettername;
@@ -1363,6 +1417,10 @@ _unloadingAssets = false;
             await viewController.Init(model, viewDupe, token);
             _clientEntityService.AddToParent(viewDupe.gameObject, parent);
             _clientEntityService.SetActive(viewDupe.gameObject, true);
+            if (!dupeObject)
+            {
+                _clientEntityService.InitializeHierarchy(viewDupe.gameObject);
+            }
             return viewController;
         }
         return default(VC);

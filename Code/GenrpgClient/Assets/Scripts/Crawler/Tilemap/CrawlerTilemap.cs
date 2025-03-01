@@ -19,6 +19,7 @@ using System;
 using System.Text;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Crawler.Buffs.Constants;
+using Genrpg.Shared.Crawler.Maps.Settings;
 
 namespace Assets.Scripts.Crawler.Tilemaps
 {
@@ -464,12 +465,10 @@ namespace Assets.Scripts.Crawler.Tilemaps
                     {
                         int index = _map.GetIndex(x, z);
 
-                        bool didVisit = _mapStatus.Visited.HasBit(index);
-
                         if (
                             // false && 
                             _mapStatus != null && _mapStatus.MapId == _map.IdKey &&
-                            !_party.CompletedMaps.HasBit(_map.IdKey) && !didVisit)
+                            !_party.CompletedMaps.HasBit(_map.IdKey) && !_mapStatus.Visited.HasBit(index))
                         {
                             if (_map.Get(x, z, CellIndex.Terrain) > 0 && !InitFromExplicitData &&
                                     Mathf.Abs(ix - Width / 2) <= GhostImageWidth && Mathf.Abs(iz - Height / 2) <= GhostImageWidth)
@@ -539,17 +538,20 @@ namespace Assets.Scripts.Crawler.Tilemaps
                             didSetObject = true;
                         }
 
-                        int encounterBits = _map.Get(x,z,CellIndex.Encounter);  
+                        if (!didSetObject)
+                        {
+                            int encounterBits = _map.Get(x, z, CellIndex.Encounter);
 
-                        if (FlagUtils.IsSet(encounterBits, MapEncounters.Monsters))
-                        {
-                            _tiles[ix, iz, TilemapIndexes.Object].sprite = _monsterSprite;
-                            didSetObject = true;
-                        }
-                        else if (FlagUtils.IsSet(encounterBits, MapEncounters.Trap))
-                        {
-                            _tiles[ix, iz, TilemapIndexes.Object].sprite = _trapSprite;
-                            didSetObject = true;
+                            if (encounterBits == MapEncounters.Monsters)
+                            {
+                                _tiles[ix, iz, TilemapIndexes.Object].sprite = _monsterSprite;
+                                didSetObject = true;
+                            }
+                            else if (encounterBits == MapEncounters.Trap)
+                            {
+                                _tiles[ix, iz, TilemapIndexes.Object].sprite = _trapSprite;
+                                didSetObject = true;
+                            }
                         }
                     }
 
@@ -601,12 +603,13 @@ namespace Assets.Scripts.Crawler.Tilemaps
                     }
                     else
                     {
+                        IReadOnlyList<MapMagicType> magicTypes = _gameData.Get<MapMagicSettings>(_gs.ch).GetData();
                         sb.Clear();
-                        for (int i = 0; i < MapMagic.Letters.Length; i++)
+                        for (int i = 0; i < magicTypes.Count; i++)
                         {
-                            if (FlagUtils.IsSet(magicBits, (1 << i)))
+                            if (FlagUtils.IsSet(magicBits, (1 << (int)magicTypes[i].IdKey)))
                             {
-                                sb.Append(MapMagic.Letters[i]);
+                                sb.Append(magicTypes[i].MapSymbol);
                             }
                         }
                         ShowText(ix, iz, sb.ToString());

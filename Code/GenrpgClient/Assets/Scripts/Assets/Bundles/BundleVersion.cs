@@ -6,6 +6,7 @@ using System.Text;
 
 public class BundleVersion
 {
+    public bool IsLocal { get; set; }
     public string Name { get; set; }
     public string Hash { get; set; }
     public List<string> ChildDependencies { get; set; } = new List<string>();

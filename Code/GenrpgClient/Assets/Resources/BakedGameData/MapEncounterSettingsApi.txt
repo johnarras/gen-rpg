@@ -1,0 +1,59 @@
+{
+  "Data": [
+    {
+      "Id": "mapencountertype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "OtherFeature",
+      "Icon": "OtherFeature",
+      "UpdateTime": "2025-02-27T19:50:44.831Z"
+    },
+    {
+      "Id": "mapencountertype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Treasure",
+      "Icon": "Treasure",
+      "Weight": 0.1,
+      "UpdateTime": "2025-02-27T20:05:07.201Z"
+    },
+    {
+      "Id": "mapencountertype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Monsters",
+      "Icon": "Monsters",
+      "Weight": 0.4,
+      "CanRepeat": true,
+      "UpdateTime": "2025-02-27T20:05:07.201Z"
+    },
+    {
+      "Id": "mapencountertype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Trap",
+      "Icon": "Trap",
+      "Art": "",
+      "Weight": 0.3,
+      "CanRepeat": true,
+      "UpdateTime": "2025-02-27T20:05:07.201Z"
+    },
+    {
+      "Id": "mapencountertype5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Stats",
+      "Desc": "",
+      "Icon": "Stats",
+      "Weight": 0.2,
+      "UpdateTime": "2025-02-27T19:50:44.831Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "EncounterChance": 0.05,
+    "Name": "MapEncounterSettings",
+    "UpdateTime": "2025-02-28T19:02:12.954Z"
+  },
+  "Id": "default"
+}

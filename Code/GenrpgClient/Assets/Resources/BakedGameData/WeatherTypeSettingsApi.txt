@@ -440,7 +440,7 @@
       "PrecipScale": 0.4,
       "ParticleScale": 1.0,
       "Particles": "dust leaves",
-      "UpdateTime": "2025-02-09T16:16:58.032Z"
+      "UpdateTime": "2025-02-28T14:30:34.633Z"
     },
     {
       "Id": "weathertype10default",
@@ -499,12 +499,7 @@
       "Desc": "",
       "Icon": "",
       "Art": "",
-      "AmbientColor": {
-        "R": 0.3019608,
-        "G": 0.3019608,
-        "B": 0.3019608,
-        "A": 1.0
-      },
+      "AmbientColor": {},
       "LightColor": {
         "A": 1.0
       },
@@ -526,7 +521,7 @@
       "PrecipScale": 0.4,
       "ParticleScale": 1.0,
       "Particles": "dust leaves",
-      "UpdateTime": "2025-02-09T16:16:58.032Z"
+      "UpdateTime": "2025-02-28T14:30:34.633Z"
     },
     {
       "Id": "weathertype12default",
@@ -581,7 +576,7 @@
   "ParentObj": {
     "Id": "default",
     "Name": "WeatherTypeSettings",
-    "UpdateTime": "2025-02-09T16:16:58.032Z"
+    "UpdateTime": "2025-02-28T14:30:34.633Z"
   },
   "Id": "default"
 }

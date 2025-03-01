@@ -22,9 +22,13 @@ namespace Genrpg.Editor.Importers
             string[] spellHeaderLine = lines[0];
             string[] effectHeaders= lines[1];    
 
-            CrawlerSpellSettings settings = gs.data.Get<CrawlerSpellSettings>(null);
-            List<CrawlerSpell> crawlerSpells = settings.GetData().ToList();
+            CrawlerSpellSettings spellSettings = gs.data.Get<CrawlerSpellSettings>(null);
+            List<CrawlerSpell> crawlerSpells = new List<CrawlerSpell>();
 
+
+            List<CrawlerSpell> oldSpells = spellSettings.GetData().ToList();
+
+            long currSpellId = 0;
             CrawlerSpell currentSpell = null;
             for (int l = 2; l < lines.Count; l++)
             {
@@ -37,25 +41,12 @@ namespace Genrpg.Editor.Importers
                         continue;
                     }
 
-                    if (!Int64.TryParse(words[1], out long currIdKey))
-                    {
-                        continue;
-                    }
+                    currentSpell = _importService.ImportLine<CrawlerSpell>(gs, l, words, spellHeaderLine);
 
-                    CrawlerSpell oldSpell = crawlerSpells.FirstOrDefault(x => x.IdKey == currIdKey);
+                    currentSpell.IdKey = ++currSpellId;
 
-                    currentSpell = _importService.ImportLine<CrawlerSpell>(gs, l, words, spellHeaderLine, oldSpell);
-
-                    if (oldSpell == null)
-                    {
-                        CrawlerSpell existingSpell = crawlerSpells.FirstOrDefault(X => X.IdKey == currentSpell.IdKey);
-                        if (existingSpell != null)
-                        {
-                            throw new Exception("Duplicated spell Idkey in import");
-                        }
-                        crawlerSpells.Add(currentSpell);
-                        currentSpell.Effects = new List<CrawlerSpellEffect>();
-                    }
+                    crawlerSpells.Add(currentSpell);
+                   
                     currentSpell.Effects = new List<CrawlerSpellEffect>();
                 }
                 else if (words[0] == "effect")
@@ -64,11 +55,11 @@ namespace Genrpg.Editor.Importers
                     currentSpell.Effects.Add(effect);
                 }
             }
-            settings.SetData(crawlerSpells);
             foreach (CrawlerSpell crawlerSpell in crawlerSpells)
             {
                 gs.LookedAtObjects.Add(crawlerSpell);
             }
+            spellSettings.SetData(crawlerSpells);
 
             await Task.CompletedTask;
             return true;

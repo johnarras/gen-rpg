@@ -1160,7 +1160,6 @@ namespace Genrpg.Editor
                     _singleGrid.Add(colorPanel, Canvas.GetLeft(button) - extraWidth, Canvas.GetTop(button) - extraWidth);
 
                     colorPanel.Name = mem.Name;
-                    _singleGrid.Children.Add(colorPanel);
                     colorPanels.Add(colorPanel);
                 }
             }

@@ -832,6 +832,20 @@
       "IdKey": 119,
       "Name": "ZoneCategorySettings",
       "UpdateTime": "2025-02-20T06:58:00.121Z"
+    },
+    {
+      "Id": "settingsname120default",
+      "ParentId": "default",
+      "IdKey": 120,
+      "Name": "MapEncounterSettings",
+      "UpdateTime": "2025-02-27T19:50:44.831Z"
+    },
+    {
+      "Id": "settingsname121default",
+      "ParentId": "default",
+      "IdKey": 121,
+      "Name": "MapMagicSettings",
+      "UpdateTime": "2025-02-28T14:04:43.009Z"
     }
   ],
   "ParentObj": {

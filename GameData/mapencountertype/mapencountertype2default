@@ -1,0 +1,9 @@
+{
+  "Id": "mapencountertype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Treasure",
+  "Icon": "Treasure",
+  "Weight": 0.1,
+  "UpdateTime": "2025-02-27T20:05:07.201Z"
+}

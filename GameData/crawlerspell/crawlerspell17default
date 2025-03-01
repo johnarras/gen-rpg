@@ -2,20 +2,22 @@
   "Id": "crawlerspell17default",
   "ParentId": "default",
   "IdKey": 17,
-  "Name": "Town Portal",
-  "Desc": "Teleport to a town on the overworld map.",
-  "PowerCost": 20.0,
+  "Name": "Silence",
+  "Desc": "Prevent a group from casting spells.",
+  "PowerCost": 15.0,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 8,
-  "RoleScalingTypeId": 6,
-  "Level": 3,
+  "TargetTypeId": 3,
+  "RoleScalingTypeId": 3,
+  "Level": 6,
   "Effects": [
     {
-      "EntityTypeId": 37,
-      "EntityId": 1,
-      "ElementTypeId": 9
+      "EntityTypeId": 36,
+      "EntityId": 10,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "ElementTypeId": 6
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

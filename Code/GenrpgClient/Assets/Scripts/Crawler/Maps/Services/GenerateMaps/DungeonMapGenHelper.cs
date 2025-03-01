@@ -30,6 +30,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
             CrawlerMapSettings mapSettings = _gameData.Get<CrawlerMapSettings>(_gs.ch);
 
+            MapEncounterSettings encounterSettings = _gameData.Get<MapEncounterSettings>(_gs.ch);
             CrawlerMapGenType genType = genData.GenType;
 
             int roomEdgeDist = 3;
@@ -409,7 +410,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             }
 
             // add encounters.
-            int encountersToPlace = (int)(okPoints.Count * mapSettings.EncounterChance);
+            int encountersToPlace = (int)(okPoints.Count * encounterSettings.EncounterChance);
 
             int encounterTries = encountersToPlace * 20;
 
@@ -434,42 +435,76 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 }
             }
 
-
-            double specialTilechance = genData.GenType.SpecialTileChance * Math.Min(1, map.Level / 5.0f);
+            IReadOnlyList<MapMagicType> mapMagics = _gameData.Get<MapMagicSettings>(_gs.ch).GetData();
+            double specialTilechance = genData.GenType.SpecialTileChance;
             foreach (PointXZ pt in okPoints)
             {
-                    long magicBits = 0;
-                    for (int i = 0; i < 8; i++)
+                if (rand.NextDouble() > specialTilechance)
+                {
+                    continue;
+                }
+
+                foreach (MapMagicType mtype in mapMagics)
+                {
+                    if (map.Level < mtype.MinLevel || rand.NextDouble() > mtype.Weight)
                     {
-                        if (rand.NextDouble() < specialTilechance)
+                        continue;
+                    }
+
+                    int xmin = pt.X;
+                    int xmax = pt.X;
+                    int zmin = pt.Z;
+                    int zmax = pt.Z;
+
+                    while (xmin > 0 && rand.NextDouble() < mtype.SpreadChance)
+                    {
+                        xmin--;
+                    }
+                    while (xmax < map.Width-1 && rand.NextDouble() < mtype.SpreadChance)
+                    {
+                        xmax++;
+                    }
+                    while (zmin > 0 && rand.NextDouble() < mtype.SpreadChance)
+                    {
+                        zmin--;
+                    }
+                    while (zmax < map.Height-1 && rand.NextDouble() < mtype.SpreadChance)
+                    {
+                        zmax++;
+                    }
+
+                    for (int xx = xmin; xx <= xmax; xx++)
+                    {
+                        for (int zz = zmin; zz <= zmax; zz++)
                         {
-                            magicBits |= (long)(1 << i);
+                            if (map.Get(xx,zz,CellIndex.Terrain) < 1)
+                            {
+                                continue;
+                            }
+
+                            int bits = map.Get(xx, zz, CellIndex.Magic);
+                            bits |= (1 << (int)(mtype.IdKey - 1));
+                            map.Set(xx, zz, CellIndex.Magic, bits);
                         }
                     }
-                    map.Set(pt.X, pt.Z, CellIndex.Magic, magicBits);
+                }
             }
 
             return new NewCrawlerMap() { Map = map, EnterX = enterX, EnterZ = enterZ };
         }
 
 
-        protected int GetRandomEncounter(IRandom rand)        
+        protected long GetRandomEncounter(IRandom rand)        
         {
 
-            CrawlerMapSettings mapSettings = _gameData.Get<CrawlerMapSettings>(_gs.ch);
+            MapEncounterType encounter = RandomUtils.GetRandomElement(_gameData.Get<MapEncounterSettings>(_gs.ch).GetData(), rand);
 
-            if (rand.NextDouble() < mapSettings.TreasureChance)
+            if (encounter != null)
             {
-                return MapEncounters.Treasure;
+                return encounter.IdKey;
             }
-            else if (rand.NextDouble() < mapSettings.TrapChance)
-            {
-                return MapEncounters.Trap;
-            }
-            else
-            {
-                return MapEncounters.Monsters;
-            }
+
+            return 0;
 
         }
         const float extraLengthChance = 0.25f;

@@ -2,22 +2,22 @@
   "Id": "crawlerspell51default",
   "ParentId": "default",
   "IdKey": 51,
-  "Name": "Lightning Storm",
-  "Desc": "Hit all enemies with electric damage.",
-  "PowerCost": 18.0,
+  "Name": "Mapping",
+  "Desc": "Lets you map the area you're in.",
+  "PowerCost": 2.0,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 3,
-  "RoleScalingTypeId": 3,
-  "Level": 7,
+  "TargetTypeId": 6,
+  "RoleScalingTypeId": 6,
+  "Level": 1,
   "Effects": [
     {
-      "EntityTypeId": 33,
-      "EntityId": 3,
+      "EntityTypeId": 101,
+      "EntityId": 5,
       "MinQuantity": 1,
-      "MaxQuantity": 4,
-      "ElementTypeId": 4
+      "MaxQuantity": 1,
+      "ElementTypeId": 2
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

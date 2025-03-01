@@ -2,23 +2,20 @@
   "Id": "crawlerspell27default",
   "ParentId": "default",
   "IdKey": 27,
-  "Name": "Fireball",
-  "Desc": "Hit one or more enemies in a group with fire damage.",
-  "PowerCost": 5.0,
-  "PowerPerLevel": 0.5,
-  "MaxRange": 100,
-  "CombatActionId": 4,
-  "TargetTypeId": 1,
-  "RoleScalingTypeId": 3,
+  "Name": "Whirlwind",
+  "Desc": "Hit one or more enemies in all groups within melee range.",
+  "MaxRange": 10,
+  "ReplacesCrawlerSpellId": 1,
+  "CombatActionId": 1,
+  "TargetTypeId": 10,
+  "RoleScalingTypeId": 1,
   "Level": 1,
   "Effects": [
     {
-      "EntityTypeId": 33,
-      "EntityId": 3,
-      "MinQuantity": 1,
-      "MaxQuantity": 12,
-      "ElementTypeId": 2
+      "EntityTypeId": 38,
+      "EntityId": 1,
+      "ElementTypeId": 1
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

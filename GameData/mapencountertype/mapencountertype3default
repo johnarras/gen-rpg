@@ -1,0 +1,10 @@
+{
+  "Id": "mapencountertype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Monsters",
+  "Icon": "Monsters",
+  "Weight": 0.4,
+  "CanRepeat": true,
+  "UpdateTime": "2025-02-27T20:05:07.201Z"
+}

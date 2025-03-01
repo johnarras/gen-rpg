@@ -13,7 +13,7 @@ namespace Genrpg.Shared.Spells.Constants
         public const long AllEnemiesInAGroup = 3;
         public const long AllEnemies = 4;
         public const long AllAllies = 5;
-        public const long Location = 6;
+        public const long World = 6;
         public const long Item = 7;
         public const long Special = 8;
         public const long Self = 9;

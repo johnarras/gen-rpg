@@ -3,7 +3,9 @@ using Assets.Scripts.Crawler.ClientEvents;
 using Assets.Scripts.MVC;
 using Assets.Scripts.UI.Crawler.CrawlerPanels;
 using Genrpg.Shared.Client.Assets.Constants;
+using Genrpg.Shared.Crawler.GameEvents;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.Crawler.States.StateHelpers.Exploring;
 using Genrpg.Shared.Tasks.Services;
@@ -56,6 +58,18 @@ namespace Assets.Scripts.UI.Crawler
             _screenService.CloseAll(new List<ScreenId>() { ScreenId.Crawler });
 
             _dispatcher.AddListener<CrawlerCharacterScreenData>(OnCrawlerCharacterData, GetToken());
+
+
+            if (partyData.InGuildHall || partyData.GetActiveParty().Count < 1)
+            {
+                _crawlerService.ChangeState(ECrawlerStates.GuildMain, GetToken());
+            }
+            else
+            {
+                _crawlerService.ChangeState(ECrawlerStates.ExploreWorld, GetToken());
+            }
+
+            _dispatcher.Dispatch(new CrawlerUIUpdate());
         }
 
         private void OnNewStateData(CrawlerStateData data)

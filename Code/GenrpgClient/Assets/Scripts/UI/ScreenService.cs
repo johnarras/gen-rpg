@@ -191,8 +191,6 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
 
         nextItem.Screen = bs;
 
-        layer.CurrentScreen = nextItem;
-        layer.CurrentLoading = null;
         _analyticsService.Send(AnalyticsEvents.OpenScreen, nextItem.Screen.GetName());
         List<Canvas> canvases = _clientEntityService.GetComponents<Canvas>(nextItem.Screen);
 
@@ -221,6 +219,8 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
         {
             canvas2.enabled = true;
         }
+        layer.CurrentScreen = nextItem;
+        layer.CurrentLoading = null;
     }
 
     public void StringOpen (string screenName, object data = null)
@@ -387,12 +387,6 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
     private List<ActiveScreen> _allScreens = null;
     public List<ActiveScreen> GetAllScreens()
     {
-
-        if (_allScreens !=null)
-        {
-            return _allScreens;
-        }
-
         _allScreens = new List<ActiveScreen>();
 
         foreach (ScreenLayer layer in Layers)

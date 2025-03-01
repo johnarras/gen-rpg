@@ -20,6 +20,7 @@ using Genrpg.Shared.Client.Core;
 using Assets.Editor;
 using Assets.Scripts.Assets;
 using UnityEngine.EventSystems;
+using System.Drawing;
 
 public class BuildClients
 {
@@ -66,10 +67,7 @@ public class BuildClients
         _configContainer.Config.Env = env;
         _configContainer.Config.PlayerContainsAllAssets = playerContainsAllAssets;
 
-        if (playerContainsAllAssets)
-        {
-            MoveDirectory(AssetConstants.DownloadAssetRootPath, AssetConstants.SelfContainedAssetRootPath);
-        }
+        List<BundleVersions> versions = CreateAssetBundle.BuildAssetBundles(gs);
 
         EditorUtility.SetDirty(_configContainer.Config);
         AssetDatabase.SaveAssets();
@@ -147,6 +145,33 @@ public class BuildClients
             }
             BuildOptions options = BuildOptions.CompressWithLz4HC;
 
+            Directory.Delete(appService.StreamingAssetsPath, true);
+            if (!Directory.Exists(appService.StreamingAssetsPath))
+            {
+                Directory.CreateDirectory(appService.StreamingAssetsPath);
+            }
+
+            BundleVersions bundleVersions = versions.FirstOrDefault(x => x.ClientPlatform == config.ClientPlatform);
+
+            string bundleOutputPath = config.GetBundleOutputPath();
+            string[] files = Directory.GetFiles(bundleOutputPath);
+
+            foreach (BundleVersion bversion in bundleVersions.Versions.Values)
+            {
+                string origFilename = bundleOutputPath + "/" + bversion.Name;
+                string newFilename = origFilename.Replace(bundleOutputPath, "");
+                newFilename = newFilename.Replace("\\", "");
+
+                if (newFilename == AssetConstants.BundleVersionsFile)
+                {
+                    File.Copy(origFilename, "Assets/Resources/Config/" + newFilename, true);
+                }
+                else if (playerContainsAllAssets || bversion.IsLocal)
+                {
+                    File.Copy(origFilename, appService.StreamingAssetsPath + "/" + newFilename, true);
+                }
+            }
+
             // Maybe do some stuff with debug symbols here.
 
             BuildPipeline.BuildPlayer(sceneArray, outputPath, config.Target, options);
@@ -166,8 +191,6 @@ public class BuildClients
         vfdata.LocalPath = localVersionPath;
         vfdata.RemotePath = remoteVersionPath;
 
-        MoveDirectory(AssetConstants.SelfContainedAssetRootPath, AssetConstants.DownloadAssetRootPath);
-
         FileUploader.UploadFile(vfdata);
 
         _configContainer.Config.Env = oldEnv;
@@ -179,37 +202,4 @@ public class BuildClients
 
     }
 
-    private static bool MoveDirectory (string dir1, string dir2)
-    {
-        if (!Directory.Exists(dir1))
-        {
-            return false;
-        }
-
-        if (Directory.Exists(dir2))
-        {
-            string[] files = Directory.GetFiles(dir2);
-            string[] dirs = Directory.GetDirectories(dir2);
-
-            if (files.Length > 0 || dirs.Length > 0)
-            {
-                Debug.LogError("Target move directory is not empty: " + dir2);
-                return false;
-            }
-
-            Directory.Delete(dir2, true);
-            if (dir2.LastIndexOf("/") == dir2.Length-1)
-            {
-                string dir2Small = dir2.Substring(0, dir2.Length-1);
-                dir2Small += ".meta";
-                if (File.Exists(dir2Small))
-                {
-                    File.Delete(dir2Small); 
-                }
-            }
-        }
-
-        Directory.Move(dir1, dir2);
-        return true;
-    }
 }

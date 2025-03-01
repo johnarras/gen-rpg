@@ -486,7 +486,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
         private async Task ApplyMagicBits(CancellationToken token)
         {
-            if (HasMagicBit(_party.MapX, _party.MapZ, MapMagic.Spinner))
+            if (HasMagicBit(_party.MapX, _party.MapZ, MapMagics.Spinner))
             {
                 int rotateAmount = MathUtils.IntRange(-1, 2, _rand);
                 if (rotateAmount != 0)
@@ -495,11 +495,11 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                     _dispatcher.Dispatch(new ShowPartyMinimap() { Party = _party, PartyArrowOnly = true });
                 }
             }
-            if (HasMagicBit(_party.MapX, _party.MapZ, MapMagic.NoMagic))
+            if (HasMagicBit(_party.MapX, _party.MapZ, MapMagics.NoMagic))
             {
                 _party.Buffs.Clear();
             }
-            if (HasMagicBit(_party.MapX, _party.MapZ, MapMagic.Drain))
+            if (HasMagicBit(_party.MapX, _party.MapZ, MapMagics.Drain))
             {
                 CrawlerMapSettings mapSettings = _gameData.Get<CrawlerMapSettings>(_gs.ch);
 
@@ -1078,7 +1078,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
         public bool HasMagicBit(int x, int z, long bit)
         {
-            return FlagUtils.IsSet(GetMagicBits(_party.MapId, x, z), bit);
+            return FlagUtils.IsSet(GetMagicBits(_party.MapId, x, z), (1 << (int)bit));
         }
 
         public int GetMagicBits(long mapId, int x, int z)
@@ -1102,7 +1102,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 return 0;
             }
 
-            return bits;
+            return bits << 1;
         }
     }
 }

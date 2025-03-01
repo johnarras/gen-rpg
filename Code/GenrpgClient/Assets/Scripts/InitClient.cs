@@ -57,6 +57,7 @@ public class InitClient : BaseBehaviour, IInitClient
     public int MapGenSeed;
     public float PlayerSpeedMult;
     public long AccountSuffixId;
+    public bool TestLocalBundles;
 #endif
 
     public EGameModes GameMode;

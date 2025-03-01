@@ -2,20 +2,23 @@
   "Id": "crawlerspell20default",
   "ParentId": "default",
   "IdKey": 20,
-  "Name": "Blink",
-  "Desc": "Jump forward 1-9 squares if you are not impeded by anything.",
-  "PowerCost": 10.0,
+  "Name": "Fireball",
+  "Desc": "Hit one or more enemies in a group with fire damage.",
+  "PowerCost": 5.0,
+  "PowerPerLevel": 0.5,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 8,
-  "RoleScalingTypeId": 6,
-  "Level": 5,
+  "TargetTypeId": 1,
+  "RoleScalingTypeId": 3,
+  "Level": 1,
   "Effects": [
     {
-      "EntityTypeId": 37,
-      "EntityId": 5,
-      "ElementTypeId": 9
+      "EntityTypeId": 33,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 12,
+      "ElementTypeId": 2
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

@@ -2,18 +2,22 @@
   "Id": "crawlerspell6default",
   "ParentId": "default",
   "IdKey": 6,
-  "Name": "Identify Monster",
-  "Desc": "Get some information about a monster.",
+  "Name": "Mesmerize",
+  "Desc": "Make  group of enemies unable to act.",
+  "PowerCost": 10.0,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 8,
-  "RoleScalingTypeId": 6,
-  "Level": 3,
+  "TargetTypeId": 3,
+  "RoleScalingTypeId": 3,
+  "Level": 6,
   "Effects": [
     {
-      "EntityTypeId": 37,
-      "EntityId": 3
+      "EntityTypeId": 36,
+      "EntityId": 4,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "ElementTypeId": 4
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

@@ -2,18 +2,18 @@
   "Id": "role3default",
   "ParentId": "default",
   "IdKey": 3,
-  "Name": "Mage",
-  "Desc": "Spell Damage",
-  "Abbrev": "Ma",
+  "Name": "Hunter",
+  "Desc": "Ranged Combat",
+  "Abbrev": "Hu",
   "RoleCategoryId": 1,
-  "HealthPerLevel": 12,
-  "ManaPerLevel": 22,
-  "MaxArmorScalingTypeId": 1,
-  "CritPercent": 10,
+  "HealthPerLevel": 18,
+  "ManaPerLevel": 14,
+  "MaxArmorScalingTypeId": 3,
+  "CritPercent": 15,
   "ManaStatTypeId": 12,
   "TrainingXpScale": 1.0,
   "TrainingGoldScale": 1.0,
-  "StartStatBonuses": "0 6 0 3 0 3",
+  "StartStatBonuses": "2 2 0 4 2 2",
   "BinaryBonuses": [
     {
       "EntityTypeId": 2,
@@ -21,7 +21,19 @@
     },
     {
       "EntityTypeId": 2,
+      "EntityId": 22
+    },
+    {
+      "EntityTypeId": 2,
       "EntityId": 24
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 25
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 26
     },
     {
       "EntityTypeId": 2,
@@ -29,15 +41,15 @@
     },
     {
       "EntityTypeId": 2,
-      "EntityId": 32
+      "EntityId": 29
     },
     {
       "EntityTypeId": 31,
-      "EntityId": 32
+      "EntityId": 20
     },
     {
       "EntityTypeId": 31,
-      "EntityId": 34
+      "EntityId": 70
     },
     {
       "EntityTypeId": 100,
@@ -53,23 +65,19 @@
     },
     {
       "EntityTypeId": 100,
+      "EntityId": 5
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 6
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 12
+    },
+    {
+      "EntityTypeId": 100,
       "EntityId": 18
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 19
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 21
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 23
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 27
     },
     {
       "EntityTypeId": 100,
@@ -81,11 +89,7 @@
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 30
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 42
+      "EntityId": 43
     },
     {
       "EntityTypeId": 100,
@@ -93,88 +97,60 @@
     },
     {
       "EntityTypeId": 100,
+      "EntityId": 48
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 49
+    },
+    {
+      "EntityTypeId": 100,
       "EntityId": 50
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 52
+      "EntityId": 51
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 58
+      "EntityId": 10020
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 59
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 60
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 64
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 65
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 66
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 67
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 68
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 69
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 10032
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 10034
+      "EntityId": 10070
     }
   ],
   "AmountBonuses": [
     {
       "EntityTypeId": 41,
       "EntityId": 1,
-      "Amount": 0.125
+      "Amount": 0.17
     },
     {
       "EntityTypeId": 41,
       "EntityId": 2,
-      "Amount": 0.1
-    },
-    {
-      "EntityTypeId": 41,
-      "EntityId": 3,
       "Amount": 0.5
     },
     {
       "EntityTypeId": 41,
+      "EntityId": 3,
+      "Amount": 0.17
+    },
+    {
+      "EntityTypeId": 41,
       "EntityId": 4,
-      "Amount": 0.2
+      "Amount": 0.125
     },
     {
       "EntityTypeId": 41,
       "EntityId": 5,
-      "Amount": 0.25
+      "Amount": 0.34
     },
     {
       "EntityTypeId": 41,
       "EntityId": 6,
-      "Amount": 0.25
+      "Amount": 0.1
     }
   ],
-  "UpdateTime": "2025-02-25T14:19:41.267Z"
+  "UpdateTime": "2025-02-28T03:22:40.149Z"
 }

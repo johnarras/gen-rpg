@@ -14,6 +14,7 @@ using System.IO;
 using Genrpg.Shared.Logging.Interfaces;
 using Assets.Scripts.GameSettings.Entities;
 using Genrpg.Shared.Client.Core;
+using Assets.Scripts.Assets;
 
 namespace Assets.Scripts.GameSettings.Services
 {
@@ -25,6 +26,7 @@ namespace Assets.Scripts.GameSettings.Services
         private ILogService _logService;
         private IClientAppService _clientAppService;
         private IClientConfigContainer _configContainer;
+        private ILocalLoadService _localLoadService;
 
         private Dictionary<Type, IGameSettingsMapper> _loaderObjects = null;
 
@@ -64,7 +66,8 @@ namespace Assets.Scripts.GameSettings.Services
 
                 string bakedResourcesPath = BakedGameDataPathSuffix + loader.GetClientType().Name;
 
-                TextAsset textAsset = Resources.Load<TextAsset>(bakedResourcesPath);
+               
+                TextAsset textAsset = _localLoadService.LocalLoad<TextAsset>(bakedResourcesPath);
 
                 if (textAsset != null && !string.IsNullOrEmpty(textAsset.text))
                 {

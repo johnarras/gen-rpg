@@ -2,23 +2,20 @@
   "Id": "crawlerspell43default",
   "ParentId": "default",
   "IdKey": 43,
-  "Name": "Summon Elemental",
-  "Desc": "Summon an elemental.",
-  "PowerCost": 9.0,
-  "PowerPerLevel": 1.0,
+  "Name": "Sense Area",
+  "Desc": "Determine if any traps or interesting things are nearby.",
+  "PowerCost": 2.0,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 9,
-  "RoleScalingTypeId": 5,
+  "TargetTypeId": 8,
+  "RoleScalingTypeId": 6,
   "Level": 1,
   "Effects": [
     {
-      "EntityTypeId": 4,
-      "EntityId": 70,
-      "MinQuantity": 1,
-      "MaxQuantity": 1,
-      "ElementTypeId": 8
+      "EntityTypeId": 37,
+      "EntityId": 8,
+      "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

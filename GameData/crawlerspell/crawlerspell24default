@@ -2,22 +2,23 @@
   "Id": "crawlerspell24default",
   "ParentId": "default",
   "IdKey": 24,
-  "Name": "Entangle",
-  "Desc": "Prevent a group from use melee attacks.",
-  "PowerCost": 15.0,
+  "Name": "Lightning Bolt",
+  "Desc": "Hit one or more enemies with electric damage.",
+  "PowerCost": 6.0,
+  "PowerPerLevel": 0.5,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 3,
+  "TargetTypeId": 1,
   "RoleScalingTypeId": 3,
-  "Level": 5,
+  "Level": 1,
   "Effects": [
     {
-      "EntityTypeId": 36,
-      "EntityId": 11,
-      "MinQuantity": 2,
-      "MaxQuantity": 3,
-      "ElementTypeId": 8
+      "EntityTypeId": 33,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 12,
+      "ElementTypeId": 4
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

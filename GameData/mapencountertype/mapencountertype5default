@@ -1,0 +1,10 @@
+{
+  "Id": "mapencountertype5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Stats",
+  "Desc": "",
+  "Icon": "Stats",
+  "Weight": 0.2,
+  "UpdateTime": "2025-02-27T19:50:44.831Z"
+}

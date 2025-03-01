@@ -2,21 +2,22 @@
   "Id": "crawlerspell48default",
   "ParentId": "default",
   "IdKey": 48,
-  "Name": "Charge",
-  "Desc": "Passive buff to move the party forward more when advancing.",
+  "Name": "Magic Compass",
+  "Desc": "Gives you a compass.",
+  "PowerCost": 2.0,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 9,
-  "RoleScalingTypeId": 1,
+  "TargetTypeId": 6,
+  "RoleScalingTypeId": 6,
   "Level": 1,
   "Effects": [
     {
-      "EntityTypeId": 36,
-      "EntityId": 4,
+      "EntityTypeId": 101,
+      "EntityId": 3,
       "MinQuantity": 1,
-      "MaxQuantity": 2,
-      "ElementTypeId": 4
+      "MaxQuantity": 1,
+      "ElementTypeId": 2
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

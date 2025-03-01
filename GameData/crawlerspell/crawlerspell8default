@@ -2,22 +2,22 @@
   "Id": "crawlerspell8default",
   "ParentId": "default",
   "IdKey": 8,
-  "Name": "Heal Wounds",
-  "Desc": "Heal the wounds of an ally.",
-  "PowerCost": 3.0,
-  "PowerPerLevel": 0.5,
+  "Name": "Heal Party",
+  "Desc": "Heal the wounds of all allies.",
+  "PowerCost": 10.0,
+  "PowerPerLevel": 1.0,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 2,
+  "TargetTypeId": 5,
   "RoleScalingTypeId": 4,
-  "Level": 1,
+  "Level": 4,
   "Effects": [
     {
       "EntityTypeId": 34,
       "MinQuantity": 1,
-      "MaxQuantity": 9,
+      "MaxQuantity": 3,
       "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

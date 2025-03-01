@@ -994,7 +994,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
             return null;
         }
 
-        public UnitAction GetActionFromSpell(PartyData party, CrawlerUnit unit, CrawlerSpell spell,
+        public UnitAction GetActionFromSpell(PartyData party, CrawlerUnit caster, CrawlerSpell spell,
             List<UnitAction> currentActions = null)
         {
 
@@ -1002,7 +1002,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
             {
                 CombatActionId = spell.CombatActionId,
                 Spell = spell,
-                Caster = unit,
+                Caster = caster,
             };
 
             if (spell.TargetTypeId == TargetTypes.AllAllies)
@@ -1026,15 +1026,15 @@ namespace Genrpg.Shared.Crawler.Combat.Services
             }
             else if (spell.TargetTypeId == TargetTypes.Self)
             {
-                newAction.FinalTargets.Add(unit);
+                newAction.FinalTargets.Add(caster);
             }
             else if (spell.TargetTypeId == TargetTypes.Special)
             {
                 // No targets added here.
             }
-            else if (spell.TargetTypeId == TargetTypes.Location)
+            else if (spell.TargetTypeId == TargetTypes.World)
             {
-                // No targets added here
+                newAction.FinalTargets.Add(caster);
             }
             else // Target must be some kind of enemies.
             {
@@ -1042,9 +1042,9 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
                 long minRange = spell.MinRange;
                 long maxRange = spell.MaxRange;
-                if (unit.HideExtraRange > 0)
+                if (caster.HideExtraRange > 0)
                 {
-                    maxRange =unit.HideExtraRange + CrawlerCombatConstants.MinRange;
+                    maxRange =caster.HideExtraRange + CrawlerCombatConstants.MinRange;
                 }
 
                 foreach (CombatGroup group in party.Combat.Enemies)
@@ -1115,7 +1115,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                 }
                 if (newAction.CombatActionId == CombatActions.Defend)
                 {
-                    if (unit.DefendRank >= EDefendRanks.Guardian)
+                    if (caster.DefendRank >= EDefendRanks.Guardian)
                     {
                         newAction.Text += ": (Taunt)";
                     }
@@ -1128,7 +1128,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
                 if (spell.CombatActionId == CombatActions.Hide)
                 {
-                    newAction.Text += "(" + (unit.DefendRank + CrawlerCombatConstants.MinRange) + "')";
+                    newAction.Text += "(" + (caster.DefendRank + CrawlerCombatConstants.MinRange) + "')";
                 }
             }
 
@@ -1288,9 +1288,9 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
         private Dictionary<long, int> _actionToDisableBits = new Dictionary<long, int>()
         {
-            [CombatActions.Attack] = MapMagic.Peaceful,
-            [CombatActions.Shoot] = MapMagic.Peaceful,
-            [CombatActions.Cast] = MapMagic.NoMagic,
+            [CombatActions.Attack] = MapMagics.Peaceful,
+            [CombatActions.Shoot] = MapMagics.Peaceful,
+            [CombatActions.Cast] = MapMagics.NoMagic,
         };
 
         Dictionary<long, long> _combatActionBlocks = new Dictionary<long, long>();

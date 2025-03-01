@@ -8,9 +8,10 @@ namespace Genrpg.Shared.Crawler.Maps.Constants
 {
     public class MapEncounters
     {
-        public const int OtherFeature = 1 << 0;
-        public const int Treasure = 1 << 1;
-        public const int Monsters = 1 << 2;
-        public const int Trap = 1 << 3;
+        public const int OtherFeature = 1;
+        public const int Treasure = 2;
+        public const int Monsters = 3;
+        public const int Trap = 4;
+        public const int Stats = 5;
     }
 }

@@ -48,8 +48,10 @@
       "Desc": "Increases melee damage.",
       "Icon": "",
       "Art": "",
+      "ColorName": "Red",
+      "ColorCode": "#FF0000",
       "GenScalePct": 100,
-      "UpdateTime": "2025-01-13T19:22:08.794Z"
+      "UpdateTime": "2025-02-27T20:36:41.27Z"
     },
     {
       "Id": "stattype12default",
@@ -57,8 +59,10 @@
       "IdKey": 12,
       "Name": "Intellect",
       "Desc": "Increases attack spell damage.",
+      "ColorName": "Orange",
+      "ColorCode": "#FF7F00",
       "GenScalePct": 100,
-      "UpdateTime": "2025-01-13T19:22:08.794Z"
+      "UpdateTime": "2025-02-27T20:36:41.27Z"
     },
     {
       "Id": "stattype13default",
@@ -66,8 +70,10 @@
       "IdKey": 13,
       "Name": "Devotion",
       "Desc": "Increases healing power.",
+      "ColorName": "Blue",
+      "ColorCode": "#0000FF",
       "GenScalePct": 100,
-      "UpdateTime": "2025-01-13T19:22:08.794Z"
+      "UpdateTime": "2025-02-27T20:36:41.27Z"
     },
     {
       "Id": "stattype14default",
@@ -75,8 +81,10 @@
       "IdKey": 14,
       "Name": "Agility",
       "Desc": "Increases ranged damage.",
+      "ColorName": "Yellow",
+      "ColorCode": "#FFFF00",
       "GenScalePct": 100,
-      "UpdateTime": "2025-01-13T19:22:08.794Z"
+      "UpdateTime": "2025-02-27T20:36:41.27Z"
     },
     {
       "Id": "stattype15default",
@@ -84,8 +92,10 @@
       "IdKey": 15,
       "Name": "Stamina",
       "Desc": "Adds to your health.",
+      "ColorName": "Green",
+      "ColorCode": "#00FF00",
       "GenScalePct": 150,
-      "UpdateTime": "2025-01-13T19:22:08.794Z"
+      "UpdateTime": "2025-02-27T20:36:41.27Z"
     },
     {
       "Id": "stattype16default",
@@ -93,8 +103,10 @@
       "IdKey": 16,
       "Name": "Luck",
       "Desc": "Gives a chance to get extra attacks.",
+      "ColorName": "White",
+      "ColorCode": "#FFFFFF",
       "GenScalePct": 100,
-      "UpdateTime": "2025-01-13T19:22:08.794Z"
+      "UpdateTime": "2025-02-27T20:36:41.27Z"
     },
     {
       "Id": "stattype20default",
@@ -103,7 +115,7 @@
       "Name": "DamagePower",
       "Desc": "Extra damage to all attacks.",
       "GenScalePct": 100,
-      "UpdateTime": "2025-01-13T19:22:08.794Z"
+      "UpdateTime": "2025-02-27T20:36:41.27Z"
     },
     {
       "Id": "stattype21default",
@@ -307,7 +319,7 @@
     "Id": "default",
     "StatConstantUnitMultiple": 10,
     "Name": "StatSettings",
-    "UpdateTime": "2025-01-19T14:32:54.228Z"
+    "UpdateTime": "2025-02-27T20:36:41.27Z"
   },
   "Id": "default"
 }

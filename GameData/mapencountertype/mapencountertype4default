@@ -1,0 +1,11 @@
+{
+  "Id": "mapencountertype4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Trap",
+  "Icon": "Trap",
+  "Art": "",
+  "Weight": 0.3,
+  "CanRepeat": true,
+  "UpdateTime": "2025-02-27T20:05:07.201Z"
+}

@@ -2,23 +2,21 @@
   "Id": "crawlerspell28default",
   "ParentId": "default",
   "IdKey": 28,
-  "Name": "Flamestrike",
-  "Desc": "Hit all enemies in a group with fire damage.",
-  "PowerCost": 10.0,
-  "PowerPerLevel": 1.0,
+  "Name": "Volley",
+  "Desc": "Hit one or more enemies in all groups with ranged damage.",
+  "MinRange": 20,
   "MaxRange": 100,
-  "CombatActionId": 4,
-  "TargetTypeId": 3,
-  "RoleScalingTypeId": 3,
-  "Level": 3,
+  "ReplacesCrawlerSpellId": 3,
+  "CombatActionId": 3,
+  "TargetTypeId": 10,
+  "RoleScalingTypeId": 2,
+  "Level": 1,
   "Effects": [
     {
-      "EntityTypeId": 33,
-      "EntityId": 3,
-      "MinQuantity": 1,
-      "MaxQuantity": 6,
-      "ElementTypeId": 2
+      "EntityTypeId": 39,
+      "EntityId": 2,
+      "ElementTypeId": 1
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

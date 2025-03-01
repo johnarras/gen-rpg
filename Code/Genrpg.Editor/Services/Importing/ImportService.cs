@@ -1,17 +1,18 @@
 ﻿using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor.Services.Reflection;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spells.Interfaces;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
-using Microsoft.Azure.Amqp.Framing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Genrpg.Editor.Services.Importing
 {
@@ -22,7 +23,7 @@ namespace Genrpg.Editor.Services.Importing
         void AddEffectList<TImport, TParent, TChild, TEffect>(EditorGameState gs, int row, string headerWord, long entityTypeId, List<TEffect> effects, string data) where TEffect : IEffect, new()
             where TParent : ParentSettings<TChild> where TChild : ChildSettings, IIdName, new();
 
-
+        Task CleanOldObjects<T>(List<T> newObjects) where T : ChildSettings, IIndexedGameItem;
 
     }
 
@@ -30,6 +31,7 @@ namespace Genrpg.Editor.Services.Importing
     {
 
         private IEditorReflectionService _reflectionService;
+        private IRepositoryService _repoService;
 
         public T ImportLine<T>(EditorGameState gs, int row, string[] data, string[] headers, T curr = null, bool firstColumnHasData = false) where T : class, new()
         {
@@ -218,6 +220,26 @@ namespace Genrpg.Editor.Services.Importing
                     Quantity = quantity,
                 });
 
+            }
+        }
+
+        public async Task CleanOldObjects<T>(List<T> newObjects) where T : ChildSettings, IIndexedGameItem
+        {
+
+            if (newObjects.Count < 1)
+            {
+                return;
+            }
+
+            List<T> oldObjects = await _repoService.Search<T>(x => x.ParentId == GameDataConstants.DefaultFilename);
+
+
+            foreach (T oldObject in oldObjects)
+            {
+                if (!newObjects.Any(x => x.IdKey == oldObject.IdKey))
+                {
+                    await _repoService.Delete(oldObject);
+                }
             }
         }
     }

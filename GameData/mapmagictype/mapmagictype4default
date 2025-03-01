@@ -1,0 +1,11 @@
+{
+  "Id": "mapmagictype4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "NoMagic",
+  "Weight": 0.4,
+  "SpreadChance": 0.15,
+  "MapSymbol": "A",
+  "MinLevel": 7,
+  "UpdateTime": "2025-02-28T14:38:48.738Z"
+}

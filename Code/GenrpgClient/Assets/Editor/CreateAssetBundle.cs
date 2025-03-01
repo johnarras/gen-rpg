@@ -7,6 +7,7 @@ using Genrpg.Shared.Constants;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Client.Core;
 using System.Linq;
+using Assets.Scripts.Assets.Bundles;
 
 public class CreateAssetBundle
 {
@@ -17,11 +18,15 @@ public class CreateAssetBundle
 		BuildAssetBundles(gs);
 	}
 
-	public static void BuildAssetBundles(IClientGameState gs)
+	public static List<BundleVersions> BuildAssetBundles(IClientGameState gs)
     {
         gs = SetupEditorUnityGameState.Setup(gs).GetAwaiter().GetResult();
 
         Debug.Log("Game Target: " + Game.Prefix);
+
+        BundleList blist = SetupBundles.SetupAll(gs);
+
+        List<BundleVersions> retval = new List<BundleVersions>();
 
         IClientAppService clientAppService = gs.loc.Get<IClientAppService>();
 
@@ -41,8 +46,9 @@ public class CreateAssetBundle
 
             BundleUpdateInfo updateData = new BundleUpdateInfo() { ClientVersion = clientAppService.Version, UpdateTime = DateTime.UtcNow };
 
-            BundleVersions versionData = new BundleVersions() { UpdateInfo = updateData };
-           
+            BundleVersions versionData = new BundleVersions() { UpdateInfo = updateData, ClientPlatform = targets[t].ClientPlatform };
+
+            retval.Add(versionData);
             BuildAssetBundleOptions options = BuildAssetBundleOptions.ChunkBasedCompression | BuildAssetBundleOptions.RecurseDependencies;
 
             AssetBundleManifest manifest = null;
@@ -67,12 +73,18 @@ public class CreateAssetBundle
                     string hash = manifest.GetAssetBundleHash(bundle).ToString();
                     string bundle2 = bundle.Replace(hash, "").Replace("_","");
                 
-
                     if (!versionData.Versions.ContainsKey(bundle2))
                     {
+
+                        BundleListItem bitem = blist.Items.FirstOrDefault(x => x.BundleName == bundle2);
+
+                        if (bitem == null)
+                        {
+                            Debug.Log("Missing bundle list item for " + bundle2);
+                        }
                         List<string> dependencies = manifest.GetAllDependencies(bundle2).ToList();
 
-                        versionData.Versions[bundle2] = new BundleVersion() { Name = bundle2, ChildDependencies = dependencies };
+                        versionData.Versions[bundle2] = new BundleVersion() { Name = bundle2, ChildDependencies = dependencies, IsLocal = bitem?.IsLocal ?? false };
                     }
 
                     BundleVersion bvd = versionData.Versions[bundle2];
@@ -102,6 +114,7 @@ public class CreateAssetBundle
 
 
         Debug.Log("Asset bundles built");
+        return retval;
 	}
 
 }

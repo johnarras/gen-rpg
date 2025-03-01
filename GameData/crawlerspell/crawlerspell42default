@@ -2,25 +2,20 @@
   "Id": "crawlerspell42default",
   "ParentId": "default",
   "IdKey": 42,
-  "Name": "Conjure Golem",
-  "Desc": "Summon a golem.",
-  "Icon": "",
-  "Art": "",
-  "PowerCost": 9.0,
-  "PowerPerLevel": 1.0,
+  "Name": "Return to Beacon",
+  "Desc": "Return to the player's teleport location.",
+  "PowerCost": 20.0,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 9,
-  "RoleScalingTypeId": 5,
-  "Level": 1,
+  "TargetTypeId": 8,
+  "RoleScalingTypeId": 6,
+  "Level": 5,
   "Effects": [
     {
-      "EntityTypeId": 4,
-      "EntityId": 65,
-      "MinQuantity": 1,
-      "MaxQuantity": 1,
-      "ElementTypeId": 8
+      "EntityTypeId": 37,
+      "EntityId": 10,
+      "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

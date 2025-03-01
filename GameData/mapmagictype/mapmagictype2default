@@ -1,0 +1,11 @@
+{
+  "Id": "mapmagictype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Spinner",
+  "Weight": 0.2,
+  "SpreadChance": 0.1,
+  "MapSymbol": "S",
+  "MinLevel": 1,
+  "UpdateTime": "2025-02-28T14:38:48.738Z"
+}

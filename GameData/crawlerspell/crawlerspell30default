@@ -2,23 +2,23 @@
   "Id": "crawlerspell30default",
   "ParentId": "default",
   "IdKey": 30,
-  "Name": "Cone of Cold",
-  "Desc": "Hit all enemies in a group with cold damage.",
-  "PowerCost": 8.0,
+  "Name": "Conjure Golem",
+  "Desc": "Summon a golem.",
+  "PowerCost": 9.0,
   "PowerPerLevel": 1.0,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 3,
-  "RoleScalingTypeId": 3,
-  "Level": 3,
+  "TargetTypeId": 9,
+  "RoleScalingTypeId": 5,
+  "Level": 1,
   "Effects": [
     {
-      "EntityTypeId": 33,
-      "EntityId": 3,
+      "EntityTypeId": 4,
+      "EntityId": 65,
       "MinQuantity": 1,
-      "MaxQuantity": 6,
-      "ElementTypeId": 3
+      "MaxQuantity": 1,
+      "ElementTypeId": 8
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }

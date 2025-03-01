@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Crawler.Maps.GameObjects;
+using Genrpg.Shared.Buildings.Constants;
 using Genrpg.Shared.Buildings.Settings;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Crawler.MapGen.Entities;
@@ -18,8 +19,14 @@ using UnityEngine;
 
 namespace Assets.Scripts.Buildings
 { 
+    
+
     public  class CrawlerBuilding : MapBuilding
     {
+
+
+
+
         private ICrawlerWorldService _worldService;
 
         public List<MeshRenderer> Walls = new List<MeshRenderer>();
@@ -28,8 +35,21 @@ namespace Assets.Scripts.Buildings
         public List<MeshRenderer> Shingles = new List<MeshRenderer>();
         public List<MeshRenderer> RoofPeaks = new List<MeshRenderer>();
 
+        private Dictionary<long, Color> _buildingColors = new Dictionary<long, Color>()
+        {
+            {BuildingTypes.Guild, new Color(2,1,0) },
+            {BuildingTypes.Equipment, new Color(2,0,0) },
+            {BuildingTypes.Regen, new Color(0,0,2) },
+            {BuildingTypes.Temple, new Color(2,2,0) },
+            { BuildingTypes.Trainer, new Color(0,2,0) },
+            {BuildingTypes.Tavern, new Color(2,0,2) }, 
+        };
+
+
         public void InitData(BuildingType btype, long seed, CrawlerMapRoot mapRoot, ClientMapCell mapCell, BuildingMats mats)
         {
+
+
             string overrideName = null;
 
             MapCellDetail detail = mapRoot.Map.Details.FirstOrDefault(x => x.X == mapCell.X && x.Z == mapCell.Z && x.EntityTypeId == EntityTypes.Map);
@@ -48,17 +68,15 @@ namespace Assets.Scripts.Buildings
             base.Init(btype, new OnSpawn(), overrideName);
             MyRandom rand = new MyRandom(seed);
 
-
-
-            SetMaterialToSlot(Walls, mats.GetMatsFromSlot(EBuildingMatSlots.Walls), rand);
-            SetMaterialToSlot(RoofPeaks, mats.GetMatsFromSlot(EBuildingMatSlots.Walls), rand);
-            SetMaterialToSlot(Doors, mats.GetMatsFromSlot(EBuildingMatSlots.Doors), rand);
-            SetMaterialToSlot(Windows, mats.GetMatsFromSlot(EBuildingMatSlots.Windows), rand);
-            SetMaterialToSlot(Shingles, mats.GetMatsFromSlot(EBuildingMatSlots.Shingles), rand);
+            SetMaterialToSlot(btype, Walls, mats.GetMatsFromSlot(EBuildingMatSlots.Walls), rand);
+            SetMaterialToSlot(btype, RoofPeaks, mats.GetMatsFromSlot(EBuildingMatSlots.Walls), rand);
+            SetMaterialToSlot(btype, Doors, mats.GetMatsFromSlot(EBuildingMatSlots.Doors), rand);
+            SetMaterialToSlot(btype, Windows, mats.GetMatsFromSlot(EBuildingMatSlots.Windows), rand);
+            SetMaterialToSlot(btype, Shingles, mats.GetMatsFromSlot(EBuildingMatSlots.Shingles), rand);
 
         }
 
-        public void SetMaterialToSlot(List<MeshRenderer> meshes, List<WeightedBuildingMaterial> mats, IRandom rand)
+        public void SetMaterialToSlot(BuildingType btype, List<MeshRenderer> meshes, List<WeightedBuildingMaterial> mats, IRandom rand)
         {
             if (mats.Count < 1)
             {
@@ -79,7 +97,14 @@ namespace Assets.Scripts.Buildings
                         renderer.material = mat.Mat;
                     }
 
-                    if (mat.ColorTargets.Count > 0)
+                    if (_buildingColors.ContainsKey(btype.IdKey))
+                    {
+                        foreach (MeshRenderer renderer in meshes)
+                        {
+                            renderer.material.color = _buildingColors[btype.IdKey];
+                        }
+                    }
+                    else if (mat.ColorTargets.Count > 0)
                     {
                         Color colorTarget = mat.ColorTargets[rand.Next() % mat.ColorTargets.Count];
 

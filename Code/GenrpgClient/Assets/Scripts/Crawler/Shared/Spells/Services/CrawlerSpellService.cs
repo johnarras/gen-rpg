@@ -569,6 +569,10 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                         break;
                     }
                 }
+                else
+                {
+                    foundOkTarget = true;
+                }
 
                 if (!foundOkTarget)
                 {
@@ -1197,7 +1201,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
         {
             return targetTypeId == TargetTypes.Item ||
                 targetTypeId == TargetTypes.Special ||
-                targetTypeId == TargetTypes.Location;
+                targetTypeId == TargetTypes.World;
         }
 
         public long GetSummonQuantity(PartyData party, PartyMember member, UnitType unitType)

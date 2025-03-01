@@ -15,6 +15,7 @@ public interface IClientAppService : IInjectable
     string Version { get; }
     string Platform { get; }
     string DeviceUniqueIdentifier { get; }
+    string StreamingAssetsPath { get; }
     void OpenExternalURL(string url);
     string GetPlatformPrefix();
     string GetRuntimePrefix();
@@ -43,11 +44,14 @@ public class ClientAppService : IClientAppService
 
     public string DataPath => Application.dataPath;
 
-    public string PersistentDataPath => Application.persistentDataPath;   
+    public string PersistentDataPath => Application.persistentDataPath;
+
+    public string StreamingAssetsPath => Application.streamingAssetsPath;
 
     public bool IsPlaying => Application.isPlaying;
 
     public bool IsEditor => Application.isEditor;
+
 
     public void OpenExternalURL(string url) { Application.OpenURL(url); }
 

@@ -1,0 +1,11 @@
+{
+  "Id": "mapmagictype5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Peaceful",
+  "Weight": 0.1,
+  "SpreadChance": 0.1,
+  "MapSymbol": "P",
+  "MinLevel": 10,
+  "UpdateTime": "2025-02-28T14:38:48.738Z"
+}

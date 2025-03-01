@@ -4,6 +4,8 @@
   "IdKey": 12,
   "Name": "Intellect",
   "Desc": "Increases attack spell damage.",
+  "ColorName": "Orange",
+  "ColorCode": "#FF7F00",
   "GenScalePct": 100,
-  "UpdateTime": "2025-01-13T19:22:08.794Z"
+  "UpdateTime": "2025-02-27T20:36:41.27Z"
 }

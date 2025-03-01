@@ -69,7 +69,7 @@ namespace Assets.Scripts.Crawler.UI.WorldUI
 
                     int encounter = map.Get(cx, cz, CellIndex.Encounter);
 
-                    if (encounter > 0 && encounter != MapEncounters.Treasure)
+                    if (encounter > 0 && encounter != MapEncounters.Treasure && encounter != MapEncounters.Stats)
                     {
                         haveDanger = true;
                         break;

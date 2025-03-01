@@ -2,23 +2,22 @@
   "Id": "crawlerspell50default",
   "ParentId": "default",
   "IdKey": 50,
-  "Name": "Firestorm",
-  "Desc": "Hit all enemies with fire damage.",
-  "PowerCost": 15.0,
-  "PowerPerLevel": 1.0,
+  "Name": "Second Sight",
+  "Desc": "Alerts you to traps nearby.",
+  "PowerCost": 2.0,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 3,
-  "RoleScalingTypeId": 3,
-  "Level": 7,
+  "TargetTypeId": 6,
+  "RoleScalingTypeId": 6,
+  "Level": 1,
   "Effects": [
     {
-      "EntityTypeId": 33,
-      "EntityId": 3,
+      "EntityTypeId": 101,
+      "EntityId": 2,
       "MinQuantity": 1,
-      "MaxQuantity": 4,
+      "MaxQuantity": 1,
       "ElementTypeId": 2
     }
   ],
-  "UpdateTime": "2025-02-25T19:39:14.046Z"
+  "UpdateTime": "2025-02-28T01:54:20.244Z"
 }
